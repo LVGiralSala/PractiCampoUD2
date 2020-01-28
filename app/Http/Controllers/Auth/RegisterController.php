@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -50,9 +51,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'usuario' => ['required', 'string', 'max:255'],
+            'usuario' => ['required', 'string', 'max:10'],
+            'primer_nombre' => ['required', 'string', 'max:50'],
+            'segundo_nombre' => ['required', 'string', 'max:50'],
+            'primer_apellido' => ['required', 'string', 'max:50'],
+            'segundo_apellido' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'num_identificacion' => ['required', 'integer', 'min:6'],
         ]);
     }
 
@@ -66,8 +72,14 @@ class RegisterController extends Controller
     {
         return User::create([
             'usuario' => $data['usuario'],
+            'primer_nombre'=> $data['primer_nombre'],
+            'segundo_nombre'=> $data['segundo_nombre'],
+            'primer_apellido'=> $data['primer_apellido'],
+            'segundo_apellido'=> $data['segundo_apellido'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'id' => $data['num_identificacion'],
+            'id_role' => $data['num_identificacion'],
         ]);
     }
 }
