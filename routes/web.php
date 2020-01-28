@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
             Route::post('register', 'Auth\RegisterController@register');
         }
+
+        Route::get('users','Users\UsersController@index')->name('users_index');
     });
         
 });

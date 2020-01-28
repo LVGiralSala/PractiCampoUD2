@@ -47,7 +47,7 @@
                                 <label for="segundo_nombre" class="col-md-4 col-form-label text-md-right">{{ __('Segundo Nombre') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="segundo_nombre" type="text" class="form-control @error('segundo_nombre') is-invalid @enderror" name="segundo_nombre" value="{{ old('segundo_nombre') }}" required autocomplete="segundo_nombre" autofocus>
+                                    <input id="segundo_nombre" type="text" class="form-control @error('segundo_nombre') is-invalid @enderror" name="segundo_nombre" value="{{ old('segundo_nombre') }}" autocomplete="segundo_nombre" autofocus>
     
                                     @error('segundo_nombre')
                                         <span class="invalid-feedback" role="alert">
@@ -90,9 +90,9 @@
     
                                 <div class="col-md-6">
                                     <label id="id_tipo_identificacion" @error('id_tipo_identificacion') is-invalid @enderror" name="id_tipo_identificacion" value="{{ old('id_tipo_identificacion') }}" required autocomplete="id_tipo_identificacion" autofocus>
-                                    <select name="tipo_identificacion" class="form-control" required>
+                                    <select name="id_tipo_identificacion" class="form-control" required>
                                         @foreach($tipos_identificaciones as $tip_ident)
-                                            <option value="{{$tip_ident->id}}" selected>{{$tip_ident->sigla}}</option>
+                                            <option value="{{$tip_ident->id}}" selected>{{$tip_ident->sigla}}</option>  
                                         @endforeach
                                     </select>
                                     @error('id_tipo_identificacion')
@@ -124,7 +124,7 @@
                                     <label id="id_role" @error('id_role') is-invalid @enderror" name="id_role" value="{{ old('id_role') }}" required autocomplete="id_role" autofocus>
                                     <select name="id_role" class="form-control" required>
                                         @foreach($tipos_usuarios as $tip_user)
-                                            <option value="{{$tip_user->id}}" selected>{{$tip_ident->role}}</option>
+                                            <option value="{{$tip_user->id}}" selected>{{$tip_user->role}}</option>
                                         @endforeach
                                     </select>
                                     @error('id_role')
