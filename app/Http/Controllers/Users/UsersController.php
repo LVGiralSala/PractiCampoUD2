@@ -4,6 +4,7 @@ namespace PractiCampoUD\Http\Controllers\Users;
 
 use PractiCampoUD\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use PractiCampoUD\User;
 use DB;
 
 class UsersController extends Controller
@@ -18,7 +19,8 @@ class UsersController extends Controller
         $usuario=DB::table('users as us')
         ->join('tipo_identificacion as ti', 'us.id_tipo_identificacion','=', 'ti.id' )
         ->join('roles as ro', 'us.id_role','=', 'ro.id' )
-        ->select('ti.sigla', 'us.usuario','us.primer_nombre','ro.role')->get();
+        ->select('ti.sigla','us.id', 'us.usuario','us.primer_nombre','us.segundo_nombre', 'us.primer_apellido', 
+        'us.segundo_apellido','ro.role', 'us.email')->get();
 
         return view('auth.index',["usuarios"=>$usuario]);
     }
@@ -63,7 +65,15 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario=User::find($id);
+        $tipo_identificacion=DB::table('tipo_identificacion')->get();
+        $tipo_usuario=DB::table('roles')->get();
+
+        return view('auth.edit', [
+            "usuario"=>$usuario,
+            "tipos_identificaciones"=>$tipo_identificacion,
+            "tipos_usuarios"=>$tipo_usuario
+            ]);
     }
 
     /**
