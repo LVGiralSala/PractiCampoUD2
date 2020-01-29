@@ -18,7 +18,7 @@ class UsersController extends Controller
         $usuario=DB::table('users as us')
         ->join('tipo_identificacion as ti', 'us.id_tipo_identificacion','=', 'ti.id' )
         ->join('roles as ro', 'us.id_role','=', 'ro.id' )
-        ->select('ti.sigla', 'us.usuario','us.primer_nombre','ro.role');
+        ->select('ti.sigla', 'us.usuario','us.primer_nombre','ro.role')->get();
 
         return view('auth.index',["usuarios"=>$usuario]);
     }

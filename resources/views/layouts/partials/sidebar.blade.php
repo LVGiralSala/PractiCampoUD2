@@ -22,7 +22,7 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                  {{-- <a class="collapse-item" href="{{route('users_index') }}">Listar Usuarios</a> --}}
+                  <a class="collapse-item" href="{{route('users_index') }}">Listar Usuarios</a>
                   <a class="collapse-item" href="{{route('register') }}">Nuevo Usuario</a>
               </div>
             </div>
