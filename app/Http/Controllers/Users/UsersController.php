@@ -3,7 +3,9 @@
 namespace PractiCampoUD\Http\Controllers\Users;
 
 use PractiCampoUD\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use PractiCampoUD\User;
 use DB;
 
@@ -69,11 +71,10 @@ class UsersController extends Controller
         $tipo_identificacion=DB::table('tipo_identificacion')->get();
         $tipo_usuario=DB::table('roles')->get();
 
-        return view('auth.edit', [
-            "usuario"=>$usuario,
-            "tipos_identificaciones"=>$tipo_identificacion,
-            "tipos_usuarios"=>$tipo_usuario
-            ]);
+        return view('auth.edit', [ "usuario"=>$usuario,
+                                   "tipos_identificaciones"=>$tipo_identificacion,
+                                   "tipos_usuarios"=>$tipo_usuario
+                                   ]);
     }
 
     /**
@@ -85,7 +86,22 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $mytime=Carbon::now('America/Bogota');
+        $usuario=User::where('id', '=', $id)->first();
+        $usuario->usuario=$request->get('usuario');
+        $usuario->primer_nombre=$request->get('primer_nombre');
+        $usuario->segundo_nombre=$request->get('segundo_nombre');
+        $usuario->primer_apellido=$request->get('primer_apellido');
+        $usuario->segundo_apellido=$request->get('segundo_apellido');
+        $usuario->id_tipo_identificacion=$request->get('id_tipo_identificacion');
+        $usuario->id=$request->get('num_identificacion');
+        $usuario->id_role=$request->get('id_role');
+        $usuario->email=$request->get('email');
+        $usuario->updated_at=$mytime->toDateString();
+
+        $usuario->update();
+
+        return Redirect::to('users')->with('success', 'Usuario is successfully updated');
     }
 
     /**

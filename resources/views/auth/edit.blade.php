@@ -10,7 +10,8 @@
                     <div class="card-header">{{ __('Editar Usuario') }}</div>
     
                     <div class="card-body">
-                        {{-- <form method="POST" action="{{ route('register') }}"> --}}
+                        <form method="POST" action="{{ url('users',$usuario->id) }}">
+                            @method('PUT')
                             @csrf
     
                             <div class="form-group row">
