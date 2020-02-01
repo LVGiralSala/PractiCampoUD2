@@ -61,6 +61,7 @@ class RegisterController extends Controller
             'num_identificacion' => ['required', 'integer', 'min:6'],
             'id_tipo_identificacion' => ['required', 'integer', 'max:11'],
             'id_role' => ['required', 'integer', 'max:11'],
+            'id_categoria' => ['required', 'integer', 'max:11'],
         ]);
     }
 
@@ -83,6 +84,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'id_role' => $data['id_role'],
+            'id_categoria' => $data['id_categoria'],
         ]);
     }
 

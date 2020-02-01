@@ -14,7 +14,7 @@
                             @csrf
     
                             <div class="form-group row">
-                                <label for="usuario" class="col-md-4 col-form-label text-md-right">{{ __('Usuario') }}</label>
+                                <label for="usuario" class="col-md-4 col-form-label text-md-right">{{ __('usuario') }}</label>
     
                                 <div class="col-md-6">
                                     <input id="usuario" type="text" class="form-control @error('usuario') is-invalid @enderror" name="usuario" value="{{ old('usuario') }}" required autocomplete="name" autofocus>
@@ -87,7 +87,6 @@
                                 <label for="id_tipo_identificacion" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Identificación') }}</label>
     
                                 <div class="col-md-6">
-                                    <label id="id_tipo_identificacion" @error('id_tipo_identificacion') is-invalid @enderror" name="id_tipo_identificacion" value="{{ old('id_tipo_identificacion') }}" required autocomplete="id_tipo_identificacion" autofocus>
                                     <select name="id_tipo_identificacion" class="form-control" required>
                                         @foreach($tipos_identificaciones as $tip_ident)
                                             <option value="{{$tip_ident->id}}" selected>{{$tip_ident->sigla}}</option>  
@@ -105,7 +104,7 @@
                                 <label for="num_identificacion" class="col-md-4 col-form-label text-md-right">{{ __('N° Identificación') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="num_identificacion" type="number" class="form-control @error('num_identificacion') is-invalid @enderror" name="num_identificacion" value="{{ old('num_identificacion') }}" required autocomplete="num_identificacion" autofocus>
+                                    <input id="num_identificacion"  class="form-control @error('num_identificacion') is-invalid @enderror" name="num_identificacion" value="{{ old('num_identificacion') }}" required autocomplete="num_identificacion" autofocus>
     
                                     @error('num_identificacion')
                                         <span class="invalid-feedback" role="alert">
@@ -116,10 +115,37 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="id_categoria" class="col-md-4 col-form-label text-md-right">{{ __('Categoría') }}</label>
+    
+                                <div class="col-md-6">
+                                    <select name="id_categoria" class="form-control" required>
+                                        @foreach($categorias as $cat)
+                                            <option value="{{$cat->id}}" selected>{{$cat->categoria}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_categoria')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="id_categoria" class="col-md-4 col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+    
+                                <div class="col-md-6">
+                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
+                                        <input type="text" name="field_name[]" value="" class="form-control" style="width: 90%;"/>
+                                        <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png"/></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="id_role" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Usuario') }}</label>
     
                                 <div class="col-md-6">
-                                    <label id="id_role" @error('id_role') is-invalid @enderror" name="id_role" value="{{ old('id_role') }}" required autocomplete="id_role" autofocus>
                                     <select name="id_role" class="form-control" required>
                                         @foreach($tipos_usuarios as $tip_user)
                                             <option value="{{$tip_user->id}}" selected>{{$tip_user->role}}</option>
@@ -134,7 +160,7 @@
                             </div>
     
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Correo Institucional') }}</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
     
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -148,7 +174,7 @@
                             </div>
     
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
     
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -162,7 +188,7 @@
                             </div>
     
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Contraseña') }}</label>
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
     
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -172,13 +198,14 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Registro') }}
+                                        {{ __('Register') }}
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <br>
             </div>
         </div>
         

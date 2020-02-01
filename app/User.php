@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password', 
         'id_role',
         'id_tipo_identificacion',
+        'id_categoria',
         'primer_nombre',
         'segundo_nombre',
         'primer_apellido',

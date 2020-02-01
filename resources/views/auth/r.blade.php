@@ -89,7 +89,6 @@
                                 <label for="id_tipo_identificacion" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Identificación') }}</label>
     
                                 <div class="col-md-6">
-                                    <label id="id_tipo_identificacion" @error('id_tipo_identificacion') is-invalid @enderror" name="id_tipo_identificacion" value="{{ old('id_tipo_identificacion') }}" required autocomplete="id_tipo_identificacion" autofocus>
                                     <select name="id_tipo_identificacion" class="form-control" required>
                                         @foreach($tipos_identificaciones as $tip_ident)
                                             <option value="{{$tip_ident->id}}" selected>{{$tip_ident->sigla}}</option>  
@@ -107,9 +106,26 @@
                                 <label for="num_identificacion" class="col-md-4 col-form-label text-md-right">{{ __('N° Identificación') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="num_identificacion" type="number" class="form-control @error('num_identificacion') is-invalid @enderror" name="num_identificacion" value="{{ old('num_identificacion') }}" required autocomplete="num_identificacion" autofocus>
+                                    <input id="num_identificacion"  class="form-control @error('num_identificacion') is-invalid @enderror" name="num_identificacion" value="{{ old('num_identificacion') }}" required autocomplete="num_identificacion" autofocus>
     
                                     @error('num_identificacion')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="id_categoria" class="col-md-4 col-form-label text-md-right">{{ __('Categoría') }}</label>
+    
+                                <div class="col-md-6">
+                                    <select name="id_categoria" class="form-control" required>
+                                        @foreach($categorias as $cat)
+                                            <option value="{{$cat->id}}" selected>{{$cat->categoria}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_categoria')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -121,7 +137,6 @@
                                 <label for="id_role" class="col-md-4 col-form-label text-md-right">{{ __('Tipo Usuario') }}</label>
     
                                 <div class="col-md-6">
-                                    <label id="id_role" @error('id_role') is-invalid @enderror" name="id_role" value="{{ old('id_role') }}" required autocomplete="id_role" autofocus>
                                     <select name="id_role" class="form-control" required>
                                         @foreach($tipos_usuarios as $tip_user)
                                             <option value="{{$tip_user->id}}" selected>{{$tip_user->role}}</option>

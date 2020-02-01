@@ -70,10 +70,12 @@ class UsersController extends Controller
         $usuario=User::find($id);
         $tipo_identificacion=DB::table('tipo_identificacion')->get();
         $tipo_usuario=DB::table('roles')->get();
+        $categoria=DB::table('categoria')->get();
 
         return view('auth.edit', [ "usuario"=>$usuario,
                                    "tipos_identificaciones"=>$tipo_identificacion,
-                                   "tipos_usuarios"=>$tipo_usuario
+                                   "tipos_usuarios"=>$tipo_usuario,
+                                   "categorias"=>$categoria
                                    ]);
     }
 
@@ -96,12 +98,13 @@ class UsersController extends Controller
         $usuario->id_tipo_identificacion=$request->get('id_tipo_identificacion');
         $usuario->id=$request->get('num_identificacion');
         $usuario->id_role=$request->get('id_role');
+        $usuario->id_categoria=$request->get('id_categoria');
         $usuario->email=$request->get('email');
         $usuario->updated_at=$mytime->toDateString();
 
         $usuario->update();
 
-        return Redirect::to('users')->with('success', 'Usuario is successfully updated');
+        return Redirect::to('users')->with('success', 'Actualización exitosa');
     }
 
     /**
