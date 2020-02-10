@@ -27,6 +27,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 
 
@@ -36,6 +38,37 @@
 <!-- functions-->
 
 
-{{-- <script>
+<script>
 
-</script> --}}
+function filterUser(value)
+{
+    switch(value)
+    {
+        case '3':
+            href = "{!! route('users_filter','all'); !!}";
+            break;
+        case '2':
+            href = "{!! route('users_filter','inac'); !!}";
+            break;
+        case '1':
+            href = "{!! route('users_filter','act'); !!}";
+            break;
+        default:
+    }
+    window.location.href = href;
+}
+
+// document.getElementById("id_estado_usuario").onclick = function()
+// {
+//     value = document.getElementById("id_estado_usuario").value;
+//     filterUser(value);
+// }
+
+
+$('input:radio[name="id_estado_usuario"]').change(
+    function(){
+        filterUser(this.value);
+       
+});
+
+</script>

@@ -32,13 +32,28 @@ Route::group(['middleware' => 'auth'], function () {
         // Registration Routes...
         if ($options['register'] ?? true) {
             Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-            Route::post('register', 'Auth\RegisterController@register');
+            // Route::post('register', 'Auth\RegisterController@register');
         }
 
-        Route::get('users','Users\UsersController@index')->name('users_index');
+
+        // Route::get('users','Users\UsersController@index')->name('users_index');
         Route::get('users/{id}','Users\UsersController@edit')->name('users_edit');
         Route::put('users/{id}','Users\UsersController@update')->name('users_update');
+
+        Route::get('users/filtrar/{id}','Users\UsersController@filterUser')->name('users_filter');
+        Route::get('users/activos','Users\UsersController@verActivo')->name('users_activos');
+        Route::get('users/inactivos','Users\UsersController@verInactivo')->name('users_inactivos');
+
+        
     });
+
+    Route::group(['middleware'=>'admin','docente'], function (){
+
+        Route::get('proyecciones','Proyeccion\ProyeccionController@index')->name('proyeccion_index');
+        Route::get('proyecciones/activas','Proyeccion\ProyeccionController@verActiva')->name('proyeccion_activa');
+        Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
+    });
+    
         
 });
 

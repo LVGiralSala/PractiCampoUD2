@@ -25,6 +25,12 @@ class User extends Authenticatable
         'id_role',
         'id_tipo_identificacion',
         'id_categoria',
+        'id_espacio_academico_1',
+        // 'id_espacio_academico_2',
+        // 'id_espacio_academico_3',
+        // 'id_espacio_academico_4',
+        // 'id_espacio_academico_5',
+        // 'id_espacio_academico_6',
         'primer_nombre',
         'segundo_nombre',
         'primer_apellido',
@@ -55,8 +61,13 @@ class User extends Authenticatable
         return $this->id_role === 1;
     }
 
-    public function usuario()
+    public function docente()
     {
-        return $this->id_role !== 1;
+        return $this->id_role === 5;
     }
+
+    // public function usuario()
+    // {
+    //     return $this->id_role !== 1;
+    // }
 }

@@ -19,6 +19,40 @@
               {{-- @include('persona.natural.search') --}}
         </div>
       </div>
+
+      <!-- 0 -->
+      <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label for="id_estado_usuario">Estado</label>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="id_estado_usuario"   @if(!isset($filter)) checked="true" @endif onclick="filterUser(this.value)" value="3" checked>
+                        <label class="form-check-label" for="">Todos</label>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="id_estado_usuario"  @if(isset($filter) and ($filter == 'act')) checked="true" @endif onclick="filterUser(this.value)" value="1">
+                        <label class="form-check-label" for="">Activos</label>
+                      </div>
+                    </div>
+  
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="id_estado_usuario"  @if(isset($filter) and ($filter == 'inac')) checked="true" @endif onclick="filterUser(this.value)" value="2">
+                          <label class="form-check-label" for="">Inactivos</label>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- 0 -->
+
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
           <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">
@@ -48,9 +82,9 @@
                    </tr>
             @endforeach 
           </table>
+          {{$usuarios->render()}}
             
         </div>
-        {{-- {{$usuarios->render()}} --}}
         
     {{-- </div>
   </div> --}}

@@ -16,14 +16,15 @@
        
         @if(Auth::user()->admin())
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <a class="nav-link collapsed" href="#collapseOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                 <i class="fas fa-fw fa-user-cog"></i>
                 <span>Admin</span></a>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" href="{{route('users_index') }}">Listar Usuarios</a>
-                  <a class="collapse-item" href="{{route('register') }}">Nuevo Usuario</a>
+                  {{-- <a class="collapse-item" href="{{route('users_index') }}">Listar Usuarios</a> --}}
+                  <a class="collapse-item" href="{{url('users/filtrar/all') }}">Listar Usuarios</a>
+                  <a class="collapse-item" href="{{url('register') }}">Nuevo Usuario</a>
               </div>
             </div>
           </li>
@@ -39,27 +40,28 @@
   
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <a class="nav-link collapsed" href="#collapseTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-business-time"></i>
-            <span>PROYECCIÓN PRELIMINAR</span>
+            <span>PROYECCIONES</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              {{-- <a class="collapse-item" href="{{url('persona_natural') }}">NATURALES</a> --}}
-              {{-- <a class="collapse-item" href="{{url('persona_juridica') }}">JURÍDICOS</a> --}}
+              <a class="collapse-item" href="{{route('proyeccion_index') }}">Listar Proyecciones</a>
+              <a class="collapse-item" href="">Nueva Proyección</a>
             </div>
           </div>
         </li>
 
          <!-- Nav Item - Pages Collapse Menu -->
          <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <a class="nav-link collapsed" href="#collapseThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
               <i class="fas fa-fw fa-clipboard-check"></i>
-              <span>SOLICITUD DE PRÁCTICA</span>
+              <span>SOLICITUDES</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                {{-- <a class="collapse-item" href="{{route('pdto_index') }}">PRODUCTOS</a> --}}
+                <a class="collapse-item" href="">Listar Solicitudes</a>
+                <a class="collapse-item" href="">Nueva Solicitud</a>
               </div>
             </div>
           </li>

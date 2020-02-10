@@ -1,6 +1,16 @@
+<?php 
+    if(isset($_POST['submit']))
+    {
+        $espacios_academicos = $_POST['id_espacio_academico_'];
+        print '<pre>'; print_r($espacios_academicos);print '</pre>';
+    }
+?>
+
 <!-- HTML HEAD -->
 @extends('layouts.app')
 <!-- end HTML HEAD -->
+
+
     @section('contenido')
 
     <div class="container">
@@ -11,6 +21,7 @@
     
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
+                                {{--  method="POST" action="{{ route('register') }}" --}}
                             @csrf
     
                             <div class="form-group row">
@@ -132,12 +143,12 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="id_categoria" class="col-md-4 col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                <label for="id_espacio_academico_1" class="col-md-4 col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
     
                                 <div class="col-md-6">
                                     <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="field_name[]" value="" class="form-control" style="width: 90%;"/>
-                                        <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png"/></a>
+                                        <input type="text" name="id_espacio_academico_1" value="" class="form-control" style="width: 90%;"/>
+                                        {{-- <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png"/></a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -197,7 +208,7 @@
     
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" name="submit">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
@@ -210,3 +221,5 @@
         </div>
         
     @endsection   
+
+

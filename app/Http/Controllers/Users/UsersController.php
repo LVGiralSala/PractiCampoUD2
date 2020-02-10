@@ -16,16 +16,57 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected function index()
+    protected function filterUser($filter)
     {
-        $usuario=DB::table('users as us')
-        ->join('tipo_identificacion as ti', 'us.id_tipo_identificacion','=', 'ti.id' )
-        ->join('roles as ro', 'us.id_role','=', 'ro.id' )
-        ->select('ti.sigla','us.id', 'us.usuario','us.primer_nombre','us.segundo_nombre', 'us.primer_apellido', 
-        'us.segundo_apellido','ro.role', 'us.email')->get();
-
-        return view('auth.index',["usuarios"=>$usuario]);
+        switch($filter)
+        {
+            case 'act':
+                $usuarios=DB::table('users as us')
+                ->join('tipo_identificacion as ti', 'us.id_tipo_identificacion','=', 'ti.id' )
+                ->join('roles as ro', 'us.id_role','=', 'ro.id' )
+                ->select('ti.sigla','us.id', 'us.usuario','us.primer_nombre','us.segundo_nombre', 'us.primer_apellido', 
+                'us.segundo_apellido','ro.role', 'us.email')
+                ->where('id_estado','=', '1')->paginate(10);
+                break;
+            case 'inac':
+                $usuarios=DB::table('users as us')
+                ->join('tipo_identificacion as ti', 'us.id_tipo_identificacion','=', 'ti.id' )
+                ->join('roles as ro', 'us.id_role','=', 'ro.id' )
+                ->select('ti.sigla','us.id', 'us.usuario','us.primer_nombre','us.segundo_nombre', 'us.primer_apellido', 
+                'us.segundo_apellido','ro.role', 'us.email')
+                ->where('id_estado','=', '2')->paginate(10);
+                break;
+            case 'all':
+                $usuarios=DB::table('users as us')
+                ->join('tipo_identificacion as ti', 'us.id_tipo_identificacion','=', 'ti.id' )
+                ->join('roles as ro', 'us.id_role','=', 'ro.id' )
+                ->select('ti.sigla','us.id', 'us.usuario','us.primer_nombre','us.segundo_nombre', 'us.primer_apellido', 
+                'us.segundo_apellido','ro.role', 'us.email')->paginate(10);
+                break;
+            default;
+        }
+        
+        return view('auth.index',["usuarios"=>$usuarios, 'filter'=>$filter]);
     }
+
+    // public function filterUser($filter)
+    // {
+    //     switch($filter)
+    //     {
+    //         case 'act':
+    //             $usuarios = User::where('id_estado','=', '1')->paginate(10);
+    //             break;
+    //         case 'inac':
+    //             $usuarios = User::where('id_estado','=', '2')->paginate(10);
+    //             break;
+    //         case 'all':
+    //             $usuarios = User::orderBy('primer_apellido','DESC')->paginate(10);
+    //             break;
+    //         default;
+    //     }
+
+    //     return view('auth.index',['usuarios'=>$usuarios, 'filter'=>$filter]);
+    // }
 
     /**
      * Show the form for creating a new resource.

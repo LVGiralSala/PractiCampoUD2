@@ -61,7 +61,8 @@ class RegisterController extends Controller
             'num_identificacion' => ['required', 'integer', 'min:6'],
             'id_tipo_identificacion' => ['required', 'integer', 'max:11'],
             'id_role' => ['required', 'integer', 'max:11'],
-            'id_categoria' => ['required', 'integer', 'max:11'],
+            'id_categoria' => ['required', 'integer', 'max:13'],
+            // 'id_espacio_academico_' => ['required', 'integer', 'max:11'],
         ]);
     }
 
@@ -73,6 +74,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // $cont=1;
+        // foreach($data['id_espacio_academico_'] as $espacio)
+        // {
+        //     $name = "[".$cont++."]";
+        //     $a = "'".$name."'";
+            
+        //     $b= $data['id_espacio_academico_'.[0]];
+        //     return $b;
+        // }
+
         return User::create([
             'id' => $data['num_identificacion'],
             'id_tipo_identificacion' => $data['id_tipo_identificacion'],
@@ -85,6 +96,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'id_role' => $data['id_role'],
             'id_categoria' => $data['id_categoria'],
+            'id_espacio_academico_1' => $data['id_espacio_academico_1'],
+            // 'id_espacio_academico_2' => $data['id_espacio_academico_2'],
+            // 'id_espacio_academico_3' => $data['id_espacio_academico_3'],
+            // 'id_espacio_academico_4' => $data['id_espacio_academico_4'],
+            // 'id_espacio_academico_5' => $data['id_espacio_academico_5'],
+            // 'id_espacio_academico_6' => $data['id_espacio_academico_6'],
         ]);
     }
 
