@@ -41,6 +41,26 @@ REPLACE INTO `categoria` (`id`, `categoria`) VALUES
 	(13, 'TITULAR XXII');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
+-- Volcando estructura para tabla practicampo.elemento_nomenclatura
+CREATE TABLE IF NOT EXISTS `elemento_nomenclatura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `elemento_nomenclatura` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.elemento_nomenclatura: ~8 rows (aproximadamente)
+/*!40000 ALTER TABLE `elemento_nomenclatura` DISABLE KEYS */;
+REPLACE INTO `elemento_nomenclatura` (`id`, `elemento_nomenclatura`) VALUES
+	(1, 'Tipo de vía'),
+	(2, 'Nombre de vía'),
+	(3, 'Prefijo'),
+	(4, 'Complemento'),
+	(5, 'Prefijo cardinal'),
+	(6, 'Tipo ubicación'),
+	(7, 'Tipo residencia'),
+	(8, 'Prefijo Ubicación');
+/*!40000 ALTER TABLE `elemento_nomenclatura` ENABLE KEYS */;
+
 -- Volcando estructura para tabla practicampo.espacio_academico
 CREATE TABLE IF NOT EXISTS `espacio_academico` (
   `id` int(11) NOT NULL,
@@ -48,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `espacio_academico` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.espacio_academico: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.espacio_academico: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `espacio_academico` DISABLE KEYS */;
 REPLACE INTO `espacio_academico` (`id`, `espacio_academico`) VALUES
 	(1, 'N/A'),
@@ -84,6 +104,68 @@ REPLACE INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(2, '2014_10_12_100000_create_password_resets_table', 1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
+-- Volcando estructura para tabla practicampo.nomenclatura_urbana
+CREATE TABLE IF NOT EXISTS `nomenclatura_urbana` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_elemento_nomenclatura` int(11) DEFAULT NULL,
+  `nomenclatura` varchar(50) NOT NULL,
+  `abreviatura` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_nomenclatura_urbana_elemento_nomenclatura_idx` (`id_elemento_nomenclatura`),
+  CONSTRAINT `fk_nomenclatura_urbana_elemento_nomenclatura` FOREIGN KEY (`id_elemento_nomenclatura`) REFERENCES `elemento_nomenclatura` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.nomenclatura_urbana: ~46 rows (aproximadamente)
+/*!40000 ALTER TABLE `nomenclatura_urbana` DISABLE KEYS */;
+REPLACE INTO `nomenclatura_urbana` (`id`, `id_elemento_nomenclatura`, `nomenclatura`, `abreviatura`) VALUES
+	(1, 1, 'Avenida', 'AV'),
+	(2, 1, 'Calle', 'CL'),
+	(3, 1, 'Carrera', 'CR'),
+	(4, 1, 'Diagonal', 'DG'),
+	(5, 1, 'Transversal', 'TV'),
+	(6, 4, 'Bis', 'BIS'),
+	(7, 5, 'Este', 'ESTE'),
+	(8, 5, 'Norte', 'NORTE'),
+	(9, 5, 'Oeste', 'OESTE'),
+	(10, 5, 'Sur', 'SUR'),
+	(11, 3, 'A', 'A'),
+	(12, 3, 'B', 'B'),
+	(13, 3, 'C', 'C'),
+	(14, 3, 'D', 'D'),
+	(15, 3, 'E', 'E'),
+	(16, 3, 'F', 'F'),
+	(17, 3, 'G', 'G'),
+	(18, 3, 'H', 'H'),
+	(19, 3, 'I', 'I'),
+	(20, 3, 'J', 'J'),
+	(21, 3, 'K', 'K'),
+	(22, 3, 'L', 'L'),
+	(23, 3, 'M', 'M'),
+	(24, 3, 'N', 'N'),
+	(25, 3, 'O', 'O'),
+	(26, 3, 'P', 'P'),
+	(27, 3, 'Q', 'Q'),
+	(28, 3, 'R', 'R'),
+	(29, 3, 'S', 'S'),
+	(30, 3, 'T', 'T'),
+	(31, 3, 'U', 'U'),
+	(32, 3, 'V', 'V'),
+	(33, 3, 'W', 'W'),
+	(34, 3, 'X', 'X'),
+	(35, 3, 'Y', 'Y'),
+	(36, 3, 'Z', 'Z'),
+	(37, 6, 'Conjunto', 'CONJ'),
+	(38, 6, 'Edificio', 'ED'),
+	(39, 8, 'Casa', 'CA'),
+	(40, 7, 'Apartamento', 'APTO'),
+	(41, 6, 'Manzana', 'MZ'),
+	(42, 6, 'Conjunto Residencial', 'CON'),
+	(43, 8, 'Interior', 'IN'),
+	(44, 8, 'Torrre', 'TO'),
+	(45, 7, 'Piso', 'PI'),
+	(46, 6, 'Barrio', 'BRR');
+/*!40000 ALTER TABLE `nomenclatura_urbana` ENABLE KEYS */;
+
 -- Volcando estructura para tabla practicampo.password_resets
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -103,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `proyeccion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.proyeccion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.proyeccion: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `proyeccion` DISABLE KEYS */;
 REPLACE INTO `proyeccion` (`id`, `nombre_proyeccion`) VALUES
 	(1, 'Bogota-Girardot');
