@@ -41,6 +41,35 @@ REPLACE INTO `categoria` (`id`, `categoria`) VALUES
 	(13, 'TITULAR XXII');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
+-- Volcando estructura para tabla practicampo.direccion_usuario
+CREATE TABLE IF NOT EXISTS `direccion_usuario` (
+  `id` int(11) NOT NULL,
+  `id_tipo_via_1` int(11) NOT NULL,
+  `id_tipo_via_2` int(11) DEFAULT NULL,
+  `id_prefijo_num_via` int(11) DEFAULT NULL,
+  `id_complemento_via` int(11) DEFAULT NULL,
+  `id_prefijo_compl_via` int(11) DEFAULT NULL,
+  `id_prefijo_cardinal` int(11) DEFAULT NULL,
+  `id_prefijo_placa_1` int(11) DEFAULT NULL,
+  `id_complemento_placa` int(11) DEFAULT NULL,
+  `id_prefijo_compl_placa` int(11) DEFAULT NULL,
+  `id_prefijo_cardinal_placa` int(11) DEFAULT NULL,
+  `id_tipo_ubicacion` int(11) DEFAULT NULL,
+  `id_tipo_residencia` int(11) NOT NULL,
+  `id_prefijo_ubicacion` int(11) DEFAULT NULL,
+  `num_placa_1` int(11) NOT NULL,
+  `num_placa_2` int(11) NOT NULL,
+  `num_via` int(11) NOT NULL,
+  `num_residencia` int(11) NOT NULL,
+  `num_prefijo_ubicacion` int(11) DEFAULT NULL,
+  `nombre_ubicacion` varchar(50) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.direccion_usuario: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `direccion_usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `direccion_usuario` ENABLE KEYS */;
+
 -- Volcando estructura para tabla practicampo.elemento_nomenclatura
 CREATE TABLE IF NOT EXISTS `elemento_nomenclatura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -185,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `proyeccion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.proyeccion: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.proyeccion: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `proyeccion` DISABLE KEYS */;
 REPLACE INTO `proyeccion` (`id`, `nombre_proyeccion`) VALUES
 	(1, 'Bogota-Girardot');
@@ -242,6 +271,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `segundo_nombre` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `primer_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `segundo_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirección_residencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `usuario` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -277,20 +307,20 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Volcando datos para la tabla practicampo.users: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `usuario`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, 8, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 'LV32', 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', 'RjUr1sJz0EAIAQspYmjif8hmvTzheBKV3ApmM0sG6AdnPmqeTukgnQBnVwki', '2020-01-17 01:40:42', '2020-01-30 22:52:30'),
-	(2, 1, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Nefasto', NULL, 'NN', 'NN', 'Nefito', 'Nefito@gmail.com', NULL, '$2y$10$Ntmh4Drn23q3BVRqtNgseu8KqaszRNTFDC9VXXcSA53uhvxEuoNS.', NULL, '2020-01-21 00:20:06', '2020-01-21 00:20:06'),
-	(3, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bongo ', 'Mauricio', 'NN', 'NN', 'Bongo', 'Bongo@gmail.com', NULL, '$2y$10$CHKtWQzULk8U2Bta4.yYNuL3OkAeVl0c3MV6dJbEIwv2eozYABrxm', NULL, '2020-01-24 21:04:54', '2020-01-24 21:04:54'),
-	(4, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Tane', 'Patricia', 'NN', 'NN', 'Tane', 'tane@gmail.com', NULL, '$2y$10$Ew.P8xgYh92cNceY1RWDc.IYEOkUHn3Ot3eUogs8MBZ1krpeVBJj.', NULL, '2020-01-24 21:18:32', '2020-01-24 21:18:32'),
-	(5, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bestia', NULL, 'NN', 'nn', 'bestia', 'bestia@gmail.com', NULL, '$2y$10$ZTHdXDBbQStRVWi5IoMEPuI87yge2zIXnDtM.zXTp0QMDYKA7vCMa', NULL, '2020-01-24 21:23:23', '2020-01-24 21:23:23'),
-	(6, 3, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Kuzy', 'Pamasai', 'Giraldo', 'Linares', 'pamita', 'pamita@gmail.com', NULL, '$2y$10$MJIE2WVFha5ff7Hn4hfSR.3795aInju9SqV9Z/7BxiJWbcPevir2m', NULL, '2020-01-24 21:25:34', '2020-01-29 00:00:00'),
-	(7, 4, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'qa', 'fe', 'va', 'zi', 'abcd', 'abcde@gmail.com', NULL, '$2y$10$xGPHxHvedNZhoERXdh1rDuWadBjm2Sj3N2pLLTvFcjus011tgU9ke', NULL, '2020-01-27 21:48:40', '2020-01-27 21:48:40'),
-	(8, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'es', 'bo', 'cu', 'um', 'gatos', 'gatos@gmail.com', NULL, '$2y$10$uGVJBOlpzfk/D28m3iETbesaAZ5.vFWlcqyOmZvo8cKzdLZHFsrIy', NULL, '2020-01-27 21:50:42', '2020-01-27 21:50:42'),
-	(9, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'sa', 'le', 'me', 'ro', 'perros', 'perros@gmail.com', NULL, '$2y$10$jEmI.PmrhisIxORngV4rDeHjg37Y9kzdlwRsO5zMmeo2gvWS/y9Yy', NULL, '2020-01-27 21:54:17', '2020-01-27 21:54:17'),
-	(12345678, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'gu', 'hi', 'jo', 'ke', 'Farol', 'farol@gmail.com', NULL, '$2y$10$dxukMxt9sI.K/mXqHB84tuqL5ds38CKIx8NzYc9oTKz2SE6Cg4NHW', NULL, '2020-01-27 22:15:33', '2020-01-27 22:15:33'),
-	(80213850, 5, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'andres', 'giovanny', 'linares', 'rabia', 'aglr', 'andres@gmail.com', NULL, '$2y$10$I.zzgVqvTcUtc5aAQAjBfeGbI7/PL2EF4GwIEXzVcOO7atMBZv8Ei', NULL, '2020-01-29 00:10:03', '2020-01-29 00:10:03'),
-	(123456788, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'Maestro', 'sas', 'sas', 'Rochy', 'Rochy', 'Rochy@gmail.com', NULL, '$2y$10$.ynETJUa6C3mNvhL9tQ3COEt586QbyPipm24K/I.e4PttVJ1zgyt2', NULL, '2020-01-27 23:34:25', '2020-01-27 23:34:25'),
-	(123456789, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'ta', 'mi', 'fe', 'vi', 'Kuzita', 'kuzita@gmail.com', NULL, '$2y$10$ER95EG3qwnfiJxXRpPo92.f6asmXdEpSYLMFFTHYSsDQGbfhqYVuq', NULL, '2020-01-27 23:26:54', '2020-01-27 23:26:54');
+REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `dirección_residencia`, `usuario`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, 8, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Laura', 'Vanessa', 'Giraldo', 'Salazar', '', 'LV32', 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', 'RjUr1sJz0EAIAQspYmjif8hmvTzheBKV3ApmM0sG6AdnPmqeTukgnQBnVwki', '2020-01-17 01:40:42', '2020-01-30 22:52:30'),
+	(2, 1, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Nefasto', NULL, 'NN', 'NN', '', 'Nefito', 'Nefito@gmail.com', NULL, '$2y$10$Ntmh4Drn23q3BVRqtNgseu8KqaszRNTFDC9VXXcSA53uhvxEuoNS.', NULL, '2020-01-21 00:20:06', '2020-01-21 00:20:06'),
+	(3, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bongo ', 'Mauricio', 'NN', 'NN', '', 'Bongo', 'Bongo@gmail.com', NULL, '$2y$10$CHKtWQzULk8U2Bta4.yYNuL3OkAeVl0c3MV6dJbEIwv2eozYABrxm', NULL, '2020-01-24 21:04:54', '2020-01-24 21:04:54'),
+	(4, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Tane', 'Patricia', 'NN', 'NN', '', 'Tane', 'tane@gmail.com', NULL, '$2y$10$Ew.P8xgYh92cNceY1RWDc.IYEOkUHn3Ot3eUogs8MBZ1krpeVBJj.', NULL, '2020-01-24 21:18:32', '2020-01-24 21:18:32'),
+	(5, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bestia', NULL, 'NN', 'nn', '', 'bestia', 'bestia@gmail.com', NULL, '$2y$10$ZTHdXDBbQStRVWi5IoMEPuI87yge2zIXnDtM.zXTp0QMDYKA7vCMa', NULL, '2020-01-24 21:23:23', '2020-01-24 21:23:23'),
+	(6, 3, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Kuzy', 'Pamasai', 'Giraldo', 'Linares', '', 'pamita', 'pamita@gmail.com', NULL, '$2y$10$MJIE2WVFha5ff7Hn4hfSR.3795aInju9SqV9Z/7BxiJWbcPevir2m', NULL, '2020-01-24 21:25:34', '2020-01-29 00:00:00'),
+	(7, 4, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'qa', 'fe', 'va', 'zi', '', 'abcd', 'abcde@gmail.com', NULL, '$2y$10$xGPHxHvedNZhoERXdh1rDuWadBjm2Sj3N2pLLTvFcjus011tgU9ke', NULL, '2020-01-27 21:48:40', '2020-01-27 21:48:40'),
+	(8, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'es', 'bo', 'cu', 'um', '', 'gatos', 'gatos@gmail.com', NULL, '$2y$10$uGVJBOlpzfk/D28m3iETbesaAZ5.vFWlcqyOmZvo8cKzdLZHFsrIy', NULL, '2020-01-27 21:50:42', '2020-01-27 21:50:42'),
+	(9, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'sa', 'le', 'me', 'ro', '', 'perros', 'perros@gmail.com', NULL, '$2y$10$jEmI.PmrhisIxORngV4rDeHjg37Y9kzdlwRsO5zMmeo2gvWS/y9Yy', NULL, '2020-01-27 21:54:17', '2020-01-27 21:54:17'),
+	(12345678, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'gu', 'hi', 'jo', 'ke', '', 'Farol', 'farol@gmail.com', NULL, '$2y$10$dxukMxt9sI.K/mXqHB84tuqL5ds38CKIx8NzYc9oTKz2SE6Cg4NHW', NULL, '2020-01-27 22:15:33', '2020-01-27 22:15:33'),
+	(80213850, 5, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'andres', 'giovanny', 'linares', 'rabia', '', 'aglr', 'andres@gmail.com', NULL, '$2y$10$I.zzgVqvTcUtc5aAQAjBfeGbI7/PL2EF4GwIEXzVcOO7atMBZv8Ei', NULL, '2020-01-29 00:10:03', '2020-01-29 00:10:03'),
+	(123456788, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'Maestro', 'sas', 'sas', 'Rochy', '', 'Rochy', 'Rochy@gmail.com', NULL, '$2y$10$.ynETJUa6C3mNvhL9tQ3COEt586QbyPipm24K/I.e4PttVJ1zgyt2', NULL, '2020-01-27 23:34:25', '2020-01-27 23:34:25'),
+	(123456789, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'ta', 'mi', 'fe', 'vi', '', 'Kuzita', 'kuzita@gmail.com', NULL, '$2y$10$ER95EG3qwnfiJxXRpPo92.f6asmXdEpSYLMFFTHYSsDQGbfhqYVuq', NULL, '2020-01-27 23:26:54', '2020-01-27 23:26:54');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
