@@ -23,11 +23,11 @@
 {{-- <script src="{{ asset('js/jquery.mask.js') }}"></script> --}}
 
 <!-- custom scripts -->
-<script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 
 
 
@@ -58,17 +58,38 @@ function filterUser(value)
     window.location.href = href;
 }
 
-// document.getElementById("id_estado_usuario").onclick = function()
-// {
-//     value = document.getElementById("id_estado_usuario").value;
-//     filterUser(value);
-// }
-
-
 $('input:radio[name="id_estado_usuario"]').change(
     function(){
         filterUser(this.value);
        
 });
 
+function obtenerUsuario()
+{
+    var correo = document.getElementById("email").value;
+    var correo_analizado = /^([^]+)@(\w+).(\w+).(\w+)$/.exec(correo);
+    var [,nombre,servidor,dominio] = correo_analizado;
+
+    document.getElementById("usuario").value = nombre;
+}
+
+function direccionCompleta()
+{
+    // var tipo_via_1 = document.getElementById("id_tipo_via_1").selectedOptions[0].value;
+    // var tipo_via_1_str = tipo_via_1.options[tipo_via_1.selectedIndex].value;
+    var num_via = document.getElementById("num_via").value;
+    // var det_1_via = document.getElementById().value;
+    // var det_2_via = document.getElementById().value;
+    var num_1_placa = document.getElementById("num_placa_1").value;
+    // var num_2_placa = document.getElementById().value;
+    // var interior = document.getElementById().value;
+    // var det_interior = document.getElementById().value;
+
+
+    var dir_completa = num_via + " " + num_1_placa;
+
+    document.getElementById("direccion_residencia").value = dir_completa;
+}
 </script>
+
+

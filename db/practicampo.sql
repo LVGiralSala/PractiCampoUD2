@@ -43,7 +43,7 @@ REPLACE INTO `categoria` (`id`, `categoria`) VALUES
 
 -- Volcando estructura para tabla practicampo.direccion_usuario
 CREATE TABLE IF NOT EXISTS `direccion_usuario` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `id_tipo_via_1` int(11) NOT NULL,
   `id_tipo_via_2` int(11) DEFAULT NULL,
   `id_prefijo_num_via` int(11) DEFAULT NULL,
@@ -57,17 +57,47 @@ CREATE TABLE IF NOT EXISTS `direccion_usuario` (
   `id_tipo_ubicacion` int(11) DEFAULT NULL,
   `id_tipo_residencia` int(11) NOT NULL,
   `id_prefijo_ubicacion` int(11) DEFAULT NULL,
-  `num_placa_1` int(11) NOT NULL,
-  `num_placa_2` int(11) NOT NULL,
-  `num_via` int(11) NOT NULL,
+  `num_placa_1` varchar(4) NOT NULL DEFAULT '',
+  `num_placa_2` varchar(4) NOT NULL DEFAULT '',
+  `num_via` varchar(4) NOT NULL DEFAULT '',
   `num_residencia` int(11) NOT NULL,
   `num_prefijo_ubicacion` int(11) DEFAULT NULL,
   `nombre_ubicacion` varchar(50) DEFAULT '',
-  PRIMARY KEY (`id`)
+  `datos_adicionales` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_1_idx` (`id_tipo_via_1`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_2_idx` (`id_tipo_via_2`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_3_idx` (`id_prefijo_num_via`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_4_idx` (`id_complemento_via`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_5_idx` (`id_prefijo_compl_via`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_6_idx` (`id_prefijo_cardinal`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_7_idx` (`id_prefijo_placa_1`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_8_idx` (`id_complemento_placa`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_9_idx` (`id_prefijo_cardinal_placa`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_10_idx` (`id_tipo_ubicacion`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_11_idx` (`id_tipo_residencia`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_12_idx` (`id_prefijo_compl_placa`),
+  KEY `fk_direccion_usuario_nomenclatura_urbana_13_idx` (`id_prefijo_ubicacion`),
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_1` FOREIGN KEY (`id_tipo_via_1`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_10` FOREIGN KEY (`id_tipo_ubicacion`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_11` FOREIGN KEY (`id_tipo_residencia`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_12` FOREIGN KEY (`id_prefijo_compl_placa`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_13` FOREIGN KEY (`id_prefijo_ubicacion`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_2` FOREIGN KEY (`id_tipo_via_2`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_3` FOREIGN KEY (`id_prefijo_num_via`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_4` FOREIGN KEY (`id_complemento_via`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_5` FOREIGN KEY (`id_prefijo_compl_via`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_6` FOREIGN KEY (`id_prefijo_cardinal`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_7` FOREIGN KEY (`id_prefijo_placa_1`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_8` FOREIGN KEY (`id_complemento_placa`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_9` FOREIGN KEY (`id_prefijo_cardinal_placa`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_direccion_usuario_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla practicampo.direccion_usuario: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `direccion_usuario` DISABLE KEYS */;
+REPLACE INTO `direccion_usuario` (`id`, `id_tipo_via_1`, `id_tipo_via_2`, `id_prefijo_num_via`, `id_complemento_via`, `id_prefijo_compl_via`, `id_prefijo_cardinal`, `id_prefijo_placa_1`, `id_complemento_placa`, `id_prefijo_compl_placa`, `id_prefijo_cardinal_placa`, `id_tipo_ubicacion`, `id_tipo_residencia`, `id_prefijo_ubicacion`, `num_placa_1`, `num_placa_2`, `num_via`, `num_residencia`, `num_prefijo_ubicacion`, `nombre_ubicacion`, `datos_adicionales`) VALUES
+	(1, 2, NULL, 14, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, 40, NULL, '41', '9', '2', 301, NULL, '', '');
 /*!40000 ALTER TABLE `direccion_usuario` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.elemento_nomenclatura
@@ -77,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `elemento_nomenclatura` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.elemento_nomenclatura: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.elemento_nomenclatura: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `elemento_nomenclatura` DISABLE KEYS */;
 REPLACE INTO `elemento_nomenclatura` (`id`, `elemento_nomenclatura`) VALUES
 	(1, 'Tipo de vía'),
@@ -87,7 +117,8 @@ REPLACE INTO `elemento_nomenclatura` (`id`, `elemento_nomenclatura`) VALUES
 	(5, 'Prefijo cardinal'),
 	(6, 'Tipo ubicación'),
 	(7, 'Tipo residencia'),
-	(8, 'Prefijo Ubicación');
+	(8, 'Prefijo Ubicación'),
+	(9, 'Otro');
 /*!40000 ALTER TABLE `elemento_nomenclatura` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.espacio_academico
@@ -142,9 +173,9 @@ CREATE TABLE IF NOT EXISTS `nomenclatura_urbana` (
   PRIMARY KEY (`id`),
   KEY `fk_nomenclatura_urbana_elemento_nomenclatura_idx` (`id_elemento_nomenclatura`),
   CONSTRAINT `fk_nomenclatura_urbana_elemento_nomenclatura` FOREIGN KEY (`id_elemento_nomenclatura`) REFERENCES `elemento_nomenclatura` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.nomenclatura_urbana: ~46 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.nomenclatura_urbana: ~47 rows (aproximadamente)
 /*!40000 ALTER TABLE `nomenclatura_urbana` DISABLE KEYS */;
 REPLACE INTO `nomenclatura_urbana` (`id`, `id_elemento_nomenclatura`, `nomenclatura`, `abreviatura`) VALUES
 	(1, 1, 'Avenida', 'AV'),
@@ -192,7 +223,8 @@ REPLACE INTO `nomenclatura_urbana` (`id`, `id_elemento_nomenclatura`, `nomenclat
 	(43, 8, 'Interior', 'IN'),
 	(44, 8, 'Torrre', 'TO'),
 	(45, 7, 'Piso', 'PI'),
-	(46, 6, 'Barrio', 'BRR');
+	(46, 6, 'Barrio', 'BRR'),
+	(47, 9, '-', '-');
 /*!40000 ALTER TABLE `nomenclatura_urbana` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.password_resets
@@ -272,6 +304,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `primer_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `segundo_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dirección_residencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `celular` bigint(20) NOT NULL,
   `usuario` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -307,20 +340,20 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Volcando datos para la tabla practicampo.users: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `dirección_residencia`, `usuario`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, 8, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Laura', 'Vanessa', 'Giraldo', 'Salazar', '', 'LV32', 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', 'RjUr1sJz0EAIAQspYmjif8hmvTzheBKV3ApmM0sG6AdnPmqeTukgnQBnVwki', '2020-01-17 01:40:42', '2020-01-30 22:52:30'),
-	(2, 1, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Nefasto', NULL, 'NN', 'NN', '', 'Nefito', 'Nefito@gmail.com', NULL, '$2y$10$Ntmh4Drn23q3BVRqtNgseu8KqaszRNTFDC9VXXcSA53uhvxEuoNS.', NULL, '2020-01-21 00:20:06', '2020-01-21 00:20:06'),
-	(3, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bongo ', 'Mauricio', 'NN', 'NN', '', 'Bongo', 'Bongo@gmail.com', NULL, '$2y$10$CHKtWQzULk8U2Bta4.yYNuL3OkAeVl0c3MV6dJbEIwv2eozYABrxm', NULL, '2020-01-24 21:04:54', '2020-01-24 21:04:54'),
-	(4, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Tane', 'Patricia', 'NN', 'NN', '', 'Tane', 'tane@gmail.com', NULL, '$2y$10$Ew.P8xgYh92cNceY1RWDc.IYEOkUHn3Ot3eUogs8MBZ1krpeVBJj.', NULL, '2020-01-24 21:18:32', '2020-01-24 21:18:32'),
-	(5, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bestia', NULL, 'NN', 'nn', '', 'bestia', 'bestia@gmail.com', NULL, '$2y$10$ZTHdXDBbQStRVWi5IoMEPuI87yge2zIXnDtM.zXTp0QMDYKA7vCMa', NULL, '2020-01-24 21:23:23', '2020-01-24 21:23:23'),
-	(6, 3, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Kuzy', 'Pamasai', 'Giraldo', 'Linares', '', 'pamita', 'pamita@gmail.com', NULL, '$2y$10$MJIE2WVFha5ff7Hn4hfSR.3795aInju9SqV9Z/7BxiJWbcPevir2m', NULL, '2020-01-24 21:25:34', '2020-01-29 00:00:00'),
-	(7, 4, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'qa', 'fe', 'va', 'zi', '', 'abcd', 'abcde@gmail.com', NULL, '$2y$10$xGPHxHvedNZhoERXdh1rDuWadBjm2Sj3N2pLLTvFcjus011tgU9ke', NULL, '2020-01-27 21:48:40', '2020-01-27 21:48:40'),
-	(8, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'es', 'bo', 'cu', 'um', '', 'gatos', 'gatos@gmail.com', NULL, '$2y$10$uGVJBOlpzfk/D28m3iETbesaAZ5.vFWlcqyOmZvo8cKzdLZHFsrIy', NULL, '2020-01-27 21:50:42', '2020-01-27 21:50:42'),
-	(9, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'sa', 'le', 'me', 'ro', '', 'perros', 'perros@gmail.com', NULL, '$2y$10$jEmI.PmrhisIxORngV4rDeHjg37Y9kzdlwRsO5zMmeo2gvWS/y9Yy', NULL, '2020-01-27 21:54:17', '2020-01-27 21:54:17'),
-	(12345678, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'gu', 'hi', 'jo', 'ke', '', 'Farol', 'farol@gmail.com', NULL, '$2y$10$dxukMxt9sI.K/mXqHB84tuqL5ds38CKIx8NzYc9oTKz2SE6Cg4NHW', NULL, '2020-01-27 22:15:33', '2020-01-27 22:15:33'),
-	(80213850, 5, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'andres', 'giovanny', 'linares', 'rabia', '', 'aglr', 'andres@gmail.com', NULL, '$2y$10$I.zzgVqvTcUtc5aAQAjBfeGbI7/PL2EF4GwIEXzVcOO7atMBZv8Ei', NULL, '2020-01-29 00:10:03', '2020-01-29 00:10:03'),
-	(123456788, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'Maestro', 'sas', 'sas', 'Rochy', '', 'Rochy', 'Rochy@gmail.com', NULL, '$2y$10$.ynETJUa6C3mNvhL9tQ3COEt586QbyPipm24K/I.e4PttVJ1zgyt2', NULL, '2020-01-27 23:34:25', '2020-01-27 23:34:25'),
-	(123456789, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'ta', 'mi', 'fe', 'vi', '', 'Kuzita', 'kuzita@gmail.com', NULL, '$2y$10$ER95EG3qwnfiJxXRpPo92.f6asmXdEpSYLMFFTHYSsDQGbfhqYVuq', NULL, '2020-01-27 23:26:54', '2020-01-27 23:26:54');
+REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `dirección_residencia`, `celular`, `usuario`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, 8, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Laura', 'Vanessa', 'Giraldo', 'Salazar', '', 0, 'LV32', 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', 'RjUr1sJz0EAIAQspYmjif8hmvTzheBKV3ApmM0sG6AdnPmqeTukgnQBnVwki', '2020-01-17 01:40:42', '2020-01-30 22:52:30'),
+	(2, 1, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Nefasto', NULL, 'NN', 'NN', '', 0, 'Nefito', 'Nefito@gmail.com', NULL, '$2y$10$Ntmh4Drn23q3BVRqtNgseu8KqaszRNTFDC9VXXcSA53uhvxEuoNS.', NULL, '2020-01-21 00:20:06', '2020-01-21 00:20:06'),
+	(3, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bongo ', 'Mauricio', 'NN', 'NN', '', 0, 'Bongo', 'Bongo@gmail.com', NULL, '$2y$10$CHKtWQzULk8U2Bta4.yYNuL3OkAeVl0c3MV6dJbEIwv2eozYABrxm', NULL, '2020-01-24 21:04:54', '2020-01-24 21:04:54'),
+	(4, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Tane', 'Patricia', 'NN', 'NN', '', 0, 'Tane', 'tane@gmail.com', NULL, '$2y$10$Ew.P8xgYh92cNceY1RWDc.IYEOkUHn3Ot3eUogs8MBZ1krpeVBJj.', NULL, '2020-01-24 21:18:32', '2020-01-24 21:18:32'),
+	(5, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Bestia', NULL, 'NN', 'nn', '', 0, 'bestia', 'bestia@gmail.com', NULL, '$2y$10$ZTHdXDBbQStRVWi5IoMEPuI87yge2zIXnDtM.zXTp0QMDYKA7vCMa', NULL, '2020-01-24 21:23:23', '2020-01-24 21:23:23'),
+	(6, 3, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'Kuzy', 'Pamasai', 'Giraldo', 'Linares', '', 0, 'pamita', 'pamita@gmail.com', NULL, '$2y$10$MJIE2WVFha5ff7Hn4hfSR.3795aInju9SqV9Z/7BxiJWbcPevir2m', NULL, '2020-01-24 21:25:34', '2020-01-29 00:00:00'),
+	(7, 4, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'qa', 'fe', 'va', 'zi', '', 0, 'abcd', 'abcde@gmail.com', NULL, '$2y$10$xGPHxHvedNZhoERXdh1rDuWadBjm2Sj3N2pLLTvFcjus011tgU9ke', NULL, '2020-01-27 21:48:40', '2020-01-27 21:48:40'),
+	(8, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'es', 'bo', 'cu', 'um', '', 0, 'gatos', 'gatos@gmail.com', NULL, '$2y$10$uGVJBOlpzfk/D28m3iETbesaAZ5.vFWlcqyOmZvo8cKzdLZHFsrIy', NULL, '2020-01-27 21:50:42', '2020-01-27 21:50:42'),
+	(9, 2, 1, 1, 1, 2020, 2020, NULL, NULL, NULL, NULL, 'sa', 'le', 'me', 'ro', '', 0, 'perros', 'perros@gmail.com', NULL, '$2y$10$jEmI.PmrhisIxORngV4rDeHjg37Y9kzdlwRsO5zMmeo2gvWS/y9Yy', NULL, '2020-01-27 21:54:17', '2020-01-27 21:54:17'),
+	(12345678, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'gu', 'hi', 'jo', 'ke', '', 0, 'Farol', 'farol@gmail.com', NULL, '$2y$10$dxukMxt9sI.K/mXqHB84tuqL5ds38CKIx8NzYc9oTKz2SE6Cg4NHW', NULL, '2020-01-27 22:15:33', '2020-01-27 22:15:33'),
+	(80213850, 5, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'andres', 'giovanny', 'linares', 'rabia', '', 0, 'aglr', 'andres@gmail.com', NULL, '$2y$10$I.zzgVqvTcUtc5aAQAjBfeGbI7/PL2EF4GwIEXzVcOO7atMBZv8Ei', NULL, '2020-01-29 00:10:03', '2020-01-29 00:10:03'),
+	(123456788, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'Maestro', 'sas', 'sas', 'Rochy', '', 0, 'Rochy', 'Rochy@gmail.com', NULL, '$2y$10$.ynETJUa6C3mNvhL9tQ3COEt586QbyPipm24K/I.e4PttVJ1zgyt2', NULL, '2020-01-27 23:34:25', '2020-01-27 23:34:25'),
+	(123456789, 2, 1, 1, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'ta', 'mi', 'fe', 'vi', '', 0, 'Kuzita', 'kuzita@gmail.com', NULL, '$2y$10$ER95EG3qwnfiJxXRpPo92.f6asmXdEpSYLMFFTHYSsDQGbfhqYVuq', NULL, '2020-01-27 23:26:54', '2020-01-27 23:26:54');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

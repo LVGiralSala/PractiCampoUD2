@@ -25,28 +25,25 @@ $(document).ready(function(){
      
 });
 
-// function filterUser(value)
-// {
-//     switch(value)
-//     {
-//         case '3':
-//             url = 'users';
-//             break;
-//         case '2':
-//             url = 'users/filtrar/inac';
-//             break;
-//         case '1':
-//             url = 'users/filtrar/act';
-//             break;
-//         default:
-//     }
-//     window.location = url;
-// }
+$("#num_via").onchange(
+    function(){
+        var num_via = document.getElementById("num_via").value;
+        // var det_1_via = document.getElementById().value;
+        // var det_2_via = document.getElementById().value;
+        // var num_1_placa = document.getElementById().value;
+        // var num_2_placa = document.getElementById().value;
+        // var interior = document.getElementById().value;
+        // var det_interior = document.getElementById().value;
+    
+    
+        var dir_completa = num_via;
+    
+        document.getElementById("dirección_residencia").value = dir_completa;
+       
+});
 
-// document.getElementById("estado").onclick = function()
-// {
-//     filterUser();
-// }
+
+
 
 
 
