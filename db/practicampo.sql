@@ -55,12 +55,12 @@ CREATE TABLE IF NOT EXISTS `direccion_usuario` (
   `id_prefijo_compl_placa` int(11) DEFAULT NULL,
   `id_prefijo_cardinal_placa` int(11) DEFAULT NULL,
   `id_tipo_ubicacion` int(11) DEFAULT NULL,
-  `id_tipo_residencia` int(11) NOT NULL,
+  `id_tipo_residencia` int(11) DEFAULT NULL,
   `id_prefijo_ubicacion` int(11) DEFAULT NULL,
   `num_placa_1` varchar(4) NOT NULL DEFAULT '',
   `num_placa_2` varchar(4) NOT NULL DEFAULT '',
   `num_via` varchar(4) NOT NULL DEFAULT '',
-  `num_residencia` int(11) NOT NULL,
+  `num_residencia` int(11) DEFAULT NULL,
   `num_prefijo_ubicacion` int(11) DEFAULT NULL,
   `nombre_ubicacion` varchar(50) DEFAULT '',
   `datos_adicionales` varchar(255) DEFAULT '',
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `direccion_usuario` (
   CONSTRAINT `fk_direccion_usuario_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.direccion_usuario: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.direccion_usuario: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `direccion_usuario` DISABLE KEYS */;
 REPLACE INTO `direccion_usuario` (`id`, `id_tipo_via_1`, `id_tipo_via_2`, `id_prefijo_num_via`, `id_complemento_via`, `id_prefijo_compl_via`, `id_prefijo_cardinal`, `id_prefijo_placa_1`, `id_complemento_placa`, `id_prefijo_compl_placa`, `id_prefijo_cardinal_placa`, `id_tipo_ubicacion`, `id_tipo_residencia`, `id_prefijo_ubicacion`, `num_placa_1`, `num_placa_2`, `num_via`, `num_residencia`, `num_prefijo_ubicacion`, `nombre_ubicacion`, `datos_adicionales`) VALUES
 	(1, 2, NULL, 14, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, 40, NULL, '41', '9', '2', 301, NULL, '', '');
@@ -128,11 +128,12 @@ CREATE TABLE IF NOT EXISTS `espacio_academico` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.espacio_academico: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.espacio_academico: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `espacio_academico` DISABLE KEYS */;
 REPLACE INTO `espacio_academico` (`id`, `espacio_academico`) VALUES
 	(1, 'N/A'),
-	(2020, 'Topografía');
+	(2020, 'Topografía'),
+	(2434, 'Vulnerabilidad y riesgos');
 /*!40000 ALTER TABLE `espacio_academico` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.estado
@@ -148,6 +149,45 @@ REPLACE INTO `estado` (`id`, `estado`) VALUES
 	(1, 'Activo'),
 	(2, 'Inactivo');
 /*!40000 ALTER TABLE `estado` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.estudiantes_solicitud_practica
+CREATE TABLE IF NOT EXISTS `estudiantes_solicitud_practica` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `num_identificacion` bigint(20) NOT NULL,
+  `id_tipo_identificacion` int(11) NOT NULL DEFAULT '0',
+  `id_solicitud_practica` int(11) NOT NULL DEFAULT '0',
+  `nombres` varchar(50) NOT NULL DEFAULT '0',
+  `apellidos` varchar(50) NOT NULL DEFAULT '0',
+  `fecha_nacimiento` date NOT NULL,
+  `eps` varchar(50) NOT NULL DEFAULT '0',
+  `email` varchar(255) NOT NULL DEFAULT '0',
+  `aprob_terminos_condiciones` bit(1) NOT NULL DEFAULT b'0',
+  `verificacion_asistencia` bit(1) NOT NULL DEFAULT b'0',
+  `permiso_padres` varbinary(8000) NOT NULL DEFAULT 'b''0''',
+  PRIMARY KEY (`id`),
+  KEY `fk_estudiantes_solicitud_practica_tipo_identificacion_idx` (`id_tipo_identificacion`),
+  KEY `fk_estudiantes_solicitud_practica_solicitud_practica_idx` (`id_solicitud_practica`),
+  CONSTRAINT `fk_estudiantes_solicitud_practica_solicitud_practica` FOREIGN KEY (`id_solicitud_practica`) REFERENCES `solicitud_practica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_estudiantes_solicitud_practica_tipo_identificacion` FOREIGN KEY (`id_tipo_identificacion`) REFERENCES `tipo_identificacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.estudiantes_solicitud_practica: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `estudiantes_solicitud_practica` DISABLE KEYS */;
+/*!40000 ALTER TABLE `estudiantes_solicitud_practica` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.herramientas_equipos_practica
+CREATE TABLE IF NOT EXISTS `herramientas_equipos_practica` (
+  `id` int(11) NOT NULL,
+  `nombre_elemento` varchar(50) NOT NULL DEFAULT '',
+  `id_solicitud_practica` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_herramientas_equipos_solicitud_practica_idx` (`id_solicitud_practica`),
+  CONSTRAINT `fk_herramientas_equipos_solicitud_practica` FOREIGN KEY (`id_solicitud_practica`) REFERENCES `solicitud_practica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.herramientas_equipos_practica: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `herramientas_equipos_practica` DISABLE KEYS */;
+/*!40000 ALTER TABLE `herramientas_equipos_practica` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
@@ -239,18 +279,91 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
--- Volcando estructura para tabla practicampo.proyeccion
-CREATE TABLE IF NOT EXISTS `proyeccion` (
+-- Volcando estructura para tabla practicampo.periodo_academico
+CREATE TABLE IF NOT EXISTS `periodo_academico` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_proyeccion` varchar(255) NOT NULL,
+  `periodo_academico` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.proyeccion: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `proyeccion` DISABLE KEYS */;
-REPLACE INTO `proyeccion` (`id`, `nombre_proyeccion`) VALUES
-	(1, 'Bogota-Girardot');
-/*!40000 ALTER TABLE `proyeccion` ENABLE KEYS */;
+-- Volcando datos para la tabla practicampo.periodo_academico: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `periodo_academico` DISABLE KEYS */;
+REPLACE INTO `periodo_academico` (`id`, `periodo_academico`) VALUES
+	(1, 'I'),
+	(2, 'II'),
+	(3, 'III');
+/*!40000 ALTER TABLE `periodo_academico` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.proyeccion_preliminar
+CREATE TABLE IF NOT EXISTS `proyeccion_preliminar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_tipo_transporte` int(11) DEFAULT NULL,
+  `id_proyecto_curricular` int(11) DEFAULT NULL,
+  `id_docente_responsable` bigint(20) DEFAULT NULL,
+  `id_espacio_academico` int(11) DEFAULT NULL,
+  `id_peridodo_academico` int(11) DEFAULT NULL,
+  `id_semestre_asignatura` int(11) DEFAULT NULL,
+  `id_tipo_zona_transitar` int(11) DEFAULT NULL,
+  `ruta_principal` varchar(255) DEFAULT NULL,
+  `ruta_alterna` varchar(255) DEFAULT NULL,
+  `lugar_salida` varchar(255) DEFAULT NULL,
+  `lugar_regreso` varchar(255) DEFAULT NULL,
+  `fecha_salida_aprox` date DEFAULT NULL,
+  `fecha_regreso_aprox` date DEFAULT NULL,
+  `num_estudiantes_aprox` int(11) DEFAULT NULL,
+  `num_acompaniantes` int(11) DEFAULT NULL,
+  `observ_coordinador` varchar(8000) DEFAULT NULL,
+  `observ_decano` varchar(8000) DEFAULT NULL,
+  `det_recorrido_interno` varchar(8000) DEFAULT NULL,
+  `det_tipo_transporte` varchar(50) DEFAULT NULL,
+  `num_paradas_trayecto` int(11) DEFAULT NULL,
+  `grupo_1` int(11) DEFAULT NULL,
+  `grupo_2` int(11) DEFAULT NULL,
+  `grupo_3` int(11) DEFAULT NULL,
+  `grupo_4` int(11) DEFAULT NULL,
+  `duracion_num_dias` int(11) DEFAULT NULL,
+  `viaticos_estudiantes` int(11) DEFAULT NULL,
+  `viaticos_docente` int(11) DEFAULT NULL,
+  `costo_total_transporte` int(11) DEFAULT NULL,
+  `cant_transporte` int(11) DEFAULT NULL,
+  `capac_transporte` int(11) DEFAULT NULL,
+  `exclusiv_tiempo` bit(1) DEFAULT NULL,
+  `aprobacion_coordinador` bit(1) DEFAULT NULL,
+  `aprobacion_decano` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_proyeccion_preliminar_users_idx` (`id_docente_responsable`),
+  KEY `fk_proyeccion_preliminar_espacio_academico_idx` (`id_espacio_academico`),
+  KEY `fk_proyeccion_preliminar_tipo_transporte_idx` (`id_tipo_transporte`),
+  KEY `fk_proyeccion_preliminar_proyecto_curricular_idx` (`id_proyecto_curricular`),
+  KEY `fk_proyeccion_preliminar_periodo_academico_idx` (`id_peridodo_academico`),
+  KEY `fk_proyeccion_preliminar_semestre_asignatura_idx` (`id_semestre_asignatura`),
+  KEY `fk_proyeccion_preliminar_tipo_zona_transitar_idx` (`id_tipo_zona_transitar`),
+  CONSTRAINT `fk_proyeccion_preliminar_espacio_academico` FOREIGN KEY (`id_espacio_academico`) REFERENCES `espacio_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyeccion_preliminar_periodo_academico` FOREIGN KEY (`id_peridodo_academico`) REFERENCES `periodo_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyeccion_preliminar_proyecto_curricular` FOREIGN KEY (`id_proyecto_curricular`) REFERENCES `proyecto_curricular` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyeccion_preliminar_semestre_asignatura` FOREIGN KEY (`id_semestre_asignatura`) REFERENCES `semestre_asignatura` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyeccion_preliminar_tipo_transporte` FOREIGN KEY (`id_tipo_transporte`) REFERENCES `tipo_transporte` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyeccion_preliminar_tipo_zona_transitar` FOREIGN KEY (`id_tipo_zona_transitar`) REFERENCES `tipo_zona_transitar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyeccion_preliminar_users` FOREIGN KEY (`id_docente_responsable`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.proyeccion_preliminar: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `proyeccion_preliminar` DISABLE KEYS */;
+/*!40000 ALTER TABLE `proyeccion_preliminar` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.proyecto_curricular
+CREATE TABLE IF NOT EXISTS `proyecto_curricular` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proyecto_curricular` varchar(70) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.proyecto_curricular: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `proyecto_curricular` DISABLE KEYS */;
+REPLACE INTO `proyecto_curricular` (`id`, `proyecto_curricular`) VALUES
+	(1, 'Administración Ambiental'),
+	(2, 'Ingeniería Forestal');
+/*!40000 ALTER TABLE `proyecto_curricular` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.roles
 CREATE TABLE IF NOT EXISTS `roles` (
@@ -270,6 +383,66 @@ REPLACE INTO `roles` (`id`, `role`) VALUES
 	(6, 'Transportador');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
+-- Volcando estructura para tabla practicampo.semestre_asignatura
+CREATE TABLE IF NOT EXISTS `semestre_asignatura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `semestre_asignatura` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.semestre_asignatura: ~10 rows (aproximadamente)
+/*!40000 ALTER TABLE `semestre_asignatura` DISABLE KEYS */;
+REPLACE INTO `semestre_asignatura` (`id`, `semestre_asignatura`) VALUES
+	(1, 'I'),
+	(2, 'II'),
+	(3, 'III'),
+	(4, 'IV'),
+	(5, 'V'),
+	(6, 'VI'),
+	(7, 'VII'),
+	(8, 'VIII'),
+	(9, 'IX'),
+	(10, 'X');
+/*!40000 ALTER TABLE `semestre_asignatura` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.solicitud_practica
+CREATE TABLE IF NOT EXISTS `solicitud_practica` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_proyeccion_preliminar` int(11) DEFAULT NULL,
+  `id_estado_solicitud_practica` int(11) DEFAULT NULL,
+  `fecha_salida` date DEFAULT NULL,
+  `fecha_regreso` date DEFAULT NULL,
+  `num_estudiantes` int(11) DEFAULT '0',
+  `num_acompaniantes` int(11) DEFAULT '0',
+  `lugar_salida` varchar(50) DEFAULT NULL,
+  `lugar_regreso` varchar(50) DEFAULT NULL,
+  `nombre_conductor` varchar(255) DEFAULT NULL,
+  `celular_conductor` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_solicitud_practica_proyeccion_preliminar_idx` (`id_proyeccion_preliminar`),
+  KEY `fk_solicitud_practica_estado_idx` (`id_estado_solicitud_practica`),
+  CONSTRAINT `fk_solicitud_practica_estado` FOREIGN KEY (`id_estado_solicitud_practica`) REFERENCES `estado` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_solicitud_practica_proyeccion_preliminar` FOREIGN KEY (`id_proyeccion_preliminar`) REFERENCES `proyeccion_preliminar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.solicitud_practica: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `solicitud_practica` DISABLE KEYS */;
+/*!40000 ALTER TABLE `solicitud_practica` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.tipo_certificacion
+CREATE TABLE IF NOT EXISTS `tipo_certificacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_certificacion` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.tipo_certificacion: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipo_certificacion` DISABLE KEYS */;
+REPLACE INTO `tipo_certificacion` (`id`, `tipo_certificacion`) VALUES
+	(1, 'Constancia salida'),
+	(2, 'Constancia asistencia');
+/*!40000 ALTER TABLE `tipo_certificacion` ENABLE KEYS */;
+
 -- Volcando estructura para tabla practicampo.tipo_identificacion
 CREATE TABLE IF NOT EXISTS `tipo_identificacion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -285,6 +458,36 @@ REPLACE INTO `tipo_identificacion` (`id`, `tipo_identificacion`, `sigla`) VALUES
 	(2, 'Cédula de Extranjería', 'C.E'),
 	(3, 'Pasaporte', 'PAS');
 /*!40000 ALTER TABLE `tipo_identificacion` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.tipo_transporte
+CREATE TABLE IF NOT EXISTS `tipo_transporte` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_transporte` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.tipo_transporte: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipo_transporte` DISABLE KEYS */;
+REPLACE INTO `tipo_transporte` (`id`, `tipo_transporte`) VALUES
+	(1, 'Bus'),
+	(2, 'Buseta'),
+	(3, 'Camioneta');
+/*!40000 ALTER TABLE `tipo_transporte` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.tipo_zona_transitar
+CREATE TABLE IF NOT EXISTS `tipo_zona_transitar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_zona` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.tipo_zona_transitar: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipo_zona_transitar` DISABLE KEYS */;
+REPLACE INTO `tipo_zona_transitar` (`id`, `tipo_zona`) VALUES
+	(1, 'Rural'),
+	(2, 'Urbana'),
+	(3, 'Rural - Urbana');
+/*!40000 ALTER TABLE `tipo_zona_transitar` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.users
 CREATE TABLE IF NOT EXISTS `users` (
