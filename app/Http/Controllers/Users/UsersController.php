@@ -49,24 +49,7 @@ class UsersController extends Controller
         return view('auth.index',["usuarios"=>$usuarios, 'filter'=>$filter]);
     }
 
-    // public function filterUser($filter)
-    // {
-    //     switch($filter)
-    //     {
-    //         case 'act':
-    //             $usuarios = User::where('id_estado','=', '1')->paginate(10);
-    //             break;
-    //         case 'inac':
-    //             $usuarios = User::where('id_estado','=', '2')->paginate(10);
-    //             break;
-    //         case 'all':
-    //             $usuarios = User::orderBy('primer_apellido','DESC')->paginate(10);
-    //             break;
-    //         default;
-    //     }
-
-    //     return view('auth.index',['usuarios'=>$usuarios, 'filter'=>$filter]);
-    // }
+    
 
     /**
      * Show the form for creating a new resource.

@@ -35,8 +35,9 @@ class User extends Authenticatable
         'segundo_nombre',
         'primer_apellido',
         'segundo_apellido',
+        'telefono',
         'celular',
-        'dirección_residencia',
+        'direccion_residencia',
         
     ];
 

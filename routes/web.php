@@ -32,7 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
         // Registration Routes...
         if ($options['register'] ?? true) {
             Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-            // Route::post('register', 'Auth\RegisterController@register');
+            Route::post('register', 'Auth\RegisterController@register');
+            Route::post('register/dirCompleta', 'Auth\RegisterController@completarDireccion')->name('dirCompleta');
         }
 
 
@@ -41,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('users/{id}','Users\UsersController@update')->name('users_update');
 
         Route::get('users/filtrar/{id}','Users\UsersController@filterUser')->name('users_filter');
-        Route::get('users/activos','Users\UsersController@verActivo')->name('users_activos');
+        Route::get('users/activos','Users\UsersController@verActivo')->name('users_activos');       
         Route::get('users/inactivos','Users\UsersController@verInactivo')->name('users_inactivos');
 
         

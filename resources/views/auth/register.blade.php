@@ -1,11 +1,3 @@
-<?php 
-    if(isset($_POST['submit']))
-    {
-        $espacios_academicos = $_POST['id_espacio_academico_'];
-        print '<pre>'; print_r($espacios_academicos);print '</pre>';
-    }
-?>
-
 <!-- HTML HEAD -->
 @extends('layouts.app')
 <!-- end HTML HEAD -->
@@ -105,7 +97,7 @@
                                 <div class="col-md-3">
                                     <label for="num_identificacion" class="col-form-label text-md-right">{{ __('N° Identificación') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <input id="num_identificacion"  class="form-control @error('num_identificacion') is-invalid @enderror" name="num_identificacion" value="{{ old('num_identificacion') }}" required autocomplete="num_identificacion" autofocus>
+                                    <input id="num_identificacion"  class="form-control @error('num_identificacion') is-invalid @enderror" name="num_identificacion" value="{{ old('num_identificacion') }}" required autocomplete="off" autofocus>
     
                                     @error('num_identificacion')
                                         <span class="invalid-feedback" role="alert">
@@ -130,7 +122,7 @@
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Vía') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <select name="id_tipo_via_1" class="form-control" required onchange="direccionCompleta();">
+                                    <select name="id_tipo_via_1" class="form-control" required onchange="completarDireccion(this.value, $('#num_via').val())">
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura==1)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -148,7 +140,7 @@
                                     <label for="" class="col-form-label text-md-right">{{ __('N° Vía') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <input id="num_via"  class="form-control @error('num_via') is-invalid @enderror" name="num_via" value="{{ old('num_via') }}" required autocomplete="num_via" autofocus
-                                    onchange="direccionCompleta();">
+                                    onchange="completarDireccion($('#id_tipo_via_1').val(), this.value)">
     
                                     @error('num_via')
                                     <span class="invalid-feedback" role="alert">
@@ -175,7 +167,7 @@
 
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_complemento_via" class="form-control" required>
+                                    <select name="id_complemento_via" class="form-control" required onchange="completarDireccion()">
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura==4 || $nom->id_elemento_nomenclatura===9)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -191,7 +183,7 @@
 
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_prefijo_compl_via" class="form-control" required>
+                                    <select name="id_prefijo_compl_via" class="form-control" required onchange="completarDireccion(this.value, 'id_prefijo_compl_via')">
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura===5 || $nom->id_elemento_nomenclatura===9)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -210,7 +202,7 @@
                                     <label for="" class="col-form-label text-md-right" >{{ __('Num.1') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <input id="num_placa_1"  class="form-control @error('num_placa_1') is-invalid @enderror" name="num_placa_1" value="{{ old('num_placa_1') }}" required autocomplete="num_placa_1" autofocus
-                                    onchange="direccionCompleta()">
+                                    onchange="completarDireccion(this.value, 'num_placa_1')">
                                     
                                     @error('num_placa_1')
                                     <span class="invalid-feedback" role="alert">
@@ -223,7 +215,8 @@
                                     <label for="" class="col-form-label text-md-right">{{ __('-') }}</label>
                                     <label for="" class="col-form-label text-md-right">{{ __('Num.2') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <input id="num_placa_2"  class="form-control @error('num_placa_2') is-invalid @enderror" name="num_placa_2" value="{{ old('num_placa_2') }}" required autocomplete="num_placa_2" autofocus>
+                                    <input id="num_placa_2"  class="form-control @error('num_placa_2') is-invalid @enderror" name="num_placa_2" value="{{ old('num_placa_2') }}" required autocomplete="num_placa_2" autofocus
+                                    onchange="completarDireccion(this.value, 'num_placa_2')">
                                     
                                     @error('num_placa_2')
                                     <span class="invalid-feedback" role="alert">
@@ -237,7 +230,7 @@
                             <div class="form-group row">
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Interior') }}</label>
-                                    <select name="id_tipo_residencia" class="form-control" required>
+                                    <select name="id_tipo_residencia" class="form-control" required onchange="completarDireccion(this.value, 'id_tipo_residencia')">
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura===7 || $nom->id_elemento_nomenclatura===9)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -253,7 +246,8 @@
                                 
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Det. Interior') }}</label>
-                                    <input id="datos_adicionales"  class="form-control @error('datos_adicionales') is-invalid @enderror" name="celular" value="{{ old('datos_adicionales') }}" required autocomplete="datos_adicionales" autofocus>
+                                    <input id="datos_adicionales"  class="form-control @error('datos_adicionales') is-invalid @enderror" name="datos_adicionales" value="{{ old('datos_adicionales') }}" required autocomplete="datos_adicionales" autofocus
+                                    onchange="completarDireccion(this.value, 'datos_adicionales')">
     
                                     @error('datos_adicionales')
                                         <span class="invalid-feedback" role="alert">
@@ -263,16 +257,16 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                        <label for="" class="col-form-label text-md-right">{{ __('Dirección Completa') }}</label>
-                                        <input id="direccion_residencia"  class="form-control @error('direccion_residencia') is-invalid @enderror" name="direccion_residencia" value="{{ old('direccion_residencia') }}" required autocomplete="direccion_residencia" autofocus
-                                        readonly>
-        
-                                        @error('direccion_residencia')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    <label for="" class="col-form-label text-md-right">{{ __('Dirección Completa') }}</label>
+                                    <input id="direccion_residencia"  class="form-control @error('direccion_residencia') is-invalid @enderror" name="direccion_residencia" value="{{ old('direccion_residencia') }}" required autofocus
+                                    readonly>
+    
+                                    @error('direccion_residencia')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="form-group row">
@@ -280,20 +274,17 @@
                                 <div class="col-md-6">
                                     <label for="email" class="col-form-label text-md-right">{{ __('Correo Electrónico Institucional') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off"
                                     onchange="obtenerUsuario(this.value);">
-    
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-
                                 <div class="col-md-2">
                                     <label for="telefono" class="col-form-label text-md-right">{{ __('Teléfono') }}</label>
-                                    <input id="telefono"  class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required autocomplete="telefono" autofocus>
-    
+                                    <input id="telefono"  class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required autocomplete="off">
                                     @error('telefono')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -304,16 +295,22 @@
                                 <div class="col-md-2">
                                     <label for="celular" class="col-form-label text-md-right">{{ __('Celular') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <input id="celular"  class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required autocomplete="celular" autofocus>
-    
+                                    <input id="celular" class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required autocomplete="off">
+                                    
                                     @error('celular')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
+
+                                <div class="col-md-2">
+                                    <input id="celular" style="color:transparent;display:none" class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required autocomplete="off">
+                                    
+                                </div>
+
                             </div>
-                            
+
                             <br>
                             <h4>Información Cuenta</h4>
                             <hr class="divider">
@@ -380,6 +377,7 @@
                                         </select>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="form-group row">
@@ -387,7 +385,7 @@
                                 <div class="col-md-3">
                                     <label for="password" class="col-form-label text-md-right">{{ __('Contaseña') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="nope">
     
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -399,11 +397,11 @@
                                 <div class="col-md-3">
                                     <label for="password-confirm" class="col-form-label text-md-right">{{ __('Confirmar Constraseña') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="nope">
                                 </div>
 
                             </div>
-    
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-5 offset-md-5">
                                     <br>
@@ -420,5 +418,3 @@
         </div>
         
     @endsection   
-
-
