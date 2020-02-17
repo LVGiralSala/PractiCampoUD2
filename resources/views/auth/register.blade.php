@@ -23,6 +23,7 @@
 
                             <div class="form-group row">
                                 {{-- <div class="col-md-1"></div> --}}
+
                                 
                                 <div class="col-md-3">
                                     <label for="primer_nombre" class="col-form-label text-md-left">{{ __('Primer Nombre') }}</label>
@@ -122,7 +123,7 @@
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Vía') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <select name="id_tipo_via_1" class="form-control" required onchange="completarDireccion(this.value, $('#num_via').val())">
+                                    <select name="id_tipo_via_1" class="form-control" id="id_tipo_via_1" required>
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura==1)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -140,7 +141,7 @@
                                     <label for="" class="col-form-label text-md-right">{{ __('N° Vía') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <input id="num_via"  class="form-control @error('num_via') is-invalid @enderror" name="num_via" value="{{ old('num_via') }}" required autocomplete="num_via" autofocus
-                                    onchange="completarDireccion($('#id_tipo_via_1').val(), this.value)">
+                                    >
     
                                     @error('num_via')
                                     <span class="invalid-feedback" role="alert">
@@ -167,7 +168,7 @@
 
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_complemento_via" class="form-control" required onchange="completarDireccion()">
+                                    <select name="id_complemento_via" class="form-control" required >
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura==4 || $nom->id_elemento_nomenclatura===9)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -183,7 +184,7 @@
 
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_prefijo_compl_via" class="form-control" required onchange="completarDireccion(this.value, 'id_prefijo_compl_via')">
+                                    <select name="id_prefijo_compl_via" class="form-control" required >
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura===5 || $nom->id_elemento_nomenclatura===9)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -202,7 +203,7 @@
                                     <label for="" class="col-form-label text-md-right" >{{ __('Num.1') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <input id="num_placa_1"  class="form-control @error('num_placa_1') is-invalid @enderror" name="num_placa_1" value="{{ old('num_placa_1') }}" required autocomplete="num_placa_1" autofocus
-                                    onchange="completarDireccion(this.value, 'num_placa_1')">
+                                    >
                                     
                                     @error('num_placa_1')
                                     <span class="invalid-feedback" role="alert">
@@ -216,7 +217,7 @@
                                     <label for="" class="col-form-label text-md-right">{{ __('Num.2') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <input id="num_placa_2"  class="form-control @error('num_placa_2') is-invalid @enderror" name="num_placa_2" value="{{ old('num_placa_2') }}" required autocomplete="num_placa_2" autofocus
-                                    onchange="completarDireccion(this.value, 'num_placa_2')">
+                                    >
                                     
                                     @error('num_placa_2')
                                     <span class="invalid-feedback" role="alert">
@@ -230,7 +231,7 @@
                             <div class="form-group row">
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Interior') }}</label>
-                                    <select name="id_tipo_residencia" class="form-control" required onchange="completarDireccion(this.value, 'id_tipo_residencia')">
+                                    <select name="id_tipo_residencia" class="form-control" required >
                                         @foreach($nomenclaturas_urbanas as $nom)
                                             @if($nom->id_elemento_nomenclatura===7 || $nom->id_elemento_nomenclatura===9)
                                                 <option value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
@@ -246,8 +247,8 @@
                                 
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Det. Interior') }}</label>
-                                    <input id="datos_adicionales"  class="form-control @error('datos_adicionales') is-invalid @enderror" name="datos_adicionales" value="{{ old('datos_adicionales') }}" required autocomplete="datos_adicionales" autofocus
-                                    onchange="completarDireccion(this.value, 'datos_adicionales')">
+                                    <input id="datos_adicionales"  class="form-control @error('datos_adicionales') is-invalid @enderror" name="datos_adicionales" value="{{ old('datos_adicionales') }}" autocomplete="datos_adicionales" autofocus
+                                    >
     
                                     @error('datos_adicionales')
                                         <span class="invalid-feedback" role="alert">
@@ -256,7 +257,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <label for="" class="col-form-label text-md-right">{{ __('Dirección Completa') }}</label>
                                     <input id="direccion_residencia"  class="form-control @error('direccion_residencia') is-invalid @enderror" name="direccion_residencia" value="{{ old('direccion_residencia') }}" required autofocus
                                     readonly>
@@ -266,7 +267,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="form-group row">
@@ -305,7 +306,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input id="celular" style="color:transparent;display:none" class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required autocomplete="off">
+                                    <input id="cr" style="color:transparent;display:none" class="form-control" name="cr" autocomplete="off">
                                     
                                 </div>
 
@@ -319,7 +320,7 @@
                             <div class="form-group row">
 
                                 {{-- <div class="col-md-1"></div> --}}
-
+                                
                                 <div class="col-md-3">
                                     <label for="usuario" class="col-form-label text-md-left">{{ __('Usuario') }}</label>
                                     {{-- <span class="hs-form-required">*</span> --}}

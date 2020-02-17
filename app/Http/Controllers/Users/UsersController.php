@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use PractiCampoUD\User;
 use DB;
+use PractiCampoUD\direccion_usuario;
 
 class UsersController extends Controller
 {
@@ -16,7 +17,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    protected function filterUser($filter)
+    public function filterUser($filter)
     {
         switch($filter)
         {
@@ -92,14 +93,22 @@ class UsersController extends Controller
     public function edit($id)
     {
         $usuario=User::find($id);
+        $direccion_usuario=direccion_usuario::find($id);
         $tipo_identificacion=DB::table('tipo_identificacion')->get();
         $tipo_usuario=DB::table('roles')->get();
         $categoria=DB::table('categoria')->get();
+        $espacio_academico=DB::table('espacio_academico')->get();
+        $nomenclatura_urbana=DB::table('nomenclatura_urbana')->get();
+        $elemento_nomenclatura=DB::table('elemento_nomenclatura')->get();
 
         return view('auth.edit', [ "usuario"=>$usuario,
+                                   "direccion_usuario"=>$direccion_usuario,
                                    "tipos_identificaciones"=>$tipo_identificacion,
                                    "tipos_usuarios"=>$tipo_usuario,
-                                   "categorias"=>$categoria
+                                   "categorias"=>$categoria,
+                                   "espacios_academicos"=>$espacio_academico,
+                                   "nomenclaturas_urbanas"=>$nomenclatura_urbana,
+                                   "elementos_nomenclaturas"=>$elemento_nomenclatura,
                                    ]);
     }
 
@@ -114,6 +123,7 @@ class UsersController extends Controller
     {
         $mytime=Carbon::now('America/Bogota');
         $usuario=User::where('id', '=', $id)->first();
+        $usuario->id_estado=$request->get('id_estado');
         $usuario->usuario=$request->get('usuario');
         $usuario->primer_nombre=$request->get('primer_nombre');
         $usuario->segundo_nombre=$request->get('segundo_nombre');
@@ -126,9 +136,21 @@ class UsersController extends Controller
         $usuario->email=$request->get('email');
         $usuario->updated_at=$mytime->toDateString();
 
-        $usuario->update();
+        $direccion_usuario = direccion_usuario::where('id','=', $id)->first();
+        $direccion_usuario->id_tipo_via_1=$request->get('id_tipo_via_1');
+        $direccion_usuario->num_via=$request->get('num_via');
+        $direccion_usuario->id_complemento_via=$request->get('id_complemento_via');
+        $direccion_usuario->id_prefijo_compl_via=$request->get('id_prefijo_compl_via');
+        $direccion_usuario->num_placa_1=$request->get('num_placa_1');
+        $direccion_usuario->num_placa_2=$request->get('num_placa_2');
+        $direccion_usuario->id_tipo_residencia=$request->get('id_tipo_residencia');
+        $direccion_usuario->datos_adicionales=$request->get('datos_adicionales');
+        $direccion_usuario->updated_at=$mytime->toDateString();
 
-        return Redirect::to('users')->with('success', 'Actualización exitosa');
+        $usuario->update();
+        $direccion_usuario->update();
+
+        return Redirect::to('users/filtrar/all')->with('success', 'Actualización exitosa');
     }
 
     /**

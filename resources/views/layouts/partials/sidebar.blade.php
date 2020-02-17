@@ -33,6 +33,7 @@
         <hr class="sidebar-divider">
         
         @endif
+
         <!-- Heading -->
         <div class="sidebar-heading">
           MÓDULOS

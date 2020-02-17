@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Admin Routes
     Route::get('/home', 'HomeController@index')->name('home');
     
-    Route::group(['middleware' => 'admin'], function () {
+    Route::group(['middleware' => 'admin','decano','asistD'], function () {
         // Registration Routes...
         if ($options['register'] ?? true) {
             Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');

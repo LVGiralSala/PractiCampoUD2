@@ -63,6 +63,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \PractiCampoUD\Http\Middleware\Admin::class,
         'docente' => \PractiCampoUD\Http\Middleware\Docente::class,
+        'coord' => \PractiCampoUD\Http\Middleware\Coord::class,
+        'asistD' => \PractiCampoUD\Http\Middleware\AsistD::class,
+        'decano' => \PractiCampoUD\Http\Middleware\Decano::class,
+        'transport' => \PractiCampoUD\Http\Middleware\Transportador::class,
         // 'user' =>\PractiCampoUD\Http\Middleware\User::class,
     ];
 
