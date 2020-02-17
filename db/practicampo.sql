@@ -510,6 +510,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id_espacio_academico_4` int(11) DEFAULT NULL,
   `id_espacio_academico_5` int(11) DEFAULT NULL,
   `id_espacio_academico_6` int(11) DEFAULT NULL,
+  `usuario` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `primer_nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `segundo_nombre` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `primer_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -517,7 +518,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `direccion_residencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `celular` bigint(20) NOT NULL,
   `telefono` bigint(20) DEFAULT NULL,
-  `usuario` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -552,14 +552,14 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Volcando datos para la tabla practicampo.users: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion_residencia`, `celular`, `telefono`, `usuario`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, 8, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'Luisa', NULL, 'Garcia', 'Lopez', '', 3195693569, NULL, 'LV32', 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', '2lXiUYP569PJxKSwih7QY4mJ9XS5W6sE2bmsoFhGolrNXvWTMrpuxDOZOO07', '2020-01-17 01:40:42', '2020-02-17 03:18:50'),
-	(8652348, 5, 1, 3, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'Cesar', NULL, 'Rivera', 'Gomez', 'Avenida 98 Bis Este # 41B - 36 APTO 502', 3015698745, 5684512, 'criverag', 'criverag@udistrital.edu.co', NULL, '$2y$10$TL8M9LS8chslOqiMS.aMC.IXnF6L6ZkfVeM3.G6Ecj085Zz3LX7fa', NULL, '2020-02-16 23:36:34', '2020-02-16 23:36:34'),
-	(30569841, 4, 1, 8, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'Jairo', NULL, 'Posada', 'Martinez', 'Carrera 26 - Este # 23 - 01 APTO 102', 3152695487, 3216956, 'jposadam', 'jposadam@udistrital.edu.co', NULL, '$2y$10$OmDRQEUkm6I/PtOfk56jFuLd6WbQlyRn27wmkEkOmDwYaqgCa.RIG', NULL, '2020-02-16 23:38:34', '2020-02-16 23:38:34'),
-	(85365213, 6, 1, 13, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'Jose', 'Luis', 'Quintero', 'Zuluaga', 'Avenida 32 Bis Este # 45 - 23 PI 2', 3152369563, 5489632, 'josequintero', 'josequintero@gmail.com', NULL, '$2y$10$BA.5BTwcUjHnmzMmsDRiTO75kYbWntQdnduUH2Jah.9WxTBdZu6aK', NULL, '2020-02-16 23:46:10', '2020-02-16 23:46:10'),
-	(310698563, 2, 1, 8, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'Freddy', NULL, 'Ussa', 'Rodriguez', 'Transversal 45 Bis Norte # 23 - 89 APTO 405', 3156984569, 4523698, 'fussar', 'fussar@udistrital.edu.co', NULL, '$2y$10$r.oFd571jYk5PM4ycnfnr.OP1mV5HocwmN9z9Flt69qjeWnO6wRbi', NULL, '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
-	(659863256, 3, 1, 4, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'Alejandro', NULL, 'Rojas', 'Castro', 'Diagonal 36 Bis Sur # 12C - 41 PI 3', 32569874536, 5632121, 'arojasc', 'arojasc@udistrital.edu.co', NULL, '$2y$10$zX5X9sIdU6OgWDABgq7G2uQKji/mGgZSIi0TfZpMzUn4zbKv2S1be', NULL, '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
-	(1038410523, 1, 1, 8, 1, 2020, NULL, NULL, NULL, NULL, NULL, 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 'Calle 2D - - # 41A - 09 PI 3', 3107964434, 4125679, 'lvgiraldos', 'lvgiraldos@udistrital.edu.co', NULL, '$2y$10$V/4DkEVqMJNNXiHyUY42sOqTSRHtfhJAoOViAeoVxzbFwvj72ELg.', NULL, '2020-02-16 23:34:35', '2020-02-16 23:34:35');
+REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion_residencia`, `celular`, `telefono`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, 8, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'LV32', 'Luisa', NULL, 'Garcia', 'Lopez', '', 3195693569, NULL, 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', '5kpGcRawaRWUUETw50pXTSKvDBmAPWCHWdCgOfBPMAx2SVJjzI9R0ddAQAYg', '2020-01-17 01:40:42', '2020-02-17 03:18:50'),
+	(8652348, 5, 1, 3, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'criverag', 'Cesar', NULL, 'Rivera', 'Gomez', 'Avenida 98 Bis Este # 41B - 36 APTO 502', 3015698745, 5684512, 'criverag@udistrital.edu.co', NULL, '$2y$10$TL8M9LS8chslOqiMS.aMC.IXnF6L6ZkfVeM3.G6Ecj085Zz3LX7fa', NULL, '2020-02-16 23:36:34', '2020-02-16 23:36:34'),
+	(30569841, 4, 1, 8, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'jposadam', 'Jairo', NULL, 'Posada', 'Martinez', 'Carrera 26 - Este # 23 - 01 APTO 102', 3152695487, 3216956, 'jposadam@udistrital.edu.co', NULL, '$2y$10$OmDRQEUkm6I/PtOfk56jFuLd6WbQlyRn27wmkEkOmDwYaqgCa.RIG', NULL, '2020-02-16 23:38:34', '2020-02-16 23:38:34'),
+	(85365213, 6, 1, 13, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'josequintero', 'Jose', 'Luis', 'Quintero', 'Zuluaga', 'Avenida 32 Bis Este # 45 - 23 PI 2', 3152369563, 5489632, 'josequintero@gmail.com', NULL, '$2y$10$BA.5BTwcUjHnmzMmsDRiTO75kYbWntQdnduUH2Jah.9WxTBdZu6aK', NULL, '2020-02-16 23:46:10', '2020-02-16 23:46:10'),
+	(310698563, 2, 1, 8, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'fussar', 'Freddy', NULL, 'Ussa', 'Rodriguez', 'Transversal 45 Bis Norte # 23 - 89 APTO 405', 3156984569, 4523698, 'fussar@udistrital.edu.co', NULL, '$2y$10$r.oFd571jYk5PM4ycnfnr.OP1mV5HocwmN9z9Flt69qjeWnO6wRbi', NULL, '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
+	(659863256, 3, 1, 4, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'arojasc', 'Alejandro', NULL, 'Rojas', 'Castro', 'Diagonal 36 Bis Sur # 12C - 41 PI 3', 32569874536, 5632121, 'arojasc@udistrital.edu.co', NULL, '$2y$10$zX5X9sIdU6OgWDABgq7G2uQKji/mGgZSIi0TfZpMzUn4zbKv2S1be', NULL, '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
+	(1038410523, 1, 1, 8, 1, 2020, NULL, NULL, NULL, NULL, NULL, 'lvgiraldos', 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 'Calle 2D - - # 41A - 09 PI 3', 3107964434, 4125679, 'lvgiraldos@udistrital.edu.co', NULL, '$2y$10$V/4DkEVqMJNNXiHyUY42sOqTSRHtfhJAoOViAeoVxzbFwvj72ELg.', NULL, '2020-02-16 23:34:35', '2020-02-16 23:34:35');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

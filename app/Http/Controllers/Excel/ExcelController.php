@@ -1,12 +1,13 @@
 <?php
 
-namespace PractiCampoUD\Http\Controllers\Solicitud;
+namespace PractiCampoUD\Http\Controllers\Excel;
 
-use Illuminate\Http\Request;
 use PractiCampoUD\Http\Controllers\Controller;
-use DB;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use PractiCampoUD\Exports\UsersExport;
 
-class SolicitudController extends Controller
+class ExcelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,7 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        $solicitudes=DB::table('solicitud_practica')->get();
-
-        return view('solicitudes.index',["solicitudes"=>$solicitudes]);
+        //
     }
 
     /**
@@ -84,5 +83,9 @@ class SolicitudController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportExcel(){
+        return Excel::download(new UsersExport,'naturales.xlsx');
     }
 }

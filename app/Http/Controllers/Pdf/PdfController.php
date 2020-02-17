@@ -1,12 +1,13 @@
 <?php
 
-namespace PractiCampoUD\Http\Controllers\Solicitud;
+namespace PractiCampoUD\Http\Controllers\Pdf;
 
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
+use PDF;
 use PractiCampoUD\Http\Controllers\Controller;
-use DB;
 
-class SolicitudController extends Controller
+class PdfController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,7 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        $solicitudes=DB::table('solicitud_practica')->get();
-
-        return view('solicitudes.index',["solicitudes"=>$solicitudes]);
+        //
     }
 
     /**
@@ -84,5 +83,26 @@ class SolicitudController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function generateHtml()
+    {
+        return view('prueba');
+    }
+
+    public function exportPdf()
+    {
+        $data = ['title' => 'Welcome to PractiCampoUD.com'];
+        $pdf = PDF::LoadView('prueba', $data);
+  
+        return $pdf->download('resolucion_proyeccion.pdf');
+    }
+
+    public function exportSolicitudPdf()
+    {
+        $data = ['title' => 'Welcome to PractiCampoUD.com'];
+        $pdf = PDF::LoadView('prueba', $data);
+  
+        return $pdf->download('resolucion_solicitud.pdf');
     }
 }

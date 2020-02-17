@@ -7,8 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use PractiCampoUD\User;
-use DB;
 use PractiCampoUD\direccion_usuario;
+use DB;
 
 class UsersController extends Controller
 {
@@ -163,4 +163,5 @@ class UsersController extends Controller
     {
         //
     }
+
 }

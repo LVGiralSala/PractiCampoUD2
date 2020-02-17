@@ -33,7 +33,7 @@
         <hr class="sidebar-divider">
         
         @endif
-
+        {{-- @elseif(Auth::user()->otros()) --}}
         <!-- Heading -->
         <div class="sidebar-heading">
           MÓDULOS
@@ -61,12 +61,13 @@
             </a>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Listar Solicitudes</a>
+                <a class="collapse-item" href="{{route('solicitud_index')}}">Listar Solicitudes</a>
                 <a class="collapse-item" href="">Nueva Solicitud</a>
               </div>
             </div>
           </li>
-  
+          
+        {{-- @else --}}
         <!-- Nav Item - Utilities Collapse Menu -->
         {{-- <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -84,7 +85,8 @@
           </div>
         </li> --}}
         
-        
+        {{-- @endif --}}
+
         <!-- Divider -->
         <hr class="sidebar-divider">
         

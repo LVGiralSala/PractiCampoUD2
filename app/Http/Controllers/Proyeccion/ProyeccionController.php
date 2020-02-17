@@ -17,7 +17,7 @@ class ProyeccionController extends Controller
      */
     public function index()
     {
-        $proyeccion=DB::table('proyeccion')->get();
+        $proyeccion=DB::table('proyeccion_preliminar')->get();
 
         return view('proyecciones.index',["proyecciones"=>$proyeccion]);
     }

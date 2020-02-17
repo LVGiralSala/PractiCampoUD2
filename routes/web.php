@@ -19,7 +19,11 @@ Route::get('/', function () {
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
+// Route::group(['middleware' => 'activo'], function () {
+
+    Route::post('login', 'Auth\LoginController@login'); 
+// });
+
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
@@ -45,16 +49,26 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/activos','Users\UsersController@verActivo')->name('users_activos');       
         Route::get('users/inactivos','Users\UsersController@verInactivo')->name('users_inactivos');
 
+        // Excel Routes
+        Route::get('users-list-excel','Excel\ExcelController@exportExcel')->name('list_users.excel');
         
     });
 
-    Route::group(['middleware'=>'admin','docente'], function (){
+    Route::group(['middleware'=>'otros'], function (){
 
+        // PDF Routes
+        Route::get('proyecciones_pdf-html','Pdf\PdfController@generateHtml')->name('proyeccion_preliminar.excel');
+        Route::get('proyecciones_pdf','Pdf\PdfController@exportPdf')->name('proyeccion_preliminar.pdf');
         Route::get('proyecciones','Proyeccion\ProyeccionController@index')->name('proyeccion_index');
+        Route::get('solicitudes_pdf','Pdf\PdfController@exportSolicitudPdf')->name('solicitud.pdf');
+        Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
+
+        // Route::get('proyecciones','Proyeccion\ProyeccionController@index')->name('proyeccion_index');
         Route::get('proyecciones/activas','Proyeccion\ProyeccionController@verActiva')->name('proyeccion_activa');
         Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
     });
     
+
         
 });
 

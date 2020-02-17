@@ -3,6 +3,7 @@
 
   
   <div class="container-fluid">
+      <div class="card-header">{{ __('Listado de Usuarios') }}</div>
     <div class="row">
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
           <div class="form-group">
@@ -48,6 +49,19 @@
                     </div>
 
                 </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+              
+          </div>
+
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+            <div class="form-group">
+              <label for=""></label>
+              <div class="row">
+                <a href="{{route('list_users.excel')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     XSL</button></a>
+              </div>
             </div>
           </div>
         </div>
