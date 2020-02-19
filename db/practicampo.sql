@@ -133,15 +133,16 @@ REPLACE INTO `elemento_nomenclatura` (`id`, `elemento_nomenclatura`) VALUES
 CREATE TABLE IF NOT EXISTS `espacio_academico` (
   `id` int(11) NOT NULL,
   `espacio_academico` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_espacio` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla practicampo.espacio_academico: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `espacio_academico` DISABLE KEYS */;
-REPLACE INTO `espacio_academico` (`id`, `espacio_academico`) VALUES
-	(1, 'N/A'),
-	(2020, 'Topografía'),
-	(2434, 'Vulnerabilidad y riesgos');
+REPLACE INTO `espacio_academico` (`id`, `espacio_academico`, `tipo_espacio`) VALUES
+	(1, 'N/A', 'N/A'),
+	(2020, 'Topografía', 'N/A'),
+	(2434, 'Vulnerabilidad y riesgos', 'N/A');
 /*!40000 ALTER TABLE `espacio_academico` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.estado
@@ -421,11 +422,12 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
   `fecha_salida` date DEFAULT NULL,
   `fecha_regreso` date DEFAULT NULL,
   `num_estudiantes` int(11) DEFAULT '0',
+  `num_radicado_financiera` int(11) DEFAULT '0',
   `num_acompaniantes` int(11) DEFAULT '0',
   `lugar_salida` varchar(50) DEFAULT NULL,
   `lugar_regreso` varchar(50) DEFAULT NULL,
   `nombre_conductor` varchar(255) DEFAULT NULL,
-  `celular_conductor` bigint(20) DEFAULT NULL,
+  `celular_conductor` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_solicitud_practica_proyeccion_preliminar_idx` (`id_proyeccion_preliminar`),
   KEY `fk_solicitud_practica_estado_idx` (`id_estado_solicitud_practica`),
@@ -514,7 +516,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `primer_nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `segundo_nombre` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `primer_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `segundo_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `segundo_apellido` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `direccion_residencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `celular` bigint(20) NOT NULL,
   `telefono` bigint(20) DEFAULT NULL,
