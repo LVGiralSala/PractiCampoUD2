@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `direccion_usuario` (
   CONSTRAINT `fk_direccion_usuario_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.direccion_usuario: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.direccion_usuario: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `direccion_usuario` DISABLE KEYS */;
 REPLACE INTO `direccion_usuario` (`id`, `id_tipo_via_1`, `id_tipo_via_2`, `id_prefijo_num_via`, `id_complemento_via`, `id_prefijo_compl_via`, `id_prefijo_cardinal`, `id_prefijo_placa_1`, `id_complemento_placa`, `id_prefijo_compl_placa`, `id_prefijo_cardinal_placa`, `id_tipo_ubicacion`, `id_tipo_residencia`, `id_prefijo_ubicacion`, `num_placa_1`, `num_placa_2`, `num_via`, `num_residencia`, `num_prefijo_ubicacion`, `nombre_ubicacion`, `datos_adicionales`, `updated_at`, `created_at`) VALUES
 	(1, 2, NULL, 14, 47, 47, 47, 11, NULL, NULL, NULL, NULL, 47, NULL, '41', '9', '2', '(NULL)', NULL, '', NULL, '2020-02-16 00:00:00', NULL),
@@ -162,6 +162,7 @@ REPLACE INTO `estado` (`id`, `estado`) VALUES
 CREATE TABLE IF NOT EXISTS `estudiantes_solicitud_practica` (
   `id` int(11) NOT NULL DEFAULT '0',
   `num_identificacion` bigint(20) NOT NULL,
+  `cod_estudiantil` bigint(20) NOT NULL,
   `id_tipo_identificacion` int(11) NOT NULL DEFAULT '0',
   `id_solicitud_practica` int(11) NOT NULL DEFAULT '0',
   `nombres` varchar(50) NOT NULL DEFAULT '0',
@@ -171,7 +172,10 @@ CREATE TABLE IF NOT EXISTS `estudiantes_solicitud_practica` (
   `email` varchar(255) NOT NULL DEFAULT '0',
   `aprob_terminos_condiciones` bit(1) NOT NULL DEFAULT b'0',
   `verificacion_asistencia` bit(1) NOT NULL DEFAULT b'0',
-  `permiso_padres` varbinary(8000) NOT NULL DEFAULT 'b''0''',
+  `permiso_padres` blob NOT NULL,
+  `seguro_estudiantil` blob NOT NULL,
+  `documento_adicional_1` blob NOT NULL,
+  `documento_adicional_2` blob NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_estudiantes_solicitud_practica_tipo_identificacion_idx` (`id_tipo_identificacion`),
   KEY `fk_estudiantes_solicitud_practica_solicitud_practica_idx` (`id_solicitud_practica`),
@@ -380,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla practicampo.roles: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.roles: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 REPLACE INTO `roles` (`id`, `role`) VALUES
 	(1, 'Admin'),
@@ -388,8 +392,8 @@ REPLACE INTO `roles` (`id`, `role`) VALUES
 	(3, 'Asistente Decanatura'),
 	(4, 'Coordinador Proyecto'),
 	(5, 'Docente'),
-	(6, 'Transportador'),
-	(7, 'Vicerrectoria Administrativa');
+	(6, 'Vicerrectoria Administrativa'),
+	(7, 'Transportador');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.semestre_asignatura
@@ -419,6 +423,10 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_proyeccion_preliminar` int(11) DEFAULT NULL,
   `id_estado_solicitud_practica` int(11) DEFAULT NULL,
+  `si_capital` bit(1) DEFAULT b'0',
+  `tiene_resolucion` bit(1) DEFAULT b'0',
+  `num_cdp` bigint(20) DEFAULT '0',
+  `fecha_resolucion` date DEFAULT NULL,
   `fecha_salida` date DEFAULT NULL,
   `fecha_regreso` date DEFAULT NULL,
   `num_estudiantes` int(11) DEFAULT '0',
@@ -427,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
   `lugar_salida` varchar(50) DEFAULT NULL,
   `lugar_regreso` varchar(50) DEFAULT NULL,
   `nombre_conductor` varchar(255) DEFAULT NULL,
-  `celular_conductor` bigint(20) NOT NULL,
+  `celular_conductor` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_solicitud_practica_proyeccion_preliminar_idx` (`id_proyeccion_preliminar`),
   KEY `fk_solicitud_practica_estado_idx` (`id_estado_solicitud_practica`),
@@ -438,6 +446,22 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
 -- Volcando datos para la tabla practicampo.solicitud_practica: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `solicitud_practica` DISABLE KEYS */;
 /*!40000 ALTER TABLE `solicitud_practica` ENABLE KEYS */;
+
+-- Volcando estructura para tabla practicampo.solicitud_transporte
+CREATE TABLE IF NOT EXISTS `solicitud_transporte` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_solicitud_practica` int(11) NOT NULL,
+  `nombre_conductor` varchar(255) DEFAULT NULL,
+  `celular_conductor` bigint(20) DEFAULT NULL,
+  `email_conductor` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_solicitud_transporte_solicitud_practica_idx` (`id_solicitud_practica`),
+  CONSTRAINT `fk_solicitud_transporte_solicitud_practica` FOREIGN KEY (`id_solicitud_practica`) REFERENCES `solicitud_practica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.solicitud_transporte: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `solicitud_transporte` DISABLE KEYS */;
+/*!40000 ALTER TABLE `solicitud_transporte` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.tipo_certificacion
 CREATE TABLE IF NOT EXISTS `tipo_certificacion` (
@@ -515,7 +539,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) NOT NULL,
   `id_role` int(11) NOT NULL DEFAULT '2',
   `id_tipo_identificacion` int(11) NOT NULL DEFAULT '1',
-  `id_categoria` int(11) DEFAULT NULL,
+  `id_categoria` int(11) NOT NULL,
   `id_tipo_vinculacion` int(11) DEFAULT NULL,
   `id_estado` int(11) NOT NULL DEFAULT '1',
   `id_espacio_academico_1` int(11) NOT NULL,
@@ -571,7 +595,7 @@ REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`,
 	(1, 1, 1, 8, NULL, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'LV32', 'Luisa', NULL, 'Garcia', 'Lopez', 3195693569, NULL, 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', '5kpGcRawaRWUUETw50pXTSKvDBmAPWCHWdCgOfBPMAx2SVJjzI9R0ddAQAYg', '2020-01-17 01:40:42', '2020-02-17 03:18:50'),
 	(8652348, 5, 1, 3, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'criverag', 'Cesar', NULL, 'Rivera', 'Gomez', 3015698745, 5684512, 'criverag@udistrital.edu.co', NULL, '$2y$10$TL8M9LS8chslOqiMS.aMC.IXnF6L6ZkfVeM3.G6Ecj085Zz3LX7fa', NULL, '2020-02-16 23:36:34', '2020-02-16 23:36:34'),
 	(30569841, 4, 1, 8, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'jposadam', 'Jairo', NULL, 'Posada', 'Martinez', 3152695487, 3216956, 'jposadam@udistrital.edu.co', NULL, '$2y$10$OmDRQEUkm6I/PtOfk56jFuLd6WbQlyRn27wmkEkOmDwYaqgCa.RIG', NULL, '2020-02-16 23:38:34', '2020-02-16 23:38:34'),
-	(85365213, 6, 1, 13, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'andresquintero', 'Andres', 'Luis', 'Quintero', 'Zuluaga', 3152369563, 5489632, 'andresquintero@gmail.com', NULL, '12345678', NULL, '2020-02-20 00:39:20', '2020-02-20 00:39:20'),
+	(85365213, 7, 1, 13, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'andresquintero', 'Andres', 'Luis', 'Quintero', 'Zuluaga', 3152369563, 5489632, 'andresquintero@gmail.com', NULL, '12345678', NULL, '2020-02-20 00:39:20', '2020-02-20 00:39:20'),
 	(310698563, 2, 1, 8, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'fussar', 'Freddy', NULL, 'Ussa', 'Rodriguez', 3156984569, 4523698, 'fussar@udistrital.edu.co', NULL, '$2y$10$r.oFd571jYk5PM4ycnfnr.OP1mV5HocwmN9z9Flt69qjeWnO6wRbi', NULL, '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
 	(659863256, 3, 1, 4, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'arojasc', 'Alejandro', NULL, 'Rojas', 'Castro', 32569874536, 5632121, 'arojasc@udistrital.edu.co', NULL, '$2y$10$zX5X9sIdU6OgWDABgq7G2uQKji/mGgZSIi0TfZpMzUn4zbKv2S1be', NULL, '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
 	(1038410523, 1, 1, 8, NULL, 1, 2020, NULL, NULL, NULL, NULL, NULL, 'lvgiraldos', 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 3107964434, 4125679, 'lvgiraldos@udistrital.edu.co', NULL, '$2y$10$V/4DkEVqMJNNXiHyUY42sOqTSRHtfhJAoOViAeoVxzbFwvj72ELg.', NULL, '2020-02-16 23:34:35', '2020-02-16 23:34:35');
