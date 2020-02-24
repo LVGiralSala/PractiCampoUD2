@@ -102,7 +102,6 @@ REPLACE INTO `direccion_usuario` (`id`, `id_tipo_via_1`, `id_tipo_via_2`, `id_pr
 	(1, 2, NULL, 14, 47, 47, 47, 11, NULL, NULL, NULL, NULL, 47, NULL, '41', '9', '2', '(NULL)', NULL, '', NULL, '2020-02-16 00:00:00', NULL),
 	(8652348, 1, NULL, NULL, 6, 7, NULL, NULL, NULL, NULL, NULL, NULL, 40, NULL, '41b', '36', '98', NULL, NULL, '', '502', '2020-02-16 23:36:34', '2020-02-16 23:36:34'),
 	(30569841, 3, NULL, NULL, 47, 7, NULL, NULL, NULL, NULL, NULL, NULL, 40, NULL, '23', '01', '26', NULL, NULL, '', '102', '2020-02-16 23:38:34', '2020-02-16 23:38:34'),
-	(85365213, 1, NULL, NULL, 6, 7, NULL, NULL, NULL, NULL, NULL, NULL, 45, NULL, '45', '23', '32', NULL, NULL, '', '2', '2020-02-16 23:46:10', '2020-02-16 23:46:10'),
 	(310698563, 5, NULL, NULL, 6, 8, NULL, NULL, NULL, NULL, NULL, NULL, 40, NULL, '23', '89', '45', NULL, NULL, '', '405', '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
 	(659863256, 4, NULL, NULL, 6, 10, NULL, NULL, NULL, NULL, NULL, NULL, 45, NULL, '12c', '41', '36', NULL, NULL, '', '3', '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
 	(1038410523, 2, NULL, NULL, 47, 47, NULL, NULL, NULL, NULL, NULL, NULL, 45, NULL, '41A', '09', '2d', NULL, NULL, '', '3', '2020-02-16 23:34:35', '2020-02-16 23:34:35');
@@ -379,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla practicampo.roles: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
@@ -389,7 +388,8 @@ REPLACE INTO `roles` (`id`, `role`) VALUES
 	(3, 'Asistente Decanatura'),
 	(4, 'Coordinador Proyecto'),
 	(5, 'Docente'),
-	(6, 'Transportador');
+	(6, 'Transportador'),
+	(7, 'Vicerrectoria Administrativa');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.semestre_asignatura
@@ -484,6 +484,17 @@ REPLACE INTO `tipo_transporte` (`id`, `tipo_transporte`) VALUES
 	(3, 'Camioneta');
 /*!40000 ALTER TABLE `tipo_transporte` ENABLE KEYS */;
 
+-- Volcando estructura para tabla practicampo.tipo_vinculacion
+CREATE TABLE IF NOT EXISTS `tipo_vinculacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_vinculacion` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla practicampo.tipo_vinculacion: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipo_vinculacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipo_vinculacion` ENABLE KEYS */;
+
 -- Volcando estructura para tabla practicampo.tipo_zona_transitar
 CREATE TABLE IF NOT EXISTS `tipo_zona_transitar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -504,7 +515,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) NOT NULL,
   `id_role` int(11) NOT NULL DEFAULT '2',
   `id_tipo_identificacion` int(11) NOT NULL DEFAULT '1',
-  `id_categoria` int(11) NOT NULL,
+  `id_categoria` int(11) DEFAULT NULL,
+  `id_tipo_vinculacion` int(11) DEFAULT NULL,
   `id_estado` int(11) NOT NULL DEFAULT '1',
   `id_espacio_academico_1` int(11) NOT NULL,
   `id_espacio_academico_2` int(11) DEFAULT NULL,
@@ -517,7 +529,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `segundo_nombre` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `primer_apellido` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `segundo_apellido` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `direccion_residencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `celular` bigint(20) NOT NULL,
   `telefono` bigint(20) DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -540,6 +551,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `fk_users_espacio_academico_5_idx` (`id_espacio_academico_5`),
   KEY `fk_users_espacio_academico_6_idx` (`id_espacio_academico_6`),
   KEY `fk_users_estado` (`id_estado`),
+  KEY `fk_users_tipo_vinculacion_idx` (`id_tipo_vinculacion`),
   CONSTRAINT `fk_users_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_espacio_academico_1` FOREIGN KEY (`id_espacio_academico_1`) REFERENCES `espacio_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_espacio_academico_2` FOREIGN KEY (`id_espacio_academico_2`) REFERENCES `espacio_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -549,19 +561,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `fk_users_espacio_academico_6` FOREIGN KEY (`id_espacio_academico_6`) REFERENCES `espacio_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_estado` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_roles` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_tipo_identificacion` FOREIGN KEY (`id_tipo_identificacion`) REFERENCES `tipo_identificacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_users_tipo_identificacion` FOREIGN KEY (`id_tipo_identificacion`) REFERENCES `tipo_identificacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_tipo_vinculacion` FOREIGN KEY (`id_tipo_vinculacion`) REFERENCES `tipo_vinculacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla practicampo.users: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion_residencia`, `celular`, `telefono`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, 8, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'LV32', 'Luisa', NULL, 'Garcia', 'Lopez', '', 3195693569, NULL, 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', '5kpGcRawaRWUUETw50pXTSKvDBmAPWCHWdCgOfBPMAx2SVJjzI9R0ddAQAYg', '2020-01-17 01:40:42', '2020-02-17 03:18:50'),
-	(8652348, 5, 1, 3, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'criverag', 'Cesar', NULL, 'Rivera', 'Gomez', 'Avenida 98 Bis Este # 41B - 36 APTO 502', 3015698745, 5684512, 'criverag@udistrital.edu.co', NULL, '$2y$10$TL8M9LS8chslOqiMS.aMC.IXnF6L6ZkfVeM3.G6Ecj085Zz3LX7fa', NULL, '2020-02-16 23:36:34', '2020-02-16 23:36:34'),
-	(30569841, 4, 1, 8, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'jposadam', 'Jairo', NULL, 'Posada', 'Martinez', 'Carrera 26 - Este # 23 - 01 APTO 102', 3152695487, 3216956, 'jposadam@udistrital.edu.co', NULL, '$2y$10$OmDRQEUkm6I/PtOfk56jFuLd6WbQlyRn27wmkEkOmDwYaqgCa.RIG', NULL, '2020-02-16 23:38:34', '2020-02-16 23:38:34'),
-	(85365213, 6, 1, 13, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'josequintero', 'Jose', 'Luis', 'Quintero', 'Zuluaga', 'Avenida 32 Bis Este # 45 - 23 PI 2', 3152369563, 5489632, 'josequintero@gmail.com', NULL, '$2y$10$BA.5BTwcUjHnmzMmsDRiTO75kYbWntQdnduUH2Jah.9WxTBdZu6aK', NULL, '2020-02-16 23:46:10', '2020-02-16 23:46:10'),
-	(310698563, 2, 1, 8, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'fussar', 'Freddy', NULL, 'Ussa', 'Rodriguez', 'Transversal 45 Bis Norte # 23 - 89 APTO 405', 3156984569, 4523698, 'fussar@udistrital.edu.co', NULL, '$2y$10$r.oFd571jYk5PM4ycnfnr.OP1mV5HocwmN9z9Flt69qjeWnO6wRbi', NULL, '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
-	(659863256, 3, 1, 4, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'arojasc', 'Alejandro', NULL, 'Rojas', 'Castro', 'Diagonal 36 Bis Sur # 12C - 41 PI 3', 32569874536, 5632121, 'arojasc@udistrital.edu.co', NULL, '$2y$10$zX5X9sIdU6OgWDABgq7G2uQKji/mGgZSIi0TfZpMzUn4zbKv2S1be', NULL, '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
-	(1038410523, 1, 1, 8, 1, 2020, NULL, NULL, NULL, NULL, NULL, 'lvgiraldos', 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 'Calle 2D - - # 41A - 09 PI 3', 3107964434, 4125679, 'lvgiraldos@udistrital.edu.co', NULL, '$2y$10$V/4DkEVqMJNNXiHyUY42sOqTSRHtfhJAoOViAeoVxzbFwvj72ELg.', NULL, '2020-02-16 23:34:35', '2020-02-16 23:34:35');
+REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_tipo_vinculacion`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `celular`, `telefono`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, 8, NULL, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'LV32', 'Luisa', NULL, 'Garcia', 'Lopez', 3195693569, NULL, 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', '5kpGcRawaRWUUETw50pXTSKvDBmAPWCHWdCgOfBPMAx2SVJjzI9R0ddAQAYg', '2020-01-17 01:40:42', '2020-02-17 03:18:50'),
+	(8652348, 5, 1, 3, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'criverag', 'Cesar', NULL, 'Rivera', 'Gomez', 3015698745, 5684512, 'criverag@udistrital.edu.co', NULL, '$2y$10$TL8M9LS8chslOqiMS.aMC.IXnF6L6ZkfVeM3.G6Ecj085Zz3LX7fa', NULL, '2020-02-16 23:36:34', '2020-02-16 23:36:34'),
+	(30569841, 4, 1, 8, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'jposadam', 'Jairo', NULL, 'Posada', 'Martinez', 3152695487, 3216956, 'jposadam@udistrital.edu.co', NULL, '$2y$10$OmDRQEUkm6I/PtOfk56jFuLd6WbQlyRn27wmkEkOmDwYaqgCa.RIG', NULL, '2020-02-16 23:38:34', '2020-02-16 23:38:34'),
+	(85365213, 6, 1, 13, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'andresquintero', 'Andres', 'Luis', 'Quintero', 'Zuluaga', 3152369563, 5489632, 'andresquintero@gmail.com', NULL, '12345678', NULL, '2020-02-20 00:39:20', '2020-02-20 00:39:20'),
+	(310698563, 2, 1, 8, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'fussar', 'Freddy', NULL, 'Ussa', 'Rodriguez', 3156984569, 4523698, 'fussar@udistrital.edu.co', NULL, '$2y$10$r.oFd571jYk5PM4ycnfnr.OP1mV5HocwmN9z9Flt69qjeWnO6wRbi', NULL, '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
+	(659863256, 3, 1, 4, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'arojasc', 'Alejandro', NULL, 'Rojas', 'Castro', 32569874536, 5632121, 'arojasc@udistrital.edu.co', NULL, '$2y$10$zX5X9sIdU6OgWDABgq7G2uQKji/mGgZSIi0TfZpMzUn4zbKv2S1be', NULL, '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
+	(1038410523, 1, 1, 8, NULL, 1, 2020, NULL, NULL, NULL, NULL, NULL, 'lvgiraldos', 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 3107964434, 4125679, 'lvgiraldos@udistrital.edu.co', NULL, '$2y$10$V/4DkEVqMJNNXiHyUY42sOqTSRHtfhJAoOViAeoVxzbFwvj72ELg.', NULL, '2020-02-16 23:34:35', '2020-02-16 23:34:35');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
