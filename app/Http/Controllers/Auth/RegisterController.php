@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'primer_nombre' => ['required', 'string', 'max:50'],
             // 'segundo_nombre' => ['string', 'max:50'],
             'primer_apellido' => ['required', 'string', 'max:50'],
-            'segundo_apellido' => ['required', 'string', 'max:50'],
+            // 'segundo_apellido' => ['required', 'string', 'max:50'],
             // 'dirección_residencia' => ['required', 'string'],
             'celular' => ['required', 'integer', 'min:6'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -135,7 +135,6 @@ class RegisterController extends Controller
 
 
         $user = User::create([
-            'direccion_residencia' => $direccion_completa,
             'id' => $data['num_identificacion'],
             'id_tipo_identificacion' => $data['id_tipo_identificacion'],
             'usuario' => $data['usuario'],
@@ -150,6 +149,7 @@ class RegisterController extends Controller
             'id_espacio_academico_1' => $data['id_espacio_academico_1'],
             'telefono' => $data['telefono'],
             'celular' => $data['celular'],
+            // 'id_estado' => '1',
 
             // 'id_espacio_academico_2' => $data['id_espacio_academico_2'],
             // 'id_espacio_academico_3' => $data['id_espacio_academico_3'],
@@ -158,17 +158,17 @@ class RegisterController extends Controller
             // 'id_espacio_academico_6' => $data['id_espacio_academico_6'],
             ]);
             
-            $direccion_usuario = direccion_usuario::create([
-                'id'=> $data['num_identificacion'],
-                'id_tipo_via_1' => $data['id_tipo_via_1'],
-                'num_via' => $data['num_via'],
-                'id_complemento_via' => $data['id_complemento_via'],
-                'id_prefijo_compl_via' => $data['id_prefijo_compl_via'],
-                'num_placa_1' => $data['num_placa_1'],
-                'num_placa_2' => $data['num_placa_2'],
-                'id_tipo_residencia' => $data['id_tipo_residencia'],
-                'datos_adicionales' => $data['datos_adicionales'],
-            ]);
+            // $direccion_usuario = direccion_usuario::create([
+            //     'id'=> $data['num_identificacion'],
+            //     'id_tipo_via_1' => $data['id_tipo_via_1'],
+            //     'num_via' => $data['num_via'],
+            //     'id_complemento_via' => $data['id_complemento_via'],
+            //     'id_prefijo_compl_via' => $data['id_prefijo_compl_via'],
+            //     'num_placa_1' => $data['num_placa_1'],
+            //     'num_placa_2' => $data['num_placa_2'],
+            //     'id_tipo_residencia' => $data['id_tipo_residencia'],
+            //     'datos_adicionales' => $data['datos_adicionales'],
+            // ]);
     }
 
     // public function completarDireccion(Request $request)

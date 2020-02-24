@@ -52,15 +52,38 @@
             </div>
           </div>
 
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
               
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+              <form method="POST" action="{{ route('import_list_users.excel') }}"  enctype="multipart/form-data">
+                @csrf
+               
+                <div class="row">
+                {{-- <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">    --}}
+                  <div class="form-group">
+                    <label for=""></label>
+                        <input type="file"  name="usuarios" >
+                  </div>
+                {{-- </div>  --}}
+                
+                {{-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">  --}}
+                  <div class="form-group">
+                    {{-- <label for=""></label>
+                    <div class="row"> --}}
+                      <button class="btn btn-success" name="import_users"><i class="fas fa-file-import"></i>     CSV</button></a>
+                    {{-- </div> --}}
+                  </div>
+                </div> 
+              </form>
           </div>
 
           <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
             <div class="form-group">
               <label for=""></label>
               <div class="row">
-                <a href="{{route('list_users.excel')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     XSL</button></a>
+                <a href="{{route('export_list_users.excel')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     XSL</button></a>
               </div>
             </div>
           </div>

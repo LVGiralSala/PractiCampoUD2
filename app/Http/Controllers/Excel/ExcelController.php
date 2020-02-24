@@ -3,9 +3,11 @@
 namespace PractiCampoUD\Http\Controllers\Excel;
 
 use PractiCampoUD\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use PractiCampoUD\Exports\UsersExport;
+use PractiCampoUD\Imports\UsersImport;
 
 class ExcelController extends Controller
 {
@@ -86,6 +88,16 @@ class ExcelController extends Controller
     }
 
     public function exportExcel(){
-        return Excel::download(new UsersExport,'naturales.xlsx');
+        return Excel::download(new UsersExport,'usuarios.xlsx');
+    }
+
+    public function importExcel(){
+        // if($request->input('submit') != null)
+        // {
+        //     $file = $request->file('usuarios');
+
+        // }
+        Excel::import(new UsersImport,request()->file('usuarios'));
+        return Redirect::to('users/filtrar/all')->with('success', 'Creación exitosa');
     }
 }

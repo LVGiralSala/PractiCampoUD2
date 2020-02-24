@@ -60,9 +60,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function admin()
+    public function adminPerm()
     {
         return ($this->id_role === 1 || $this->id_role === 2 || $this->id_role === 3);
+    }
+
+    public function otrosPerm()
+    {
+        return ($this->id_role === 1 || $this->id_role === 2 || $this->id_role === 3 || $this->id_role === 4 || $this->id_role === 5);
     }
 
     public function decano()
@@ -90,10 +95,6 @@ class User extends Authenticatable
         return $this->id_role === 6;
     }
 
-    public function otros()
-    {
-        return ($this->id_role === 2 || $this->id_role === 3 || $this->id_role === 4 || $this->id_role === 5);
-    }
     // public function activo()
     // {
     //     return $this->id_estado === 1;

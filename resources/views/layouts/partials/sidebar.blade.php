@@ -14,7 +14,7 @@
   
         <!-- Nav Item - Dashboard -->
        
-        @if(Auth::user()->admin())
+        @if(Auth::user()->adminPerm())
         <li class="nav-item">
             <a class="nav-link collapsed" href="#collapseOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                 <i class="fas fa-fw fa-user-cog"></i>
@@ -33,7 +33,8 @@
         <hr class="sidebar-divider">
         
         @endif
-        {{-- @elseif(Auth::user()->otros()) --}}
+
+        @if(Auth::user()->otrosPerm())
         <!-- Heading -->
         <div class="sidebar-heading">
           MÓDULOS
@@ -85,7 +86,7 @@
           </div>
         </li> --}}
         
-        {{-- @endif --}}
+        @endif
 
         <!-- Divider -->
         <hr class="sidebar-divider">

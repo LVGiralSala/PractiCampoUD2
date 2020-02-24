@@ -15,7 +15,7 @@ class Otros
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->otros())
+        if($request->user()->otrosPerm())
         {
             return $next($request);
         }

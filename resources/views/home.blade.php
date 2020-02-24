@@ -33,5 +33,9 @@
         </tr>
       </tbody>
     </table>
+
+    <div>
+        <button class="btn btn-success" name="import_users" href="{{route('enviar_correo') }}">Enviar</button></a>
+    </div>
     
 @endsection
