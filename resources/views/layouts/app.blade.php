@@ -11,11 +11,10 @@
     <div id="wrapper">
         
         @if (Auth::user())
-        
         <!-- start sidebar -->
         @include('layouts.partials.sidebar')
         <!-- end sidebar -->
-
+        
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
@@ -31,14 +30,13 @@
             </div>
              
         </div>
-        
         <!-- start toggle top area -->
         @include('layouts.partials.footer')
         <!-- end toggle top area -->
 
     </div>
-
-    @endif
+    
+        @endif
     <!-- start scripts -->
     @include('layouts.partials.scripts')
     <!-- end scripts -->

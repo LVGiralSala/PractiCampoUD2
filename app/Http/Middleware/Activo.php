@@ -4,7 +4,7 @@ namespace PractiCampoUD\Http\Middleware;
 
 use Closure;
 
-class Estado_Usuario
+class Activo
 {
     /**
      * Handle an incoming request.
@@ -22,7 +22,7 @@ class Estado_Usuario
 
         else 
         {
-            Abort('401');
+            Abort('fg');
         }
     }
 }

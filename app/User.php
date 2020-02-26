@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -25,8 +25,8 @@ class User extends Authenticatable
         'id_role',
         'id_tipo_identificacion',
         'id_categoria',
-        'id_espacio_academico_1',
         'id_estado',
+        'id_espacio_academico_1',
         // 'id_espacio_academico_2',
         // 'id_espacio_academico_3',
         // 'id_espacio_academico_4',
@@ -38,7 +38,6 @@ class User extends Authenticatable
         'segundo_apellido',
         'telefono',
         'celular',
-        'direccion_residencia',
         
     ];
 
@@ -62,12 +61,13 @@ class User extends Authenticatable
 
     public function adminPerm()
     {
-        return ($this->id_role === 1 || $this->id_role === 2 || $this->id_role === 3);
+        return (($this->id_role === 1 || $this->id_role === 2 || $this->id_role === 3) && ($this->id_estado === 1));
     }
 
     public function otrosPerm()
     {
-        return ($this->id_role === 1 || $this->id_role === 2 || $this->id_role === 3 || $this->id_role === 4 || $this->id_role === 5);
+        return (($this->id_role === 1 || $this->id_role === 2 || $this->id_role === 3 || $this->id_role === 4 || $this->id_role === 5 || $this->id_role === 6) 
+        && ($this->id_estado === 1));
     }
 
     public function decano()
@@ -90,15 +90,25 @@ class User extends Authenticatable
         return $this->id_role === 5;
     }
 
-    public function transport()
+    public function viceAcademica()
     {
         return $this->id_role === 6;
     }
 
-    // public function activo()
-    // {
-    //     return $this->id_estado === 1;
-    // }
+    public function transportador()
+    {
+        return $this->id_role === 7;
+    }
+
+    public function activo()
+    {
+        return ($this->id_estado === 1);
+    }
+
+    public function inactivo()
+    {
+        return ($this->id_estado === 2);
+    }
     
     // public function usuario()
     // {

@@ -92,8 +92,7 @@ CREATE TABLE IF NOT EXISTS `direccion_usuario` (
   CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_6` FOREIGN KEY (`id_prefijo_cardinal`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_7` FOREIGN KEY (`id_prefijo_placa_1`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_8` FOREIGN KEY (`id_complemento_placa`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_9` FOREIGN KEY (`id_prefijo_cardinal_placa`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_direccion_usuario_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_direccion_usuario_nomenclatura_urbana_9` FOREIGN KEY (`id_prefijo_cardinal_placa`) REFERENCES `nomenclatura_urbana` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla practicampo.direccion_usuario: ~6 rows (aproximadamente)
@@ -140,8 +139,11 @@ CREATE TABLE IF NOT EXISTS `espacio_academico` (
 /*!40000 ALTER TABLE `espacio_academico` DISABLE KEYS */;
 REPLACE INTO `espacio_academico` (`id`, `espacio_academico`, `tipo_espacio`) VALUES
 	(1, 'N/A', 'N/A'),
+	(1356, 'mmmm', NULL),
 	(2020, 'Topografía', 'N/A'),
-	(2434, 'Vulnerabilidad y riesgos', 'N/A');
+	(2434, 'Vulnerabilidad y riesgos', 'N/A'),
+	(2545, 'asdfasd', 'N/A'),
+	(8956, 'ddddd', NULL);
 /*!40000 ALTER TABLE `espacio_academico` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.estado
@@ -434,8 +436,6 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
   `num_acompaniantes` int(11) DEFAULT '0',
   `lugar_salida` varchar(50) DEFAULT NULL,
   `lugar_regreso` varchar(50) DEFAULT NULL,
-  `nombre_conductor` varchar(255) DEFAULT NULL,
-  `celular_conductor` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_solicitud_practica_proyeccion_preliminar_idx` (`id_proyeccion_preliminar`),
   KEY `fk_solicitud_practica_estado_idx` (`id_estado_solicitud_practica`),
@@ -513,10 +513,18 @@ CREATE TABLE IF NOT EXISTS `tipo_vinculacion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_vinculacion` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampo.tipo_vinculacion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.tipo_vinculacion: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipo_vinculacion` DISABLE KEYS */;
+REPLACE INTO `tipo_vinculacion` (`id`, `tipo_vinculacion`) VALUES
+	(1, 'Docente catedra (contrato)'),
+	(2, 'Docente catedra (Honorario)'),
+	(3, 'Docente medio tiempo ocasional'),
+	(4, 'Docenete tiempo completo ocasional'),
+	(5, 'Docente planta compartido'),
+	(6, 'Docente planta tiempo completo'),
+	(7, 'Transportador');
 /*!40000 ALTER TABLE `tipo_vinculacion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampo.tipo_zona_transitar
@@ -539,8 +547,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) NOT NULL,
   `id_role` int(11) NOT NULL DEFAULT '2',
   `id_tipo_identificacion` int(11) NOT NULL DEFAULT '1',
-  `id_categoria` int(11) NOT NULL,
-  `id_tipo_vinculacion` int(11) DEFAULT NULL,
+  `id_tipo_vinculacion` int(11) NOT NULL DEFAULT '1',
   `id_estado` int(11) NOT NULL DEFAULT '1',
   `id_espacio_academico_1` int(11) NOT NULL,
   `id_espacio_academico_2` int(11) DEFAULT NULL,
@@ -566,7 +573,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `usuario` (`usuario`),
   UNIQUE KEY `id` (`id`),
   KEY `fk_users_roles_idx` (`id_role`),
-  KEY `fk_users_categoria_idx` (`id_categoria`),
   KEY `fk_users_tipo_identificacion_idx` (`id_tipo_identificacion`),
   KEY `fk_users_espacio_academico_1_idx` (`id_espacio_academico_1`),
   KEY `fk_users_espacio_academico_2_idx` (`id_espacio_academico_2`),
@@ -576,7 +582,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `fk_users_espacio_academico_6_idx` (`id_espacio_academico_6`),
   KEY `fk_users_estado` (`id_estado`),
   KEY `fk_users_tipo_vinculacion_idx` (`id_tipo_vinculacion`),
-  CONSTRAINT `fk_users_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_espacio_academico_1` FOREIGN KEY (`id_espacio_academico_1`) REFERENCES `espacio_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_espacio_academico_2` FOREIGN KEY (`id_espacio_academico_2`) REFERENCES `espacio_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_espacio_academico_3` FOREIGN KEY (`id_espacio_academico_3`) REFERENCES `espacio_academico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -589,16 +594,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `fk_users_tipo_vinculacion` FOREIGN KEY (`id_tipo_vinculacion`) REFERENCES `tipo_vinculacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla practicampo.users: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla practicampo.users: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_categoria`, `id_tipo_vinculacion`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `celular`, `telefono`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, 8, NULL, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'LV32', 'Luisa', NULL, 'Garcia', 'Lopez', 3195693569, NULL, 'Lauritagiraldo.s@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', '5kpGcRawaRWUUETw50pXTSKvDBmAPWCHWdCgOfBPMAx2SVJjzI9R0ddAQAYg', '2020-01-17 01:40:42', '2020-02-17 03:18:50'),
-	(8652348, 5, 1, 3, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'criverag', 'Cesar', NULL, 'Rivera', 'Gomez', 3015698745, 5684512, 'criverag@udistrital.edu.co', NULL, '$2y$10$TL8M9LS8chslOqiMS.aMC.IXnF6L6ZkfVeM3.G6Ecj085Zz3LX7fa', NULL, '2020-02-16 23:36:34', '2020-02-16 23:36:34'),
-	(30569841, 4, 1, 8, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'jposadam', 'Jairo', NULL, 'Posada', 'Martinez', 3152695487, 3216956, 'jposadam@udistrital.edu.co', NULL, '$2y$10$OmDRQEUkm6I/PtOfk56jFuLd6WbQlyRn27wmkEkOmDwYaqgCa.RIG', NULL, '2020-02-16 23:38:34', '2020-02-16 23:38:34'),
-	(85365213, 7, 1, 13, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'andresquintero', 'Andres', 'Luis', 'Quintero', 'Zuluaga', 3152369563, 5489632, 'andresquintero@gmail.com', NULL, '12345678', NULL, '2020-02-20 00:39:20', '2020-02-20 00:39:20'),
-	(310698563, 2, 1, 8, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'fussar', 'Freddy', NULL, 'Ussa', 'Rodriguez', 3156984569, 4523698, 'fussar@udistrital.edu.co', NULL, '$2y$10$r.oFd571jYk5PM4ycnfnr.OP1mV5HocwmN9z9Flt69qjeWnO6wRbi', NULL, '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
-	(659863256, 3, 1, 4, NULL, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'arojasc', 'Alejandro', NULL, 'Rojas', 'Castro', 32569874536, 5632121, 'arojasc@udistrital.edu.co', NULL, '$2y$10$zX5X9sIdU6OgWDABgq7G2uQKji/mGgZSIi0TfZpMzUn4zbKv2S1be', NULL, '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
-	(1038410523, 1, 1, 8, NULL, 1, 2020, NULL, NULL, NULL, NULL, NULL, 'lvgiraldos', 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 3107964434, 4125679, 'lvgiraldos@udistrital.edu.co', NULL, '$2y$10$V/4DkEVqMJNNXiHyUY42sOqTSRHtfhJAoOViAeoVxzbFwvj72ELg.', NULL, '2020-02-16 23:34:35', '2020-02-16 23:34:35');
+REPLACE INTO `users` (`id`, `id_role`, `id_tipo_identificacion`, `id_tipo_vinculacion`, `id_estado`, `id_espacio_academico_1`, `id_espacio_academico_2`, `id_espacio_academico_3`, `id_espacio_academico_4`, `id_espacio_academico_5`, `id_espacio_academico_6`, `usuario`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `celular`, `telefono`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, 4, 2, 2020, 2020, NULL, NULL, NULL, NULL, 'LV32', 'Luisa', NULL, 'Garcia', 'Lopez', 3195693569, NULL, 'Lvgiraldos@gmail.com', NULL, '$2y$10$uFngpVjfCVSw.vk6DtcLqOs8Y0z7ViO3VZdDIQtw2GJAa56fsoz3G', '55QPeKoNPJ41WkvHHpFbax5bMIaGHnZG9ib1UeAVEibGe8iOdzHvB4IIhRlZ', '2020-01-17 01:40:42', '2020-02-17 03:18:50'),
+	(8652348, 5, 1, 1, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'criverag', 'Cesar', NULL, 'Rivera', 'Gomez', 3015698745, 5684512, 'criverag@udistrital.edu.co', NULL, '12345678', NULL, '2020-02-24 19:05:01', '2020-02-24 19:05:01'),
+	(30314801, 5, 1, 1, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'emontesr', 'Emilia', NULL, 'Montes', 'Rojas', 3154269895, 7289645, 'lauritagiraldo.s@gmail.com.co', NULL, '12345678', NULL, '2020-02-24 20:43:47', '2020-02-24 20:43:47'),
+	(30569841, 4, 1, 1, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'jposadam', 'Jairo', NULL, 'Posada', 'Martinez', 3152695487, 3216956, 'jposadam@udistrital.edu.co', NULL, '12345678', NULL, '2020-02-24 19:05:01', '2020-02-24 19:05:01'),
+	(85365213, 7, 1, 1, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'andresquintero', 'Andres', 'Luis', 'Quintero', 'Zuluaga', 3152369563, 5489632, 'andresquintero@gmail.com', NULL, '12345678', NULL, '2020-02-24 19:05:01', '2020-02-24 19:05:01'),
+	(310698563, 2, 1, 3, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'fussar', 'Freddy', NULL, 'Ussa', 'Rodriguez', 3156984569, 4523698, 'fussar@udistrital.edu.co', NULL, '$2y$10$r.oFd571jYk5PM4ycnfnr.OP1mV5HocwmN9z9Flt69qjeWnO6wRbi', NULL, '2020-02-16 23:44:20', '2020-02-16 23:44:20'),
+	(659863256, 3, 1, 6, 1, 2434, NULL, NULL, NULL, NULL, NULL, 'arojasc', 'Alejandro', NULL, 'Rojas', 'Castro', 32569874536, 5632121, 'arojasc@udistrital.edu.co', NULL, '$2y$10$zX5X9sIdU6OgWDABgq7G2uQKji/mGgZSIi0TfZpMzUn4zbKv2S1be', NULL, '2020-02-16 23:40:10', '2020-02-16 23:40:10'),
+	(1038410523, 1, 1, 1, 1, 2020, 2434, NULL, NULL, NULL, NULL, 'lvgiraldos', 'Laura', 'Vanessa', 'Giraldo', 'Salazar', 3107964434, 4125679, 'lvgiraldos@udistrital.edu.co', NULL, '$2y$10$V/4DkEVqMJNNXiHyUY42sOqTSRHtfhJAoOViAeoVxzbFwvj72ELg.', NULL, '2020-02-16 23:34:35', '2020-02-16 23:34:35');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

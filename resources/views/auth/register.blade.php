@@ -13,14 +13,15 @@
     
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
-                                {{--  method="POST" action="{{ route('register') }}" --}}
                             @csrf
-                                
+
+                        <!-- información personal -->
                             <br>
                             <h4>Información Personal</h4>
                             <hr class="divider">
                             <br>
 
+                            <!-- 1 -->
                             <div class="form-group row">
                                 {{-- <div class="col-md-1"></div> --}}
 
@@ -65,8 +66,7 @@
                                 
                                 <div class="col-md-3">
                                     <label for="segundo_apellido" class="col-form-label text-md-right">{{ __('Segundo Apellido') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <input id="segundo_apellido" type="text" class="form-control @error('segundo_apellido') is-invalid @enderror" name="segundo_apellido" value="{{ old('segundo_apellido') }}" required autocomplete="segundo_apellido" autofocus>
+                                    <input id="segundo_apellido" type="text" class="form-control @error('segundo_apellido') is-invalid @enderror" name="segundo_apellido" value="{{ old('segundo_apellido') }}" autocomplete="segundo_apellido" autofocus>
     
                                     @error('segundo_apellido')
                                         <span class="invalid-feedback" role="alert">
@@ -77,7 +77,9 @@
 
                                 {{-- <div class="col-md-1"></div> --}}
                             </div>
+                            <!-- 1 -->
 
+                            <!-- 2 -->
                             <div class="form-group row">
                                 
                                 <div class="col-md-3">
@@ -108,16 +110,64 @@
                                 </div>
 
                             </div>
+                            <!-- 2 -->
 
-                            <br>
+                            
+                            <!-- 3 -->
+                            <div class="form-group row">
+
+                                <div class="col-md-6">
+                                    <label for="email" class="col-form-label text-md-right">{{ __('Correo Electrónico Institucional') }}</label>
+                                    <span class="hs-form-required">*</span>
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off"
+                                    onchange="obtenerUsuario(this.value);">
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="telefono" class="col-form-label text-md-right">{{ __('Teléfono') }}</label>
+                                    <input id="telefono"  class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required autocomplete="off">
+                                    @error('telefono')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <label for="celular" class="col-form-label text-md-right">{{ __('Celular') }}</label>
+                                    <span class="hs-form-required">*</span>
+                                    <input id="celular" class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required autocomplete="off">
+                                    
+                                    @error('celular')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-2">
+                                    <input id="cr" style="color:transparent;display:none" class="form-control" name="cr" autocomplete="off">
+                                    
+                                </div>
+
+                            </div>
+                            <!-- 3 -->
+                        <!-- información personal -->
+
+                        <!-- información contacto -->
+                            {{-- <br>
                             <h4>Información Contacto</h4>
                             <hr class="divider">
-                            <br>
+                            <br> --}}
 
-                            <div class="form-group row">
+                            <!-- diercción -->
+                            {{-- <div class="form-group row">
                                 <div class="col-md-12">
                                     <h5>Dirección</h5>
-                                    {{-- <br> --}}
                                 </div>
 
                                 <div class="col-md-2">
@@ -149,22 +199,6 @@
                                     </span>
                                     @enderror
                                 </div>
-
-                                {{-- <div class="col-md-1">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_prefijo_num_via" class="form-control" required>
-                                        @foreach($nomenclaturas_urbanas as $nom)
-                                            @if($nom->id_elemento_nomenclatura==3 || $nom->id_elemento_nomenclatura===9)
-                                                <option value="{{$nom->id}}">{{$nom->abreviatura}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_prefijo_num_via')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
 
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
@@ -226,9 +260,11 @@
                                     @enderror
                                 </div>
                         
-                            </div>
+                            </div> --}}
+                            
 
-                            <div class="form-group row">
+                            
+                            {{-- <div class="form-group row">
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label text-md-right">{{ __('Interior') }}</label>
                                     <select name="id_tipo_residencia" class="form-control" required >
@@ -256,67 +292,18 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div> --}}
+                            <!-- diercción -->
 
-                                {{-- <div class="col-md-6">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Dirección Completa') }}</label>
-                                    <input id="direccion_residencia"  class="form-control @error('direccion_residencia') is-invalid @enderror" name="direccion_residencia" value="{{ old('direccion_residencia') }}" required autofocus
-                                    readonly>
-    
-                                    @error('direccion_residencia')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-                            </div>
+                        <!-- información contacto -->
 
-                            <div class="form-group row">
-
-                                <div class="col-md-6">
-                                    <label for="email" class="col-form-label text-md-right">{{ __('Correo Electrónico Institucional') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off"
-                                    onchange="obtenerUsuario(this.value);">
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-2">
-                                    <label for="telefono" class="col-form-label text-md-right">{{ __('Teléfono') }}</label>
-                                    <input id="telefono"  class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required autocomplete="off">
-                                    @error('telefono')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                
-                                <div class="col-md-2">
-                                    <label for="celular" class="col-form-label text-md-right">{{ __('Celular') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <input id="celular" class="form-control @error('celular') is-invalid @enderror" name="celular" value="{{ old('celular') }}" required autocomplete="off">
-                                    
-                                    @error('celular')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-2">
-                                    <input id="cr" style="color:transparent;display:none" class="form-control" name="cr" autocomplete="off">
-                                    
-                                </div>
-
-                            </div>
-
+                        <!-- información cuenta -->
                             <br>
                             <h4>Información Cuenta</h4>
                             <hr class="divider">
                             <br>
 
+                            <!-- 4 -->
                             <div class="form-group row">
 
                                 {{-- <div class="col-md-1"></div> --}}
@@ -350,7 +337,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <label for="id_categoria" class="col-form-label text-md-right">{{ __('Categoría') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <select name="id_categoria" class="form-control" required>
@@ -359,6 +346,21 @@
                                         @endforeach
                                     </select>
                                     @error('id_categoria')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> --}}
+
+                                <div class="col-md-3">
+                                    <label for="id_tipo_vinculacion" class="col-form-label text-md-right">{{ __('Vinculación') }}</label>
+                                    <span class="hs-form-required">*</span>
+                                    <select name="id_tipo_vinculacion" class="form-control" required>
+                                        @foreach($tipos_vinculaciones as $tv)
+                                            <option value="{{$tv->id}}" selected>{{$tv->tipo_vinculacion}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_tipo_vinculacion')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -380,7 +382,9 @@
                                 </div>
 
                             </div>
+                            <!-- 4 -->
 
+                            <!-- 5 -->
                             <div class="form-group row">
 
                                 <div class="col-md-3">
@@ -402,7 +406,11 @@
                                 </div>
 
                             </div>
+                            <!-- 5 -->
+                        <!-- información cuenta -->
 
+                        <!-- submit -->
+                            <!-- 6 -->
                             <div class="form-group row mb-0">
                                 <div class="col-md-5 offset-md-5">
                                     <br>
@@ -411,6 +419,9 @@
                                     </button>
                                 </div>
                             </div>
+                            <!-- 6 -->
+                        <!-- submit -->
+
                         </form>
                     </div>
                 </div>

@@ -96,7 +96,7 @@ class UsersController extends Controller
         $direccion_usuario=direccion_usuario::find($id);
         $tipo_identificacion=DB::table('tipo_identificacion')->get();
         $tipo_usuario=DB::table('roles')->get();
-        $categoria=DB::table('categoria')->get();
+        $tipo_vinculacion=DB::table('tipo_vinculacion')->get();
         $espacio_academico=DB::table('espacio_academico')->get();
         $nomenclatura_urbana=DB::table('nomenclatura_urbana')->get();
         $elemento_nomenclatura=DB::table('elemento_nomenclatura')->get();
@@ -105,7 +105,7 @@ class UsersController extends Controller
                                    "direccion_usuario"=>$direccion_usuario,
                                    "tipos_identificaciones"=>$tipo_identificacion,
                                    "tipos_usuarios"=>$tipo_usuario,
-                                   "categorias"=>$categoria,
+                                   "tipos_vinculaciones"=>$tipo_vinculacion,
                                    "espacios_academicos"=>$espacio_academico,
                                    "nomenclaturas_urbanas"=>$nomenclatura_urbana,
                                    "elementos_nomenclaturas"=>$elemento_nomenclatura,
@@ -132,23 +132,11 @@ class UsersController extends Controller
         $usuario->id_tipo_identificacion=$request->get('id_tipo_identificacion');
         $usuario->id=$request->get('num_identificacion');
         $usuario->id_role=$request->get('id_role');
-        $usuario->id_categoria=$request->get('id_categoria');
+        $usuario->id_tipo_vinculacion=$request->get('id_tipo_vinculacion');
         $usuario->email=$request->get('email');
         $usuario->updated_at=$mytime->toDateString();
 
-        $direccion_usuario = direccion_usuario::where('id','=', $id)->first();
-        $direccion_usuario->id_tipo_via_1=$request->get('id_tipo_via_1');
-        $direccion_usuario->num_via=$request->get('num_via');
-        $direccion_usuario->id_complemento_via=$request->get('id_complemento_via');
-        $direccion_usuario->id_prefijo_compl_via=$request->get('id_prefijo_compl_via');
-        $direccion_usuario->num_placa_1=$request->get('num_placa_1');
-        $direccion_usuario->num_placa_2=$request->get('num_placa_2');
-        $direccion_usuario->id_tipo_residencia=$request->get('id_tipo_residencia');
-        $direccion_usuario->datos_adicionales=$request->get('datos_adicionales');
-        $direccion_usuario->updated_at=$mytime->toDateString();
-
         $usuario->update();
-        $direccion_usuario->update();
 
         return Redirect::to('users/filtrar/all')->with('success', 'Actualización exitosa');
     }

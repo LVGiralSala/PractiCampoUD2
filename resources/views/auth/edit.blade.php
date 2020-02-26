@@ -15,7 +15,8 @@
                         <form method="POST" action="{{ url('users',$usuario->id) }}">
                             @method('PUT')
                             @csrf
-                                
+                        
+                        <!-- estado -->
                             <!-- 0 -->
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -44,14 +45,16 @@
                                 </div>
                             </div>
                             <!-- 0 -->
+                        <!-- estado -->
 
+                        <!-- información personal -->
                             <br>
                             <h4>Información Personal</h4>
                             <hr class="divider">
                             <br>
 
+                            <!-- 1 -->
                             <div class="form-group row">
-                                {{-- <div class="col-md-1"></div> --}}
                                 
                                 <div class="col-md-3">
                                     <label for="primer_nombre" class="col-form-label text-md-left">{{ __('Primer Nombre') }}</label>
@@ -93,7 +96,6 @@
                                 
                                 <div class="col-md-3">
                                     <label for="segundo_apellido" class="col-form-label text-md-right">{{ __('Segundo Apellido') }}</label>
-                                    <span class="hs-form-required">*</span>
                                     <input id="segundo_apellido" type="text" class="form-control @error('segundo_apellido') is-invalid @enderror" name="segundo_apellido" value="{{ $usuario->segundo_apellido }}" required autocomplete="segundo_apellido" autofocus
                                     >
     
@@ -103,10 +105,10 @@
                                         </span>
                                     @enderror
                                 </div>
-
-                                {{-- <div class="col-md-1"></div> --}}
                             </div>
+                            <!-- 1 -->
 
+                            <!-- 2 -->
                             <div class="form-group row">
                                 
                                 <div class="col-md-3">
@@ -138,168 +140,9 @@
                                 </div>
 
                             </div>
+                            <!-- 2 -->
 
-                            <br>
-                            <h4>Información Contacto</h4>
-                            <hr class="divider">
-                            <br>
-
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <h5>Dirección</h5>
-                                    {{-- <br> --}}
-                                </div>
-
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Vía') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <select name="id_tipo_via_1" class="form-control" id="id_tipo_via_1" required>
-                                        @foreach($nomenclaturas_urbanas as $nom)
-                                            @if($nom->id_elemento_nomenclatura==1)
-                                                <option <?php if($nom->id==$direccion_usuario->id_tipo_via_1) echo 'selected'?> value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_tipo_via_1')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('N° Vía') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <input id="num_via"  class="form-control @error('num_via') is-invalid @enderror" name="num_via" value="{{ $direccion_usuario->num_via }}" required autocomplete="num_via" autofocus
-                                    >
-    
-                                    @error('num_via')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                {{-- <div class="col-md-1">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_prefijo_num_via" class="form-control" required>
-                                        @foreach($nomenclaturas_urbanas as $nom)
-                                            @if($nom->id_elemento_nomenclatura==3 || $nom->id_elemento_nomenclatura===9)
-                                                <option value="{{$nom->id}}">{{$nom->abreviatura}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_prefijo_num_via')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_complemento_via" class="form-control" required >
-                                        @foreach($nomenclaturas_urbanas as $nom)
-                                            @if($nom->id_elemento_nomenclatura==4 || $nom->id_elemento_nomenclatura===9)
-                                                <option <?php if($nom->id==$direccion_usuario->id_complemento_via) echo 'selected' ?> value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_complemento_via')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Det.') }}</label>
-                                    <select name="id_prefijo_compl_via" class="form-control" required >
-                                        @foreach($nomenclaturas_urbanas as $nom)
-                                            @if($nom->id_elemento_nomenclatura===5 || $nom->id_elemento_nomenclatura===9)
-                                                <option <?php if($nom->id==$direccion_usuario->id_prefijo_compl_via) echo 'selected'?> value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_prefijo_compl_via')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('#') }}</label>
-                                    <label for="" class="col-form-label text-md-right" >{{ __('Num.1') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <input id="num_placa_1"  class="form-control @error('num_placa_1') is-invalid @enderror" name="num_placa_1" value="{{ $direccion_usuario->num_placa_1 }}" required autocomplete="num_placa_1" autofocus
-                                    >
-                                    
-                                    @error('num_placa_1')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('-') }}</label>
-                                    <label for="" class="col-form-label text-md-right">{{ __('Num.2') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <input id="num_placa_2"  class="form-control @error('num_placa_2') is-invalid @enderror" name="num_placa_2" value="{{ $direccion_usuario->num_placa_2 }}" required autocomplete="num_placa_2" autofocus
-                                    >
-                                    
-                                    @error('num_placa_2')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                        
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Interior') }}</label>
-                                    <select name="id_tipo_residencia" class="form-control" required >
-                                        @foreach($nomenclaturas_urbanas as $nom)
-                                            @if($nom->id_elemento_nomenclatura===5 || $nom->id_elemento_nomenclatura===9)
-                                                <option <?php if($nom->id==$direccion_usuario->id_tipo_residencia) echo 'selected'?> value="{{$nom->id}}">{{$nom->nomenclatura}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @error('id_tipo_residencia')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                
-                                <div class="col-md-2">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Det. Interior') }}</label>
-                                    <input id="datos_adicionales"  class="form-control @error('datos_adicionales') is-invalid @enderror" name="datos_adicionales" value="{{ $direccion_usuario->datos_adicionales }}"autocomplete="datos_adicionales" autofocus
-                                    >
-    
-                                    @error('datos_adicionales')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- <div class="col-md-6">
-                                    <label for="" class="col-form-label text-md-right">{{ __('Dirección Completa') }}</label>
-                                    <input id="direccion_residencia"  class="form-control @error('direccion_residencia') is-invalid @enderror" name="direccion_residencia" value="{{ old('direccion_residencia') }}" required autofocus
-                                    readonly>
-    
-                                    @error('direccion_residencia')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-                            </div>
-
+                            <!-- 3 -->
                             <div class="form-group row">
 
                                 <div class="col-md-6">
@@ -342,12 +185,17 @@
                                 </div>
 
                             </div>
+                            <!-- 3 -->
 
+                        <!-- información personal -->
+
+                        <!-- información cuenta -->
                             <br>
                             <h4>Información Cuenta</h4>
                             <hr class="divider">
                             <br>
 
+                            <!-- 4 -->
                             <div class="form-group row">
 
                                 {{-- <div class="col-md-1"></div> --}}
@@ -382,14 +230,14 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="id_categoria" class="col-form-label text-md-right">{{ __('Categoría') }}</label>
+                                    <label for="id_tipo_vinculacion" class="col-form-label text-md-right">{{ __('Vinculación') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <select name="id_categoria" class="form-control" required>
-                                        @foreach($categorias as $cat)
-                                        <option <?php if($cat->id==$usuario->id_categoria) echo 'selected'?> value="{{$cat->id}}">{{$cat->categoria}}</option>
+                                    <select name="id_tipo_vinculacion" class="form-control" required>
+                                        @foreach($tipos_vinculaciones as $tv)
+                                        <option <?php if($tv->id==$usuario->id_tipo_vinculacion) echo 'selected'?> value="{{$tv->id}}">{{$tv->tipo_vinculacion}}</option>
                                         @endforeach
                                     </select>
-                                    @error('id_categoria')
+                                    @error('id_tipo_vinculacion')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -411,7 +259,9 @@
                                 </div>
 
                             </div>
+                            <!-- 5 -->
 
+                            <!-- 6 -->
                             <div class="form-group row">
 
                                 <div class="col-md-3">
@@ -433,7 +283,12 @@
                                 </div>
 
                             </div>
+                            <!-- 6 -->
 
+                        <!-- información cuenta -->
+
+                        <!-- submit -->
+                            <!-- 7 -->
                             <div class="form-group row mb-0">
                                 <div class="col-md-5 offset-md-5">
                                     <br>
@@ -442,6 +297,8 @@
                                     </button>
                                 </div>
                             </div>
+                            <!-- 7 -->
+                        <!-- submit -->
                         </form>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ namespace PractiCampoUD\Http\Middleware;
 
 use Closure;
 
-class Transportador
+class ViceAcademica
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class Transportador
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->transportador())
+        if($request->user()->viceAcademica())
         {
             return $next($request);
         }

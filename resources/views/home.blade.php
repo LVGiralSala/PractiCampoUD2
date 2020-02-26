@@ -1,6 +1,15 @@
 <!-- HTML HEAD -->
 @extends('layouts.app')
 <!-- end HTML HEAD -->
+
+@if(Auth::user()->inactivo())
+  @section('contenido')
+    <div class="container-fluid">
+      <h6> Usuario Inactivo</h6>
+      
+  @endsection
+
+@else
   @section('contenido')
   <div class="container-fluid">
     <table class="table">
@@ -34,8 +43,10 @@
       </tbody>
     </table>
 
-    <div>
+    {{-- <div>
         <button class="btn btn-success" name="import_users" href="{{route('enviar_correo') }}">Enviar</button></a>
-    </div>
+    </div> --}}
     
-@endsection
+  @endsection
+
+@endif

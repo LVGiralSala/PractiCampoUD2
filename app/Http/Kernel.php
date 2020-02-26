@@ -66,8 +66,10 @@ class Kernel extends HttpKernel
         'coord' => \PractiCampoUD\Http\Middleware\Coord::class,
         'asistD' => \PractiCampoUD\Http\Middleware\AsistD::class,
         'decano' => \PractiCampoUD\Http\Middleware\Decano::class,
+        'viceAcad' => \PractiCampoUD\Http\Middleware\ViceAcademica::class,
         'transport' => \PractiCampoUD\Http\Middleware\Transportador::class,
-        'activo' => \PractiCampoUD\Http\Middleware\Estado_Usuario::class,
+        'activo' => \PractiCampoUD\Http\Middleware\Activo::class,
+        'inactivo' => \PractiCampoUD\Http\Middleware\Inactivo::class,
         'otros' => \PractiCampoUD\Http\Middleware\Otros::class,
         // 'user' =>\PractiCampoUD\Http\Middleware\User::class,
     ];

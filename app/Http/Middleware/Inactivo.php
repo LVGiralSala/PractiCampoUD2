@@ -4,7 +4,7 @@ namespace PractiCampoUD\Http\Middleware;
 
 use Closure;
 
-class Transportador
+class Inactivo
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class Transportador
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->transportador())
+        if($request->user()->inactivo())
         {
             return $next($request);
         }

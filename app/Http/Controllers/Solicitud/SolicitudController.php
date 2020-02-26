@@ -27,7 +27,7 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        //
+        return view();
     }
 
     /**
