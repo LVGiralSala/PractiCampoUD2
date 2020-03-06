@@ -17,7 +17,7 @@
       </div>
 
       <!-- 0 -->
-      <div class="row">
+      {{-- <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
               <div class="form-group">
                   <label for="id_estado_cliente">Estado</label>
@@ -58,37 +58,36 @@
                 </div>
             </div>
           </div>
-      </div>
+      </div> --}}
       <!-- 0 -->
           
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
           <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">
            <thead>
-            <th style="width: 22px">Cod.</th>
-            <th style="width: 60px"></th>
-            <th style="width: 75px"></th> 
-            <th style="width: 75px"></th>
-            <th style="width: 50px"></th>
-            <th style="width: 120px"></th>
-            <th style="width: 65px"></th>
+            <th style="width: 40px">Cod.</th>
+            <th style="width: 91px">Proy. Curricular</th>
+            <th style="width: 95px">Esp. Académico</th> 
+            <th style="width: 107px">Destino RP</th>
+            <th style="width: 55px">Fecha Salida</th>
+            <th style="width: 55px">Fecha Regreso</th>
             <th style="width: 39px"></th>
            </thead> 
-           {{-- @foreach ($usuarios as $item) 
+           @foreach ($proyecciones as $item) 
                    <tr>
-                     <td>{{ $item->sigla}}</td>
                      <td>{{ $item->id }}</td>
-                     <td>{{ $item->primer_nombre }} {{$item->segundo_nombre}}</td>
-                     <td>{{ $item->primer_apellido }} {{$item->segundo_apellido}}</td>
-                     <td>{{ $item->usuario }}</td>
-                     <td>{{ $item->email }}</td>
-                     <td>{{ $item->role }}</td> 
+                     <td>{{ $item->proyecto_curricular }}</td>
+                     <td>{{ $item->espacio_academico }}</td>
+                     <td>{{ $item->destino_rp }}</td>
+                     <td>{{ $item->fecha_salida_aprox_rp }}</td>
+                     <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
                      <td> 
-                      <a href="{{URL('users',$item->id)}}">
-                        <button class="btn-success" style="background-color: #447161; border:0">Editar</button></a> 
+                      <a href="{{route('proyeccion_edit',$item->id)}}">
+                        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
+                      </a> 
                      </td> 
                    </tr>
-            @endforeach --}}
+            @endforeach
           </table>
             
         </div>

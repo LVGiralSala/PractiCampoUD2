@@ -63,7 +63,7 @@ class RegisterController extends Controller
             'id_role' => ['required', 'integer', 'max:11'],
             // 'id_categoria' => ['required', 'integer', 'max:13'],
             'id_tipo_vinculacion' => ['required', 'integer', 'max:13'],
-            'id_espacio_academico_1' => ['required', 'integer'],
+            // 'id_espacio_academico_1' => ['required', 'integer'],
         ]);
     }
 
@@ -75,16 +75,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // $cont=1;
-        // foreach($data['id_espacio_academico_'] as $espacio)
-        // {
-        //     $name = "[".$cont++."]";
-        //     $a = "'".$name."'";
-            
-        //     $b= $data['id_espacio_academico_'.[0]];
-        //     return $b;
-        // }
 
+        $espacios_academicos = $data['id_espacio_academico_'];
         $user = User::create([
             'id' => $data['num_identificacion'],
             'id_tipo_identificacion' => $data['id_tipo_identificacion'],
@@ -98,20 +90,18 @@ class RegisterController extends Controller
             'id_role' => $data['id_role'],
             // 'id_categoria' => $data['id_categoria'],
             'id_tipo_vinculacion' => $data['id_tipo_vinculacion'],
-            'id_espacio_academico_1' => $data['id_espacio_academico_1'],
+            'id_espacio_academico_1' => $espacios_academicos[0],
+            'id_espacio_academico_2' => $espacios_academicos[1],
+            'id_espacio_academico_3' => $espacios_academicos[2],
+            'id_espacio_academico_4' => $espacios_academicos[3],
+            'id_espacio_academico_5' => $espacios_academicos[4],
+            'id_espacio_academico_6' => $espacios_academicos[5],
             'telefono' => $data['telefono'],
             'celular' => $data['celular'],
             'id_estado' => '1',
 
-            // 'id_espacio_academico_2' => $data['id_espacio_academico_2'],
-            // 'id_espacio_academico_3' => $data['id_espacio_academico_3'],
-            // 'id_espacio_academico_4' => $data['id_espacio_academico_4'],
-            // 'id_espacio_academico_5' => $data['id_espacio_academico_5'],
-            // 'id_espacio_academico_6' => $data['id_espacio_academico_6'],
             ]);
             
     }
-
-    
     
 }

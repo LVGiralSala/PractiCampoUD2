@@ -113,7 +113,8 @@
                      <td>{{ $item->email }}</td>
                      <td>{{ $item->role }}</td> 
                      <td> 
-                      <a href="{{URL('users',$item->id)}}">
+                      <a href="{{URL::action('Users\UsersController@edit',$item->id)}}">
+                          {{-- <a href="{{route('users_edit')}}"> --}}
                         <button class="btn-success" style="background-color: #447161; border:0">Editar</button></a> 
                      </td>
                    </tr>

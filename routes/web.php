@@ -51,10 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
         if ($options['register'] ?? true) {
             Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
             Route::post('register', 'Auth\RegisterController@register');
-            Route::post('register/dirCompleta', 'Auth\RegisterController@completarDireccion')->name('dirCompleta');
+            Route::post('register/addEspacio', 'Auth\RegisterController@addEspacio')->name('addEspacio');
         }
 
-        // Route::get('users','Users\UsersController@index')->name('users_index');
+        // Route::resource('users','Users\UsersController');
         Route::get('users/{id}','Users\UsersController@edit')->name('users_edit');
         Route::put('users/{id}','Users\UsersController@update')->name('users_update');
         Route::get('users/filtrar/{id}','Users\UsersController@filterUser')->name('users_filter');
@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('proyecciones/create','Proyeccion\ProyeccionController@create')->name('proyeccion_create');
         Route::post('proyecciones','Proyeccion\ProyeccionController@store')->name('proyeccion_store');
         Route::get('proyecciones/{id}','Proyeccion\ProyeccionController@edit')->name('proyeccion_edit');
-        Route::put('proyecciones','Proyeccion\ProyeccionController@update')->name('proyeccion_update');
+        Route::put('proyecciones/{id}','Proyeccion\ProyeccionController@update')->name('proyeccion_update');
         Route::delete('proyecciones','Proyeccion\ProyeccionController@destroy')->name('proyeccion_destroy');
         // Route::get('proyecciones/activas','Proyeccion\ProyeccionController@verActiva')->name('proyeccion_activa');
         // Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
@@ -94,6 +94,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('solicitudes','Solicitud\SolicitudController@destroy')->name('solicitud_destroy');
         // Route::get('solicitudes/activas','Solicitud\SolicitudController@verActiva')->name('solicitud_activa');
         // Route::get('solicitudes/inactivas','Solicitud\SolicitudController@verInactiva')->name('solicitud_inactiva');
+
+        // Search Routes...
+        // Route::resource('buscar/espa_aca','Otros\EspacioAcademicoController');
+        Route::post('buscar/espa_aca','Otros\EspacioAcademicoController@searchEspaAca')->name('espa_aca');
 
 
         // ------> SEND EMAIL <------

@@ -134,6 +134,12 @@ class UsersController extends Controller
         $usuario->id_role=$request->get('id_role');
         $usuario->id_tipo_vinculacion=$request->get('id_tipo_vinculacion');
         $usuario->email=$request->get('email');
+        $usuario->id_espacio_academico_1=$request->get('id_espacio_academico_1');
+        $usuario->id_espacio_academico_2=$request->get('id_espacio_academico_2');
+        $usuario->id_espacio_academico_3=$request->get('id_espacio_academico_3');
+        $usuario->id_espacio_academico_4=$request->get('id_espacio_academico_4');
+        $usuario->id_espacio_academico_5=$request->get('id_espacio_academico_5');
+        $usuario->id_espacio_academico_6=$request->get('id_espacio_academico_6');
         $usuario->updated_at=$mytime->toDateString();
 
         $usuario->update();
