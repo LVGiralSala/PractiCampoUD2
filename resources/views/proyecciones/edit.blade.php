@@ -278,7 +278,7 @@
                                 <!-- 6 -->
 
                                 <!-- 7 -->
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
 
                                     <div class="col-md-2">
                                         <label for="cant_transporte_rp" class="col-form-label text-md-left">{{ __('Cant. Vehíc.') }}</label>
@@ -292,7 +292,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!-- 7 -->
 
                                 <!-- 8 transporte_rp_1 -->
@@ -631,7 +631,7 @@
                                 <!-- 12 -->
 
                                 <!-- 13 -->
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
 
                                     <div class="col-md-2">
                                         <label for="cant_transporte_ra" class="col-form-label text-md-left">{{ __('Cant. Vehíc.') }}</label>
@@ -645,7 +645,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- 13 -->
 

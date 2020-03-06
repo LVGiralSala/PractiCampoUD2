@@ -1,40 +1,40 @@
 // import { url } from "inspector";
 
 /*Agregar campo*/
-// $(document).ready(function(){
-//     var alert = $.fn.jquery;
-//     console.log(alert);
-//     var maxField = 6;
-//     var addButton = $('.add_button');
-//     var wrapper = $('.field_wrapper');
-//     var fieldHtml = '<div class="col-md-6" id="esp_aca"><div class="row"><div class="col-md-4" id="esp_aca"><label for="id_espacio_academico_1" class="col-form-label text-md-right">Cod. Académ.</label>'+
-//     '<span class="hs-form-required">*</span><input type="text" name="id_espacio_academico_[]" value="" class="form-control"/></div>'+
-//     '<div class="col-md-8" id="esp_aca"><label for="id_espacio_academico_1" class="col-form-label text-md-right">'+
-//     'Espacio Académico</label><span class="hs-form-required">*</span><div class="row">'+
-//     '<input type="text" name="espacio_academico" value="" class="form-control" style="width: 90%;"/><a href="#" class="remove_field"><img src="remove-icon.png"/></a></div></div></div>';
+$(document).ready(function(){
+    var alert = $.fn.jquery;
+    console.log(alert);
+    var maxField = 6;
+    var addButton = $('.add_button');
+    var wrapper = $('.field_wrapper');
+    var fieldHtml = '<div class="col-md-6" id="esp_aca"><div class="row"><div class="col-md-4" id="esp_aca"><label for="id_espacio_academico_1" class="col-form-label text-md-right">Cod. Académ.</label>'+
+    '<span class="hs-form-required">*</span><input type="text" name="id_espacio_academico_[]" value="" class="form-control"/></div>'+
+    '<div class="col-md-8" id="esp_aca"><label for="id_espacio_academico_1" class="col-form-label text-md-right">'+
+    'Espacio Académico</label><span class="hs-form-required">*</span><div class="row">'+
+    '<input type="text" name="espacio_academico" value="" class="form-control" style="width: 90%;"/><a href="#" class="remove_field"><img src="remove-icon.png"/></a></div></div></div>';
 
-//     // '<div><select name="id_espacio_academico_[]" id="add_espacio_academico" class="form-control" required>@foreach($espacios_academicos as $esp)<option value="{{$esp->id}}" selected>$esp->espacio_academico</option>@endforeach</select><a class="remove_field"><img src="remove-icon.png"/></a></div>';
-//     // var fieldHtml = $('#esp_aca .field_wrapper').last().clone();
-//     var x = 1;
+    // '<div><select name="id_espacio_academico_[]" id="add_espacio_academico" class="form-control" required>@foreach($espacios_academicos as $esp)<option value="{{$esp->id}}" selected>$esp->espacio_academico</option>@endforeach</select><a class="remove_field"><img src="remove-icon.png"/></a></div>';
+    // var fieldHtml = $('#esp_aca .field_wrapper').last().clone();
+    var x = 1;
 
-//     $(addButton).click(function(e){
-//         e.preventDefault();
-//         if(x < maxField)
-//         {
-//             x++;
-//             $(wrapper).append(fieldHtml);
-//         }
-//     });
+    $(addButton).click(function(e){
+        e.preventDefault();
+        if(x < maxField)
+        {
+            x++;
+            $(wrapper).append(fieldHtml);
+        }
+    });
 
-//     $(wrapper).on('click', '.remove_field', function(e){
-//         e.preventDefault();
-//         $(this).parent().parent().parent().remove();
-//         // $("#div_esp_aca, #div_esp_aca2").remove();
-//         // $("#div_esp_aca2").remove();
-//         x--;
-//     });
+    $(wrapper).on('click', '.remove_field', function(e){
+        e.preventDefault();
+        $(this).parent().parent().parent().remove();
+        // $("#div_esp_aca, #div_esp_aca2").remove();
+        // $("#div_esp_aca2").remove();
+        x--;
+    });
      
-// });
+});
 
 
 $(document).ready(function(){
