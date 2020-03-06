@@ -256,7 +256,7 @@
                                     <span class="hs-form-required">*</span>
                                     <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
                                         <input type="text" name="id_espacio_academico_1" id="id_espacio_academico_1" value="{{$usuario->id_espacio_academico_1}}" class="form-control" style="width: 90%;"
-                                        onchange="searchEspaAca(this.value, '1')">
+                                        onblur="searchEspaAca(this.value, '1')">
                                     </div>
                                 </div>
 
