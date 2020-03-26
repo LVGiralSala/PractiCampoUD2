@@ -114,7 +114,7 @@
                                 <div class="col-md-3">
                                     <label for="id_tipo_identificacion" class="col-form-label text-md-right">{{ __('Tipo Identificación') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <select name="id_tipo_identificacion" class="form-control" required readonly>
+                                    <select name="id_tipo_identificacion" class="form-control" required readonly  disabled>
                                         @foreach($tipos_identificaciones as $tip_ident)
                                         <option <?php if($tip_ident->id==$usuario->id_tipo_identificacion) echo 'selected'?> value="{{$tip_ident->id}}">{{$tip_ident->sigla}}</option>
                                         @endforeach
@@ -251,12 +251,239 @@
 
                             <!-- 6 Academico_1 -->
                             <div class="form-group row">
+                                <div class="col-md-12" id="esp_aca">
+                                    <div class="row" id="esp_aca_children">
+                                        <div class="col-md-3">
+                                            <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <select name="id_programa_academico_[]" class="form-control" required>
+                                                @foreach($programas_academicos as $pr_aca)
+                                                    <option <?php if($pr_aca->id==$usuario->id_programa_academico_1) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('id_programa_academico_[]')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_1}}"class="form-control"
+                                            onchange="searchEspaAca(this.value,1)"/>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <div class="row">
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[0]}}" class="form-control" style="width: 90%;"
+                                                readonly/>
+                                                <a class="imgButton" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-md-1">
+                                            <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                        </div> --}}
+                                    </div>
+
+                            <!-- 6 Academico_1 -->
+
+                            <!-- 6 Academico_2 -->
+                                    @if($usuario->id_espacio_academico_2 != null)
+                                    <div class="row" id="esp_aca_children">
+                                        <div class="col-md-3">
+                                            <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
+                                            <select name="id_programa_academico_[]" class="form-control">
+                                                @foreach($programas_academicos as $pr_aca)
+                                                    <option <?php if($pr_aca->id==$usuario->id_programa_academico_2) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('id_programa_academico_[]')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
+                                        <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_2}}" class="form-control"
+                                            onchange="searchEspaAca(this.value,2)"/>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label for="espacio_academico_2" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                            <div class="row">
+                                                <input type="text" name="espacio_academico_2" id="espacio_academico_2" value="{{$espacios_usuario[1]}}" class="form-control" style="width: 90%;"
+                                                readonly/>
+                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-md-1">
+                                            <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                        </div> --}}
+                                    </div>
+                                    @endif
+
+                            <!-- 6 Academico_2 -->
+
+                            <!-- 6 Academico_3 -->
+                                    @if($usuario->id_espacio_academico_3 != null)
+                                    <div class="row" id="esp_aca_children">
+                                        <div class="col-md-3">
+                                            <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
+                                            <select name="id_programa_academico_[]" class="form-control">
+                                                @foreach($programas_academicos as $pr_aca)
+                                                    <option <?php if($pr_aca->id==$usuario->id_programa_academico_3) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('id_programa_academico_[]')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_3}}" class="form-control"
+                                            onchange="searchEspaAca(this.value,3)"/>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label for="espacio_academico_3" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                            <div class="row">
+                                                <input type="text" name="espacio_academico_3" id="espacio_academico_3" value="{{$espacios_usuario[2]}}" class="form-control" style="width: 90%;"
+                                                readonly/>
+                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-md-1">
+                                            <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                        </div> --}}
+                                    </div>
+                                    @endif
+
+                            <!-- 6 Academico_3 -->
+
+                            <!-- 6 Academico_4 -->
+                                    @if($usuario->id_espacio_academico_4 != null)
+                                    <div class="row" id="esp_aca_children">
+                                        <div class="col-md-3">
+                                            <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <select name="id_programa_academico_[]" class="form-control" required>
+                                                @foreach($programas_academicos as $pr_aca)
+                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
+                                                @endforeach
+                                            </select>
+                                            @error('id_programa_academico_[]')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_4}}" class="form-control"
+                                            onchange="searchEspaAca(this.value,1)"/>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <div class="row">
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[3]}}" class="form-control" style="width: 90%;"
+                                                readonly/>
+                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                            <!-- 6 Academico_4 -->
+                                    
+                            <!-- 6 Academico_5 -->
+                                    @if($usuario->id_espacio_academico_5 != null)
+                                    <div class="row" id="esp_aca_children">
+                                        <div class="col-md-3">
+                                            <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <select name="id_programa_academico_[]" class="form-control" required>
+                                                @foreach($programas_academicos as $pr_aca)
+                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
+                                                @endforeach
+                                            </select>
+                                            @error('id_programa_academico_[]')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_5}}" class="form-control"
+                                            onchange="searchEspaAca(this.value,1)"/>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <div class="row">
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[4]}}" class="form-control" style="width: 90%;"
+                                                readonly/>
+                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    
+                            <!-- 6 Academico_5 -->
+
+                            <!-- 6 Academico_6 -->
+                                    @if($usuario->id_espacio_academico_6 != null)
+                                    <div class="row" id="esp_aca_children">
+                                        <div class="col-md-3">
+                                            <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <select name="id_programa_academico_[]" class="form-control" required>
+                                                @foreach($programas_academicos as $pr_aca)
+                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
+                                                @endforeach
+                                            </select>
+                                            @error('id_programa_academico_[]')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_6}}" class="form-control"
+                                            onchange="searchEspaAca(this.value,1)"/>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <div class="row">
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[5]}}" class="form-control" style="width: 90%;"
+                                                readonly/>
+                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                            <!-- 6 Academico_6 -->
+                                </div>
+                            </div>
+                            
+
+                            {{-- <div class="form-group row">
                                 <div class="col-md-2">
                                     <label for="id_espacio_academico_1" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
                                         <input type="text" name="id_espacio_academico_1" id="id_espacio_academico_1" value="{{$usuario->id_espacio_academico_1}}" class="form-control" style="width: 90%;"
-                                        onblur="searchEspaAca(this.value, '1')">
+                                        onchange="searchEspaAca(this.value, '1')">
                                     </div>
                                 </div>
 
@@ -264,10 +491,11 @@
                                     <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                     <span class="hs-form-required">*</span>
                                     <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="espacio_academico_1" id="espacio_academico_1" class="form-control" style="width: 90%;"
-                                        value=""  readonly>
+                                    <input type="text" name="espacio_academico_1" id="espacio_academico_1"  value="{{$espacios_usuario[0]}}" class="form-control" style="width: 90%;"
+                                     readonly>
                                     </div>
                                 </div>
+                                
 
                                 @if($usuario->id_espacio_academico_2 != null)
                                 <div class="col-md-2">
@@ -281,88 +509,12 @@
                                 <div class="col-md-4">
                                     <label for="espacio_academico_2" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                     <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="espacio_academico_2" id="espacio_academico_2" class="form-control" style="width: 90%;" readonly/>
+                                        <input type="text" name="espacio_academico_2" id="espacio_academico_2" value="{{$espacios_usuario[1]}}" class="form-control" style="width: 90%;" readonly/>
                                     </div>
                                 </div>
                                 @endif
-                            </div>
-                            <!-- 6 Academico_1 -->
-
-                            <!-- 6 Academico_2-->
-                            @if($usuario->id_espacio_academico_3 != null)
-                            <div class="form-group row">
-                                <div class="col-md-2">
-                                    <label for="id_espacio_academico_3" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="id_espacio_academico_3" value="{{$usuario->id_espacio_academico_3}}" class="form-control" style="width: 90%;"
-                                        onchange="searchEspaAca(this.value, '3')">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="espacio_academico_3" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="espacio_academico_3"  id="espacio_academico_3" class="form-control" style="width: 90%;" readonly/>
-                                    </div>
-                                </div>
-
-                                @if($usuario->id_espacio_academico_4 != null)
-                                <div class="col-md-2">
-                                    <label for="id_espacio_academico_4" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="id_espacio_academico_4" value="{{$usuario->id_espacio_academico_4}}" class="form-control" style="width: 90%;"
-                                        onchange="searchEspaAca(this.value, '4')">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="espacio_academico_4" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="espacio_academico_4" id="espacio_academico_4" class="form-control" style="width: 90%;" readonly/>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
-                            @endif
-                            <!-- 6 Academico_2 -->
-
-                            <!-- 6 Academico_3 -->
-                            @if($usuario->id_espacio_academico_5 != null)
-                            <div class="form-group row">
-                                <div class="col-md-2">
-                                    <label for="id_espacio_academico_5" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="id_espacio_academico_5" value="{{$usuario->id_espacio_academico_5}}" class="form-control" style="width: 90%;"
-                                        onchange="searchEspaAca(this.value, '5')">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="espacio_academico_5" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="espacio_academico_5" id="espacio_academico_5" class="form-control" style="width: 90%;" readonly/>
-                                    </div>
-                                </div>
-
-                                @if($usuario->id_espacio_academico_6 != null)
-                                <div class="col-md-2">
-                                    <label for="id_espacio_academico_6" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="id_espacio_academico_6" value="{{$usuario->id_espacio_academico_6}}" class="form-control" style="width: 90%;"
-                                        onchange="searchEspaAca(this.value, '6')">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="espacio_academico_6" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
-                                    <div class="field_wrapper" style="display:flex; flex-wrap:wrap">
-                                        <input type="text" name="espacio_academico_6" id="espacio_academico_6" class="form-control" style="width: 90%;" readonly/>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
-                            @endif
-                            <!-- 6 Academico_3 -->
+                            </div> --}}
+                            <!-- 6 Academico_6 -->
 
                             <!-- 7 -->
                             <div class="form-group row">

@@ -9,6 +9,11 @@ class espacio_academico extends Model
     protected $table = 'espacio_academico';
 
     protected $fillable = [
-    		'espacio_academico'    		
+            'codigo_espacio_academico',
+            'id_programa_academico',
+            'espacio_academico',
+            'plan_estudios_1',
+            'plan_estudios_2', 
+            'tipo_espacio',   		
     ];
 }

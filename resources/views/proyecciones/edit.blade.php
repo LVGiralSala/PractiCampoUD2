@@ -20,14 +20,14 @@
                                 <!-- 1 -->
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label for="id_proyecto_curricular" class="col-form-label text-md-right">{{ __('Proyecto Curricular') }}</label>
+                                        <label for="id_programa_academico" class="col-form-label text-md-right">{{ __('Programa Académico') }}</label>
                                         <span class="hs-form-required">*</span>
-                                        <select name="id_proyecto_curricular" class="form-control" required>
-                                            @foreach($proyectos_curriculares as $pro_cu)
-                                                <option <?php if($pro_cu->id==$proyeccion_preliminar->id_proyecto_curricular) echo 'selected'?> value="{{$pro_cu->id}}">{{$pro_cu->proyecto_curricular}}</option>  
+                                        <select name="id_programa_academico" class="form-control" required>
+                                            @foreach($programas_academicos as $pro_aca)
+                                                <option <?php if($pro_aca->id==$proyeccion_preliminar->id_programa_academico) echo 'selected'?> value="{{$pro_aca->id}}">{{$pro_aca->programa_academico}}</option>  
                                             @endforeach
                                         </select>
-                                        @error('id_proyecto_curricular')
+                                        @error('id_programa_academico')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -39,7 +39,7 @@
                                         <span class="hs-form-required">*</span>
                                         <select name="id_espacio_academico" class="form-control" required>
                                             @foreach($espacios_academicos as $esp_aca)
-                                                <option <?php if($esp_aca->id==$proyeccion_preliminar->id_espacio_academico) echo 'selected'?> value="{{$esp_aca->id}}">{{$esp_aca->espacio_academico}}</option>  
+                                                <option <?php if($esp_aca->id==$proyeccion_preliminar->id_espacio_academico) echo 'selected'?> value="{{$esp_aca->codigo_espacio_academico}}">{{$esp_aca->espacio_academico}}</option>  
                                                 
                                             @endforeach
                                         </select>

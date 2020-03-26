@@ -5,6 +5,7 @@ namespace PractiCampoUD\Http\Controllers\Otros;
 use PractiCampoUD\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PractiCampoUD\espacio_academico;
+use DB;
 
 class EspacioAcademicoController extends Controller
 {
@@ -86,8 +87,27 @@ class EspacioAcademicoController extends Controller
 
     public function searchEspaAca(Request $request)
     {
-        $espa_aca = espacio_academico::find($request->id);
+        if($request->opc == 1)
+        {
+            // $espa_aca = espacio_academico::find($request->id);
+            $espa_aca = DB::table('espacio_academico')
+            ->where('id_programa_academico','=',$request->id_pa)
+            ->where('codigo_espacio_academico','=', $request->id)->first();
 
-        return response()->json($espa_aca);
+            // $espa_aca->first();
+
+            return response()->json($espa_aca);
+        }
+        elseif($request->opc == 2)
+        {
+            // $espa_aca = espacio_academico::find($request->id);
+            $espa_aca = DB::table('espacio_academico')
+            ->where('id_programa_academico','=',$request->id_ea)
+            ->where('codigo_espacio_academico','=', $request->id)->first();
+
+            // $espa_aca->first();
+
+            return response()->json($espa_aca);
+        }
     }
 }

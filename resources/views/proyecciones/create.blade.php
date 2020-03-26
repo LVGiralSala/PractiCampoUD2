@@ -19,19 +19,32 @@
                                 <!-- 1 -->
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label for="id_proyecto_curricular" class="col-form-label text-md-right">{{ __('Proyecto Curricular') }}</label>
+                                        <label for="id_programa_academico" class="col-form-label text-md-right">{{ __('Programa Académico') }}</label>
                                         <span class="hs-form-required">*</span>
-                                        <select name="id_proyecto_curricular" class="form-control" required>
-                                            @foreach($proyectos_curriculares as $pro_cu)
-                                                <option value="{{$pro_cu->id}}" selected>{{$pro_cu->proyecto_curricular}}</option>  
+                                        <select name="id_programa_academico" class="form-control" required>
+                                            @foreach($programas_academicos as $pro_aca)
+                                                <option value="{{$pro_aca->id}}" selected>{{$pro_aca->programa_academico}}</option>  
                                             @endforeach
                                         </select>
-                                        @error('id_proyecto_curricular')
+                                        @error('id_programa_academico')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
+
+                                    {{-- <div class="col-md-2">
+                                        <label for="id_semestre_asignatura" class="col-form-label text-md-right">{{ __('Sem.') }}</label>
+                                        <span class="hs-form-required">*</span>
+                                        <input id="num_estudiantes_aprox" type="text" class="form-control @error('num_estudiantes_aprox') is-invalid @enderror" name="num_estudiantes_aprox" 
+                                        value="" required autocomplete="off" autofocus>
+                                       
+                                        @error('id_semestre_asignatura')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
 
                                     <div class="col-md-3">
                                         <label for="id_espacio_academico" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>

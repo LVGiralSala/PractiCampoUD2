@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'id_espacio_academico_4',
         'id_espacio_academico_5',
         'id_espacio_academico_6',
+        'id_programa_academico',
         'primer_nombre',
         'segundo_nombre',
         'primer_apellido',

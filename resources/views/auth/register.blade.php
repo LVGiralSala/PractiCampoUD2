@@ -374,12 +374,12 @@
                             <div class="form-group row">
                                 <div class="col-md-12" id="esp_aca">
                                     <div class="row" id="esp_aca_children">
-                                        <!-- <div class="col-md-3">
+                                        <div class="col-md-3">
                                             <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <select name="id_programa_academico_[]" class="form-control" required>
+                                            <select name="id_programa_academico_[]" class="form-control" required id="id_programa_academico_1" onchange="searchEspaAca_2(1)">
                                                 @foreach($programas_academicos as $pr_aca)
-                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->proyecto_curricular}}</option>  
+                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
                                                 @endforeach
                                             </select>
                                             @error('id_programa_academico_[]')
@@ -387,27 +387,28 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div> -->
+                                        </div> 
                                         <div class="col-md-2">
-                                            <label for="id_espacio_academico_1" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
+                                            <label for="id_espacio_academico_[]" id="id_espacio_academico_1" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="" class="form-control"/>
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="" class="form-control"
+                                            onchange="searchEspaAca(this.value,1)"/>
                                         </div>
-                                        <!-- <div class="col-md-6">
-                                            <label for="id_espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
+                                        <div class="col-md-7">
+                                            <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
                                             <div class="row">
-                                                <input type="text" name="espacio_academico" value="" class="form-control" style="width: 90%;"/> -->
-                                                <!-- <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a> -->
-                                            <!-- </div>
-                                        </div> -->
-                                        <div class="col-md-1">
-                                            <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="" class="form-control" style="width: 90%;"
+                                                readonly/>
+                                                <a class="imgButton" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                            </div>
                                         </div>
+                                        {{-- <div class="col-md-1">
+                                            <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
-
                             
                             <!-- 5 Academico_1 -->
 

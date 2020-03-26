@@ -2,7 +2,7 @@
 
 namespace PractiCampoUD\Http\Controllers\Pdf;
 
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Barryvdh\DomPDF\PDF as DomPDF;
 use Illuminate\Http\Request;
 use PDF;
 use PractiCampoUD\Http\Controllers\Controller;
@@ -92,8 +92,8 @@ class PdfController extends Controller
 
     public function exportPdf()
     {
-        $data = ['title' => 'Welcome to PractiCampoUD.com'];
-        $pdf = PDF::LoadView('prueba', $data);
+        $pdf = PDF::LoadView('prueba');
+        $pdf->setPaper('letter');
   
         return $pdf->download('resolucion_proyeccion.pdf');
     }

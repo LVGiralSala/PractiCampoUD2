@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'admin','decano','asistD'], function () {
 
         // ------> Registration Routes... <------
-        if ($options['register'] ?? true) {
+        if ($options['register'] ?? true) { 
             Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
             Route::post('register', 'Auth\RegisterController@register');
             Route::post('register/addEspacio', 'Auth\RegisterController@addEspacio')->name('addEspacio');
@@ -119,6 +119,10 @@ Route::group(['middleware' => 'auth'], function () {
             });
             return "Email enviado con exito!";
         })->name('enviar_correo');
+
+        Route::get('/pdf', function () {
+            return view('prueba');
+        });
     });
 
 // });

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use PractiCampoUD\proyeccion;
 use PractiCampoUD\User;
 use DB;
-use PractiCampoUD\proyecto_curricular;
+use PractiCampoUD\programa_academico;
 
 // use PractiCampoUD\Http\Middleware\User;
 
@@ -24,10 +24,13 @@ class ProyeccionController extends Controller
     public function index()
     {
         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-        ->join('proyecto_curricular as p_cur','p_prel.id_proyecto_curricular','=','p_cur.id')
+        // ->join('programa_academico as p_aca','p_prel.id_programa_academico','=','p_aca.id')
         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
-        ->select('p_prel.id','p_cur.proyecto_curricular','e_aca.espacio_academico',
-                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp')
+        ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+        ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
+        ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
+                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev','es_dec.abrev')
         ->paginate(10);
 
         return view('proyecciones.index',["proyecciones"=>$proyeccion]);
@@ -53,7 +56,7 @@ class ProyeccionController extends Controller
         $id = Auth::user()->id;
         $usuario=User::find($id);
         $proyeccion_preliminar=DB::table('proyeccion_preliminar')->get();
-        $proyecto_curricular=DB::table('proyecto_curricular')->get();
+        $programa_academico=DB::table('programa_academico')->get();
         $espacio_academico=DB::table('espacio_academico')
         ->whereIn('id', [$usuario->id_espacio_academico_1, $usuario->id_espacio_academico_2, $usuario->id_espacio_academico_3, 
         $usuario->id_espacio_academico_4, $usuario->id_espacio_academico_5, $usuario->id_espacio_academico_6])->get();
@@ -64,7 +67,7 @@ class ProyeccionController extends Controller
 
         return view('proyecciones.create', [
                                             "proyeccion_preliminar"=>$proyeccion_preliminar,
-                                            "proyectos_curriculares"=>$proyecto_curricular,
+                                            "programas_academicos"=>$programa_academico,
                                             "espacios_academicos"=>$espacio_academico,
                                             "semestres_asignaturas"=>$semestre_asignatura,
                                             "periodos_academicos"=>$periodo_academico,
@@ -92,7 +95,7 @@ class ProyeccionController extends Controller
         $mytime = Carbon::now('America/Bogota');
         $proyeccion_preliminar->fecha_diligenciamiento=$mytime->toDateTimeString();
         $proyeccion_preliminar->id_docente_responsable=Auth::user()->id;
-        $proyeccion_preliminar->id_proyecto_curricular=$request->get('id_proyecto_curricular');
+        $proyeccion_preliminar->id_programa_academico=$request->get('id_programa_academico');
         $proyeccion_preliminar->id_espacio_academico=$request->get('id_espacio_academico');
         $proyeccion_preliminar->id_peridodo_academico=$request->get('id_periodo_academico');
         $proyeccion_preliminar->id_semestre_asignatura=$request->get('id_semestre_asignatura');
@@ -169,14 +172,14 @@ class ProyeccionController extends Controller
     public function edit($id)
     {
         $proyeccion_preliminar = proyeccion::find($id);
-        $proyecto_curricular = DB::table('proyecto_curricular')->get();
+        $programa_academico = DB::table('programa_academico')->get();
         $espacio_academico=DB::table('espacio_academico')->get();
         $periodo_academico=DB::table('periodo_academico')->get();
         $semestre_asignatura=DB::table('semestre_asignatura')->get();
         $tipo_transporte=DB::table('tipo_transporte')->get();
 
         return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
-                                         "proyectos_curriculares"=>$proyecto_curricular,
+                                         "programas_academicos"=>$programa_academico,
                                          "espacios_academicos"=>$espacio_academico,
                                          "periodos_academicos"=>$periodo_academico,
                                          "semestres_asignaturas"=>$semestre_asignatura,
@@ -205,7 +208,7 @@ class ProyeccionController extends Controller
         $mytime = Carbon::now('America/Bogota');
         // $proyeccion_preliminar->fecha_diligenciamiento=$mytime->toDateTimeString();
         $proyeccion_preliminar->id_docente_responsable=Auth::user()->id;
-        $proyeccion_preliminar->id_proyecto_curricular=$request->get('id_proyecto_curricular');
+        $proyeccion_preliminar->id_programa_academico=$request->get('id_programa_academico');
         $proyeccion_preliminar->id_espacio_academico=$request->get('id_espacio_academico');
         // $proyeccion_preliminar->id_peridodo_academico=$request->get('id_periodo_academico');
         $proyeccion_preliminar->id_semestre_asignatura=$request->get('id_semestre_asignatura');

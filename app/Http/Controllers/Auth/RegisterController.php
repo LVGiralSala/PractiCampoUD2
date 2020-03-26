@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use DB;
+use Mockery\Undefined;
 
 class RegisterController extends Controller
 {
@@ -77,6 +78,8 @@ class RegisterController extends Controller
     {
 
         $espacios_academicos = $data['id_espacio_academico_'];
+        $programas_academicos = $data['id_programa_academico_'];
+        $espacio_academico_1 = (!empty($espacios_academicos[4]))?$espacios_academicos[4]:null;
         $user = User::create([
             'id' => $data['num_identificacion'],
             'id_tipo_identificacion' => $data['id_tipo_identificacion'],
@@ -91,11 +94,17 @@ class RegisterController extends Controller
             // 'id_categoria' => $data['id_categoria'],
             'id_tipo_vinculacion' => $data['id_tipo_vinculacion'],
             'id_espacio_academico_1' => $espacios_academicos[0],
-            'id_espacio_academico_2' => $espacios_academicos[1],
-            'id_espacio_academico_3' => $espacios_academicos[2],
-            'id_espacio_academico_4' => $espacios_academicos[3],
-            'id_espacio_academico_5' => $espacios_academicos[4],
-            'id_espacio_academico_6' => $espacios_academicos[5],
+            'id_espacio_academico_2' => (!empty($espacios_academicos[1]))?$espacios_academicos[1]:null,
+            'id_espacio_academico_3' => (!empty($espacios_academicos[2]))?$espacios_academicos[2]:null,
+            'id_espacio_academico_4' => (!empty($espacios_academicos[3]))?$espacios_academicos[3]:null,
+            'id_espacio_academico_5' => (!empty($espacios_academicos[4]))?$espacios_academicos[4]:null,
+            'id_espacio_academico_6' => (!empty($espacios_academicos[5]))?$espacios_academicos[5]:null,
+            'id_programa_academico_1' => $programas_academicos[0],
+            'id_programa_academico_2' => (!empty($programas_academicos[1]))?$programas_academicos[1]:null,
+            'id_programa_academico_3' => (!empty($programas_academicos[2]))?$programas_academicos[2]:null,
+            'id_programa_academico_4' => (!empty($programas_academicos[3]))?$programas_academicos[3]:null,
+            'id_programa_academico_5' => (!empty($programas_academicos[4]))?$programas_academicos[4]:null,
+            'id_programa_academico_6' => (!empty($programas_academicos[5]))?$programas_academicos[5]:null,
             'telefono' => $data['telefono'],
             'celular' => $data['celular'],
             'id_estado' => '1',

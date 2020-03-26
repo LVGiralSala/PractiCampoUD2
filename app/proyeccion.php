@@ -13,7 +13,7 @@ class proyeccion extends Model
             'id_docente_responsable',   
             'id_tipo_transporte_rp_1',  
             'id_tipo_transporte_ra_1',  
-            'id_proyecto_curricular',    		
+            'id_programa_academico',    		
             'id_espacio_academico',  
             'id_peridodo_academico',  
             'id_semestre_asignatura',
