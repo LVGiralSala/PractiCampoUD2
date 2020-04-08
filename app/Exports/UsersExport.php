@@ -8,12 +8,13 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Events\BeforeWriting;
+use Maatwebsite\Excel\Concerns\WithTitle;
+
 use DB;
 
-class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
+class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents, WithTitle
 {
     use Exportable;
     /**
@@ -81,4 +82,11 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
             }
         ];
     }
+
+    public function title(): string
+    {
+        $titleSheet = "Usuarios";
+        return $titleSheet;
+    }
+
 }

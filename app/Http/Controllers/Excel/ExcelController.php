@@ -6,8 +6,10 @@ use PractiCampoUD\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use PractiCampoUD\Exports\ReportUsersExport;
 use PractiCampoUD\Exports\UsersExport;
 use PractiCampoUD\Imports\UsersImport;
+use DB;
 
 class ExcelController extends Controller
 {
@@ -88,7 +90,11 @@ class ExcelController extends Controller
     }
 
     public function exportExcel(){
-        return Excel::download(new UsersExport,'usuarios.xlsx');
+
+        // $users = [];
+        // $exportReport = new ReportUsersExport($users['ddd']);
+        // $exportReport = new ReportUsersExport($usuario['data']);
+        return Excel::download(new ReportUsersExport,'usuarios.xlsx');
     }
 
     public function importExcel(){

@@ -94,6 +94,7 @@ $(document).ready(function(){
              div_copy_rp.children().find('a').attr('id','remove_field_rp');
              div_copy_rp.children().find('a').attr('class','remove_field_rp');
              div_copy_rp.children().find('a').attr('title','Remove field');
+             div_copy_rp.children().find('img').attr('src','rem-icon.png');
              
              x_rp++;
 
@@ -142,6 +143,8 @@ $(document).ready(function(){
              div_copy_ra.children().find('input[type=text]').removeAttr('required');
              div_copy_ra.children().find('a').attr('id','remove_field_ra');
              div_copy_ra.children().find('a').attr('class','remove_field_ra');
+             div_copy_ra.children().find('a').attr('title','Remove field');
+             div_copy_ra.children().find('img').attr('src','rem-icon.png');
              
              x_ra++;
 
@@ -190,10 +193,10 @@ $(document).ready(function(){
          if(x_ea < maxField_ea)
          {
             div_copy_ea = $('#esp_aca_children').clone();
-            div_copy_ea.children().find('span').remove();
+            // div_copy_ea.children().find('span').remove(); -->para usar el searchEspaAca_2
             div_copy_ea.children().find('input[type=text]').removeAttr('required');
             div_copy_ea.children().find('a').attr('id','remove_field_ea');
-            div_copy_ea.children().find('a').attr('class','remove_field_ea');
+            div_copy_ea.children().find('a').attr('class','imgButton');
             div_copy_ea.children().find('a').attr('title','Remove field');
 
             x_ea++;
@@ -222,7 +225,9 @@ $(document).ready(function(){
         //    var opt_ea = $(idSelect_ea).children().find('option:selected').val();
 
             //  div_copy_ea.children().find('input[type=text]').attr('class', "form-control");
+            div_copy_ea.children().find('label').attr('id','id_espacio_academico_'+x_ea);
             div_copy_ea.children().find('select').attr('id', p_ea);
+            div_copy_ea.children().find('select').attr('onchange','searchEspaAca_2('+x_ea+')');
             div_copy_ea.children().find('input[type=text]').attr('onchange','searchEspaAca(this.value,'+x_ea+')');
             div_copy_ea.children().find('a').prev().attr('id', y_ea1);
             div_copy_ea.children().find('a').prev().attr('name', y_ea1);
@@ -269,100 +274,112 @@ $(document).ready(function(){
 /*Buscar Espacio Académico*/
 function searchEspaAca(id, indice){
 
-
     var idSelect_pa = "#id_programa_academico_"+indice;
     var idSelected_pa = $(idSelect_pa).find('option:selected').val();
     var idInput_ea = $(idSelect_pa).next().next().find('input[type=text]').val();
     
-    id_pa = idSelected_pa;
-    url = '/buscar/espa_aca';
-    opc = 1;
 
-    $.ajax({
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        url: url,
-        type: 'POST',
-        cache: false,
-        data: {'id':id, 'x':indice, 'id_pa':id_pa, 'opc':opc},                
-        // beforeSend: function(xhr){
-        // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
-        // },
-        success:function(respu){
-            console.log(respu);
-            var nameEa = "#espacio_academico_"+indice;
-            // var prog_a = $("#").val();
-            $("#espacio_academico_"+indice).val(respu.espacio_academico);  
-            $("#espacio_academico_"+indice).css("border-color", "#d1d3e2");
+    // if((idInput_ea == null))
+    // {
+    //     $("#espacio_academico_"+indice).val("Casilla de código académico vacía");
+    //     $("#cod_espacio_academico_"+indice).next().next('input:text').css("border-color", "red");
+    // }
+    
+    // if(idInput_ea != "")
+    // {
+        id_pa = idSelected_pa;
+        url = '/buscar/espa_aca';
+        opc = 1;
 
-              if ( jQuery.isEmptyObject(respu) || respu == null) {
-                //   $("#espacio_academico_"+indice).val('El código '+id+' no esta disponible para el programa académico');
-                // $("#espacio_academico_"+indice).val('Código no esta disponible para el programa seleccionado');
-                // $("#espacio_academico_"+indice).css("border-color", "red");
+        $.ajax({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: url,
+            type: 'POST',
+            cache: false,
+            data: {'id':id, 'x':indice, 'id_pa':id_pa, 'opc':opc},                
+            // beforeSend: function(xhr){
+            // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+            // },
+            success:function(respu){
+                console.log(respu);
+                var nameEa = "#espacio_academico_"+indice;
+                // var prog_a = $("#").val();
+                $("#espacio_academico_"+indice).val(respu.espacio_academico);  
+                $("#espacio_academico_"+indice).css("border-color", "#d1d3e2");
+                $("#cod_espacio_academico_"+indice).next().next('input:text').css("border-color", "#d1d3e2");
 
-                      $("#espacio_academico_"+indice).val(idInput_ea);  
-              }
-                        
-              },
-            error: function(xhr, textStatus, thrownError) {
-              
-            }
-        
-    });
+                if ( jQuery.isEmptyObject(respu) || respu == null) {
+                    $("#espacio_academico_"+indice).val('Código no disponible para el programa seleccionado');
+                    // $("#espacio_academico_"+indice).val('Código no esta disponible para el programa seleccionado');
+                    // $("#espacio_academico_"+indice).css("border-color", "red");
+                    $("#cod_espacio_academico_"+indice).next().next('input:text').css("border-color", "red");
+
+                        //   $("#espacio_academico_"+indice).val(idInput_ea);  
+                }
+                            
+                },
+                error: function(xhr, textStatus, thrownError) {
+                
+                }
+        });
+       
+    // }
 }
 
 function searchEspaAca_2(indice){
 
-    var idSelect_pa = "#id_programa_academico_"+indice;
-    var idSelected_pa = $(idSelect_pa).find('option:selected').val();
-    var idInput_ea = $("#id_espacio_academico_1").next().next().css("border-color", "green");
-    var nef = $("#id_espacio_academico_1").next().next('input:text').val('54');
-    // $("#id_espacio_academico_1").next().next().val(nef);
-    xxxx = nef;
-    $("#espacio_academico_"+indice).val(xxxx);
+    var idSelect_pa = "id_programa_academico_"+indice;
+    var idSelected_pa = $("#"+idSelect_pa).find('option:selected').val();
+    // $("#id_espacio_academico_1").next().next().css("border-color", "green"); ---> solo pruebas
+    var idInput_ea = $("#cod_espacio_academico_"+indice).next().next('input:text').val();
+    // var xxxx = "es"+idInput_ea+"valor"; ---> solo pruebas
+    // $("#espacio_academico_"+indice).css("border-color", "green"); ---> solo pruebas
+    $("#espacio_academico_"+indice).val(idInput_ea+"prueba");
 
-
-    id_pa = idSelected_pa;
-    id_ea = idInput_ea;
     url = '/buscar/espa_aca';
     opc = 2;
 
-    if((isEmptyObject(id_ea)) || (id_ea == null))
+    if((idInput_ea == "") || (idInput_ea == null))
     {
-        $("#espacio_academico_"+indice).val(xxxx);
-        $("#espacio_academico_"+indice).css("border-color", "green");
+        $("#espacio_academico_"+indice).val("Código Académico vacío");
+        $("#cod_espacio_academico_"+indice).next().next('input:text').css("border-color", "red");
     }
     
-    $.ajax({
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        url: url,
-        type: 'POST',
-        cache: false,
-        data: {'id':id_ea, 'x':indice, 'id_pa':id_pa, 'opc':opc},                
-        // beforeSend: function(xhr){
-        // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
-        // },
-        success:function(respu){
-            console.log(respu);
-            var nameEa = "#espacio_academico_"+indice;
-        
-            // $("#espacio_academico_"+indice).val(idInput_ea);  
-            $("#espacio_academico_"+indice).val(respu.espacio_academico);  
-            $("#espacio_academico_"+indice).css("border-color", "#d1d3e2");
+    else{
 
-              if ( jQuery.isEmptyObject(respu) || respu == null) {
-                //   $("#espacio_academico_"+indice).val('El código '+id+' no esta disponible para el programa académico');
-                $("#espacio_academico_"+indice).val('Código no esta disponible para el programa seleccionado');
-                $("#espacio_academico_"+indice).css("border-color", "red");
+        $.ajax({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: url,
+            type: 'POST',
+            cache: false,
+            data: {'id_ea':idInput_ea, 'x':indice, 'id_pa':idSelected_pa, 'opc':opc},                
+            // beforeSend: function(xhr){
+            // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+            // },
+            success:function(respu){
+                console.log(respu);
+                var nameEa = "#espacio_academico_"+indice;
+            
+                // $("#espacio_academico_"+indice).val(idInput_ea);  
+                $("#espacio_academico_"+indice).val(respu.espacio_academico);  
+                $("#espacio_academico_"+indice).css("border-color", "#d1d3e2");
+                $("#cod_espacio_academico_"+indice).next().next('input:text').css("border-color", "#d1d3e2");
 
-                    //   $("#espacio_academico_"+indice).val(idInput_ea);  
-              }
-                        
-              },
-            error: function(xhr, textStatus, thrownError) {
-              
-            }
-        
-    });
+                if ( jQuery.isEmptyObject(respu) || respu == null) {
+                    //   $("#espacio_academico_"+indice).val('El código '+id+' no esta disponible para el programa académico');
+                    $("#espacio_academico_"+indice).val('Código no disponible para el programa seleccionado');
+                    // $("#espacio_academico_"+indice).css("border-color", "red");
+
+                        //   $("#espacio_academico_"+indice).val(idInput_ea);  
+                }
+                            
+                },
+                error: function(xhr, textStatus, thrownError) {
+                
+                }
+            
+        });
+    }   
 }
 
 /*Buscar Espacio Académico*/

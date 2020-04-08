@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
@@ -41,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Route::group(['middleware' => 'activo'], function () {
     
-
+    // Auth::routes(['verified'=>true])->middleware('verified');
     Route::get('/home', 'HomeController@index')->name('home');
     
     // ------> Admin Routes <------
@@ -101,24 +102,24 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         // ------> SEND EMAIL <------
-        Route::get('/sendemail', function () {
+        // Route::get('/sendemail', function () {
             
-            $data = array (
-                'name' => "Trogloditas Exitoso",
-            );
-            Mail::send('emails.welcome', $data, function ($message) {
-                $message->from('trogloditascolombia@gmail.com', 'John Doe');
-                // $message->sender('john@johndoe.com', 'John Doe');
-                $message->to('trogloditascolombia@gmail.com')->subject('test email PractiCampoUD');
-                // $message->cc('john@johndoe.com', 'John Doe');
-                // $message->bcc('john@johndoe.com', 'John Doe');
-                // $message->replyTo('john@johndoe.com', 'John Doe');
-                // $message->subject('Subject');
-                // $message->priority(3);
-                // $message->attach('pathToFile');
-            });
-            return "Email enviado con exito!";
-        })->name('enviar_correo');
+        //     $data = array (
+        //         'name' => "Trogloditas Exitoso",
+        //     );
+        //     Mail::send('emails.welcome', $data, function ($message) {
+        //         $message->from('trogloditascolombia@gmail.com', 'John Doe');
+        //         // $message->sender('john@johndoe.com', 'John Doe');
+        //         $message->to('trogloditascolombia@gmail.com')->subject('test email PractiCampoUD');
+        //         // $message->cc('john@johndoe.com', 'John Doe');
+        //         // $message->bcc('john@johndoe.com', 'John Doe');
+        //         // $message->replyTo('john@johndoe.com', 'John Doe');
+        //         // $message->subject('Subject');
+        //         // $message->priority(3);
+        //         // $message->attach('pathToFile');
+        //     });
+        //     return "Email enviado con exito!";
+        // })->name('enviar_correo');
 
         Route::get('/pdf', function () {
             return view('prueba');

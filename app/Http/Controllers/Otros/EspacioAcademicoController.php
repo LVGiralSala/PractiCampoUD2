@@ -102,8 +102,8 @@ class EspacioAcademicoController extends Controller
         {
             // $espa_aca = espacio_academico::find($request->id);
             $espa_aca = DB::table('espacio_academico')
-            ->where('id_programa_academico','=',$request->id_ea)
-            ->where('codigo_espacio_academico','=', $request->id)->first();
+            ->where('id_programa_academico','=',$request->id_pa)
+            ->where('codigo_espacio_academico','=', $request->id_ea)->first();
 
             // $espa_aca->first();
 

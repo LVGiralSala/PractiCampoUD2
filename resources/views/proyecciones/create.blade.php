@@ -349,9 +349,9 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exclusiv_tiempo_rp_1">{{ __('Tiempo Completo?') }}</label>
+                                                    <label for="exclusiv_tiempo_rp_1" class="col-form-label text-md-left">{{ __('Tiempo Completo?') }}</label>
                                                     <span class="hs-form-required">*</span>
                                                     <div class="row">
 
@@ -369,13 +369,13 @@
                                                             </div>
                                                         </div>
 
+                                                        <a class="add_transp_rp" id="add_transp_rp" title="Add field"><img src="add-icon.png"/></a>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-1">
-                                                <a class="add_transp_rp" id="add_transp_rp" title="Add field"><img src="add-icon.png"/></a>
-                                            </div>
+                                            {{-- <div class="col-md-1">
+                                            </div> --}}
                                         </div>
 
                                     </div>
@@ -698,9 +698,9 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exclusiv_tiempo_ra_1">{{ __('Tiempo Completo') }}</label>
+                                                    <label for="exclusiv_tiempo_ra_1" class="col-form-label text-md-left">{{ __('Tiempo Completo') }}</label>
                                                     <span class="hs-form-required">*</span>
                                                     <div class="row">
                                                     
@@ -718,13 +718,13 @@
                                                             </div>
                                                         </div>
 
+                                                        <a class="add_transp_ra" id="add_transp_ra" title="Add field"><img src="add-icon.png"/></a>
                                                     </div>
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-md-1">
-                                                <a class="add_transp_ra" id="add_transp_ra" title="Add field"><img src="add-icon.png"/></a>
-                                            </div>
+                                            {{-- <div class="col-md-1">
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

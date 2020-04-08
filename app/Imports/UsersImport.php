@@ -5,9 +5,10 @@ namespace PractiCampoUD\Imports;
 use PractiCampoUD\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Illuminate\Support\Facades\Hash;
 
-class UsersImport implements ToModel, WithHeadingRow
+class UsersImport implements ToModel, WithHeadingRow, WithMultipleSheets
 {
     /**
     * @param array $row
@@ -38,28 +39,14 @@ class UsersImport implements ToModel, WithHeadingRow
             'telefono' => $row['telefono'],
             'celular' => $row['celular'],
             'id_estado' => '1',
-
-            // 'id' => $row[2],
-            // 'id_tipo_identificacion' => $row[1],
-            // 'usuario' => $row[11],
-            // 'primer_nombre'=> $row[12],
-            // 'segundo_nombre'=> $row[13],
-            // 'primer_apellido'=> $row[14],
-            // 'segundo_apellido'=> $row[15],
-            // 'email' => $row[18],
-            // 'password'  =>  '12345678',
-            // // 'password'  =>  Hash::make($row['password']),
-            // 'id_role' => $row[3],
-            // 'id_categoria' => $row[5],
-            // 'id_espacio_academico_1' => $row[8],
-            // 'telefono' => $row[17],
-            // 'celular' => $row[16],
-
-            // 'id_espacio_academico_2' => $row['id_espacio_academico_2'],
-            // 'id_espacio_academico_3' => $row['id_espacio_academico_3'],
-            // 'id_espacio_academico_4' => $row['id_espacio_academico_4'],
-            // 'id_espacio_academico_5' => $row['id_espacio_academico_5'],
-            // 'id_espacio_academico_6' => $row['id_espacio_academico_6'],
         ]);
     }
+
+    public function sheets(): array
+    {
+        return [
+            'Usuarios' => $this
+        ];
+    }
+
 }

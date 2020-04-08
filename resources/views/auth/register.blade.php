@@ -391,7 +391,7 @@
                                         <div class="col-md-2">
                                             <label for="id_espacio_academico_[]" id="id_espacio_academico_1" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="" class="form-control"
+                                            <input type="text" name="cod_espacio_academico_[]" id="cod_espacio_academico_[]" value="" class="form-control"
                                             onchange="searchEspaAca(this.value,1)"/>
                                         </div>
                                         <div class="col-md-7">
