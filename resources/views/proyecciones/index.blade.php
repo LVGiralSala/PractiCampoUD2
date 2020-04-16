@@ -69,6 +69,15 @@
         </div>
       </div>
           
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+        <div class="form-group">
+          <label for=""></label>
+          <div class="row">
+            <a href="{{route('export_list_proyecc.excel')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     XSL</button></a>
+          </div>
+        </div>
+      </div>
+
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
           <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">

@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth'], function () {
         // ------> Excel Routes <------
         Route::get('exp-users-list-excel','Excel\ExcelController@exportExcel')->name('export_list_users.excel');
         Route::post('imp-users-list-excel','Excel\ExcelController@importExcel')->name('import_list_users.excel');
+
+        Route::get('exp-proyecc-list-excel','Excel\ExcelController@exportProyeccionesExcel')->name('export_list_proyecc.excel');
     });
 
     Route::group(['middleware'=>'otros'], function (){

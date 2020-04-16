@@ -2,6 +2,7 @@
 
 namespace PractiCampoUD\Http\Controllers\Excel;
 
+use Carbon\Carbon;
 use PractiCampoUD\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use PractiCampoUD\Exports\ReportUsersExport;
 use PractiCampoUD\Exports\UsersExport;
 use PractiCampoUD\Imports\UsersImport;
 use DB;
+use PractiCampoUD\Exports\ReportProyeccionesExport;
 
 class ExcelController extends Controller
 {
@@ -106,4 +108,11 @@ class ExcelController extends Controller
         Excel::import(new UsersImport,request()->file('usuarios'));
         return Redirect::to('users/filtrar/all')->with('success', 'Creación exitosa');
     }
+
+    public function exportProyeccionesExcel()
+    {
+        $mytime=Carbon::now('America/Bogota');
+        return Excel::download(new ReportProyeccionesExport,'poyecciones_preliminares.xls');
+    }
+
 }
