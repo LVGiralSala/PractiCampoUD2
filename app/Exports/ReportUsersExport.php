@@ -20,6 +20,8 @@ class ReportUsersExport implements WithMultipleSheets
 
          $sheets[] = new UsersExport();
          $sheets[] = new EspaciosAcademicosExport();
+         $sheets[] = new TiposVinculacionesExport();
+         $sheets[] = new TiposIdentificacionesExport();
 
         return $sheets;
     }

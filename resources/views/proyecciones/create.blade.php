@@ -369,7 +369,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <a class="add_transp_rp" id="add_transp_rp" title="Add field"><img src="add-icon.png"/></a>
+                                                        <a class="add_transp_rp imgButton" id="add_transp_rp" title="Add field"><img src="{{asset('img/add-icon.png')}}"/></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -718,7 +718,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <a class="add_transp_ra" id="add_transp_ra" title="Add field"><img src="add-icon.png"/></a>
+                                                        <a class="add_transp_ra imgButton" id="add_transp_ra" title="Add field"><img src="{{asset('img/add-icon.png')}}"/></a>
                                                     </div>
                                                 </div>
                                             </div>

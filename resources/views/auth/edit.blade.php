@@ -258,7 +258,7 @@
                                             <span class="hs-form-required">*</span>
                                             <select name="id_programa_academico_[]" class="form-control" required>
                                                 @foreach($programas_academicos as $pr_aca)
-                                                    <option <?php if($pr_aca->id==$usuario->id_programa_academico_1) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
+                                                    <option <?php if($pr_aca->id==$espacios_usuario[0]['id_programa_academico']) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
                                                 @endforeach
                                             </select>
                                             @error('id_programa_academico_[]')
@@ -270,16 +270,16 @@
                                         <div class="col-md-2">
                                             <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_1}}"class="form-control"
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$espacios_usuario[0]['codigo_espacio_academico']}}"class="form-control"
                                             onchange="searchEspaAca(this.value,1)"/>
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
                                             <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[0]}}" class="form-control" style="width: 90%;"
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[0]['espacio_academico']}}" class="form-control" style="width: 90%;"
                                                 readonly/>
-                                                <a class="imgButton" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                                <a class="imgButton" id="addButton_ea_edit" title="Add field"><img src="add-icon.png"/></a>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-1">
@@ -291,12 +291,12 @@
 
                             <!-- 6 Academico_2 -->
                                     @if($usuario->id_espacio_academico_2 != null)
-                                    <div class="row" id="esp_aca_children">
+                                    <div class="row" id="esp_aca_children_1">
                                         <div class="col-md-3">
                                             <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
                                             <select name="id_programa_academico_[]" class="form-control">
                                                 @foreach($programas_academicos as $pr_aca)
-                                                    <option <?php if($pr_aca->id==$usuario->id_programa_academico_2) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
+                                                    <option <?php if($pr_aca->id==$espacios_usuario[1]['id_programa_academico']) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
                                                 @endforeach
                                             </select>
                                             @error('id_programa_academico_[]')
@@ -307,15 +307,15 @@
                                         </div> 
                                         <div class="col-md-2">
                                             <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
-                                        <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_2}}" class="form-control"
+                                        <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$espacios_usuario[1]['codigo_espacio_academico']}}" class="form-control"
                                             onchange="searchEspaAca(this.value,2)"/>
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_2" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <div class="row">
-                                                <input type="text" name="espacio_academico_2" id="espacio_academico_2" value="{{$espacios_usuario[1]}}" class="form-control" style="width: 90%;"
+                                                <input type="text" name="espacio_academico_2" id="espacio_academico_2" value="{{$espacios_usuario[1]['espacio_academico']}}" class="form-control" style="width: 90%;"
                                                 readonly/>
-                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-1">
@@ -333,7 +333,7 @@
                                             <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
                                             <select name="id_programa_academico_[]" class="form-control">
                                                 @foreach($programas_academicos as $pr_aca)
-                                                    <option <?php if($pr_aca->id==$usuario->id_programa_academico_3) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
+                                                    <option <?php if($pr_aca->id==$espacios_usuario[2]['id_programa_academico']) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
                                                 @endforeach
                                             </select>
                                             @error('id_programa_academico_[]')
@@ -344,15 +344,15 @@
                                         </div> 
                                         <div class="col-md-2">
                                             <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
-                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_3}}" class="form-control"
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$espacios_usuario[2]['codigo_espacio_academico']}}" class="form-control"
                                             onchange="searchEspaAca(this.value,3)"/>
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_3" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <div class="row">
-                                                <input type="text" name="espacio_academico_3" id="espacio_academico_3" value="{{$espacios_usuario[2]}}" class="form-control" style="width: 90%;"
+                                                <input type="text" name="espacio_academico_3" id="espacio_academico_3" value="{{$espacios_usuario[2]['espacio_academico']}}" class="form-control" style="width: 90%;"
                                                 readonly/>
-                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-1">
@@ -371,7 +371,7 @@
                                             <span class="hs-form-required">*</span>
                                             <select name="id_programa_academico_[]" class="form-control" required>
                                                 @foreach($programas_academicos as $pr_aca)
-                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
+                                                <option <?php if($pr_aca->id==$espacios_usuario[3]['id_programa_academico']) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
                                                 @endforeach
                                             </select>
                                             @error('id_programa_academico_[]')
@@ -383,16 +383,16 @@
                                         <div class="col-md-2">
                                             <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_4}}" class="form-control"
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$espacios_usuario[3]['codigo_espacio_academico']}}" class="form-control"
                                             onchange="searchEspaAca(this.value,1)"/>
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
                                             <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[3]}}" class="form-control" style="width: 90%;"
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[3]['espacio_academico']}}" class="form-control" style="width: 90%;"
                                                 readonly/>
-                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
                                             </div>
                                         </div>
                                     </div>
@@ -408,7 +408,7 @@
                                             <span class="hs-form-required">*</span>
                                             <select name="id_programa_academico_[]" class="form-control" required>
                                                 @foreach($programas_academicos as $pr_aca)
-                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
+                                                <option <?php if($pr_aca->id==$espacios_usuario[4]['id_programa_academico']) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
                                                 @endforeach
                                             </select>
                                             @error('id_programa_academico_[]')
@@ -420,16 +420,16 @@
                                         <div class="col-md-2">
                                             <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_5}}" class="form-control"
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$espacios_usuario[4]['codigo_espacio_academico']}}" class="form-control"
                                             onchange="searchEspaAca(this.value,1)"/>
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
                                             <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[4]}}" class="form-control" style="width: 90%;"
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[4]['espacio_academico']}}" class="form-control" style="width: 90%;"
                                                 readonly/>
-                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
                                             </div>
                                         </div>
                                     </div>
@@ -445,7 +445,7 @@
                                             <span class="hs-form-required">*</span>
                                             <select name="id_programa_academico_[]" class="form-control" required>
                                                 @foreach($programas_academicos as $pr_aca)
-                                                    <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
+                                                <option <?php if($pr_aca->id==$espacios_usuario[5]['id_programa_academico']) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>
                                                 @endforeach
                                             </select>
                                             @error('id_programa_academico_[]')
@@ -457,16 +457,16 @@
                                         <div class="col-md-2">
                                             <label for="id_espacio_academico_[]" class="col-form-label text-md-right">{{ __('Cod. Académ.') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$usuario->id_espacio_academico_6}}" class="form-control"
+                                            <input type="text" name="id_espacio_academico_[]" id="id_espacio_academico_[]" value="{{$espacios_usuario[5]['codigo_espacio_academico']}}" class="form-control"
                                             onchange="searchEspaAca(this.value,1)"/>
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
                                             <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[5]}}" class="form-control" style="width: 90%;"
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[5]['espacio_academico']}}" class="form-control" style="width: 90%;"
                                                 readonly/>
-                                                <a class="imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
+                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
                                             </div>
                                         </div>
                                     </div>

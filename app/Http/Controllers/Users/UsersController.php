@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use PractiCampoUD\User;
 use PractiCampoUD\direccion_usuario;
 use DB;
+use PractiCampoUD\espacio_academico;
 
 use function Complex\add;
 
@@ -101,6 +102,7 @@ class UsersController extends Controller
         $tipo_vinculacion=DB::table('tipo_vinculacion')->get();
         $espacio_academico=DB::table('espacio_academico')->get();
         $programa_academico =DB::table('programa_academico')->get();
+
         // $programa_academico=DB::table('users as us')
         //     ->leftjoin('espacio_academico as esp_a_1','us.id_espacio_academico_1','=','esp_a_1.id')
         //     ->leftjoin('espacio_academico as esp_a_2','us.id_espacio_academico_2','=','esp_a_2.id')
@@ -125,7 +127,17 @@ class UsersController extends Controller
             if(($esp_aca->id==$usuario->id_espacio_academico_1)||($esp_aca->id==$usuario->id_espacio_academico_2)||($esp_aca->id==$usuario->id_espacio_academico_3)||
                ($esp_aca->id==$usuario->id_espacio_academico_4)||($esp_aca->id==$usuario->id_espacio_academico_5)||($esp_aca->id==$usuario->id_espacio_academico_6))
             {
-                $espacios[]=$esp_aca->espacio_academico;
+                $espacios_user[] = [ 
+                    'id'=>$esp_aca->id,
+                    'id_programa_academico'=>$esp_aca->id_programa_academico,
+                    'codigo_espacio_academico'=>$esp_aca->codigo_espacio_academico,
+                    'espacio_academico'=>$esp_aca->espacio_academico,
+                    'plan_estudios_1'=>$esp_aca->plan_estudios_1,
+                    'plan_estudios_2'=>$esp_aca->plan_estudios_2,
+                    'tipo_espacio'=>$esp_aca->tipo_espacio
+                    
+                ];
+                
             }
             
         }
@@ -136,8 +148,9 @@ class UsersController extends Controller
                                    "tipos_usuarios"=>$tipo_usuario,
                                    "tipos_vinculaciones"=>$tipo_vinculacion,
                                    "espacios_academicos"=>$espacio_academico,
-                                   "espacios_usuario"=>$espacios,
+                                   "espacios_usuario"=>$espacios_user,
                                    "programas_academicos"=>$programa_academico,
+                                //    "programas_usuario"=>$programas_user,
                                 //    "nomenclaturas_urbanas"=>$nomenclatura_urbana,
                                 //    "elementos_nomenclaturas"=>$elemento_nomenclatura,
                                    ]);

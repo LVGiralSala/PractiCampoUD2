@@ -11,4 +11,9 @@ class programa_academico extends Model
     protected $fillable = [
     		'programa_academico'    		
     ];
+
+    public function esp_academico()
+    {
+        return $this->hasMany(espacio_academico::class);
+    }
 }

@@ -137,6 +137,10 @@ html, body {
 
 .imgButton{
     align-self: center !important;
-    margin-left: 0.5rem !important;
-    margin-right: 0.5rem !important;
+    margin-left: 0.1rem !important;
+    // margin-right: 0.5rem !important;
+}
+
+.imgButton img{
+    width: 60%;
 }

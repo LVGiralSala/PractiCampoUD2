@@ -16,4 +16,9 @@ class espacio_academico extends Model
             'plan_estudios_2', 
             'tipo_espacio',   		
     ];
+
+    public function prog_academico()
+    {
+        return $this->belongsTo(programa_academico::class,'id_programa_academico');
+    }
 }

@@ -92,9 +92,9 @@ $(document).ready(function(){
              div_copy_rp.children().find('span').remove();
              div_copy_rp.children().find('input[type=text]').removeAttr('required');
              div_copy_rp.children().find('a').attr('id','remove_field_rp');
-             div_copy_rp.children().find('a').attr('class','remove_field_rp');
+             div_copy_rp.children().find('a').attr('class','remove_field_rp imgButton');
              div_copy_rp.children().find('a').attr('title','Remove field');
-             div_copy_rp.children().find('img').attr('src','rem-icon.png');
+             div_copy_rp.children().find('img').attr('src','/img/remove-icon.png');
              
              x_rp++;
 
@@ -118,7 +118,7 @@ $(document).ready(function(){
     $('#transporte_rp').on('click', '.remove_field_rp', function(e){
         e.preventDefault();
        
-        $(this).parent().parent().remove();
+        $(this).parent().parent().parent().parent().remove();
             x_rp--;
             // y_rp=shortNameInput_rp+x_rp;
             w_rp=shortNameRadio_rp+x_rp;
@@ -142,9 +142,9 @@ $(document).ready(function(){
              div_copy_ra.children().find('span').remove();
              div_copy_ra.children().find('input[type=text]').removeAttr('required');
              div_copy_ra.children().find('a').attr('id','remove_field_ra');
-             div_copy_ra.children().find('a').attr('class','remove_field_ra');
+             div_copy_ra.children().find('a').attr('class','remove_field_ra imgButton');
              div_copy_ra.children().find('a').attr('title','Remove field');
-             div_copy_ra.children().find('img').attr('src','rem-icon.png');
+             div_copy_ra.children().find('img').attr('src','/img/remove-icon.png');
              
              x_ra++;
 
@@ -169,7 +169,7 @@ $(document).ready(function(){
     $('#transporte_ra').on('click', '.remove_field_ra', function(e){
         e.preventDefault();
        
-        $(this).parent().parent().remove();
+        $(this).parent().parent().parent().parent().remove();
             x_ra--;
             w_ra=shortNameRadio_ra+x_ra;
             // classError_ra = "form-control @error('"+y_ra+"') is-invalid @enderror";
@@ -196,8 +196,9 @@ $(document).ready(function(){
             // div_copy_ea.children().find('span').remove(); -->para usar el searchEspaAca_2
             div_copy_ea.children().find('input[type=text]').removeAttr('required');
             div_copy_ea.children().find('a').attr('id','remove_field_ea');
-            div_copy_ea.children().find('a').attr('class','imgButton');
+            div_copy_ea.children().find('a').attr('class','remove_field_ea imgButton');
             div_copy_ea.children().find('a').attr('title','Remove field');
+            div_copy_ea.children().find('img').attr('src','/img/remove-icon.png');
 
             x_ea++;
             // lengthDiv_ea++;
@@ -254,10 +255,73 @@ $(document).ready(function(){
         
     });
 
+    $(addButton_ea_edit).click(function(e){
+        e.preventDefault();
+
+        lengthDiv_ea = $('#esp_aca').find('#esp_aca_children .row').toArray().length;
+        // $('#esp_aca_children').find('input[type=text]').val(x_ea);
+        x_ea = lengthDiv_ea;
+
+         if(x_ea < maxField_ea)
+         {
+
+               var f= $('#esp_aca_children_1');
+               f.style.display = "Block";
+        //     div_copy_ea = $('#esp_aca_children').clone();
+        //     // div_copy_ea.children().find('span').remove(); -->para usar el searchEspaAca_2
+        //     div_copy_ea.children().find('input[type=text]').removeAttr('required');
+        //     div_copy_ea.children().find('a').attr('id','remove_field_ea_edit');
+        //     div_copy_ea.children().find('a').attr('class','remove_field_ea_edit imgButton');
+        //     div_copy_ea.children().find('a').attr('title','Remove field');
+        //     div_copy_ea.children().find('img').attr('src','/img/remove-icon.png');
+
+        //     x_ea++;
+        //     // lengthDiv_ea++;
+        //     // div_copy_ea.children().find('input[type=text]').val(x_ea);
+             
+        //     nameEaFieldInput_ea = div_copy_ea.children().find('input[type=text]').attr('name');
+        //     lengthInput_ea = div_copy_ea.children().find('input[type=text]').attr('name').length;
+        //     shortNameInput_ea = nameEaFieldInput_ea.substr(0, lengthInput_ea-2);
+        //     y_ea=shortNameInput_ea+x_ea;
+
+        //     nameEa2FieldInput_ea = div_copy_ea.children().find('a').prev().attr('id');
+        //     lengthInput_ea1 = div_copy_ea.children().find('a').prev().attr('id').length;
+        //     shortNameInput_ea1 = nameEa2FieldInput_ea.substr(0, lengthInput_ea1-1);
+        //     y_ea1=shortNameInput_ea1+x_ea;
+        //     //  classError_ea = "form-control @error('"+y_ea+"') is-invalid @enderror";
+
+        //     nameEaFieldSelect_ea = div_copy_ea.children().find('select').attr('id');
+        //     lengthSelect_ea = div_copy_ea.children().find('select').attr('id').length;
+        //     shortIdSelect_ea = nameEaFieldSelect_ea.substr(0,lengthSelect_ea-1);
+        //     p_ea = shortIdSelect_ea+x_ea;
+
+        // //    var prueba = div_copy_ea.children().find('option:selected').val();
+        // //    var idSelect_ea = "#id_programa_academico_"+x_ea;
+
+        // //    var opt_ea = $(idSelect_ea).children().find('option:selected').val();
+
+        //     //  div_copy_ea.children().find('input[type=text]').attr('class', "form-control");
+        //     div_copy_ea.children().find('label').attr('id','id_espacio_academico_'+x_ea);
+        //     div_copy_ea.children().find('select').attr('id', p_ea);
+        //     div_copy_ea.children().find('select').attr('onchange','searchEspaAca_2('+x_ea+')');
+        //     div_copy_ea.children().find('input[type=text]').attr('onchange','searchEspaAca(this.value,'+x_ea+')');
+        //     div_copy_ea.children().find('a').prev().attr('id', y_ea1);
+        //     div_copy_ea.children().find('a').prev().attr('name', y_ea1);
+            
+        //     div_copy_ea.children().find('input[type=text]').val("");
+        //     div_copy_ea.children().find('a').prev().val("");
+            
+        //     $('#esp_aca').append(div_copy_ea);
+            
+         }
+         
+    });
+
+
     $('#esp_aca').on('click', '.remove_field_ea_edit', function(e){
         e.preventDefault();
        
-        $(this).children().remove();
+        $(this).parent().parent().parent().remove();
 
             x_ea--;
             

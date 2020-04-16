@@ -400,7 +400,7 @@
                                             <div class="row">
                                                 <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="" class="form-control" style="width: 90%;"
                                                 readonly/>
-                                                <a class="imgButton" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
+                                                <a class="addButton_ea imgButton" id="add_ea" title="Add field"><img src="{{asset('img/add-icon.png')}}"/></a>
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-1">
