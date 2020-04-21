@@ -9,13 +9,18 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ __('Registro Proyección Preliminar') }}</div>
+                    <div class="card-header">{{ __('Registro Proyección Preliminar N° ') }}<?php echo $proyeccion_preliminar->id?></div>
     
                     <div class="card-body">
                         <form method="POST" action="{{ route('proyeccion_update',$proyeccion_preliminar->id) }}">
                             @method('PUT')
                             @csrf
 
+                            {{-- <div class="container-fluid">
+                                {{-- @yield('contenido')  --}}
+                                {{-- @include('proyecciones.tablas.docente',$proyeccion_preliminar)  --}}
+                                {{-- <h5>prueba</h5> --}}
+                            {{--</div> --}}
                             <!-- información proyección -->
                                 <!-- 1 -->
                                 <div class="form-group row">
@@ -23,8 +28,13 @@
                                         <label for="id_programa_academico" class="col-form-label text-md-right">{{ __('Programa Académico') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <select name="id_programa_academico" class="form-control" required>
-                                            @foreach($programas_academicos as $pro_aca)
-                                                <option <?php if($pro_aca->id==$proyeccion_preliminar->id_programa_academico) echo 'selected'?> value="{{$pro_aca->id}}">{{$pro_aca->programa_academico}}</option>  
+                                            {{-- @foreach($programas_academicos as $pro_aca)
+                                                <option <php if($pro_aca->id==$proyeccion_preliminar->id_programa_academico) echo 'selected'?> value="{{$pro_aca->id}}">{{$pro_aca->programa_academico}}</option>  
+                                            @endforeach --}}
+
+                                            @foreach($programas_usuario as $pro_aca)
+                                                <option <?php if($pro_aca['id']==$proyeccion_preliminar->id_programa_academico) echo 'selected'?> value="{{$pro_aca['id']}}">{{$pro_aca['programa_academico']}}</option>  
+                                                {{-- <option value="{{$prog_aca['id']}}" selected>{{$prog_aca['programa_academico']}}</option>   --}}
                                             @endforeach
                                         </select>
                                         @error('id_programa_academico')
@@ -42,6 +52,10 @@
                                                 <option <?php if($esp_aca->id==$proyeccion_preliminar->id_espacio_academico) echo 'selected'?> value="{{$esp_aca->codigo_espacio_academico}}">{{$esp_aca->espacio_academico}}</option>  
                                                 
                                             @endforeach
+                                            {{-- @foreach($espacios_academicos as $esp_aca)
+                                                <option value="{{$esp_aca->id}}" selected>{{$esp_aca->espacio_academico}}</option>  
+                                                
+                                            @endforeach --}}
                                         </select>
                                         @error('id_espacio_academico')
                                             <span class="invalid-feedback" role="alert">
@@ -112,49 +126,13 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <label for="grupo_1" class="col-form-label text-md-left">{{ __('Grupo N° 1') }}</label>
+                                    <div class="col-md-2" id="cant_grupos_edit">
+                                        <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
                                         <span class="hs-form-required">*</span>
-                                        <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
-                                        value="{{$proyeccion_preliminar->grupo_1}}" required autocomplete="off" autofocus>
+                                        <input id="cant_grupos_edit" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
+                                        value="{{$proyeccion_preliminar->cantidad_grupos}}" autocomplete="off" autofocus>
                                         
-                                        @error('grupo_1')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label for="grupo_2" class="col-form-label text-md-left">{{ __('Grupo N° 2') }}</label>
-                                        <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
-                                        value="{{$proyeccion_preliminar->grupo_2}}" autocomplete="off" autofocus>
-                                        
-                                        @error('grupo_2')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Grupo N° 3') }}</label>
-                                        <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
-                                        value="{{$proyeccion_preliminar->grupo_3}}" autocomplete="off" autofocus>
-                                        
-                                        @error('grupo_3')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label for="grupo_4" class="col-form-label text-md-left">{{ __('Grupo N° 4') }}</label>
-                                        <input id="grupo_4" type="text" class="form-control @error('grupo_4') is-invalid @enderror" name="grupo_4" 
-                                        value="{{$proyeccion_preliminar->grupo_4}}" autocomplete="off" autofocus>
-                                        
-                                        @error('grupo_4')
+                                        @error('cant_grupos')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -163,6 +141,57 @@
 
                                 </div>
                                 <!-- 2 -->
+
+                                 <!-- 2.1 -->
+                                 <div  class="form-group row"  id="Grupos_edit">
+                                        <div class="col-md-2" id="gp_1_edit">
+                                            <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
+                                            <span class="hs-form-required">*</span>
+                                            <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
+                                            value="{{$proyeccion_preliminar->grupo_1}}" required autocomplete="off" autofocus>
+                                            
+                                            @error('grupo_1')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2" id="gp_2_edit">
+                                            <label for="grupo_2" class="col-form-label text-md-left">{{ __('Gp 2') }}</label>
+                                            <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
+                                            value="{{$proyeccion_preliminar->grupo_2}}" autocomplete="off" autofocus>
+
+                                            @error('grupo_2')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2" id="gp_3_edit">
+                                            <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
+                                            <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
+                                            value="{{$proyeccion_preliminar->grupo_3}}" autocomplete="off" autofocus>
+
+                                            @error('grupo_3')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2" id="gp_4_edit">
+                                            <label for="grupo_4" class="col-form-label text-md-left">{{ __('Gp 4') }}</label>
+                                            <input id="grupo_4" type="text" class="form-control @error('grupo_4') is-invalid @enderror" name="grupo_4" 
+                                            value="{{$proyeccion_preliminar->grupo_4}}" autocomplete="off" autofocus>
+
+                                            @error('grupo_4')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        
+                                    </div>
+                                    <!-- 2.1 -->
                             <!-- información proyección -->
 
                             <br>
@@ -244,7 +273,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required
+                                          <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required
                                           value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}">
                                         </div>
                                     </div>
@@ -269,7 +298,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
+                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
                                           value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}"">
                                         </div>
                                     </div>
@@ -597,7 +626,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_salida_aprox_ra"  type="text" required
+                                          <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_ra"  type="text" required
                                           value="{{$proyeccion_preliminar->fecha_salida_aprox_ra}}">
                                         </div>
                                     </div>
@@ -622,7 +651,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_regreso_aprox_ra"  type="text" required
+                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_ra"  type="text" required
                                           value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}">
                                         </div>
                                     </div>
@@ -862,19 +891,20 @@
 
                             <!-- ruta alterna -->
 
-                            {{-- <br>
+                            <!-- observaciones -->
+                            @if(Auth::user()->coordinador()|| Auth::user()->admin())
+
+                            <br>
                             <h4>Observaciones</h4>
                             <hr class="divider">
                             <br>
-                            <!-- observaciones -->
-
-                            @if(Auth::user()->coordinador() || Auth::user()->docente())
+                            
                                 <!-- 15 -->
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="observ_coordinador" class="col-form-label text-md-left">{{ __('Observaciones Coordinador') }}</label>
-                                        <span class="hs-form-required">*</span>
-                                        <textarea id="observ_coordinador" style="min-height:5rem;" type="text" class="form-control @error('observ_coordinador') is-invalid @enderror" name="observ_coordinador" value="{{ old('observ_coordinador') }}" required autocomplete="off" autofocus></textarea>
+                                        <textarea id="observ_coordinador" style="min-height:5rem;" type="text" class="form-control @error('observ_coordinador') is-invalid @enderror" name="observ_coordinador" 
+                                        autocomplete="off" autofocus><?php echo $proyeccion_preliminar->observ_coordinador?></textarea>
                                         
                                         @error('observ_coordinador')
                                             <span class="invalid-feedback" role="alert">
@@ -886,18 +916,119 @@
                                 <!-- 15 -->
 
                                 <!-- 16 -->
+                                <!-- estado -->
+                                <!-- 0 -->
+                                <div class="form-group row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="id_estado">Estado Área de Coordinación</label>
+                                        <div class="row">
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado" value="1"
+                                                <?php if($proyeccion_preliminar->aprobacion_coordinador == 5) echo 'checked'?>>
+                                                <label class="form-check-label" for="">Pendiente</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado" value="1"
+                                                <?php if($proyeccion_preliminar->aprobacion_coordinador == 3) echo 'checked'?>>
+                                                <label class="form-check-label" for="">Aprobado</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="id_estado"  value="2" 
+                                                    <?php if($proyeccion_preliminar->aprobacion_coordinador == 4) echo 'checked'?>>
+                                                    <label class="form-check-label" for="">Rechazado</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- 0 -->
+                                <!-- estado -->
+                                <!-- 16 -->
+                                
+                                <!-- 17 -->
+                                @if(!Auth::user()->admin())
                                 <div class="form-group row mb-0">
                                     <div class="col-md-5 offset-md-5">
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Agregar') }}
+                                            {{ __('Guardar') }}
                                         </button>
                                     </div>
                                 </div>
-                                <!-- 16 -->
+                                @endif
+                                <!-- 17 -->
+
                                 @endif
 
-                                @if(Auth::user()->decano())
-                                <!-- 17 -->
+                                @if(Auth::user()->decano() || Auth::user()->admin() || Auth::user()->asistenteD())
+                                <!-- 18 -->
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="observ_coordinador" class="col-form-label text-md-left">{{ __('Observaciones Coordinador') }}</label>
+                                        <textarea id="observ_coordinador" style="min-height:5rem;" type="text" class="form-control @error('observ_coordinador') is-invalid @enderror" name="observ_coordinador" 
+                                        autocomplete="off" autofocus readonly><?php echo $proyeccion_preliminar->observ_coordinador?></textarea>
+                                        
+                                        @error('observ_coordinador')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- 18 -->
+
+                                <!-- 19 -->
+                                <!-- estado coord-->
+                                <!-- 0 -->
+                                <div class="form-group row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="id_estado">Estado Área de Coordinación</label>
+                                        <div class="row">
+
+                                            {{-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado" value="1"
+                                                <php if($proyeccion_preliminar->aprobacion_coordinador == 5) echo 'checked'?> disabled>
+                                                <label class="form-check-label" for="">Pendiente</label>
+                                                </div>
+                                            </div> --}}
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado" value="1"
+                                                <?php if($proyeccion_preliminar->aprobacion_coordinador == 3) echo 'checked'?> disabled>
+                                                <label class="form-check-label" for="">Aprobado</label>
+                                                </div>
+                                            </div>
+
+                                            {{-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="id_estado"  value="2" 
+                                                    <php if($proyeccion_preliminar->aprobacion_coordinador == 4) echo 'checked'?> disabled>
+                                                    <label class="form-check-label" for="">Rechazado</label>
+                                                </div>
+                                            </div> --}}
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- 0 -->
+                                <!-- estado coord-->
+                                <!-- 19 -->
+
+                                <!-- 20 -->
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="observ_decano" class="col-form-label text-md-left">{{ __('Observaciones Decano') }}</label>
@@ -911,24 +1042,134 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- 17 -->
+                                <!-- 20 -->
 
-                                <!-- 18 -->
+                                <!-- 21 -->
+                                <!-- estado dec-->
+                                <!-- 0 -->
+                                <div class="form-group row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="id_estado">Estado Área de Decanatura</label>
+                                        <div class="row">
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado_dec" value="1"
+                                                <?php if($proyeccion_preliminar->aprobacion_decano == 5) echo 'checked'?>>
+                                                <label class="form-check-label" for="">Pendiente</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado_dec" value="1"
+                                                <?php if($proyeccion_preliminar->aprobacion_decano == 3) echo 'checked'?>>
+                                                <label class="form-check-label" for="">Aprobado</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="id_estado_dec"  value="2" 
+                                                    <?php if($proyeccion_preliminar->aprobacion_decano == 4) echo 'checked'?>>
+                                                    <label class="form-check-label" for="">Rechazado</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- 0 -->
+                                <!-- estado dec-->
+                                <!-- 21 -->
+
+                                <!-- 22 -->
+                                @if(!Auth::user()->admin())
                                 <div class="form-group row mb-0">
                                     <div class="col-md-5 offset-md-5">
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Agregar') }}
+                                            {{ __('Guardar') }}
                                         </button>
                                     </div>
                                 </div>
-                                <!-- 18 -->
+                                @endif
+                                <!-- 22 -->
                                 
                                 <br>
-                                @endif --}}
+                                @endif 
+
+                                @if(Auth::user()->docente())
+
+                                <br>
+                                <h4>Observaciones</h4>
+                                <hr class="divider">
+                                <br>
+                            
+                                <!-- 23 -->
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="observ_coordinador" class="col-form-label text-md-left">{{ __('Observaciones Coordinador') }}</label>
+                                        <textarea id="observ_coordinador" style="min-height:5rem;" type="text" class="form-control @error('observ_coordinador') is-invalid @enderror" name="observ_coordinador" 
+                                        autocomplete="off" autofocus readonly><?php echo $proyeccion_preliminar->observ_coordinador?></textarea>
+                                        
+                                        @error('observ_coordinador')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- 23 -->
+
+                                <!-- 24 -->
+                                <!-- estado Coord-->
+                                <!-- 0 -->
+                                <div class="form-group row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="id_estado">Estado Área de Coordinación</label>
+                                        <div class="row">
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado" value="1"
+                                                <?php if($proyeccion_preliminar->aprobacion_coordinador == 5) echo 'checked'?> disabled>
+                                                <label class="form-check-label" for="">Pendiente</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="id_estado" value="1"
+                                                <?php if($proyeccion_preliminar->aprobacion_coordinador == 3) echo 'checked'?> disabled>
+                                                <label class="form-check-label" for="">Aprobado</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="id_estado"  value="2" 
+                                                    <?php if($proyeccion_preliminar->aprobacion_coordinador == 4) echo 'checked'?> disabled>
+                                                    <label class="form-check-label" for="">Rechazado</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                {{-- </div> --}} 
+                                <!-- 0 -->
+                                <!-- estado Coord-->
+                                <!-- 24 -->
+
+                                @endif
 
                             <!-- observaciones -->
 
-                            <!-- 19 -->
+                            <!-- 25 -->
+                            @if($proyeccion_preliminar->aprobacion_coordinador != 3 && (Auth::user()->docente() || Auth::user()->admin()))
                             <div class="form-group row mb-0">
                                 <div class="col-md-5 offset-md-5">
                                     <br>
@@ -937,7 +1178,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- 19 -->
+                            <!-- 25 -->
+                            @endif
                         </form>
                     </div>
                 </div>

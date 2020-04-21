@@ -22,8 +22,8 @@
                                         <label for="id_programa_academico" class="col-form-label text-md-right">{{ __('Programa Académico') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <select name="id_programa_academico" class="form-control" required>
-                                            @foreach($programas_academicos as $pro_aca)
-                                                <option value="{{$pro_aca->id}}" selected>{{$pro_aca->programa_academico}}</option>  
+                                            @foreach($programas_usuario as $prog_aca)
+                                                <option value="{{$prog_aca['id']}}" selected>{{$prog_aca['programa_academico']}}</option>  
                                             @endforeach
                                         </select>
                                         @error('id_programa_academico')
@@ -123,9 +123,28 @@
                                             </span>
                                         @enderror
                                     </div>
-
+                                   
+                                    
                                     <div class="col-md-2">
-                                        <label for="grupo_1" class="col-form-label text-md-left">{{ __('Grupo N° 1') }}</label>
+                                        <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
+                                        <span class="hs-form-required">*</span>
+                                        <input id="cant_grupos" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
+                                        value="" autocomplete="off" autofocus>
+                                        
+                                        @error('cant_grupos')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                                <!-- 2 -->
+
+                                <!-- 2.1 -->
+                                <div  class="form-group row"  id="Grupos">
+                                    <div class="col-md-2" id="gp_1">
+                                        <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
                                         value="" required autocomplete="off" autofocus>
@@ -136,45 +155,40 @@
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <div class="col-md-2">
-                                        <label for="grupo_2" class="col-form-label text-md-left">{{ __('Grupo N° 2') }}</label>
+                                    <div class="col-md-2" id="gp_2">
+                                        <label for="grupo_2" class="col-form-label text-md-left">{{ __('Gp 2') }}</label>
                                         <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
                                         value="" autocomplete="off" autofocus>
-                                        
                                         @error('grupo_2')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <div class="col-md-2">
-                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Grupo N° 3') }}</label>
+                                    <div class="col-md-2" id="gp_3">
+                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
                                         <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
                                         value="" autocomplete="off" autofocus>
-                                        
                                         @error('grupo_3')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <div class="col-md-2">
-                                        <label for="grupo_4" class="col-form-label text-md-left">{{ __('Grupo N° 4') }}</label>
+                                    <div class="col-md-2" id="gp_4">
+                                        <label for="grupo_4" class="col-form-label text-md-left">{{ __('Gp 4') }}</label>
                                         <input id="grupo_4" type="text" class="form-control @error('grupo_4') is-invalid @enderror" name="grupo_4" 
                                         value="" autocomplete="off" autofocus>
-                                        
                                         @error('grupo_4')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-
+                                    
                                 </div>
-                                <!-- 2 -->
+
+                                <!-- 2.1 -->
                             <!-- información proyección -->
 
                             <br>
@@ -254,7 +268,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required>
                                         </div>
                                     </div>
 
@@ -278,7 +292,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required>
                                         </div>
                                     </div>
 
@@ -310,13 +324,26 @@
                                             <div class="col-md-2">
                                                 <label for="id_tipo_transporte_rp_[]" class="col-form-label text-md-right">{{ __('Tipo Vehículo') }}</label>
                                                 <span class="hs-form-required">*</span>
-                                                <select name="id_tipo_transporte_rp_[]" class="form-control" required>
+                                                <select name="id_tipo_transporte_rp_[]" class="form-control" required onchange="otroTransporte(this.value,1)">
                                                     @foreach($tipos_transportes as $tp_trans)
                                                         <option value="{{$tp_trans->id}}" selected>{{$tp_trans->tipo_transporte}}</option>  
 
                                                     @endforeach
                                                 </select>
                                                 @error('id_tipo_transporte_rp_[]')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="otro_transporte_rp_1" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
+                                                <span class="hs-form-required">*</span>
+                                                <input id="otro_transporte_rp_1" type="text" class="form-control @error('otro_transporte_rp_1') is-invalid @enderror" name="otro_transporte_rp_1" 
+                                                value=""  autocomplete="off" autofocus required>
+
+                                                @error('otro_transporte_rp_1')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -336,7 +363,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label for="det_tipo_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="det_tipo_transporte_rp_[]" type="text" class="form-control @error('det_tipo_transporte_rp_[]') is-invalid @enderror" name="det_tipo_transporte_rp_[]" 
@@ -602,7 +629,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_salida_aprox_ra"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_ra"  type="text" required>
                                         </div>
                                     </div>
 
@@ -626,7 +653,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required>
                                         </div>
                                     </div>
 
@@ -659,13 +686,25 @@
                                             <div class="col-md-2">
                                                 <label for="id_tipo_transporte_ra_[]" class="col-form-label text-md-right">{{ __('Tipo Vehículo') }}</label>
                                                 <span class="hs-form-required">*</span>
-                                                <select name="id_tipo_transporte_ra_[]" class="form-control" required>
+                                                <select name="id_tipo_transporte_ra_[]" class="form-control" required onchange="otroTransporte2(this.value,1)">
                                                     @foreach($tipos_transportes as $tp_trans)
                                                         <option value="{{$tp_trans->id}}" selected>{{$tp_trans->tipo_transporte}}</option>  
 
                                                     @endforeach
                                                 </select>
                                                 @error('id_tipo_transporte_ra_[]')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="otro_transporte_ra_[]" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
+                                                <input id="otro_transporte_ra_1" type="text" class="form-control @error('otro_transporte_ra_1') is-invalid @enderror" name="otro_transporte_ra_1" 
+                                                value="" autocomplete="off" autofocus>
+
+                                                @error('otro_transporte_ra_1')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -685,7 +724,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label for="det_tipo_transporte_ra_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="det_tipo_transporte_ra_[]" type="text" class="form-control @error('det_tipo_transporte_ra_[]') is-invalid @enderror" name="det_tipo_transporte_ra_[]" 

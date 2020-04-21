@@ -20,6 +20,10 @@ class Admin
         {
             return $next($request);
         }
+        else if($request->user()->admin())
+        {
+            return $next($request);
+        }
 
         else 
         {

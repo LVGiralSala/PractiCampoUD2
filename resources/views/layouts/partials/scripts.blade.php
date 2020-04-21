@@ -16,8 +16,8 @@
 <script src="{{ asset('js/demo/chart-pie-demo.js') }}" type="text/javascript"></script>
 
 <!-- datepicker scripts -->
-{{-- <script src="{{ asset('js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/bootstrap-datepicker.es.js') }}" type="text/javascript"></script> --}}
+<script src="{{ asset('js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/bootstrap-datepicker.es.js') }}" type="text/javascript"></script>
 
 <!-- mask scripts -->
 {{-- <script src="{{ asset('js/jquery.mask.js') }}"></script> --}}
@@ -35,6 +35,14 @@
 
 
 <script>
+
+$(document).ready(function() {
+    $('.datetimepicker').datepicker({
+        format: "yyyy-mm-dd",
+        language: "es",
+        autoclose: true,
+    });
+});
 
 function filterUser(value)
 {
@@ -86,6 +94,7 @@ function direccionCompleta()
 
     document.getElementById("direccion_residencia").value = dir_completa;
 }
+
 
 
 </script>

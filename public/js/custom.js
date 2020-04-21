@@ -37,7 +37,7 @@
 
 $(document).ready(function(){
 
-    /*transporte ruta principal - rp*/
+    /*transporte ruta principal - rp Proyección*/
     var maxField_rp = 3;
     var addButton_rp = $('#add_transp_rp');
     var x_rp = 1;
@@ -48,22 +48,23 @@ $(document).ready(function(){
     var w_rp,y_rp,z_rp;
     var div_copy_rp;
     var classError_rp;
-    /*transporte ruta principal - rp*/
+    /*transporte ruta principal - rp Proyección*/
 
-    /*transporte ruta alterna - ra*/
+    /*transporte ruta alterna - ra Proyección*/
     var maxField_ra = 3;
     var addButton_ra = $('#add_transp_ra');
     var x_ra = 1;
     var nameFieldInput_ra = $('#transporte_ra_children').children().find('input[type=text]').attr('id');
+    var nameOtroTransp_ra = $('#transporte_ra_children').children().find('input[type=text]').attr('id');
     var nameFieldRadio_ra = $('#transporte_ra_children').children().find('input[type=radio]').attr('id');
     var lengthRadio_ra;
     var shortNameRadio_ra;
     var w_ra,y_ra,z_ra;
     var div_copy_ra;
     var classError_ra;
-    /*transporte ruta alterna - ra*/
+    /*transporte ruta alterna - ra Proyección*/
 
-    /*espacios acadeémicos - ea*/
+    /*espacios acadeémicos - ea Proyección*/
     var maxField_ea = 6;
     var addButton_ea = $('#add_ea');
     var x_ea = 1;
@@ -80,9 +81,9 @@ $(document).ready(function(){
     var classError_ea;
     var lengthDiv_ea;
     
-    /*espacios acadeémicos - ea*/
+    /*espacios acadeémicos - ea Proyección*/
 
-    /*transporte ruta principal - rp*/
+    /*transporte ruta principal - rp Proyección*/
     $(addButton_rp).click(function(e){
         e.preventDefault();
     
@@ -98,16 +99,28 @@ $(document).ready(function(){
              
              x_rp++;
 
+             nameOtroTransp_ra = div_copy_rp.children().find('input[type=text]').first().attr('id');
+             lengthOtroTransp_ra = div_copy_rp.children().find('input[type=text]').first().attr('id').length;
+             shortNameOtroTransp_ra = nameOtroTransp_ra.substr(0,lengthOtroTransp_ra-1);
+             o_rp = shortNameOtroTransp_ra+x_rp;
+
              lengthRadio_rp = div_copy_rp.children().find('input[type=radio]').attr('id').length;
              shortNameRadio_rp = nameFieldRadio_rp.substr(0,lengthRadio_rp-1);
             //  y_rp=shortNameInput_rp+x_rp;
              w_rp=shortNameRadio_rp+x_rp;
+
             //  classError_rp = "form-control @error('"+y_rp+"') is-invalid @enderror";
-             
+
+            div_copy_rp.children().find('select').attr('onchange','otroTransporte(this.value,'+x_rp+')')
+
+            // div_copy_rp.children().find('input[type=text]').first().attr('readonly', 'readonly');
+            div_copy_rp.children().find('input[type=text]').first().attr('id', o_rp);
+            div_copy_rp.children().find('input[type=text]').first().attr('name', o_rp);
+
              div_copy_rp.children().find('input[type=radio]').attr('id', w_rp);
              div_copy_rp.children().find('input[type=radio]').attr('name', w_rp);
             //  div_copy_rp.children().find('input[type=text]').attr('class', "form-control");
-             div_copy_rp.children().find('input[type=text]').val("");
+            //  div_copy_rp.children().find('input[type=text]').val("");
             
             $("#transporte_rp").append(div_copy_rp);
             
@@ -130,9 +143,9 @@ $(document).ready(function(){
             // // div_copy_rp.children().find('input[type=text]').val("");
         
     });
-    /*transporte ruta principal - rp*/
+    /*transporte ruta principal - rp Proyección*/
 
-    /*transporte ruta alterna - ra*/
+    /*transporte ruta alterna - ra Proyección*/
     $(addButton_ra).click(function(e){
         e.preventDefault();
 
@@ -148,12 +161,23 @@ $(document).ready(function(){
              
              x_ra++;
 
+             nameOtroTransp_ra = div_copy_ra.children().find('input[type=text]').first().attr('id');
+             lengthOtroTransp_ra = div_copy_ra.children().find('input[type=text]').first().attr('id').length;
+             shortNameOtroTransp_ra = nameOtroTransp_ra.substr(0,lengthOtroTransp_ra-1);
+             o_ra = shortNameOtroTransp_ra+x_ra;
+
             lengthRadio_ra = div_copy_ra.children().find('input[type=radio]').attr('id').length;
             shortNameRadio_ra = nameFieldRadio_ra.substr(0,lengthRadio_ra-1);
 
             //  y_ra=shortNameInput_ra+x_ra;
              w_ra=shortNameRadio_ra+x_ra;
             //  classError_ra = "form-control @error('"+y_ra+"') is-invalid @enderror";
+
+            div_copy_ra.children().find('select').attr('onchange','otroTransporte2(this.value,'+x_ra+')')
+
+            // div_copy_ra.children().find('input[type=text]').first().attr('readonly', 'readonly');
+            div_copy_ra.children().find('input[type=text]').first().attr('id', o_ra);
+            div_copy_ra.children().find('input[type=text]').first().attr('name', o_ra);
              
              div_copy_ra.children().find('input[type=radio]').attr('id', w_ra);
              div_copy_ra.children().find('input[type=radio]').attr('name', w_ra);
@@ -180,9 +204,9 @@ $(document).ready(function(){
             // div_copy_ra.children().find('input[type=text]').val("");
         
     });
-    /*transporte ruta alterna - ra*/
+    /*transporte ruta alterna - ra Proyección*/
 
-    /*espacios acadeémicos - ea*/
+    /*espacios acadeémicos - ea Proyección*/
     $(addButton_ea).click(function(e){
         e.preventDefault();
 
@@ -331,11 +355,11 @@ $(document).ready(function(){
             // div_copy_ra.children().find('input[type=text]').val("");
         
     });
-    /*espacios acadeémicos - ea*/
+    /*espacios acadeémicos - ea Proyección*/
 
 });
 
-/*Buscar Espacio Académico*/
+/*Buscar Espacio Académico Proyección*/
 function searchEspaAca(id, indice){
 
     var idSelect_pa = "#id_programa_academico_"+indice;
@@ -446,9 +470,166 @@ function searchEspaAca_2(indice){
     }   
 }
 
-/*Buscar Espacio Académico*/
+/*Buscar Espacio Académico Proyección*/
+
+/*OtroTransporte Proyección*/
+function otroTransporte(id, indice)
+{
+    if(id != 4)
+    {
+        $('#otro_transporte_rp_'+indice).attr('readonly', 'readonly');
+        $('#otro_transporte_rp_'+indice).removeAttr('required');
+    }
+
+    else if(id==4)
+    {
+        $('#otro_transporte_rp_'+indice).attr('required', 'required');
+        $('#otro_transporte_rp_'+indice).removeAttr('readonly');
+    }
+}
+
+function otroTransporte2(id, indice)
+{
+    if(id != 4)
+    {
+        $('#otro_transporte_ra_'+indice).attr('readonly', 'readonly');
+        $('#otro_transporte_ra_'+indice).removeAttr('required');
+    }
+
+    else if(id==4)
+    {
+        $('#otro_transporte_ra_'+indice).attr('required');
+        $('#otro_transporte_ra_'+indice).removeAttr('readonly');
+    }
+}
+
+/*OtroTransporte Proyección*/
 
 
+/*Bloquear input number proyección*/
+// $("#cant_grupos").keypress(function (e) {
+//         e.preventDefault();
+// });
+
+$("#cant_grupos").keypress(function (e) {
+    e.preventDefault();
+}).keydown(function(e){
+    if ( e.keyCode === 8 || e.keyCode === 46 ) {
+        return false;
+    }
+});
+
+/*Bloquear input number proyección*/
+
+
+/*Cantidad Grupos Proyección create*/
+$("#Grupos").hide();
+$("#gp_2").hide();
+$("#gp_3").hide();
+$("#gp_4").hide();
+
+$("#cant_grupos").change('keypress', function () {
+    val = $("#cant_grupos").val();
+    
+    if(val==1)
+    {
+        $("#Grupos").show();
+        $("#gp_1").show();
+        $("#gp_2").hide();
+        $("#gp_3").hide();
+        $("#gp_4").hide();
+    }
+    else if(val==2)
+    {
+        $("#gp_2").show();
+        $("#gp_3").hide();
+        $("#gp_4").hide();
+    }
+    else if(val==3)
+    {
+        $("#gp_2").show();
+        $("#gp_3").show();
+        $("#gp_4").hide();
+    }
+    else if(val==4)
+    {
+        $("#gp_2").show();
+        $("#gp_3").show();
+        $("#gp_4").show();
+    }
+});
+
+/*Cantidad Grupos Proyección create*/
+
+/*Cantidad Grupos Proyección Edit*/
+x = $("#cant_grupos_edit").val();
+x;
+// $("#grupo_1").val(x);
+    if(x==1)
+    {
+        $("#Grupos_edit").show();
+        $("#gp_1_edit").show();
+        $("#gp_2_edit").hide();
+        $("#gp_3_edit").hide();
+        $("#gp_4_edit").hide();
+    }
+    else if(x==2)
+    {
+        $("#Grupos_edit").show();
+        $("#gp_1_edit").show();
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").hide();
+        $("#gp_4_edit").hide();
+    }
+    else if(x==3)
+    {
+        $("#Grupos_edit").show();
+        $("#gp_1_edit").show();
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").show();
+        $("#gp_4_edit").hide();
+    }
+    else if(x==4)
+    {
+        $("#Grupos_edit").show();
+        $("#gp_1_edit").show();
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").show();
+        $("#gp_4_edit").show();
+    }
+
+$("#cant_grupos_edit").change('keypress', function () {
+    val = $("#cant_grupos_edit").val();
+    
+    if(val==1)
+    {
+        $("#Grupos_edit").show();
+        $("#gp_1_edit").show();
+        $("#gp_2_edit").hide();
+        $("#gp_3_edit").hide();
+        $("#gp_4_edit").hide();
+    }
+    else if(val==2)
+    {
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").hide();
+        $("#gp_4_edit").hide();
+    }
+    else if(val==3)
+    {
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").show();
+        $("#gp_4_edit").hide();
+    }
+    else if(val==4)
+    {
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").show();
+        $("#gp_4_edit").show();
+    }
+});
+
+/*Cantidad Grupos Proyección Edit*/
 
 
 

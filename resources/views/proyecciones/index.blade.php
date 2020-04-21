@@ -101,8 +101,8 @@
                 <td>{{ $item->destino_rp }}</td>
                 <td>{{ $item->fecha_salida_aprox_rp }}</td>
                 <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
-                <td>{{ $item->abrev }}</td> 
-                <td>{{ $item->abrev }}</td> 
+                <td>{{ $item->ab_coor }}</td> 
+                <td>{{ $item->ab_dec }}</td> 
                 <td> 
                  <a href="{{route('proyeccion_edit',$item->id)}}">
                    <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
@@ -120,7 +120,8 @@
                   <th style="width: 105px">Destino Ruta Principal</th>
                   <th style="width: 35px">Fecha Salida</th>
                   <th style="width: 35px">Fecha Regreso</th>
-                  <th style="width: 25px">Estado</th>
+                  <th style="width: 25px">Coord.</th>
+                  <th style="width: 25px">Decan.</th>
                   <th style="width: 37px"></th>
              </thead> 
              @foreach ($proyecciones as $item) 
@@ -131,7 +132,8 @@
                  <td>{{ $item->destino_rp }}</td>
                  <td>{{ $item->fecha_salida_aprox_rp }}</td>
                  <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
-                 <td>{{ $item->abrev }}</td> 
+                 <td>{{ $item->ab_coor }}</td> 
+                 <td>{{ $item->ab_dec }}</td>
                  <td> 
                      <a href="{{route('proyeccion_edit',$item->id)}}">
                      <button class="btn-success" style="background-color: #447161; border:0">Editar</button>

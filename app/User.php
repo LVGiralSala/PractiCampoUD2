@@ -71,6 +71,11 @@ class User extends Authenticatable implements MustVerifyEmail
         && ($this->id_estado === 1));
     }
 
+    public function admin()
+    {
+        return (($this->id_role === 1) && ($this->id_estado === 1));
+    }
+
     public function decano()
     {
         return $this->id_role === 2;
