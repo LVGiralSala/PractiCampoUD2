@@ -97,7 +97,9 @@ class RegisterController extends Controller
         $id_espacio_academico_6 = DB::table('espacio_academico')
             ->where('id_programa_academico','=',$programas_academicos[5])
             ->where('codigo_espacio_academico','=',$espacios_academicos[5])->first();
+
         $espacio_academico_1 = (!empty($espacios_academicos[4]))?$espacios_academicos[4]:null;
+        
         $user = User::create([
             'id' => $data['num_identificacion'],
             'id_tipo_identificacion' => $data['id_tipo_identificacion'],

@@ -167,31 +167,76 @@ class UsersController extends Controller
     {
         $espacios_academicos = $request->get('id_espacio_academico_');
         $programas_academicos = $request->get('id_programa_academico_');
-        $mytime=Carbon::now('America/Bogota');
-        $usuario=User::where('id', '=', $id)->first();
-        $usuario->id_estado=$request->get('id_estado');
-        $usuario->usuario=$request->get('usuario');
+        $count = count($programas_academicos);
+
+        
+            $id_espacio_academico_1 = DB::table('espacio_academico')
+            ->where('id_programa_academico','=',$programas_academicos[0])
+            ->where('codigo_espacio_academico','=',$espacios_academicos[0])->first();
+
+            if($count >= 2)
+            {
+                $id_espacio_academico_2 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[1])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[1])->first();
+            }
+
+            if($count >= 3)
+            {
+                $id_espacio_academico_3 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[2])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[2])->first();
+            }
+
+            if($count >= 4)
+            {
+                $id_espacio_academico_4 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[3])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[3])->first();
+            }
+
+            if($count >= 5)
+            {
+                $id_espacio_academico_5 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[4])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[4])->first();
+            }
+
+            if($count >= 6)
+            {
+                $id_espacio_academico_6 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[5])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[5])->first();
+            }
+        
+            $mytime=Carbon::now('America/Bogota');
+            $usuario=User::where('id', '=', $id)->first();
+            $usuario->id_estado=$request->get('id_estado');
+            
+
+        // if(Auth::user()->id_role == 1 || Auth::user()->id_role == 3)
+        // {
+            $usuario->usuario=$request->get('usuario');
+            $usuario->email=$request->get('email');
+            $usuario->id=$request->get('num_identificacion');
+            $usuario->id_tipo_identificacion= (!empty($request->get('id_tipo_identificacion')))?$request->get('id_tipo_identificacion'):$usuario->id_tipo_identificacion;
+        // }
+
         $usuario->primer_nombre=$request->get('primer_nombre');
         $usuario->segundo_nombre=$request->get('segundo_nombre');
         $usuario->primer_apellido=$request->get('primer_apellido');
         $usuario->segundo_apellido=$request->get('segundo_apellido');
-        $usuario->id_tipo_identificacion=$request->get('id_tipo_identificacion');
-        $usuario->id=$request->get('num_identificacion');
         $usuario->id_role=$request->get('id_role');
         $usuario->id_tipo_vinculacion=$request->get('id_tipo_vinculacion');
-        $usuario->email=$request->get('email');
-        $usuario->id_espacio_academico_1=$espacios_academicos[0];
-        $usuario->id_espacio_academico_2=(!empty($espacios_academicos[1]))?$espacios_academicos[1]:null;
-        $usuario->id_espacio_academico_3=(!empty($espacios_academicos[2]))?$espacios_academicos[2]:null;
-        $usuario->id_espacio_academico_4=(!empty($espacios_academicos[3]))?$espacios_academicos[3]:null;
-        $usuario->id_espacio_academico_5=(!empty($espacios_academicos[4]))?$espacios_academicos[4]:null;
-        $usuario->id_espacio_academico_6=(!empty($espacios_academicos[5]))?$espacios_academicos[5]:null;
-        $usuario->id_programa_academico_1=$programas_academicos[0];
-        $usuario->id_programa_academico_2=(!empty($programas_academicos[1]))?$programas_academicos[1]:null;
-        $usuario->id_programa_academico_3=(!empty($programas_academicos[2]))?$programas_academicos[2]:null;
-        // $usuario->id_programa_academico_4=(!empty($programas_academicos[3]))?$programas_academicos[3]:null;
-        // $usuario->id_programa_academico_5=(!empty($programas_academicos[4]))?$programas_academicos[4]:null;
-        // $usuario->id_programa_academico_6=(!empty($programas_academicos[5]))?$programas_academicos[5]:null;
+        $usuario->telefono=$request->get('telefono');
+        $usuario->celular=$request->get('celular');
+        $usuario->id_espacio_academico_1= $id_espacio_academico_1->id;
+        $usuario->id_espacio_academico_2= (!empty($id_espacio_academico_2->id))?$id_espacio_academico_2->id:null;
+        $usuario->id_espacio_academico_3= (!empty($id_espacio_academico_3->id))?$id_espacio_academico_3->id:null;
+        $usuario->id_espacio_academico_4= (!empty($id_espacio_academico_4->id))?$id_espacio_academico_4->id:null;
+        $usuario->id_espacio_academico_5= (!empty($id_espacio_academico_5->id))?$id_espacio_academico_5->id:null;
+        $usuario->id_espacio_academico_6= (!empty($id_espacio_academico_6->id))?$id_espacio_academico_6->id:null;
+        $usuario->id_programa_academico=$request->get('id_programa_academico_coord');
 
         $usuario->updated_at=$mytime->toDateString();
 

@@ -20,4 +20,6 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet"> 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.3/jquery.tipsy.css">
 </head>

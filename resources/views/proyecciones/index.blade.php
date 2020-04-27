@@ -60,14 +60,16 @@
           </div>
       </div> --}}
       <!-- 0 -->
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+      {{-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
           <div class="form-group">
             <label for=""></label>
             <div class="row">
               <a href="{{route('proyeccion_preliminar.pdf')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     PDF</button></a>
             </div>
         </div>
-      </div>
+      </div> --}}
+      
+      @if(Auth::user()->decano() || Auth::user()->asistenteD() || Auth::user()->admin())
           
       <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
         <div class="form-group">
@@ -76,12 +78,34 @@
             <a href="{{route('export_list_proyecc.excel')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     XSL</button></a>
           </div>
         </div>
-      </div>
+      </div> 
+      @endif
 
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
           <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">
-            @if(Auth::user()->adminPerm())
+            
+            @if(Auth::user()->admin())
+              @include('proyecciones.tablas.index_admin',$proyecciones)
+            @endif  
+
+            @if(Auth::user()->decano())
+              @include('proyecciones.tablas.index_dec',$proyecciones)
+            @endif 
+
+            @if(Auth::user()->asistenteD())
+              @include('proyecciones.tablas.index_asisDec',$proyecciones)
+            @endif 
+
+            @if(Auth::user()->coordinador())
+              @include('proyecciones.tablas.index_coord',$proyecciones)
+            @endif 
+
+            @if(Auth::user()->docente())
+              @include('proyecciones.tablas.index_docen',$proyecciones)
+            @endif
+
+            {{-- @if(Auth::user()->adminPerm())
            <thead>
             <th style="width: 33px">Cod.</th>
             <th style="width: 90px">Proy. Curricular</th>
@@ -112,7 +136,7 @@
             @endforeach
             {{-- @endif --}}
 
-            @elseif(Auth::user()->otrosPerm())
+            {{-- @elseif(Auth::user()->otrosPerm())
               <thead>
                   <th style="width: 35px">Cod.</th>
                   <th style="width: 90px">Proy. Curricular</th>
@@ -140,8 +164,8 @@
                      </a> 
                  </td> 
              </tr>
-             @endforeach
-            @endif
+             @endforeach 
+            @endif --}}
           </table>
         </div>
         {{-- {{$usuarios->render()}} --}}

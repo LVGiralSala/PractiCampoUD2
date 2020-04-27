@@ -18,7 +18,7 @@
                             <!-- información proyección -->
                                 <!-- 1 -->
                                 <div class="form-group row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <label for="id_programa_academico" class="col-form-label text-md-right">{{ __('Programa Académico') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <select name="id_programa_academico" class="form-control" required>
@@ -46,7 +46,7 @@
                                         @enderror
                                     </div> --}}
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <label for="id_espacio_academico" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <select name="id_espacio_academico" class="form-control" required>
@@ -62,9 +62,9 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-1">
                                         <label for="id_periodo_academico" class="col-form-label text-md-right">{{ __('Per.') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="Período Asignatura">*</span>
                                         <select name="id_periodo_academico" class="form-control" required>
                                             @foreach($periodos_academicos as $per_aca)
                                                 <option value="{{$per_aca->id}}" selected>{{$per_aca->periodo_academico}}</option>  
@@ -78,9 +78,9 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-1">
                                         <label for="id_semestre_asignatura" class="col-form-label text-md-right">{{ __('Sem.') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="Semestre Académico">*</span>
                                         <select name="id_semestre_asignatura" class="form-control" required>
                                             @foreach($semestres_asignaturas as $sem_asig)
                                                 <option value="{{$sem_asig->id}}" selected>{{$sem_asig->semestre_asignatura}}</option>  
@@ -100,7 +100,7 @@
                                 <div  class="form-group row">
                                     <div class="col-md-2">
                                         <label for="num_estudiantes_aprox" class="col-form-label text-md-left">{{ __('Estudiantes') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="Número Estudiantes">*</span>
                                         <input id="num_estudiantes_aprox" type="text" class="form-control @error('num_estudiantes_aprox') is-invalid @enderror" name="num_estudiantes_aprox" 
                                         value="" required autocomplete="off" autofocus>
                                         
@@ -112,7 +112,7 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
+                                        <label for="num_acompaniantes" class="col-form-label text-md-left" title="Número Acompañantes Adicionales Al Docente">{{ __('Acompañantes') }}</label>
                                         {{-- <span class="hs-form-required">*</span> --}}
                                         <input id="num_acompaniantes" type="text" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
                                         value="" autocomplete="off" autofocus>
@@ -201,7 +201,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-6">
                                         <label for="destino_rp" class="col-form-label text-md-left">{{ __('Destino Ruta Principal') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="Nombre Asociado A La Ruta">*</span>
                                         <input id="destino_rp" type="text" class="form-control @error('destino_rp') is-invalid @enderror" name="destino_rp" value="" required autocomplete="off" autofocus>
 
                                         @error('destino_rp')
@@ -217,7 +217,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="ruta_principal" class="col-form-label text-md-left">{{ __('Ruta Principal') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="ULR Google">*</span>
                                         <input id="ruta_principal" type="text" class="form-control @error('ruta_principal') is-invalid @enderror" name="ruta_principal" value="" required autocomplete="off" autofocus>
                                         
                                         @error('ruta_principal')
@@ -233,7 +233,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="det_recorrido_interno_rp" class="col-form-label text-md-left">{{ __('Detalle Recorrido') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="Detalle Diario De La Práctica">*</span>
                                         <textarea id="det_recorrido_interno_rp" style="min-height:5rem;" type="text" class="form-control @error('det_recorrido_interno_rp') is-invalid @enderror" name="det_recorrido_interno_rp" 
                                         value="" required autocomplete="off" autofocus></textarea>
                                         
@@ -250,7 +250,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="URL Google">*</span>
                                         <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
                                         value="" required autocomplete="off" autofocus>
                                         
@@ -274,7 +274,7 @@
 
                                     <div class="col-md-4">
                                         <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        <span class="hs-form-required" title="URL Google">*</span>
                                         <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
                                         value="" required autocomplete="off" autofocus>
                                         
@@ -352,7 +352,7 @@
 
                                             <div class="col-md-2">
                                                 <label for="capac_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Cap. Vehíc.') }}</label>
-                                                <span class="hs-form-required">*</span>
+                                                <span class="hs-form-required" title="Número De Personas A Transportar">*</span>
                                                 <input id="capac_transporte_rp_[]" type="text" class="form-control @error('capac_transporte_rp_[]') is-invalid @enderror" name="capac_transporte_rp_[]" 
                                                 value="" required autocomplete="off" autofocus>
 
@@ -365,7 +365,7 @@
 
                                             <div class="col-md-5">
                                                 <label for="det_tipo_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
-                                                <span class="hs-form-required">*</span>
+                                                <span class="hs-form-required" title="Observaciones Del Vehículo">*</span>
                                                 <input id="det_tipo_transporte_rp_[]" type="text" class="form-control @error('det_tipo_transporte_rp_[]') is-invalid @enderror" name="det_tipo_transporte_rp_[]" 
                                                 value="" required autocomplete="off" autofocus>
 
@@ -379,7 +379,7 @@
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                 <div class="form-group">
                                                     <label for="exclusiv_tiempo_rp_1" class="col-form-label text-md-left">{{ __('Tiempo Completo?') }}</label>
-                                                    <span class="hs-form-required">*</span>
+                                                    <span class="hs-form-required" title="Acompañamiento Del Vehículo">*</span>
                                                     <div class="row">
 
                                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -647,13 +647,13 @@
                                     </div>
 
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                        <label for="fecha_regreso_aprox_rp" class="col-form-label text-md-left">{{ __('Fecha Regreso') }}</label>
+                                        <label for="fecha_regreso_aprox_ra" class="col-form-label text-md-left">{{ __('Fecha Regreso') }}</label>
                                         <span class="hs-form-required">*</span>
                                           <div class="input-group">
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_ra"  type="text" required>
                                         </div>
                                     </div>
 

@@ -29,6 +29,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithMultipleSheets
             // 'password'  =>  '12345678',
             'password'  =>  Hash::make('12345678'),
             'id_role' => $row['id_rol'],
+            'id_programa_academico' => $row['id_prog_acade_coord'],
             'id_tipo_vinculacion' => $row['id_vinculacion'],
             'id_espacio_academico_1' => $row['id_esp_acad_1'],
             'id_espacio_academico_2' => $row['id_esp_acad_2'],

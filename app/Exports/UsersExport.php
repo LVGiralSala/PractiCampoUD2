@@ -23,7 +23,8 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
     public function collection()
     {
         $usuario=DB::table('users')
-        ->select('users.id_tipo_identificacion', 'ti.sigla', 'users.id', 'users.id_role', 'roles.role', 'users.id_tipo_vinculacion', 'tiv.tipo_vinculacion',
+        ->select('users.id_tipo_identificacion', 'ti.sigla', 'users.id', 'users.id_role', 'roles.role', 'users.id_programa_academico',
+                 'users.id_tipo_vinculacion', 'tiv.tipo_vinculacion',
                  'users.id_estado', 'est.estado',  'users.id_espacio_academico_1', 'users.id_espacio_academico_2', 'users.id_espacio_academico_3',
                  'users.id_espacio_academico_4','users.id_espacio_academico_5','users.id_espacio_academico_6',
                 //  'espa1.espacio_academico',
@@ -51,6 +52,7 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
     public function headings():array
     {
         return['ID TI', 'TI', 'IDENTIFICACION', 'ID ROL', 'ROL', 
+               'ID PROG. ACADÉ. COORD.',
                'ID VINCULACION', 'VINCULACION', 'ID ESTADO', 'ESTADO', 
                'ID ESP. ACAD 1',
             //    'ESP. ACAD 1',
@@ -72,7 +74,7 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
     public function registerEvents():array{
         return[
             AfterSheet::class => function(AfterSheet $event){
-                $cellRange = 'A1:W1';
+                $cellRange = 'A1:X1';
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                 ->getStartColor()->setARGB('74BB96');

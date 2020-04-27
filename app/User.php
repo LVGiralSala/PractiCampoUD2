@@ -60,6 +60,36 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function espa_aca1()
+    {
+        return $this->belongsTo(espacio_academico::class,'id_espacio_academico_1');
+    }
+
+    public function espa_aca2()
+    {
+        return $this->belongsTo(espacio_academico::class,'id_espacio_academico_2');
+    }
+
+    public function espa_aca3()
+    {
+        return $this->belongsTo(espacio_academico::class,'id_espacio_academico_3');
+    }
+
+    public function espa_aca4()
+    {
+        return $this->belongsTo(espacio_academico::class,'id_espacio_academico_4');
+    }
+
+    public function espa_aca5()
+    {
+        return $this->belongsTo(espacio_academico::class,'id_espacio_academico_5');
+    }
+
+    public function espa_aca6()
+    {
+        return $this->belongsTo(espacio_academico::class,'id_espacio_academico_6');
+    }
+
     public function adminPerm()
     {
         return (($this->id_role === 1 || $this->id_role === 2 || $this->id_role === 3) && ($this->id_estado === 1));

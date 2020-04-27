@@ -114,7 +114,7 @@
                                 <div class="col-md-3">
                                     <label for="id_tipo_identificacion" class="col-form-label text-md-right">{{ __('Tipo Identificación') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <select name="id_tipo_identificacion" class="form-control" required readonly  disabled>
+                                    <select name="id_tipo_identificacion" class="form-control" required readonly disabled>
                                         @foreach($tipos_identificaciones as $tip_ident)
                                         <option <?php if($tip_ident->id==$usuario->id_tipo_identificacion) echo 'selected'?> value="{{$tip_ident->id}}">{{$tip_ident->sigla}}</option>
                                         @endforeach
@@ -228,6 +228,22 @@
                                         </span>
                                     @enderror
                                 </div>
+
+                                <div class="col-md-3">
+                                    <label for="id_programa_academico_coord" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
+                                    <span class="hs-form-required">*</span>
+                                    <select name="id_programa_academico_coord" class="form-control" required id="id_programa_academico_coord">
+                                        @foreach($programas_academicos as $pr_aca)
+                                            {{-- <option <php if($pr_aca->id==$espacios_usuario[0]['id_programa_academico']) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option> --}}
+                                            <option <?php if($pr_aca->id==$usuario->id_programa_academico) echo 'selected'?> value="{{$pr_aca->id}}">{{$pr_aca->programa_academico}}</option>  
+                                        @endforeach
+                                    </select>
+                                    @error('id_programa_academico_coord')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> 
 
                                 <div class="col-md-3">
                                     <label for="id_tipo_vinculacion" class="col-form-label text-md-right">{{ __('Vinculación') }}</label>

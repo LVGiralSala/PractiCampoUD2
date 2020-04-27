@@ -27,13 +27,14 @@ class ProyeccionesPreliminaresExport implements FromCollection, WithHeadings, Sh
     {
         $proyecciones=DB::table('proyeccion_preliminar as proy_prel')
         ->select('proy_prel.id', 'prog_aca.programa_academico', 'espa.codigo_espacio_academico','espa.espacio_academico', 'sem_asig.semestre_asignatura', 
-                 'per_aca.periodo_academico',DB::raw('CONCAT(us.primer_nombre, " ", us.segundo_nombre, " ", us.primer_apellido, " ", us.segundo_apellido)'),
+                 'per_aca.periodo_academico', DB::raw('CONCAT(us.primer_nombre, " ", us.segundo_nombre, " ", us.primer_apellido, " ", us.segundo_apellido)'),
                 //  DB::raw('CONCAT(proy_prel.grupo_1, " - ", proy_prel.grupo_2, " - ", proy_prel.grupo_3, " - ",proy_prel.grupo_4)'),
                  'proy_prel.grupo_1', 'proy_prel.grupo_2', 'proy_prel.grupo_3', 'proy_prel.grupo_4', 
                  'proy_prel.destino_rp', 'proy_prel.det_recorrido_interno_rp', 'proy_prel.lugar_salida_rp', 
-                 'proy_prel.lugar_regreso_rp', 'proy_prel.fecha_salida_aprox_rp','fecha_regreso_aprox_rp','proy_prel.duracion_num_dias', 
+                 'proy_prel.lugar_regreso_rp', 'proy_prel.fecha_salida_aprox_rp','proy_prel.fecha_regreso_aprox_rp','proy_prel.duracion_num_dias_rp', 
                  'proy_prel.num_estudiantes_aprox', 'proy_prel.num_acompaniantes', 
-                 'tip_tra_rp1.tipo_transporte', 'proy_prel.otro_tipo_transporte_ra_1','proy_prel.capac_transporte_rp_1', 'proy_prel.det_tipo_transporte_rp_1',  'proy_prel.exclusiv_tiempo_rp_1') 
+                 'tip_tra_rp1.tipo_transporte', 'proy_prel.otro_tipo_transporte_ra_1','proy_prel.capac_transporte_rp_1', 'proy_prel.det_tipo_transporte_rp_1') 
+                //  ,  'proy_prel.exclusiv_tiempo_rp_1'
                 //  'tip_tra_rp2.tipo_transporte', 'proy_prel.capac_transporte_rp_2', 'proy_prel.det_tipo_transporte_rp_2',  'proy_prel.exclusiv_tiempo_rp_2', 
                 //  'tip_tra_rp3.tipo_transporte', 'proy_prel.capac_transporte_rp_3', 'proy_prel.det_tipo_transporte_rp_3',  'proy_prel.exclusiv_tiempo_rp_3', 
                 //  'tip_tra_ra1.tipo_transporte', 'proy_prel.capac_transporte_rp_1', 'proy_prel.det_tipo_transporte_ra_1',  'proy_prel.exclusiv_tiempo_rp_1', 
@@ -50,7 +51,9 @@ class ProyeccionesPreliminaresExport implements FromCollection, WithHeadings, Sh
                  ->leftjoin('periodo_academico as per_aca','proy_prel.id_peridodo_academico','=','per_aca.id')
                  ->leftjoin('semestre_asignatura as sem_asig','proy_prel.id_semestre_asignatura','=','sem_asig.id')
                  ->leftjoin('tipo_zona_transitar as tip_zon_tra','proy_prel.id_tipo_zona_transitar','=','tip_zon_tra.id')
-                 ->leftjoin('users as us','proy_prel.id_docente_responsable','=','us.id')->get();
+                 ->leftjoin('users as us','proy_prel.id_docente_responsable','=','us.id')
+                 ->where('proy_prel.aprobacion_coordinador','=',3)
+                 ->where('proy_prel.aprobacion_decano','=',3)->get();
         
 
         return $proyecciones;
@@ -59,7 +62,7 @@ class ProyeccionesPreliminaresExport implements FromCollection, WithHeadings, Sh
     public function headings():array
     {
         return['ID PROYECCIÓN', 'PROGRAMA ACADÉMICO', 'CÓD. ESPACIO ACADÉMICO', 'ESPACIO ACADÉMICO', 'SEM. ACA','PER. ACA',
-                'DOCENTE RESPONSABLE', '','GRUPOS','','', 'DESTINO RUTA PRINCIPAL', 'DETALLE DEL RECORRIDO INTERNO',
+                'DOCENTE RESPONSABLE', 'GRUPOS','','','', 'DESTINO RUTA PRINCIPAL', 'DETALLE DEL RECORRIDO INTERNO',
                 'LUGAR DE SALIDA','LUGAR DE LLEGADA','SALIDA (FECHA TENTATIVA)', 'LLEGADA (FECHA TENTATIVA)', 'NÚMERO DE DÍAS',
                 'NÚMERO DE ESTUDIANTES', 'NÚMERO ACOMPAÑANTES','TIPO TRANSPORTE RP','OTRO TRANSPORTE', 'CAPAC. TRANSPORTE', 'DET. TRANSPORTE'];
     }

@@ -21,4 +21,9 @@ class espacio_academico extends Model
     {
         return $this->belongsTo(programa_academico::class,'id_programa_academico');
     }
+
+    public function user()
+    {
+        return $this->hasMany(user::class);
+    }
 }
