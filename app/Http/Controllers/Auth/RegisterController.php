@@ -125,7 +125,6 @@ class RegisterController extends Controller
             // 'id_programa_academico_4' => (!empty($programas_academicos[3]))?$programas_academicos[3]:null,
             // 'id_programa_academico_5' => (!empty($programas_academicos[4]))?$programas_academicos[4]:null,
             // 'id_programa_academico_6' => (!empty($programas_academicos[5]))?$programas_academicos[5]:null,
-            'id_programa_academico_coord' => $data['id_programa_academico_coord'],
             'telefono' => $data['telefono'],
             'celular' => $data['celular'],
             'id_estado' => '1',

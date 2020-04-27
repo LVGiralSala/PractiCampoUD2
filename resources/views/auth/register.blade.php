@@ -338,14 +338,14 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="id_programa_academico_coord" class="col-form-label text-md-right">{{ __('Prog. Académico Coord.') }}</label>
+                                    <label for="id_programa_academico_[]" class="col-form-label text-md-right">{{ __('Prog. Académico') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <select name="id_programa_academico_coord" class="form-control" required id="id_programa_academico_coord">
-                                         @foreach($programas_academicos as $pr_aca)
+                                    <select name="id_programa_academico_[]" class="form-control" required id="id_programa_academico_1" onchange="searchEspaAca_2(1)">
+                                        @foreach($programas_academicos as $pr_aca)
                                             <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
-                                        @endforeach 
+                                        @endforeach
                                     </select>
-                                    @error('id_programa_academico_coord')
+                                    @error('id_programa_academico_[]')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
