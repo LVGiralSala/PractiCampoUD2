@@ -12,6 +12,7 @@ use PractiCampoUD\Exports\UsersExport;
 use PractiCampoUD\Imports\UsersImport;
 use DB;
 use PractiCampoUD\Exports\ReportProyeccionesExport;
+use PractiCampoUD\Imports\ProyeccionesPreliminaresImport;
 
 class ExcelController extends Controller
 {
@@ -113,6 +114,11 @@ class ExcelController extends Controller
     {
         $mytime=Carbon::now('America/Bogota');
         return Excel::download(new ReportProyeccionesExport,'poyecciones_preliminares.xls');
+    }
+
+    public function importProyeccionesExcel(){
+        Excel::import(new ProyeccionesPreliminaresImport,request()->file('poyecciones_preliminares'));
+        return Redirect::to('proyeccion_index')->with('success', 'Creación exitosa');
     }
 
 }

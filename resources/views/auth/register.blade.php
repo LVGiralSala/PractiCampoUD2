@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <label for="telefono" class="col-form-label text-md-right">{{ __('Teléfono') }}</label>
-                                    <input id="telefono"  class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" required autocomplete="off">
+                                    <input id="telefono"  class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" autocomplete="off">
                                     @error('telefono')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -149,10 +149,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                {{-- <div class="col-md-2">
                                     <input id="cr" style="color:transparent;display:none" class="form-control" name="cr" autocomplete="off">
                                     
-                                </div>
+                                </div> --}}
 
                             </div>
                             <!-- 3 -->
@@ -325,7 +325,7 @@
                                 <div class="col-md-3">
                                     <label for="id_role" class="col-form-label text-md-right">{{ __('Tipo Usuario') }}</label>
                                     <span class="hs-form-required">*</span>
-                                    <select name="id_role" class="form-control" required>
+                                    <select name="id_role" class="form-control" required onchange="progr_aca_coord(this.value)">
                                         @foreach($tipos_usuarios as $tip_user)
                                             <option value="{{$tip_user->id}}" selected>{{$tip_user->role}}</option>
                                         @endforeach
@@ -339,8 +339,8 @@
 
                                 <div class="col-md-3">
                                     <label for="id_programa_academico_coord" class="col-form-label text-md-right">{{ __('Prog. Académico Coord.') }}</label>
-                                    <span class="hs-form-required">*</span>
-                                    <select name="id_programa_academico_coord" class="form-control" required id="id_programa_academico_coord">
+                                    {{-- <span class="hs-form-required">*</span> --}}
+                                    <select name="id_programa_academico_coord" class="form-control" required id="id_programa_academico_coord" readonly disabled>
                                          @foreach($programas_academicos as $pr_aca)
                                             <option value="{{$pr_aca->id}}" selected>{{$pr_aca->programa_academico}}</option>  
                                         @endforeach 

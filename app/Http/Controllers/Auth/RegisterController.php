@@ -82,23 +82,68 @@ class RegisterController extends Controller
         $id_espacio_academico_1 = DB::table('espacio_academico')
             ->where('id_programa_academico','=',$programas_academicos[0])
             ->where('codigo_espacio_academico','=',$espacios_academicos[0])->first();
-        $id_espacio_academico_2 = DB::table('espacio_academico')
-            ->where('id_programa_academico','=',$programas_academicos[1])
-            ->where('codigo_espacio_academico','=',$espacios_academicos[1])->first();
-        $id_espacio_academico_3 = DB::table('espacio_academico')
-            ->where('id_programa_academico','=',$programas_academicos[2])
-            ->where('codigo_espacio_academico','=',$espacios_academicos[2])->first();
-        $id_espacio_academico_4 = DB::table('espacio_academico')
-            ->where('id_programa_academico','=',$programas_academicos[3])
-            ->where('codigo_espacio_academico','=',$espacios_academicos[3])->first();
-        $id_espacio_academico_5 = DB::table('espacio_academico')
-            ->where('id_programa_academico','=',$programas_academicos[4])
-            ->where('codigo_espacio_academico','=',$espacios_academicos[4])->first();
-        $id_espacio_academico_6 = DB::table('espacio_academico')
-            ->where('id_programa_academico','=',$programas_academicos[5])
-            ->where('codigo_espacio_academico','=',$espacios_academicos[5])->first();
+
+        if(!empty($programas_academicos[1]))
+        {
+
+            $id_espacio_academico_2 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[1])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[1])->first();
+        }   
+
+        if(!empty($programas_academicos[2]))
+        {
+            
+            $id_espacio_academico_3 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[2])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[2])->first();
+        }   
+
+        if(!empty($programas_academicos[3]))
+        {
+            
+            $id_espacio_academico_4 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[3])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[3])->first();
+        }   
+
+        if(!empty($programas_academicos[5]))
+        {
+            
+            $id_espacio_academico_5 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[4])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[4])->first();
+        }   
+
+        if(!empty($programas_academicos[5]))
+        {
+            
+            $id_espacio_academico_6 = DB::table('espacio_academico')
+                ->where('id_programa_academico','=',$programas_academicos[5])
+                ->where('codigo_espacio_academico','=',$espacios_academicos[5])->first();
+        }   
 
         $espacio_academico_1 = (!empty($espacios_academicos[4]))?$espacios_academicos[4]:null;
+        
+        $idRole =  $data['id_role'];
+        if($idRole == 4)
+        {
+            $id_prog_aca_coord = $data['id_programa_academico_coord'];
+            if($id_prog_aca_coord == 999)
+            {
+                $id_programa_academico_coord = $programas_academicos[0];
+            }
+            else
+            {
+                $id_programa_academico_coord= $data['id_programa_academico_coord'];
+            }
+        }
+        else
+        {
+            $id_programa_academico_coord = 999;
+        }
+        
+        $id_tipo_vinculacion = $data['id_tipo_vinculacion'];
         
         $user = User::create([
             'id' => $data['num_identificacion'],
@@ -110,9 +155,9 @@ class RegisterController extends Controller
             'segundo_apellido'=> $data['segundo_apellido'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'id_role' => $data['id_role'],
+            'id_role' =>$idRole,
             // 'id_categoria' => $data['id_categoria'],
-            'id_tipo_vinculacion' => $data['id_tipo_vinculacion'],
+            'id_tipo_vinculacion' => $id_tipo_vinculacion,
             'id_espacio_academico_1' => $id_espacio_academico_1->id,
             'id_espacio_academico_2' => (!empty($id_espacio_academico_2->id))?$id_espacio_academico_2->id:null,
             'id_espacio_academico_3' => (!empty($id_espacio_academico_3->id))?$id_espacio_academico_3->id:null,
@@ -125,7 +170,7 @@ class RegisterController extends Controller
             // 'id_programa_academico_4' => (!empty($programas_academicos[3]))?$programas_academicos[3]:null,
             // 'id_programa_academico_5' => (!empty($programas_academicos[4]))?$programas_academicos[4]:null,
             // 'id_programa_academico_6' => (!empty($programas_academicos[5]))?$programas_academicos[5]:null,
-            'id_programa_academico_coord' => $data['id_programa_academico_coord'],
+            'id_programa_academico_coord' => $id_programa_academico_coord,
             'telefono' => $data['telefono'],
             'celular' => $data['celular'],
             'id_estado' => '1',

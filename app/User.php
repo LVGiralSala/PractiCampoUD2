@@ -24,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 
         'id_role',
         'id_tipo_identificacion',
+        'id_tipo_vinculacion',
         'id_categoria',
         'id_estado',
         'id_espacio_academico_1',
@@ -39,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'segundo_apellido',
         'telefono',
         'celular',
+        'id_programa_academico_coord',
         
     ];
 

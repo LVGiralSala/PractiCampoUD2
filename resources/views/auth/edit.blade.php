@@ -292,11 +292,11 @@
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[0]['espacio_academico']}}" class="form-control" style="width: 90%;"
+                                            {{-- <div class="row"> --}}
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[0]['espacio_academico']}}" class="form-control" 
                                                 readonly/>
-                                                <a class="imgButton" id="addButton_ea_edit" title="Add field"><img src="add-icon.png"/></a>
-                                            </div>
+                                                {{-- <a class="imgButton" id="addButton_ea_edit" title="Add field"><img src="{{asset('img/add-icon.png')}}"/></a> --}}
+                                            {{-- </div> --}}
                                         </div>
                                         {{-- <div class="col-md-1">
                                             <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
@@ -328,11 +328,11 @@
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_2" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
-                                            <div class="row">
-                                                <input type="text" name="espacio_academico_2" id="espacio_academico_2" value="{{$espacios_usuario[1]['espacio_academico']}}" class="form-control" style="width: 90%;"
+                                            {{-- <div class="row"> --}}
+                                                <input type="text" name="espacio_academico_2" id="espacio_academico_2" value="{{$espacios_usuario[1]['espacio_academico']}}" class="form-control" 
                                                 readonly/>
-                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
-                                            </div>
+                                                {{-- <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="{{asset('img/add-icon.png')}}"/></a> --}}
+                                            {{-- </div> --}}
                                         </div>
                                         {{-- <div class="col-md-1">
                                             <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
@@ -365,11 +365,11 @@
                                         </div>
                                         <div class="col-md-7">
                                             <label for="espacio_academico_3" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
-                                            <div class="row">
-                                                <input type="text" name="espacio_academico_3" id="espacio_academico_3" value="{{$espacios_usuario[2]['espacio_academico']}}" class="form-control" style="width: 90%;"
+                                            {{-- <div class="row"> --}}
+                                                <input type="text" name="espacio_academico_3" id="espacio_academico_3" value="{{$espacios_usuario[2]['espacio_academico']}}" class="form-control"
                                                 readonly/>
-                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
-                                            </div>
+                                                {{-- <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="{{asset('img/add-icon.png')}}"/></a> --}}
+                                            {{-- </div> --}}
                                         </div>
                                         {{-- <div class="col-md-1">
                                             <a class="add_ea" id="add_ea" title="Add field"><img src="add-icon.png"/></a>
@@ -405,11 +405,11 @@
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[3]['espacio_academico']}}" class="form-control" style="width: 90%;"
+                                            {{-- <div class="row"> --}}
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[3]['espacio_academico']}}" class="form-control" 
                                                 readonly/>
-                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
-                                            </div>
+                                                {{-- <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a> --}}
+                                            {{-- </div> --}}
                                         </div>
                                     </div>
                                     @endif
@@ -442,11 +442,11 @@
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[4]['espacio_academico']}}" class="form-control" style="width: 90%;"
+                                            {{-- <div class="row"> --}}
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[4]['espacio_academico']}}" class="form-control"
                                                 readonly/>
-                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
-                                            </div>
+                                                {{-- <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a> --}}
+                                            {{-- </div> --}}
                                         </div>
                                     </div>
                                     @endif
@@ -479,11 +479,11 @@
                                         <div class="col-md-7">
                                             <label for="espacio_academico_1" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
                                             <span class="hs-form-required">*</span>
-                                            <div class="row">
-                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[5]['espacio_academico']}}" class="form-control" style="width: 90%;"
+                                            {{-- <div class="row"> --}}
+                                                <input type="text" name="espacio_academico_1" id="espacio_academico_1" value="{{$espacios_usuario[5]['espacio_academico']}}" class="form-control" 
                                                 readonly/>
-                                                <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a>
-                                            </div>
+                                                {{-- <a class="remove_field_ea_edit imgButton" id="remove_field_ea_edit" title="Remove field"><img src="add-icon.png"/></a> --}}
+                                            {{-- </div> --}}
                                         </div>
                                     </div>
                                     @endif

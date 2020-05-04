@@ -85,4 +85,30 @@ class SolicitudController extends Controller
     {
         //
     }
+
+    public function index_codigo()
+    {
+        return view('solicitudes.prueba_codigo',["respuesta"=>""]);
+    }
+
+    public function consulta_codigo(Request $request)
+    {
+
+        $respuesta = "";
+        $id = $request->cod_consulta;
+        $cod_graduacion =DB::table('codigo_graduacion')
+        ->where('id','=', $id)->first();
+
+        if(!empty($cod_graduacion) ||  $cod_graduacion!= null)
+        {
+            $nombre = $cod_graduacion->nombre_estudiante;
+            $respuesta = 'El código: '.$id.' asociado al estudiante: ' .$nombre.' cuenta con diploma de graduación.';
+        }
+
+        else if(empty($cod_graduacion) ||  $cod_graduacion== null)
+        {
+            $respuesta = "El código NO cuenta con diploma de graduación.";
+        }
+        return view('solicitudes.prueba_codigo',["respuesta"=>$respuesta]);
+    }
 }

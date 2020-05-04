@@ -751,6 +751,58 @@ $("#cant_grupos").change('keypress', function () {
 
 // $("#asd").tipsy();
 
+/* programa académico coordinador */
+function progr_aca_coord(id)
+{
+    if(id != 4)
+    {
+        $("#id_programa_academico_coord").attr('readonly', 'readonly');
+        $("#id_programa_academico_coord").val(999);
+    }
+    else if(id == 4)
+    {
+        
+        $("#id_programa_academico_coord").removeAttr('readonly');
+        $("#id_programa_academico_coord").removeAttr('disabled');
+        $("#id_programa_academico_coord").attr('readonly', 'readonly');
+
+    }
+}
+/* programa académico coordinador */
+
+
+function consulta_cod(){
+
+
+      var id = $("#cod_consulta").val('kj454aogzB59E');
+        url = '/buscar/consulta_codigo';
+
+        $.ajax({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: url,
+            type: 'POST',
+            cache: false,
+            data: {'id':id},                
+            // beforeSend: function(xhr){
+            // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+            // },
+            success:function(respu){
+                console.log(respu);
+
+                $("#resp_consulta").val('El código  asociado al estudiante ' + respu.nombre_estudiante + ' cuenta con diploma de graduación.');  
+
+                if ( jQuery.isEmptyObject(respu) || respu == null) {
+                    $("#resp_consulta").val('Código no disponible para el programa seleccionado');
+                }
+                            
+                },
+                error: function(xhr, textStatus, thrownError) {
+                
+                }
+        });
+
+}
+
 
 
 

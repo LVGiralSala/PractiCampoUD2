@@ -33,7 +33,8 @@ class ProyeccionesPreliminaresExport implements FromCollection, WithHeadings, Sh
                  'proy_prel.destino_rp', 'proy_prel.det_recorrido_interno_rp', 'proy_prel.lugar_salida_rp', 
                  'proy_prel.lugar_regreso_rp', 'proy_prel.fecha_salida_aprox_rp','proy_prel.fecha_regreso_aprox_rp','proy_prel.duracion_num_dias_rp', 
                  'proy_prel.num_estudiantes_aprox', 'proy_prel.num_acompaniantes', 
-                 'tip_tra_rp1.tipo_transporte', 'proy_prel.otro_tipo_transporte_ra_1','proy_prel.capac_transporte_rp_1', 'proy_prel.det_tipo_transporte_rp_1') 
+                 'tip_tra_rp1.tipo_transporte', 'proy_prel.otro_tipo_transporte_ra_1','proy_prel.capac_transporte_rp_1', 'proy_prel.det_tipo_transporte_rp_1',
+                 'proy_prel.valor_estimado_transporte_rp', 'proy_prel.valor_estimado_transporte_ra') 
                 //  ,  'proy_prel.exclusiv_tiempo_rp_1'
                 //  'tip_tra_rp2.tipo_transporte', 'proy_prel.capac_transporte_rp_2', 'proy_prel.det_tipo_transporte_rp_2',  'proy_prel.exclusiv_tiempo_rp_2', 
                 //  'tip_tra_rp3.tipo_transporte', 'proy_prel.capac_transporte_rp_3', 'proy_prel.det_tipo_transporte_rp_3',  'proy_prel.exclusiv_tiempo_rp_3', 
@@ -64,13 +65,14 @@ class ProyeccionesPreliminaresExport implements FromCollection, WithHeadings, Sh
         return['ID PROYECCIÓN', 'PROGRAMA ACADÉMICO', 'CÓD. ESPACIO ACADÉMICO', 'ESPACIO ACADÉMICO', 'SEM. ACA','PER. ACA',
                 'DOCENTE RESPONSABLE', 'GRUPOS','','','', 'DESTINO RUTA PRINCIPAL', 'DETALLE DEL RECORRIDO INTERNO',
                 'LUGAR DE SALIDA','LUGAR DE LLEGADA','SALIDA (FECHA TENTATIVA)', 'LLEGADA (FECHA TENTATIVA)', 'NÚMERO DE DÍAS',
-                'NÚMERO DE ESTUDIANTES', 'NÚMERO ACOMPAÑANTES','TIPO TRANSPORTE RP','OTRO TRANSPORTE', 'CAPAC. TRANSPORTE', 'DET. TRANSPORTE'];
+                'NÚMERO DE ESTUDIANTES', 'NÚMERO ACOMPAÑANTES','TIPO TRANSPORTE RP','OTRO TRANSPORTE', 'CAPAC. TRANSPORTE', 'DET. TRANSPORTE',
+                'VALOR ESTIM. TRANSP. RP', 'VALOR ESTIM. TRANSP. RA'];
     }
 
     public function registerEvents():array{
         return[
             AfterSheet::class => function(AfterSheet $event){
-                $cellRange = 'A1:X1';
+                $cellRange = 'A1:Z1';
                 $cellRangeName ='H1:K1'; 
                 $event->sheet->getDelegate()->mergeCells($cellRangeName);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);

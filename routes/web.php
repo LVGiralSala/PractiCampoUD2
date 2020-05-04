@@ -72,13 +72,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('imp-users-list-excel','Excel\ExcelController@importExcel')->name('import_list_users.excel');
 
         Route::get('exp-proyecc-list-excel','Excel\ExcelController@exportProyeccionesExcel')->name('export_list_proyecc.excel');
+        Route::post('imp-proyecc-list-excel','Excel\ExcelController@importProyeccionesExcel')->name('import_list_proyecc.excel');
 
         // ------> PDF Routes <------
         Route::get('proyecciones_pdf-html','Pdf\PdfController@generateHtml')->name('proyeccion_preliminar.excel');
         Route::get('proyecciones_pdf','Pdf\PdfController@exportPdf')->name('proyeccion_preliminar.pdf');
         Route::get('solicitudes_pdf','Pdf\PdfController@exportSolicitudPdf')->name('solicitud.pdf');
         Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
-        
 
         // ------> Proyecciones Routes <------
         Route::get('proyecciones','Proyeccion\ProyeccionController@index')->name('proyeccion_index');
@@ -91,7 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
 
         // ------> solicitudes Routes <------
-        Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
+        // Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
         Route::get('solicitudes/create','Solicitud\SolicitudController@create')->name('solicitud_create');
         Route::post('solicitudes','Solicitud\SolicitudController@store')->name('solicitud_store');
         Route::get('solicitudes/{id}','Solicitud\SolicitudController@edit')->name('solicitud_edit');
@@ -104,6 +104,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::resource('buscar/espa_aca','Otros\EspacioAcademicoController');
         Route::post('buscar/espa_aca','Otros\EspacioAcademicoController@searchEspaAca')->name('espa_aca');
 
+        // ------> prueba consulta codigo Routes <------
+        Route::get('solicitudes','Solicitud\SolicitudController@index_codigo')->name('index_codigo');
+        Route::post('solicitudes','Solicitud\SolicitudController@consulta_codigo')->name('consulta_codigo');
 
         // ------> SEND EMAIL <------
         // Route::get('/sendemail', function () {

@@ -73,7 +73,7 @@ class ProyeccionController extends Controller
             break;
 
             case 4:
-                $idProgAca_asociado = Auth::user()->id_programa_academico;
+                $idProgAca_asociado = Auth::user()->id_programa_academico_coord;
                 $espacios=DB::table('espacio_academico as esp_aca')
                 ->where('id_programa_academico','=',$idProgAca_asociado)->get();
                 $proyeccion=DB::table('proyeccion_preliminar as p_prel')
@@ -632,13 +632,20 @@ class ProyeccionController extends Controller
             }
         }
 
-        if(Auth::user()->id_role == 2 || Auth::user()->id_role == 3 )
+        if(Auth::user()->id_role == 2 )
         {
             // $proyeccion_preliminar->observ_coordinador= $request->get('observ_coordinador');
             // $proyeccion_preliminar->aprobacion_coordinador= $request->get('aprobacion_coordinador');
 
             $proyeccion_preliminar->observ_decano= $request->get('observ_decano');
             $proyeccion_preliminar->aprobacion_decano= $request->get('aprobacion_decano');
+        }
+
+        if(Auth::user()->id_role == 3 )
+        {
+
+            $proyeccion_preliminar->valor_estimado_transporte_rp = $request->get('vlr_est_transp_rp');
+            $proyeccion_preliminar->valor_estimado_transporte_ra = $request->get('vlr_est_transp_ra');
         }
 
         if(Auth::user()->id_role == 1 ||  Auth::user()->id_role == 5)

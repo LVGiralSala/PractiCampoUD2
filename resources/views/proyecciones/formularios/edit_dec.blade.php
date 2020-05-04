@@ -583,6 +583,42 @@
 <!-- ruta alterna -->
 
 <br>
+<h4>Precios Estimados Transporte</h4>
+<hr class="divider">
+<br>
+    
+<!-- valor estimado transporte -->
+<div class="form-group row">
+    <div class="col-md-6">
+        <label for="vlr_est_transp_rp" class="col-form-label text-md-left">{{ __('Valor Estimado Transporte RP') }}</label>
+        <span class="hs-form-required">*</span>
+        <input id="vlr_est_transp_rp" type="text" class="form-control @error('vlr_est_transp_rp') is-invalid @enderror" name="vlr_est_transp_rp" 
+        value="{{ $proyeccion_preliminar->valor_estimado_transporte_rp}}" required autocomplete="off" autofocus readonly>
+
+        @error('vlr_est_transp_rp')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+
+    <div class="col-md-6">
+        <label for="vlr_est_transp_ra" class="col-form-label text-md-left">{{ __('Valor Estimado Transporte RA') }}</label>
+        <span class="hs-form-required">*</span>
+        <input id="vlr_est_transp_ra" type="text" class="form-control @error('vlr_est_transp_ra') is-invalid @enderror" name="vlr_est_transp_ra" 
+        value="{{ $proyeccion_preliminar->valor_estimado_transporte_ra}}" required autocomplete="off" autofocus readonly>
+
+        @error('vlr_estvlr_est_transp_ra_transp')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+
+<!-- valor estimado transporte -->
+
+<br>
 <h4>Observaciones</h4>
 <hr class="divider">
 <br>
@@ -646,6 +682,7 @@
     <!-- 19 -->
 
 <!-- Coordinador-->
+
 
 <!-- Decano -->
     <!-- 20 -->

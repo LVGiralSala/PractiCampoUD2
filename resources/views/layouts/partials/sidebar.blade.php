@@ -64,7 +64,8 @@
             </a>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('solicitud_index')}}">Listar Solicitudes</a>
+                {{-- <a class="collapse-item" href="{{route('solicitud_index')}}">Listar Solicitudes</a> --}}
+                {{-- <a class="collapse-item" href="{{route('index_codigo')}}">Consulta Código</a> --}}
                 @if(Auth::user()->admin() || Auth::user()->coordinador() || Auth::user()->docente())
                 <a class="collapse-item" href="">Nueva Solicitud</a>
                 @endif
