@@ -591,7 +591,7 @@ CREATE TABLE IF NOT EXISTS `proyeccion_preliminar` (
   CONSTRAINT `fk_proyeccion_preliminar_tipo_transporte` FOREIGN KEY (`id_tipo_transporte_rp_1`) REFERENCES `tipo_transporte` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_proyeccion_preliminar_tipo_zona_transitar` FOREIGN KEY (`id_tipo_zona_transitar`) REFERENCES `tipo_zona_transitar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_proyeccion_preliminar_users` FOREIGN KEY (`id_docente_responsable`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla practicampo.proyeccion_preliminar: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `proyeccion_preliminar` DISABLE KEYS */;
