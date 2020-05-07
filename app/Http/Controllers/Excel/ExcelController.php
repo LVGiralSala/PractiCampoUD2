@@ -118,7 +118,7 @@ class ExcelController extends Controller
 
     public function importProyeccionesExcel(){
         Excel::import(new ProyeccionesPreliminaresImport,request()->file('poyecciones_preliminares'));
-        return Redirect::to('proyeccion_index')->with('success', 'Creación exitosa');
+        return Redirect::to('proyecciones')->with('success', 'Creación exitosa');
     }
 
 }

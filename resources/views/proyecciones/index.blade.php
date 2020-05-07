@@ -104,6 +104,32 @@
     </div>
       @endif
 
+      @if(Auth::user()->coordinador())
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <form method="POST" action="{{ route('import_list_proyecc.excel') }}"  enctype="multipart/form-data">
+          @csrf
+         
+          <div class="row">
+          {{-- <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">    --}}
+            <div class="form-group">
+              <label for=""></label>
+                  <input type="file"  name="poyecciones_preliminares" >
+            </div>
+          {{-- </div>  --}}
+          
+          {{-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">  --}}
+            <div class="form-group">
+              {{-- <label for=""></label>
+              <div class="row"> --}}
+                <button class="btn btn-success" name="import_proyecciones"><i class="fas fa-file-import"></i>     CSV</button></a>
+              {{-- </div> --}}
+            </div>
+          </div> 
+        </form>
+    </div>
+
+      @endif
+
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
           <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">

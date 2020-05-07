@@ -29,12 +29,15 @@ class proyeccion extends Model
             'fecha_salida_aprox_ra',  
             'fecha_regreso_aprox_rp',  
             'fecha_regreso_aprox_ra',  
+            'duracion_num_dias_rp',
+            'duracion_num_dias_ra',
             'num_estudiantes_aprox',  
             'num_acompaniantes',  
             'det_recorrido_interno_rp',  
             'det_recorrido_interno_ra',  
             'det_tipo_transporte_rp_1',    
             'det_tipo_transporte_ra_1',  
+            'cantidad_grupos',
             'grupo_1',  
             'grupo_2',  
             'cant_transporte_rp',  
@@ -43,5 +46,7 @@ class proyeccion extends Model
             'capac_transporte_ra_1',  
             'exclusiv_tiempo_rp_1',  
             'exclusiv_tiempo_ra_1', 
+            'aprobacion_decano',
+            'aprobacion_coordinador'
     ];
 }
