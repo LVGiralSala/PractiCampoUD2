@@ -339,6 +339,19 @@
                     @enderror
                 </div>
 
+                {{-- <div class="col-md-5">
+                    <label for="docente_resp_transp_rp_[]" class="col-form-label text-md-left">{{ __('Docente Responsable') }}</label>
+                    <span class="hs-form-required" title="">*</span>
+                    <input id="docente_resp_transp_rp_[]" type="text" class="form-control @error('docente_resp_transp_rp_[]') is-invalid @enderror" name="docente_resp_transp_rp_[]" 
+                    value="" required autocomplete="off" autofocus>
+                    
+                    @error('docente_resp_transp_rp_[]')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div> --}}
+
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-group">
                         <label for="exclusiv_tiempo_rp_1">{{ __('Tiempo Completo?') }}</label>
@@ -373,6 +386,79 @@
 
     </div>
     <!-- 8 transporte_rp_1 -->
+
+    <!-- preguntas -->
+    <div class="form-group row">
+        <!-- 1 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="areas_acuaticas_rp">{{ __('Esta sálida desarrolla maniobras sobre áreas acuáticas(Ríos, lagos, lagunas, humedales, mares, etc...?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="areas_acuaticas_rp" <?php if($proyeccion_preliminar->areas_acuaticas_rp == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 1 -->
+
+        <!-- 2 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="alturas_rp">{{ __('Esta sálida desarrolla actividades de escalada o trabajo de alturas?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="alturas_rp" <?php if($proyeccion_preliminar->alturas_rp == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 2 -->
+
+        <!-- 3 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="riesgo_biologico_rp">{{ __('Esta sálida desarrolla actividades al interior de bosques o lugares con riesgo biológico?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="riesgo_biologico_rp" <?php if($proyeccion_preliminar->riesgo_biologico_rp == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 3 -->
+
+        <!-- 4 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="espacios_confinados_rp">{{ __('Esta sálida desarrolla actividades en espacios confinados?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="espacios_confinados_rp" <?php if($proyeccion_preliminar->espacios_confinados_rp == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 4 -->
+
+    </div>
+    <!-- preguntas -->
 
 <!-- ruta principal -->
 
@@ -545,6 +631,19 @@
             @enderror
         </div>
 
+        {{-- <div class="col-md-5">
+            <label for="docente_resp_transp_ra_[]" class="col-form-label text-md-left">{{ __('Docente Responsable') }}</label>
+            <span class="hs-form-required" title="">*</span>
+            <input id="docente_resp_transp_ra_[]" type="text" class="form-control @error('docente_resp_transp_ra_[]') is-invalid @enderror" name="docente_resp_transp_ra_[]" 
+            value="" required autocomplete="off" autofocus >
+            
+            @error('docente_resp_transp_ra_[]')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div> --}}
+
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <div class="form-group">
                 <label for="exclusiv_tiempo_ra_1">{{ __('Tiempo Completo') }}</label>
@@ -575,6 +674,79 @@
         </div>
     </div>
     <!-- 14 transporte_ra_1 -->
+
+    <!-- preguntas -->
+    <div class="form-group row">
+        <!-- 1 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="areas_acuaticas_ra">{{ __('Esta sálida desarrolla maniobras sobre áreas acuáticas(Ríos, lagos, lagunas, humedales, mares, etc...?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="areas_acuaticas_ra" <?php if($proyeccion_preliminar->areas_acuaticas_ra == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 1 -->
+
+        <!-- 2 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="alturas_ra">{{ __('Esta sálida desarrolla actividades de escalada o trabajo de alturas?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="alturas_ra" <?php if($proyeccion_preliminar->alturas_ra == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 2 -->
+
+        <!-- 3 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="riesgo_biologico_ra">{{ __('Esta sálida desarrolla actividades al interior de bosques o lugares con riesgo biológico?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="riesgo_biologico_ra" <?php if($proyeccion_preliminar->riesgo_biologico_ra == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 3 -->
+
+        <!-- 4 -->
+        <div class="col-md-11">
+            <div class="form-group">
+                <label for="espacios_confinados_ra">{{ __('Esta sálida desarrolla actividades en espacios confinados?)') }}</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group" style="margin-right: 15px;">
+                <label class="switch">
+                    <input type="checkbox" name="espacios_confinados_ra" <?php if($proyeccion_preliminar->espacios_confinados_ra == 1) echo 'checked'?>>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <!-- 4 -->
+
+    </div>
+    <!-- preguntas -->
 
 <!-- ruta alterna -->
 

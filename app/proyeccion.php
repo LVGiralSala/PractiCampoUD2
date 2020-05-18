@@ -47,6 +47,18 @@ class proyeccion extends Model
             'exclusiv_tiempo_rp_1',  
             'exclusiv_tiempo_ra_1', 
             'aprobacion_decano',
-            'aprobacion_coordinador'
+            'aprobacion_coordinador',
+            'areas_acuaticas_rp',
+            'areas_acuaticas_ra',
+            'alturas_rp',
+            'alturas_ra',
+            'riesgo_biologico_rp',
+            'riesgo_biologico_ra',
+            'espacios_confinados_rp',
+            'espacios_confinados_ra',
+            'docen_respo_trasnporte_ra_2',
+            'docen_respo_trasnporte_ra_3',
+            'docen_respo_trasnporte_rp_2',
+            'docen_respo_trasnporte_rp_3',
     ];
 }

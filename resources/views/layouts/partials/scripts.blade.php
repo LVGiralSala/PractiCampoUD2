@@ -44,6 +44,9 @@ $(document).ready(function() {
         language: "es",
         autoclose: true,
     });
+    $('.datetimepicker').datepicker(
+        'setDate', new Date()
+    );
 });
 
 

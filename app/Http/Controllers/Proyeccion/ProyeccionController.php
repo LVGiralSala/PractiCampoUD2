@@ -136,6 +136,7 @@ class ProyeccionController extends Controller
     {
         $id = Auth::user()->id;
         $usuario=User::find($id);
+        $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
         $proyeccion_preliminar=DB::table('proyeccion_preliminar')->get();
         $programa_academico=DB::table('programa_academico')->get();
         $espacio_academico=DB::table('espacio_academico as esp_aca')
@@ -171,7 +172,8 @@ class ProyeccionController extends Controller
                                             "periodos_academicos"=>$periodo_academico,
                                             "tipos_zonas_transitar"=>$tipo_zona_transitar,
                                             "tipos_transportes"=>$tipo_transporte,
-                                            "programas_usuario"=>$newArray
+                                            "programas_usuario"=>$newArray,
+                                            "nombre_usuario"=>$nomb_usuario
 
         ]);
     }
@@ -190,6 +192,8 @@ class ProyeccionController extends Controller
         $det_tipo_transporte_ra = $request->get('det_tipo_transporte_ra_');
         $capacid_transporte_rp = $request->get('capac_transporte_rp_');
         $capacid_transporte_ra = $request->get('capac_transporte_ra_');
+        $docen_respo_trasnporte_rp = $request->get('docente_resp_transp_rp_');
+        $docen_respo_trasnporte_ra = $request->get('docente_resp_transp_ra_');
         $id_esp_aca = $request->get('id_espacio_academico');
         $id_prog_aca = $request->get('id_programa_academico');
 
@@ -248,6 +252,36 @@ class ProyeccionController extends Controller
         $proyeccion_preliminar->capac_transporte_ra_1=$capacid_transporte_ra[0];
         $proyeccion_preliminar->capac_transporte_ra_2=$capacid_transporte_ra[1]??NULL;
         $proyeccion_preliminar->capac_transporte_ra_3=$capacid_transporte_ra[2]??NULL;
+        $proyeccion_preliminar->docen_respo_trasnporte_rp_1=$docen_respo_trasnporte_rp[0]??NULL;
+        $proyeccion_preliminar->docen_respo_trasnporte_rp_2=$docen_respo_trasnporte_rp[1]??NULL;
+        $proyeccion_preliminar->docen_respo_trasnporte_rp_3=$docen_respo_trasnporte_rp[2]??NULL;
+        $proyeccion_preliminar->docen_respo_trasnporte_ra_1=$docen_respo_trasnporte_ra[0]??NULL;
+        $proyeccion_preliminar->docen_respo_trasnporte_ra_2=$docen_respo_trasnporte_ra[1]??NULL;
+        $proyeccion_preliminar->docen_respo_trasnporte_ra_3=$docen_respo_trasnporte_ra[2]??NULL;
+
+        $proyeccion_preliminar->otro_tipo_transporte_rp_1=$request->get('otro_transporte_rp_1');
+        $proyeccion_preliminar->otro_tipo_transporte_rp_2=$request->get('otro_transporte_rp_2');
+        $proyeccion_preliminar->otro_tipo_transporte_rp_3=$request->get('otro_transporte_rp_3');
+        $proyeccion_preliminar->otro_tipo_transporte_ra_1=$request->get('otro_transporte_ra_1');
+        $proyeccion_preliminar->otro_tipo_transporte_ra_2=$request->get('otro_transporte_ra_2');
+        $proyeccion_preliminar->otro_tipo_transporte_ra_3=$request->get('otro_transporte_ra_3');
+
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1=$request->get('vlr_otro_transporte_rp_1');
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_2=$request->get('vlr_otro_transporte_rp_2');
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_3=$request->get('vlr_otro_transporte_rp_3');
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1=$request->get('vlr_otro_transporte_ra_1');
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_2=$request->get('vlr_otro_transporte_ra_2');
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_3=$request->get('vlr_otro_transporte_ra_3');
+
+        $proyeccion_preliminar->areas_acuaticas_rp=$request->get('areas_acuaticas_rp')=='on'?1:0;
+        $proyeccion_preliminar->areas_acuaticas_ra=$request->get('areas_acuaticas_ra')=='on'?1:0;
+        $proyeccion_preliminar->alturas_rp=$request->get('alturas_rp')=='on'?1:0;
+        $proyeccion_preliminar->alturas_ra=$request->get('alturas_ra')=='on'?1:0;
+        $proyeccion_preliminar->riesgo_biologico_rp=$request->get('riesgo_biologico_rp')=='on'?1:0;
+        $proyeccion_preliminar->riesgo_biologico_ra=$request->get('riesgo_biologico_ra')=='on'?1:0;
+        $proyeccion_preliminar->espacios_confinados_rp=$request->get('espacios_confinados_rp')=='on'?1:0;
+        $proyeccion_preliminar->espacios_confinados_ra=$request->get('espacios_confinados_ra')=='on'?1:0;
+
         $proyeccion_preliminar->cantidad_grupos=$request->get('cant_grupos');
         $proyeccion_preliminar->grupo_1=$request->get('grupo_1');
         $proyeccion_preliminar->grupo_2=$request->get('grupo_2');
@@ -331,6 +365,7 @@ class ProyeccionController extends Controller
                 }
                 
                 $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
+                $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
         
                 return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
                                                 "programas_academicos"=>$programa_academico,
@@ -340,7 +375,8 @@ class ProyeccionController extends Controller
                                                 "tipos_transportes"=>$tipo_transporte,
                                                 "programas_usuario"=>$newArray_prog,
                                                 "all_programas_aca"=>$all_prog_aca,
-                                                "all_espacios_aca"=>$all_esp_aca
+                                                "all_espacios_aca"=>$all_esp_aca,
+                                                "nombre_usuario"=>$nomb_usuario
         
                 ]);
 
@@ -378,6 +414,7 @@ class ProyeccionController extends Controller
                 }
                 
                 $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
+                $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
         
                 return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
                                                 "programas_academicos"=>$programa_academico,
@@ -385,7 +422,8 @@ class ProyeccionController extends Controller
                                                 "periodos_academicos"=>$periodo_academico,
                                                 "semestres_asignaturas"=>$semestre_asignatura,
                                                 "tipos_transportes"=>$tipo_transporte,
-                                                "programas_usuario"=>$newArray_prog
+                                                "programas_usuario"=>$newArray_prog,
+                                                "nombre_usuario"=>$nomb_usuario
         
                 ]);
             break;
@@ -426,6 +464,7 @@ class ProyeccionController extends Controller
                 }
                 
                 $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
+                $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
         
                 return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
                                                 "programas_academicos"=>$programa_academico,
@@ -435,7 +474,8 @@ class ProyeccionController extends Controller
                                                 "tipos_transportes"=>$tipo_transporte,
                                                 "programas_usuario"=>$newArray_prog,
                                                 "all_programas_aca"=>$all_prog_aca,
-                                                "all_espacios_aca"=>$all_esp_aca
+                                                "all_espacios_aca"=>$all_esp_aca,
+                                                "nombre_usuario"=>$nomb_usuario
         
                 ]);
             break;
@@ -474,6 +514,7 @@ class ProyeccionController extends Controller
             }
             
             $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
+            $nomb_usuario = $usuario_log->primer_nombre.' '.$usuario_log->segundo_nombre.' '.$usuario_log->primer_apellido.' '.$usuario_log->segundo_apellido;
     
             return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
                                              "programas_academicos"=>$programa_academico,
@@ -482,7 +523,8 @@ class ProyeccionController extends Controller
                                              "semestres_asignaturas"=>$semestre_asignatura,
                                              "tipos_transportes"=>$tipo_transporte,
                                              "programas_usuario"=>$newArray_prog,
-                                             "usuario_log"=>$usuario_log
+                                             "usuario_log"=>$usuario_log,
+                                             "nombre_usuario"=>$nomb_usuario
     
             ]);
             break;
@@ -519,6 +561,7 @@ class ProyeccionController extends Controller
             }
             
             $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
+            $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
     
             return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
                                              "programas_academicos"=>$programa_academico,
@@ -526,7 +569,8 @@ class ProyeccionController extends Controller
                                              "periodos_academicos"=>$periodo_academico,
                                              "semestres_asignaturas"=>$semestre_asignatura,
                                              "tipos_transportes"=>$tipo_transporte,
-                                             "programas_usuario"=>$newArray_prog
+                                             "programas_usuario"=>$newArray_prog,
+                                             "nombre_usuario"=>$nomb_usuario
     
             ]);
             break;
@@ -630,6 +674,9 @@ class ProyeccionController extends Controller
                 $proyeccion_preliminar->aprobacion_coordinador= (!empty($request->get('aprobacion_coordinador')))?
                 $request->get('aprobacion_coordinador'):$proyeccion_preliminar->aprobacion_coordinador;
             }
+
+            $proyeccion_preliminar->conf_curricul_plan_pract_rp=$request->get('conf_curricul_plan_pract_rp')=='on'?1:0;
+            $proyeccion_preliminar->conf_curricul_plan_pract_ra=$request->get('conf_curricul_plan_pract_ra')=='on'?1:0;
         }
 
         if(Auth::user()->id_role == 2 )

@@ -42,6 +42,7 @@ $(document).ready(function(){
     var addButton_rp = $('#add_transp_rp');
     var x_rp = 1;
     var nameFieldInput_rp = $('#transporte_rp_children').children().find('input[type=text]').attr('id');
+    var nameOtroTransp_rp = $('#transporte_rp_children').children().find('input[type=text]').attr('id');
     var nameFieldRadio_rp = $('#transporte_rp_children').children().find('input[type=radio]').attr('id');
     var lengthRadio_rp;
     var shortNameRadio_rp;
@@ -116,38 +117,47 @@ $(document).ready(function(){
     
          if(x_rp < maxField_rp)
          {
-             div_copy_rp = $('#transporte_rp_children').clone();
-             div_copy_rp.children().find('span').remove();
-             div_copy_rp.children().find('input[type=text]').removeAttr('required');
-             div_copy_rp.children().find('a').attr('id','remove_field_rp');
-             div_copy_rp.children().find('a').attr('class','remove_field_rp imgButton');
-             div_copy_rp.children().find('a').attr('title','Remove field');
-             div_copy_rp.children().find('img').attr('src','/img/remove-icon.png');
+            div_copy_rp = $('#transporte_rp_children').clone();
+            div_copy_rp.children().find('span').remove();
+            div_copy_rp.children().find('input[type=text]').removeAttr('required');
+            div_copy_rp.children().find('a').attr('id','remove_field_rp');
+            div_copy_rp.children().find('a').attr('class','remove_field_rp imgButton');
+            div_copy_rp.children().find('a').attr('title','Remove field');
+            div_copy_rp.children().find('img').attr('src','/img/remove-icon.png');
              
-             x_rp++;
+            x_rp++;    
+            nameOtroTransp_rp = div_copy_rp.children().find('input[type=text]').first().attr('id');
+            lengthOtroTransp_rp = div_copy_rp.children().find('input[type=text]').first().attr('id').length;
+            shortNameOtroTransp_rp = nameOtroTransp_rp.substr(0,lengthOtroTransp_rp-1);
+            o_rp = shortNameOtroTransp_rp+x_rp;
 
-             nameOtroTransp_ra = div_copy_rp.children().find('input[type=text]').first().attr('id');
-             lengthOtroTransp_ra = div_copy_rp.children().find('input[type=text]').first().attr('id').length;
-             shortNameOtroTransp_ra = nameOtroTransp_ra.substr(0,lengthOtroTransp_ra-1);
-             o_rp = shortNameOtroTransp_ra+x_rp;
+            vlrOtroTransp_rp = div_copy_rp.children().find('input[type=text]').eq(1).attr('id');
+            lengthVlrOtroTransp_rp = div_copy_rp.children().find('input[type=text]').eq(1).attr('id').length;
+            shortVlrOtroTransp_rp = vlrOtroTransp_rp.substr(0,lengthVlrOtroTransp_rp-1);
+            vl_rp = shortVlrOtroTransp_rp+x_rp;
 
-             lengthRadio_rp = div_copy_rp.children().find('input[type=radio]').attr('id').length;
-             shortNameRadio_rp = nameFieldRadio_rp.substr(0,lengthRadio_rp-1);
+            lengthRadio_rp = div_copy_rp.children().find('input[type=radio]').attr('id').length;
+            shortNameRadio_rp = nameFieldRadio_rp.substr(0,lengthRadio_rp-1);
             //  y_rp=shortNameInput_rp+x_rp;
-             w_rp=shortNameRadio_rp+x_rp;
+            w_rp=shortNameRadio_rp+x_rp;
 
             //  classError_rp = "form-control @error('"+y_rp+"') is-invalid @enderror";
-
+            
             div_copy_rp.children().find('select').attr('onchange','otroTransporte(this.value,'+x_rp+')')
-
+            
             // div_copy_rp.children().find('input[type=text]').first().attr('readonly', 'readonly');
             div_copy_rp.children().find('input[type=text]').first().attr('id', o_rp);
             div_copy_rp.children().find('input[type=text]').first().attr('name', o_rp);
+            
+            div_copy_rp.children().find('input[type=text]').eq(1).attr('id', vl_rp);
+            div_copy_rp.children().find('input[type=text]').eq(1).attr('name', vl_rp);
+            // div_copy_rp.children().find('input[type=text]').eq(4).val("vl_rp");
+            // div_copy_rp.children().find('input[type=text]').eq(1).removeAttr('disabled');
 
-             div_copy_rp.children().find('input[type=radio]').attr('id', w_rp);
-             div_copy_rp.children().find('input[type=radio]').attr('name', w_rp);
+            div_copy_rp.children().find('input[type=radio]').attr('id', w_rp);
+            div_copy_rp.children().find('input[type=radio]').attr('name', w_rp);
             //  div_copy_rp.children().find('input[type=text]').attr('class', "form-control");
-             div_copy_rp.children().find('input[type=text]').val("");
+            div_copy_rp.children().find('input[type=text]').val("");
             
             $("#transporte_rp").append(div_copy_rp);
             
@@ -178,20 +188,25 @@ $(document).ready(function(){
 
          if(x_ra < maxField_ra)
          {
-             div_copy_ra = $('#transporte_ra_children').clone();
-             div_copy_ra.children().find('span').remove();
-             div_copy_ra.children().find('input[type=text]').removeAttr('required');
-             div_copy_ra.children().find('a').attr('id','remove_field_ra');
-             div_copy_ra.children().find('a').attr('class','remove_field_ra imgButton');
-             div_copy_ra.children().find('a').attr('title','Remove field');
-             div_copy_ra.children().find('img').attr('src','/img/remove-icon.png');
+            div_copy_ra = $('#transporte_ra_children').clone();
+            div_copy_ra.children().find('span').remove();
+            div_copy_ra.children().find('input[type=text]').removeAttr('required');
+            div_copy_ra.children().find('a').attr('id','remove_field_ra');
+            div_copy_ra.children().find('a').attr('class','remove_field_ra imgButton');
+            div_copy_ra.children().find('a').attr('title','Remove field');
+            div_copy_ra.children().find('img').attr('src','/img/remove-icon.png');
              
-             x_ra++;
+            x_ra++;
 
-             nameOtroTransp_ra = div_copy_ra.children().find('input[type=text]').first().attr('id');
-             lengthOtroTransp_ra = div_copy_ra.children().find('input[type=text]').first().attr('id').length;
-             shortNameOtroTransp_ra = nameOtroTransp_ra.substr(0,lengthOtroTransp_ra-1);
-             o_ra = shortNameOtroTransp_ra+x_ra;
+            nameOtroTransp_ra = div_copy_ra.children().find('input[type=text]').first().attr('id');
+            lengthOtroTransp_ra = div_copy_ra.children().find('input[type=text]').first().attr('id').length;
+            shortNameOtroTransp_ra = nameOtroTransp_ra.substr(0,lengthOtroTransp_ra-1);
+            o_ra = shortNameOtroTransp_ra+x_ra;
+
+            vlrOtroTransp_ra = div_copy_ra.children().find('input[type=text]').eq(1).attr('id');
+            lengthVlrOtroTransp_ra = div_copy_ra.children().find('input[type=text]').eq(1).attr('id').length;
+            shortVlrOtroTransp_ra = vlrOtroTransp_ra.substr(0,lengthVlrOtroTransp_ra-1);
+            vl_ra = shortVlrOtroTransp_ra+x_ra;
 
             lengthRadio_ra = div_copy_ra.children().find('input[type=radio]').attr('id').length;
             shortNameRadio_ra = nameFieldRadio_ra.substr(0,lengthRadio_ra-1);
@@ -205,6 +220,9 @@ $(document).ready(function(){
             // div_copy_ra.children().find('input[type=text]').first().attr('readonly', 'readonly');
             div_copy_ra.children().find('input[type=text]').first().attr('id', o_ra);
             div_copy_ra.children().find('input[type=text]').first().attr('name', o_ra);
+
+            div_copy_ra.children().find('input[type=text]').eq(1).attr('id', vl_ra);
+            div_copy_ra.children().find('input[type=text]').eq(1).attr('name', vl_ra);
              
              div_copy_ra.children().find('input[type=radio]').attr('id', w_ra);
              div_copy_ra.children().find('input[type=radio]').attr('name', w_ra);
@@ -570,12 +588,18 @@ function otroTransporte(id, indice)
     {
         $('#otro_transporte_rp_'+indice).attr('readonly', 'readonly');
         $('#otro_transporte_rp_'+indice).removeAttr('required');
+
+        $('#vlr_otro_transporte_rp_'+indice).attr('readonly', 'readonly');
+        $('#vlr_otro_transporte_rp_'+indice).removeAttr('required');
     }
 
     else if(id==4)
     {
-        $('#otro_transporte_rp_'+indice).attr('required', 'required');
+        $('#otro_transporte_rp_'+indice).attr('required');
         $('#otro_transporte_rp_'+indice).removeAttr('readonly');
+
+        $('#vlr_otro_transporte_rp_'+indice).attr('required');
+        $('#vlr_otro_transporte_rp_'+indice).removeAttr('readonly');
     }
 }
 
@@ -585,12 +609,18 @@ function otroTransporte2(id, indice)
     {
         $('#otro_transporte_ra_'+indice).attr('readonly', 'readonly');
         $('#otro_transporte_ra_'+indice).removeAttr('required');
+
+        $('#vlr_otro_transporte_ra_'+indice).attr('readonly', 'readonly');
+        $('#vlr_otro_transporte_ra_'+indice).removeAttr('required');
     }
 
     else if(id==4)
     {
         $('#otro_transporte_ra_'+indice).attr('required');
         $('#otro_transporte_ra_'+indice).removeAttr('readonly');
+
+        $('#vlr_otro_transporte_ra_'+indice).attr('required');
+        $('#vlr_otro_transporte_ra_'+indice).removeAttr('readonly');
     }
 }
 
@@ -803,6 +833,61 @@ function consulta_cod(){
 
 }
 
+// $('#fecha_regreso_aprox_rp').datepicker({onSelect: function(dateText) 
+// {
+//     // var fecha_salida = new Date($('#fecha_salida_aprox_rp').datepicker(getDate)); 
+//     // var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').datepicker(getDate)); 
+//     // var time = fecha_regreso.getTime() - fecha_salida.getTime();
+//     // var duracion_dias = Math.floor(time/(1000*60*60*24));
+    
+//     // $('#duracion_rp').val("dateText");
+//  }
+// });
+
+
+function duracionRP(dateText)
+{
+    var fecha_salida = new Date($('#fecha_salida_aprox_rp').val());
+    var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').val()); 
+    var milis_dias = 86400000;
+    var dif_milis = fecha_regreso - fecha_salida;
+    var dif_dias = dif_milis / milis_dias;
+
+    $('#duracion_rp').val(dif_dias);
+}
+
+function duracionRP2(dateText)
+{
+    var fecha_salida = new Date($('#fecha_salida_aprox_rp').val());
+    var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').val()); 
+    var milis_dias = 86400000;
+    var dif_milis = fecha_regreso - fecha_salida;
+    var dif_dias = dif_milis / milis_dias;
+
+    $('#duracion_rp').val(dif_dias);
+}
+
+function duracionRA(dateText)
+{
+    var fecha_salida = new Date($('#fecha_salida_aprox_ra').val());
+    var fecha_regreso = new Date($('#fecha_regreso_aprox_ra').val()); 
+    var milis_dias = 86400000;
+    var dif_milis = fecha_regreso - fecha_salida;
+    var dif_dias = dif_milis / milis_dias;
+
+    $('#duracion_ra').val(dif_dias);
+}
+
+function duracionRA2(dateText)
+{
+    var fecha_salida = new Date($('#fecha_salida_aprox_ra').val());
+    var fecha_regreso = new Date($('#fecha_regreso_aprox_ra').val()); 
+    var milis_dias = 86400000;
+    var dif_milis = fecha_regreso - fecha_salida;
+    var dif_dias = dif_milis / milis_dias;
+
+    $('#duracion_ra').val(dif_dias);
+}
 
 
 

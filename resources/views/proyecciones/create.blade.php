@@ -61,6 +61,22 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    
+                                    <div class="col-md-1">
+                                        <label for="id_semestre_asignatura" class="col-form-label text-md-right">{{ __('Sem.') }}</label>
+                                        <span class="hs-form-required" title="Semestre Académico">*</span>
+                                        <select name="id_semestre_asignatura" class="form-control" required>
+                                            @foreach($semestres_asignaturas as $sem_asig)
+                                                <option value="{{$sem_asig->id}}" selected>{{$sem_asig->semestre_asignatura}}</option>  
+                                                
+                                            @endforeach
+                                        </select>
+                                        @error('id_semestre_asignatura')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
                                     <div class="col-md-1">
                                         <label for="id_periodo_academico" class="col-form-label text-md-right">{{ __('Per.') }}</label>
@@ -78,21 +94,6 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-1">
-                                        <label for="id_semestre_asignatura" class="col-form-label text-md-right">{{ __('Sem.') }}</label>
-                                        <span class="hs-form-required" title="Semestre Académico">*</span>
-                                        <select name="id_semestre_asignatura" class="form-control" required>
-                                            @foreach($semestres_asignaturas as $sem_asig)
-                                                <option value="{{$sem_asig->id}}" selected>{{$sem_asig->semestre_asignatura}}</option>  
-                                                
-                                            @endforeach
-                                        </select>
-                                        @error('id_semestre_asignatura')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
                                 </div>
                                 <!-- 1 -->
 
@@ -111,6 +112,21 @@
                                         @enderror
                                     </div>
 
+                                    
+                                    
+                                    <div class="col-md-2">
+                                        <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
+                                        <span class="hs-form-required">*</span>
+                                        <input id="cant_grupos" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
+                                        value="" autocomplete="off" autofocus>
+                                        
+                                        @error('cant_grupos')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    
                                     <div class="col-md-2">
                                         <label for="num_acompaniantes" class="col-form-label text-md-left" title="Número Acompañantes Adicionales Al Docente">{{ __('Acompañantes') }}</label>
                                         {{-- <span class="hs-form-required">*</span> --}}
@@ -123,21 +139,6 @@
                                             </span>
                                         @enderror
                                     </div>
-                                   
-                                    
-                                    <div class="col-md-2">
-                                        <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
-                                        <span class="hs-form-required">*</span>
-                                        <input id="cant_grupos" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
-                                        value="" autocomplete="off" autofocus>
-                                        
-                                        @error('cant_grupos')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
                                 </div>
                                 <!-- 2 -->
 
@@ -248,7 +249,7 @@
 
                                 <!-- 6 -->
                                 <div class="form-group row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
                                         <span class="hs-form-required" title="URL Google">*</span>
                                         <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
@@ -268,11 +269,12 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" id="fecha_salida_aprox_rp" name="fecha_salida_aprox_rp" type="text" required
+                                          onchange="duracionRP2(this.value)">
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
                                         <span class="hs-form-required" title="URL Google">*</span>
                                         <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
@@ -292,8 +294,22 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" id="fecha_regreso_aprox_rp" name="fecha_regreso_aprox_rp" type="text" required
+                                          onchange="duracionRP(this.value)">
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="duracion_rp" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="duracion_rp" type="text" class="form-control @error('duracion_rp') is-invalid @enderror" name="duracion_rp" 
+                                        value="" autocomplete="off" autofocus  readonly>
+                                        
+                                        @error('duracion_rp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                 </div>
@@ -337,13 +353,26 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label for="otro_transporte_rp_1" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="otro_transporte_rp_1" type="text" class="form-control @error('otro_transporte_rp_1') is-invalid @enderror" name="otro_transporte_rp_1" 
                                                 value=""  autocomplete="off" autofocus required>
 
                                                 @error('otro_transporte_rp_1')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <label for="vlr_otro_transporte_rp_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
+                                                <span class="hs-form-required">*</span>
+                                                <input id="vlr_otro_transporte_rp_1" type="text" class="form-control @error('vlr_otro_transporte_rp_1') is-invalid @enderror" name="vlr_otro_transporte_rp_1" 
+                                                value=""  autocomplete="off" autofocus >
+
+                                                @error('vlr_otro_transporte_rp_1')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -363,7 +392,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <label for="det_tipo_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
                                                 <span class="hs-form-required" title="Observaciones Del Vehículo">*</span>
                                                 <input id="det_tipo_transporte_rp_[]" type="text" class="form-control @error('det_tipo_transporte_rp_[]') is-invalid @enderror" name="det_tipo_transporte_rp_[]" 
@@ -376,10 +405,23 @@
                                                 @enderror
                                             </div>
 
+                                            <div class="col-md-5">
+                                                <label for="docente_resp_transp_rp_[]" class="col-form-label text-md-left">{{ __('Docente Responsable') }}</label>
+                                                <span class="hs-form-required" title="">*</span>
+                                                <input id="docente_resp_transp_rp_[]" type="text" class="form-control @error('docente_resp_transp_rp_[]') is-invalid @enderror" name="docente_resp_transp_rp_[]" 
+                                                value="{{ $nombre_usuario }}" required autocomplete="off" autofocus>
+                                                
+                                                @error('docente_resp_transp_rp_[]')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exclusiv_tiempo_rp_1" class="col-form-label text-md-left">{{ __('Tiempo Completo?') }}</label>
-                                                    <span class="hs-form-required" title="Acompañamiento Del Vehículo">*</span>
+                                                    <label for="exclusiv_tiempo_rp_1" class="col-form-label text-md-left">{{ __('Disponibilidad Permanente?') }}</label>
+                                                    <span class="hs-form-required" title="Disponibilidad Permanente?">*</span>
                                                     <div class="row">
 
                                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -550,6 +592,79 @@
                                 </div> --}}
                                 <!-- 8 transporte_rp_3 -->
 
+                                <!-- preguntas -->
+                                <div class="form-group row">
+                                    <!-- 1 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="areas_acuaticas_rp">{{ __('Esta sálida desarrolla maniobras sobre áreas acuáticas(Ríos, lagos, lagunas, humedales, mares, etc...?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="areas_acuaticas_rp">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 1 -->
+
+                                    <!-- 2 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="alturas_rp">{{ __('Esta sálida desarrolla actividades de escalada o trabajo de alturas?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="alturas_rp">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 2 -->
+
+                                    <!-- 3 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="riesgo_biologico_rp">{{ __('Esta sálida desarrolla actividades al interior de bosques o lugares con riesgo biológico?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="riesgo_biologico_rp">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 3 -->
+
+                                    <!-- 4 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="espacios_confinados_rp">{{ __('Esta sálida desarrolla actividades en espacios confinados?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="espacios_confinados_rp">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 4 -->
+
+                                </div>
+                                <!-- preguntas -->
+
                             <!-- ruta principal -->
 
                             <br>
@@ -609,7 +724,7 @@
 
                                 <!-- 12 -->
                                 <div class="form-group row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="lugar_salida_ra" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <input id="lugar_salida_ra" type="text" class="form-control @error('lugar_salida_ra') is-invalid @enderror" name="lugar_salida_ra" 
@@ -629,11 +744,12 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_ra"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" id="fecha_salida_aprox_ra" name="fecha_salida_aprox_ra" type="text" required
+                                          onchange="duracionRA2(this.value)">
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="lugar_regreso_ra" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <input id="lugar_regreso_ra" type="text" class="form-control @error('lugar_regreso_ra') is-invalid @enderror" name="lugar_regreso_ra" 
@@ -653,8 +769,22 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_ra"  type="text" required>
+                                          <input class="inputDate form-control datetimepicker" id="fecha_regreso_aprox_ra" name="fecha_regreso_aprox_ra" type="text" required
+                                          onchange="duracionRA(this.value)">
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="duracion_ra" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="duracion_ra" type="text" class="form-control @error('duracion_ra') is-invalid @enderror" name="duracion_ra" 
+                                        value="" autocomplete="off" autofocus readonly>
+                                        
+                                        @error('duracion_ra')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                 </div>
@@ -699,12 +829,25 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-3">
-                                                <label for="otro_transporte_ra_[]" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
+                                            <div class="col-md-2">
+                                                <label for="otro_transporte_ra_1" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
                                                 <input id="otro_transporte_ra_1" type="text" class="form-control @error('otro_transporte_ra_1') is-invalid @enderror" name="otro_transporte_ra_1" 
                                                 value="" autocomplete="off" autofocus>
 
                                                 @error('otro_transporte_ra_1')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <label for="vlr_otro_transporte_ra_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
+                                                <span class="hs-form-required">*</span>
+                                                <input id="vlr_otro_transporte_ra_1" type="text" class="form-control @error('vlr_otro_transporte_ra_1') is-invalid @enderror" name="vlr_otro_transporte_ra_1" 
+                                                value=""  autocomplete="off" autofocus >
+
+                                                @error('vlr_otro_transporte_ra_1')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -724,7 +867,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <label for="det_tipo_transporte_ra_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="det_tipo_transporte_ra_[]" type="text" class="form-control @error('det_tipo_transporte_ra_[]') is-invalid @enderror" name="det_tipo_transporte_ra_[]" 
@@ -736,10 +879,23 @@
                                                     </span>
                                                 @enderror
                                             </div>
+                                            
+                                            <div class="col-md-5">
+                                                <label for="docente_resp_transp_ra_[]" class="col-form-label text-md-left">{{ __('Docente Responsable') }}</label>
+                                                <span class="hs-form-required" title="">*</span>
+                                                <input id="docente_resp_transp_ra_[]" type="text" class="form-control @error('docente_resp_transp_ra_[]') is-invalid @enderror" name="docente_resp_transp_ra_[]" 
+                                                value="{{ $nombre_usuario }}" required autocomplete="off" autofocus>
+                                                
+                                                @error('docente_resp_transp_ra_[]')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
 
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exclusiv_tiempo_ra_1" class="col-form-label text-md-left">{{ __('Tiempo Completo') }}</label>
+                                                    <label for="exclusiv_tiempo_ra_1" class="col-form-label text-md-left">{{ __('Disponibilidad Permanente') }}</label>
                                                     <span class="hs-form-required">*</span>
                                                     <div class="row">
                                                     
@@ -904,6 +1060,79 @@
                                     </div>
                                 </div> --}}
                                 <!-- 14 transporte_ra_3 -->
+
+                                <!-- preguntas -->
+                                <div class="form-group row">
+                                    <!-- 1 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="areas_acuaticas_ra">{{ __('Esta sálida desarrolla maniobras sobre áreas acuáticas(Ríos, lagos, lagunas, humedales, mares, etc...?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="areas_acuaticas_ra">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 1 -->
+
+                                    <!-- 2 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="alturas_ra">{{ __('Esta sálida desarrolla actividades de escalada o trabajo de alturas?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="alturas_ra">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 2 -->
+
+                                    <!-- 3 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="riesgo_biologico_ra">{{ __('Esta sálida desarrolla actividades al interior de bosques o lugares con riesgo biológico?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="riesgo_biologico_ra">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 3 -->
+
+                                    <!-- 4 -->
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label for="espacios_confinados_ra">{{ __('Esta sálida desarrolla actividades en espacios confinados?)') }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="margin-right: 15px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="espacios_confinados_ra">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 4 -->
+
+                                </div>
+                                <!-- preguntas -->
 
                             <!-- ruta alterna -->
 
