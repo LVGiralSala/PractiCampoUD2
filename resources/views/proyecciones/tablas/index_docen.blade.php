@@ -1,4 +1,5 @@
 <thead>
+    <th style="width: 10px">Sel.</th>
     <th style="width: 35px">Cod.</th>
     <th style="width: 90px">Proy. Curricular</th>
     <th style="width: 95px">Esp. Académico</th> 
@@ -11,6 +12,7 @@
 </thead> 
 @foreach ($proyecciones as $item) 
 <tr>
+   <td><input type="checkbox" checked></td>
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
    <td>{{ $item->espacio_academico }}</td>
