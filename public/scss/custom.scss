@@ -210,3 +210,10 @@ html, body {
   .slider.round:before {
     border-radius: 50%;
   }
+
+  .header_table{
+    table-layout: fixed; 
+    width:100%; 
+    word-break: break-word; 
+    font-size: 12px;
+  }
