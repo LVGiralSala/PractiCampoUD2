@@ -839,4 +839,10 @@ class ProyeccionController extends Controller
     {
         //
     }
+
+
+    public function sendProy(Request $request, $id)
+    {
+        $name = "";
+    }
 }

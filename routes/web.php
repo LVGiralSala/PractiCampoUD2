@@ -87,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('proyecciones/{id}','Proyeccion\ProyeccionController@edit')->name('proyeccion_edit');
         Route::put('proyecciones/{id}','Proyeccion\ProyeccionController@update')->name('proyeccion_update');
         Route::delete('proyecciones','Proyeccion\ProyeccionController@destroy')->name('proyeccion_destroy');
+        Route::put('proyecciones/{id}','Proyeccion\ProyeccionController@sendProy')->name('proyeccion_send');
         // Route::get('proyecciones/activas','Proyeccion\ProyeccionController@verActiva')->name('proyeccion_activa');
         // Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
 

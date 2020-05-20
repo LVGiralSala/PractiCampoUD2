@@ -1,3 +1,9 @@
+@foreach ($proyecciones as $item) 
+<form method="POST" action="{{ route('proyeccion_send',$item->id) }}">
+    @method('PUT')
+    @csrf
+
+<table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">
 <thead>
     <th style="width: 35px">Cod.</th>
     <th style="width: 90px">Proy. Curricular</th>
@@ -9,7 +15,6 @@
     {{-- <th style="width: 25px">Decan.</th> --}}
     <th style="width: 37px"></th>
 </thead> 
-@foreach ($proyecciones as $item) 
 <tr>
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
@@ -20,9 +25,16 @@
    <td>{{ $item->ab_coor }}</td> 
    {{-- <td>{{ $item->ab_dec }}</td> --}}
    <td> 
-       <a href="{{route('proyeccion_edit',$item->id)}}">
+       {{-- <a href="{{route('proyeccion_edit',$item->id)}}">
        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
-       </a> 
+       </a>  --}}
    </td> 
 </tr>
 @endforeach 
+
+</table>
+
+{{-- <a href="{{route('proyeccion_send')}}"> --}}
+    <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
+{{-- </a>  --}}
+</form>

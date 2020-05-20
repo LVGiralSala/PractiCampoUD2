@@ -132,7 +132,7 @@
 
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-          <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">
+          {{-- <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px"> --}}
             
             @if(Auth::user()->admin())
               @include('proyecciones.tablas.index_admin',$proyecciones)
@@ -215,7 +215,7 @@
              </tr>
              @endforeach 
             @endif --}}
-          </table>
+          {{-- </table> --}}
         </div>
         {{-- {{$usuarios->render()}} --}}
         
