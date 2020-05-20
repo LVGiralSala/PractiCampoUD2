@@ -5,6 +5,7 @@
 
 <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px">
 <thead>
+    <th style="width: 10px">Sel.</th>
     <th style="width: 35px">Cod.</th>
     <th style="width: 90px">Proy. Curricular</th>
     <th style="width: 95px">Esp. Académico</th> 
@@ -16,6 +17,7 @@
     <th style="width: 37px"></th>
 </thead> 
 <tr>
+   <td><input type="checkbox" checked></td>
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
    <td>{{ $item->espacio_academico }}</td>

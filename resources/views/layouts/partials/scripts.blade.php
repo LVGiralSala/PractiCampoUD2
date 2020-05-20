@@ -39,10 +39,13 @@
 <script>
 
 $(document).ready(function() {
+    // fecha_actual = new Date();
     $('.datetimepicker').datepicker({
         format: "yyyy-mm-dd",
         language: "es",
         autoclose: true,
+        // maxDate: '+0d',
+        // minDate: new Date()
     });
     $('.datetimepicker').datepicker(
         'setDate', new Date()
