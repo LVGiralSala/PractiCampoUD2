@@ -24,7 +24,7 @@
    <td>{{ $item->destino_rp }}</td>
    <td>{{ $item->viaticos_estudiantes_rp }}</td>
    <td>{{ $item->viaticos_docente_rp }}</td> 
-   <td>{{ $item->costo_total_transporte_rp }}</td>
+   <td>{{ $item->costo_total_transporte_menor_rp }}</td>
    <td>{{ $item->total_presupuesto_rp }}</td> 
    {{-- <td>{{ $item->ab_coor }}</td>  --}}
    @if($filter == 'pend')

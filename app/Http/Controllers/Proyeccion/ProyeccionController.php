@@ -12,6 +12,7 @@ use PractiCampoUD\User;
 use DB;
 use DateTime;
 use Illuminate\Auth\Access\Response;
+use phpDocumentor\Reflection\Types\Null_;
 use PractiCampoUD\espacio_academico;
 use PractiCampoUD\programa_academico;
 
@@ -171,7 +172,7 @@ class ProyeccionController extends Controller
                             $proyecciones=DB::table('proyeccion_preliminar as p_prel')
                             ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                     'e_aca.extramural', 'p_prel.id_espacio_academico', 'p_aca.programa_academico',
-                                    'p_prel.costo_total_transporte_rp','p_prel.costo_total_transporte_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
+                                    'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                     'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                     DB::raw('CONCAT(users.primer_nombre, " ", users.segundo_nombre, " ", users.primer_apellido, " ", users.segundo_apellido) as full_name'))
                             ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
@@ -207,7 +208,7 @@ class ProyeccionController extends Controller
                             ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                     'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
                                     'es_dec.abrev  as ab_dec','e_aca.extramural','p_prel.confirm_coord',
-                                    'p_prel.costo_total_transporte_rp','p_prel.costo_total_transporte_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
+                                    'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                     'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                     DB::raw('CONCAT(users.primer_nombre, " ", users.segundo_nombre, " ", users.primer_apellido, " ", users.segundo_apellido) as full_name'))
                             ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
@@ -233,7 +234,7 @@ class ProyeccionController extends Controller
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_rp','p_prel.costo_total_transporte_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
+                                'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                 'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                 DB::raw('CONCAT(users.primer_nombre, " ", users.segundo_nombre, " ", users.primer_apellido, " ", users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
@@ -254,7 +255,7 @@ class ProyeccionController extends Controller
                             $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                             ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                     'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                    'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_rp','p_prel.costo_total_transporte_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
+                                    'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                     'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                     DB::raw('CONCAT(users.primer_nombre, " ", users.segundo_nombre, " ", users.primer_apellido, " ", users.segundo_apellido) as full_name'))
                             ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
@@ -275,7 +276,7 @@ class ProyeccionController extends Controller
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor','es_dec.abrev  as ab_dec',
-                                'p_prel.costo_total_transporte_rp','p_prel.costo_total_transporte_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
+                                'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                 'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                 DB::raw('CONCAT(users.primer_nombre, " ", users.segundo_nombre, " ", users.primer_apellido, " ", users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
@@ -744,13 +745,27 @@ class ProyeccionController extends Controller
         $proyeccion_preliminar->otro_tipo_transporte_ra_2=$request->get('otro_transporte_ra_2');
         $proyeccion_preliminar->otro_tipo_transporte_ra_3=$request->get('otro_transporte_ra_3');
 
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1=$request->get('vlr_otro_transporte_rp_1');
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_2=$request->get('vlr_otro_transporte_rp_2');
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_3=$request->get('vlr_otro_transporte_rp_3');
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1=$request->get('vlr_otro_transporte_ra_1');
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_2=$request->get('vlr_otro_transporte_ra_2');
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_3=$request->get('vlr_otro_transporte_ra_3');
 
+        $vlr_otro_tipo_transporte_rp_1=$request->get('vlr_otro_transporte_rp_1')!=Null?$request->get('vlr_otro_transporte_rp_1'):0;
+        $vlr_otro_tipo_transporte_rp_2=$request->get('vlr_otro_transporte_rp_2')!=Null?$request->get('vlr_otro_transporte_rp_2'):0;
+        $vlr_otro_tipo_transporte_rp_3=$request->get('vlr_otro_transporte_rp_3')!=Null?$request->get('vlr_otro_transporte_rp_3'):0;
+        $vlr_otro_tipo_transporte_ra_1=$request->get('vlr_otro_transporte_ra_1')!=Null?$request->get('vlr_otro_transporte_ra_1'):0;
+        $vlr_otro_tipo_transporte_ra_2=$request->get('vlr_otro_transporte_ra_2')!=Null?$request->get('vlr_otro_transporte_ra_2'):0;
+        $vlr_otro_tipo_transporte_ra_3=$request->get('vlr_otro_transporte_ra_3')!=Null?$request->get('vlr_otro_transporte_ra_3'):0;
+
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1=$vlr_otro_tipo_transporte_rp_1;
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_2=$vlr_otro_tipo_transporte_rp_2;
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_3=$vlr_otro_tipo_transporte_rp_3;
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1=$vlr_otro_tipo_transporte_ra_1;
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_2=$vlr_otro_tipo_transporte_ra_2;
+        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_3=$vlr_otro_tipo_transporte_ra_3;
+
+        $costo_total_transporte_menor_rp = $vlr_otro_tipo_transporte_rp_1 + $vlr_otro_tipo_transporte_rp_2 + $vlr_otro_tipo_transporte_rp_3;
+        $costo_total_transporte_menor_ra = $vlr_otro_tipo_transporte_ra_1 + $vlr_otro_tipo_transporte_ra_2 + $vlr_otro_tipo_transporte_ra_3;
+
+        $proyeccion_preliminar->costo_total_transporte_menor_rp =$costo_total_transporte_menor_rp;
+        $proyeccion_preliminar->costo_total_transporte_menor_ra =$costo_total_transporte_menor_ra;
+        
         $proyeccion_preliminar->areas_acuaticas_rp=$request->get('areas_acuaticas_rp')=='on'?1:0;
         $proyeccion_preliminar->areas_acuaticas_ra=$request->get('areas_acuaticas_ra')=='on'?1:0;
         $proyeccion_preliminar->alturas_rp=$request->get('alturas_rp')=='on'?1:0;
@@ -1208,9 +1223,27 @@ class ProyeccionController extends Controller
         {
             if(($request->get('vlr_est_transp_rp') > 0) && ($request->get('vlr_est_transp_ra') > 0) && ($request->get('vlr_est_transp_rp') != null) && ($request->get('vlr_est_transp_ra') != null))
             {
-                $proyeccion_preliminar->valor_estimado_transporte_rp = $request->get('vlr_est_transp_rp');
-                $proyeccion_preliminar->valor_estimado_transporte_ra = $request->get('vlr_est_transp_ra');
+
+                $valor_estimado_transporte_rp = $request->get('vlr_est_transp_rp')!=Null?$request->get('vlr_est_transp_rp'):0;
+                $valor_estimado_transporte_ra = $request->get('vlr_est_transp_ra')!=Null?$request->get('vlr_est_transp_ra'):0;
+
+                $costo_total_transporte_menor_rp = $proyeccion_preliminar->costo_total_transporte_menor_rp;
+                $costo_total_transporte_menor_ra = $proyeccion_preliminar->costo_total_transporte_menor_ra;
+
+                $viaticos_estudiantes_rp = $proyeccion_preliminar->viaticos_estudiantes_rp;
+                $viaticos_estudiantes_ra = $proyeccion_preliminar->viaticos_estudiantes_ra;
+                $viaticos_docente_rp = $proyeccion_preliminar->viaticos_docente_rp;
+                $viaticos_docente_ra = $proyeccion_preliminar->viaticos_docente_ra;
+
+                $total_presupuesto_rp= $costo_total_transporte_menor_rp + $valor_estimado_transporte_rp + $viaticos_docente_rp + $viaticos_estudiantes_rp;
+                $total_presupuesto_ra= $costo_total_transporte_menor_ra + $valor_estimado_transporte_ra + $viaticos_docente_ra + $viaticos_estudiantes_ra;
+                
+                $proyeccion_preliminar->valor_estimado_transporte_rp = $valor_estimado_transporte_rp;
+                $proyeccion_preliminar->valor_estimado_transporte_ra = $valor_estimado_transporte_ra;
                 $proyeccion_preliminar->aprobacion_asistD = 3;
+
+                $proyeccion_preliminar->total_presupuesto_rp = $total_presupuesto_rp;
+                $proyeccion_preliminar->total_presupuesto_ra = $total_presupuesto_ra;
 
                 $vlr_otro_tip_trans_rp_1 = ($proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1)!=null || !empty($proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1)?$proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1:0;
                 $vlr_otro_tip_trans_rp_2 = ($proyeccion_preliminar->vlr_otro_tipo_transporte_rp_2)!=null || !empty($proyeccion_preliminar->vlr_otro_tipo_transporte_rp_2)?$proyeccion_preliminar->vlr_otro_tipo_transporte_rp_2:0;
@@ -1218,6 +1251,8 @@ class ProyeccionController extends Controller
                 $vlr_otro_tip_trans_ra_1 = ($proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1)!=null || !empty($proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1)?$proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1:0;
                 $vlr_otro_tip_trans_ra_2 = ($proyeccion_preliminar->vlr_otro_tipo_transporte_ra_2)!=null || !empty($proyeccion_preliminar->vlr_otro_tipo_transporte_ra_2)?$proyeccion_preliminar->vlr_otro_tipo_transporte_ra_2:0;
                 $vlr_otro_tip_trans_ra_3 = ($proyeccion_preliminar->vlr_otro_tipo_transporte_ra_3)!=null || !empty($proyeccion_preliminar->vlr_otro_tipo_transporte_ra_3)?$proyeccion_preliminar->vlr_otro_tipo_transporte_ra_3:0;
+
+
 
             }
         }
