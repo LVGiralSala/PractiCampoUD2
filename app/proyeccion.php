@@ -60,5 +60,6 @@ class proyeccion extends Model
             'docen_respo_trasnporte_ra_3',
             'docen_respo_trasnporte_rp_2',
             'docen_respo_trasnporte_rp_3',
+            'confirm_docente',
     ];
 }

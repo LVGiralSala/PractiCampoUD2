@@ -48,7 +48,8 @@
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{route('proyeccion_index') }}">Listar Proyecciones</a>
+              {{-- <a class="collapse-item" href="{{route('proyeccion_index') }}">Listar Proyecciones</a> --}}
+              <a class="collapse-item" href="{{url('proyecciones/filtrar/all') }}">Listar Proyecciones</a>
               @if(Auth::user()->admin() || Auth::user()->coordinador() || Auth::user()->docente())
               <a class="collapse-item" href="{{route('proyeccion_create')}}">Nueva Proyección</a>
               @endif

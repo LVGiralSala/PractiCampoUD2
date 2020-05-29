@@ -227,7 +227,7 @@
 
     <!-- 6 -->
     <div class="form-group row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
@@ -248,11 +248,11 @@
                   <i class="fa fa-calendar"></i>
                 </div>
               <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required
-              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}">
+              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}"  onchange="duracionRP2(this.value)">
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
@@ -273,8 +273,21 @@
                   <i class="fa fa-calendar"></i>
                 </div>
               <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
-              value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}"">
+              value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}" onchange="duracion_edit_RP(this.value)">
             </div>
+        </div>
+
+        <div class="col-md-2">
+            <label for="duracion_edit_rp" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="duracion_edit_rp" type="text" class="form-control @error('duracion_edit_rp') is-invalid @enderror" name="duracion_edit_rp" 
+            value="{{$proyeccion_preliminar->duracion_num_dias_rp}}" autocomplete="off" autofocus  readonly>
+            
+            @error('duracion_edit_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
     </div>

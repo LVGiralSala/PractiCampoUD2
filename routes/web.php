@@ -81,13 +81,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
 
         // ------> Proyecciones Routes <------
-        Route::get('proyecciones','Proyeccion\ProyeccionController@index')->name('proyeccion_index');
+        // Route::get('proyecciones','Proyeccion\ProyeccionController@index')->name('proyeccion_index');
+        Route::get('proyecciones/filtrar/{id}','Proyeccion\ProyeccionController@filterProyeccion')->name('proyeccion_filter');
         Route::get('proyecciones/create','Proyeccion\ProyeccionController@create')->name('proyeccion_create');
         Route::post('proyecciones','Proyeccion\ProyeccionController@store')->name('proyeccion_store');
         Route::get('proyecciones/{id}','Proyeccion\ProyeccionController@edit')->name('proyeccion_edit');
         Route::put('proyecciones/{id}','Proyeccion\ProyeccionController@update')->name('proyeccion_update');
         Route::delete('proyecciones','Proyeccion\ProyeccionController@destroy')->name('proyeccion_destroy');
-        Route::put('proyecciones/{id}','Proyeccion\ProyeccionController@sendProy')->name('proyeccion_send');
+        Route::put('proyeccsend','Proyeccion\ProyeccionController@sendProy')->name('proyeccion_send');
+        Route::post('proyecc_extramural','Proyeccion\ProyeccionController@validar_extramurales')->name('proyeccion_extramural');
         // Route::get('proyecciones/activas','Proyeccion\ProyeccionController@verActiva')->name('proyeccion_activa');
         // Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
 

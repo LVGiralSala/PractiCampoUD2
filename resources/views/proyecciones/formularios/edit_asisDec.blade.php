@@ -1,7 +1,7 @@
 <!-- información proyección -->
     <!-- 1 -->
     <div class="form-group row">
-        <div class="col-md-3">
+        <div class="col-md-5">
             <label for="id_programa_academico" class="col-form-label text-md-right">{{ __('Programa Académico') }}</label>
             <span class="hs-form-required">*</span>
             <select name="id_programa_academico" class="form-control" required disabled readonly>
@@ -20,7 +20,7 @@
             @enderror
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-5">
             <label for="id_espacio_academico" class="col-form-label text-md-right">{{ __('Espacio Académico') }}</label>
             <span class="hs-form-required">*</span>
             <select name="id_espacio_academico" class="form-control" required disabled>
@@ -40,7 +40,23 @@
             @enderror
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-1">
+            <label for="id_semestre_asignatura" class="col-form-label text-md-right">{{ __('Sem.') }}</label>
+            <span class="hs-form-required">*</span>
+            <select name="id_semestre_asignatura" class="form-control" required disabled>
+                @foreach($semestres_asignaturas as $sem_asig)
+                    <option <?php if($sem_asig->id==$proyeccion_preliminar->id_semestre_asignatura) echo 'selected' ?> value="{{$sem_asig->id}}">{{$sem_asig->semestre_asignatura}}</option>  
+                    
+                @endforeach
+            </select>
+            @error('id_semestre_asignatura')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-1">
             <label for="id_periodo_academico" class="col-form-label text-md-right">{{ __('Per.') }}</label>
             <span class="hs-form-required">*</span>
             <select name="id_periodo_academico" class="form-control" required disabled>
@@ -56,21 +72,6 @@
             @enderror
         </div>
 
-        <div class="col-md-3">
-            <label for="id_semestre_asignatura" class="col-form-label text-md-right">{{ __('Sem.') }}</label>
-            <span class="hs-form-required">*</span>
-            <select name="id_semestre_asignatura" class="form-control" required disabled>
-                @foreach($semestres_asignaturas as $sem_asig)
-                    <option <?php if($sem_asig->id==$proyeccion_preliminar->id_semestre_asignatura) echo 'selected' ?> value="{{$sem_asig->id}}">{{$sem_asig->semestre_asignatura}}</option>  
-                    
-                @endforeach
-            </select>
-            @error('id_semestre_asignatura')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
 
     </div>
     <!-- 1 -->
@@ -103,7 +104,7 @@
             @enderror
         </div>
 
-        <div class="col-md-2" id="cant_grupos_edit">
+        {{-- <div class="col-md-2" id="cant_grupos_edit">
             <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
             <span class="hs-form-required">*</span>
             <input id="cant_grupos_edit" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
@@ -114,13 +115,13 @@
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-        </div>
+        </div> --}}
 
     </div>
     <!-- 2 -->
 
      <!-- 2.1 -->
-     <div  class="form-group row"  id="Grupos_edit">
+     {{-- <div  class="form-group row"  id="Grupos_edit">
         <div class="col-md-2" id="gp_1_edit">
             <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
             <span class="hs-form-required">*</span>
@@ -164,7 +165,7 @@
             @enderror
         </div>
             
-    </div>
+    </div> --}}
     <!-- 2.1 -->
 
 <!-- información proyección -->

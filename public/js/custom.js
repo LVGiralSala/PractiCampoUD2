@@ -595,10 +595,10 @@ function otroTransporte(id, indice)
 
     else if(id==4)
     {
-        $('#otro_transporte_rp_'+indice).attr('required');
+        $('#otro_transporte_rp_'+indice).attr('required','required');
         $('#otro_transporte_rp_'+indice).removeAttr('readonly');
 
-        $('#vlr_otro_transporte_rp_'+indice).attr('required');
+        $('#vlr_otro_transporte_rp_'+indice).attr('required','required');
         $('#vlr_otro_transporte_rp_'+indice).removeAttr('readonly');
     }
 }
@@ -616,10 +616,10 @@ function otroTransporte2(id, indice)
 
     else if(id==4)
     {
-        $('#otro_transporte_ra_'+indice).attr('required');
+        $('#otro_transporte_ra_'+indice).attr('required','required');
         $('#otro_transporte_ra_'+indice).removeAttr('readonly');
 
-        $('#vlr_otro_transporte_ra_'+indice).attr('required');
+        $('#vlr_otro_transporte_ra_'+indice).attr('required','required');
         $('#vlr_otro_transporte_ra_'+indice).removeAttr('readonly');
     }
 }
@@ -657,10 +657,6 @@ $("#gp_2").hide();
 $("#gp_3").hide();
 $("#gp_4").hide();
 
-
-
-
-
 $("#cant_grupos").change('keypress', function () {
     val = $("#cant_grupos").val();
     
@@ -693,6 +689,139 @@ $("#cant_grupos").change('keypress', function () {
 });
 
 /*Cantidad Grupos Proyección create*/
+
+/*Bloquear input number acompa proyección*/
+$("#num_acompaniantes").keypress(function (e) {
+    e.preventDefault();
+}).keydown(function(e){
+    if ( e.keyCode === 8 || e.keyCode === 46 ) {
+        return false;
+    }
+});
+
+// $("#cant_grupos_edit").keypress(function (e) {
+//     e.preventDefault();
+// }).keydown(function(e){
+//     if ( e.keyCode === 8 || e.keyCode === 46 ) {
+//         return false;
+//     }
+// });
+
+/*Bloquear input number acompa proyección*/
+
+/*Cantidad acompañantes Proyección create*/
+$("#acompa").hide();
+$("#ac_2").hide();
+$("#ac_3").hide();
+// $("#gp_4").hide();
+
+$("#num_acompaniantes").change('keypress', function () {
+    num_acom = $("#num_acompaniantes").val();
+    
+    if(num_acom==0)
+    {
+        $("#acompa").hide();
+        // $("#ac_1").show();
+        // $("#ac_2").hide();
+        // $("#ac_3").hide();
+        // $("#gp_4").hide();
+    }
+    else if(num_acom==1)
+    {
+        $("#acompa").show();
+        $("#ac_1").show();
+        $("#ac_2").hide();
+        $("#ac_3").hide();
+        // $("#gp_4").hide();
+    }
+    else if(num_acom==2)
+    {
+        $("#ac_2").show();
+        $("#ac_3").hide();
+        // $("#gp_4").hide();
+    }
+    else if(num_acom==3)
+    {
+        $("#ac_2").show();
+        $("#ac_3").show();
+        // $("#gp_4").hide();
+    }
+    else if(num_acom==4)
+    {
+        $("#ac_2").show();
+        $("#ac_3").show();
+        // $("#gp_4").show();
+    }
+
+});
+
+/*Cantidad acompañantes Proyección create*/
+
+/*Bloquear input number apoyo proyección*/
+$("#num_apoyo").keypress(function (e) {
+    e.preventDefault();
+}).keydown(function(e){
+    if ( e.keyCode === 8 || e.keyCode === 46 ) {
+        return false;
+    }
+});
+
+// $("#cant_grupos_edit").keypress(function (e) {
+//     e.preventDefault();
+// }).keydown(function(e){
+//     if ( e.keyCode === 8 || e.keyCode === 46 ) {
+//         return false;
+//     }
+// });
+
+/*Bloquear input number apoyo proyección*/
+
+/*Cantidad docentes apoyo Proyección create*/
+$("#apoyo").hide();
+$("#ap_1").hide();
+$("#ap_2").hide();
+// $("#gp_4").hide();
+
+$("#num_apoyo").change('keypress', function () {
+    num_apoyo = $("#num_apoyo").val();
+    
+    if(num_apoyo==0)
+    {
+        $("#apoyo").hide();
+        // $("#ap_1").show();
+        // $("#ap_2").hide();
+        // $("#ap_3").hide();
+        // $("#gp_4").hide();
+    }
+    else if(num_apoyo==1)
+    {
+        $("#apoyo").show();
+        $("#ap_1").show();
+        $("#ap_2").hide();
+        $("#ap_3").hide();
+        // $("#gp_4").hide();
+    }
+    else if(num_apoyo==2)
+    {
+        $("#ap_2").show();
+        $("#ap_3").hide();
+        // $("#gp_4").hide();
+    }
+    else if(num_apoyo==3)
+    {
+        $("#ap_2").show();
+        $("#ap_3").show();
+        // $("#gp_4").hide();
+    }
+    else if(num_apoyo==4)
+    {
+        $("#ap_2").show();
+        $("#ap_3").show();
+        // $("#gp_4").show();
+    }
+});
+
+/*Cantidad docentes apoyo Proyección create*/
 
 /*Cantidad Grupos Proyección Edit*/
 // x = $("#cant_grupos_edit").val();
@@ -778,6 +907,20 @@ $("#cant_grupos").change('keypress', function () {
 
 /*Cantidad Grupos Proyección Edit*/
 
+/*Viaticos docentes*/
+// $("#duracion_rp").change(function (){
+//     var duracion = ("#duracion_rp").val();
+
+//     $("#vlr_apoyo_docentes_rp").val("duracion");
+// });
+/*Viaticos docentes*/
+
+/*Viaticos estudiantes*/
+// $(,"#num_acompaniantes","#num_apoyo", "#num_estudiantes_aprox").change(function (){
+
+// });
+/*Viaticos estudiantes*/
+
 
 // $("#asd").tipsy();
 
@@ -801,37 +944,37 @@ function progr_aca_coord(id)
 /* programa académico coordinador */
 
 
-function consulta_cod(){
+// function consulta_cod(){
 
 
-      var id = $("#cod_consulta").val('kj454aogzB59E');
-        url = '/buscar/consulta_codigo';
+//       var id = $("#cod_consulta").val('kj454aogzB59E');
+//         url = '/buscar/consulta_codigo';
 
-        $.ajax({
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            url: url,
-            type: 'POST',
-            cache: false,
-            data: {'id':id},                
-            // beforeSend: function(xhr){
-            // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
-            // },
-            success:function(respu){
-                console.log(respu);
+//         $.ajax({
+//             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+//             url: url,
+//             type: 'POST',
+//             cache: false,
+//             data: {'id':id},                
+//             // beforeSend: function(xhr){
+//             // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+//             // },
+//             success:function(respu){
+//                 console.log(respu);
 
-                $("#resp_consulta").val('El código  asociado al estudiante ' + respu.nombre_estudiante + ' cuenta con diploma de graduación.');  
+//                 $("#resp_consulta").val('El código  asociado al estudiante ' + respu.nombre_estudiante + ' cuenta con diploma de graduación.');  
 
-                if ( jQuery.isEmptyObject(respu) || respu == null) {
-                    $("#resp_consulta").val('Código no disponible para el programa seleccionado');
-                }
+//                 if ( jQuery.isEmptyObject(respu) || respu == null) {
+//                     $("#resp_consulta").val('Código no disponible para el programa seleccionado');
+//                 }
                             
-                },
-                error: function(xhr, textStatus, thrownError) {
+//                 },
+//                 error: function(xhr, textStatus, thrownError) {
                 
-                }
-        });
+//                 }
+//         });
 
-}
+// }
 
 // $('#fecha_regreso_aprox_rp').datepicker({onSelect: function(dateText) 
 // {
@@ -844,7 +987,7 @@ function consulta_cod(){
 //  }
 // });
 
-
+/* duracion RP - RA */
 function duracionRP(dateText)
 {
     var fecha_salida = new Date($('#fecha_salida_aprox_rp').val());
@@ -854,7 +997,123 @@ function duracionRP(dateText)
     var dif_dias = dif_milis / milis_dias;
 
     $('#duracion_rp').val(dif_dias);
+
+    calc_viaticos_RP();
+    // num_estud = $('#num_estudiantes_aprox').val();
+    // if(dif_dias > 1)
+    // {
+    //     num_doc_acomp = $('#num_acompaniantes').val();
+    //     num_doc_apoyo = $('#num_apoyo').val();
+    //     total_docentes = num_doc_acomp + num_doc_apoyo + 1;
+
+    //     viaticos_apoyo_doc_rp = (dif_dias-0.5)*(135400*total_docentes);
+    //     viaticos_apoyo_estud_rp = num_estud*52600*dif_dias;
+    //     $("#vlr_apoyo_docentes_rp").val(viaticos_apoyo_doc_rp);
+    //     $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp);
+    // }
+    // else
+    // {
+    //     viaticos_apoyo_doc_rp = 0;
+    //     viaticos_apoyo_estud_rp = num_estud*35100*dif_dias;
+    //     $("#vlr_apoyo_docentes_rp").val(viaticos_apoyo_doc_rp);
+    //     $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp);
+    // }
+    
 }
+
+function calc_viaticos_RP()
+{
+    var fecha_salida = new Date($('#fecha_salida_aprox_rp').val());
+    var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').val()); 
+    var milis_dias = 86400000;
+    var dif_milis = fecha_regreso - fecha_salida;
+    var dif_dias = dif_milis / milis_dias;
+
+    // $('#duracion_rp').val(dif_dias);
+
+    var fecha_salida_ra = new Date($('#fecha_salida_aprox_ra').val());
+    var fecha_regreso_ra = new Date($('#fecha_regreso_aprox_ra').val()); 
+    var milis_dias_ra = 86400000;
+    var dif_milis_ra = fecha_regreso_ra - fecha_salida_ra;
+    var dif_dias_ra = dif_milis_ra / milis_dias_ra;
+
+
+    num_estud = $('#num_estudiantes_aprox').val();
+    num_doc_acomp = $('#num_acompaniantes').val();
+    num_doc_apoyo = $('#num_apoyo').val();
+    total_docentes = parseInt(num_doc_acomp) + parseInt(num_doc_apoyo)+1;
+
+    if(dif_dias > 1)
+    {
+
+        viaticos_apoyo_doc_rp = (dif_dias-0.5)*(135400*total_docentes);
+        viaticos_apoyo_estud_rp = num_estud*52600*dif_dias;
+        $("#vlr_apoyo_docentes_rp").val(viaticos_apoyo_doc_rp);
+        $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp);
+    }
+    else
+    {
+        viaticos_apoyo_doc_rp = 0;
+        viaticos_apoyo_estud_rp = num_estud*35100*dif_dias;
+        $("#vlr_apoyo_docentes_rp").val(viaticos_apoyo_doc_rp);
+        $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp);
+
+    }
+
+    if(dif_dias_ra > 1)
+    {
+        // num_doc_acomp = $('#num_acompaniantes').val();
+        // num_doc_apoyo = $('#num_apoyo').val();
+        // total_docentes = parseInt(num_doc_acomp) + parseInt(num_doc_apoyo)+1;
+
+        viaticos_apoyo_doc_ra = (dif_dias_ra-0.5)*(135400*total_docentes);
+        viaticos_apoyo_estud_ra = num_estud*52600*dif_dias_ra;
+        $("#vlr_apoyo_docentes_ra").val(viaticos_apoyo_doc_ra);
+        $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra);
+    }
+    else
+    {
+
+        viaticos_apoyo_doc_ra = 0;
+        viaticos_apoyo_estud_ra = num_estud*35100*dif_dias_ra;
+        $("#vlr_apoyo_docentes_ra").val(viaticos_apoyo_doc_ra);
+        $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra);
+    }
+    
+}
+
+// function calc_viaticos_RA()
+// {
+//     var fecha_salida = new Date($('#fecha_salida_aprox_ra').val());
+//     var fecha_regreso = new Date($('#fecha_regreso_aprox_ra').val()); 
+//     var milis_dias = 86400000;
+//     var dif_milis = fecha_regreso - fecha_salida;
+//     var dif_dias = dif_milis / milis_dias;
+
+//     // $('#duracion_rp').val(dif_dias);
+
+
+//     num_estud = $('#num_estudiantes_aprox').val();
+//     if(dif_dias > 1)
+//     {
+//         num_doc_acomp = $('#num_acompaniantes').val();
+//         num_doc_apoyo = $('#num_apoyo').val();
+//         total_docentes = parseInt(num_doc_acomp) + parseInt(num_doc_apoyo)+1;
+
+//         viaticos_apoyo_doc_ra = (dif_dias-0.5)*(135400*total_docentes);
+//         viaticos_apoyo_estud_ra = num_estud*52600*dif_dias;
+//         $("#vlr_apoyo_docentes_ra").val(viaticos_apoyo_doc_ra);
+//         $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra);
+//     }
+//     else
+//     {
+//         viaticos_apoyo_doc_ra = 0;
+//         viaticos_apoyo_estud_ra = num_estud*35100*dif_dias;
+//         $("#vlr_apoyo_docentes_ra").val(viaticos_apoyo_doc_ra);
+//         $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra);
+//     }
+    
+// }
 
 function duracionRP2(dateText)
 {
@@ -865,6 +1124,7 @@ function duracionRP2(dateText)
     var dif_dias = dif_milis / milis_dias;
 
     $('#duracion_rp').val(dif_dias);
+    calc_viaticos_RP();
 }
 
 function duracionRA(dateText)
@@ -876,6 +1136,8 @@ function duracionRA(dateText)
     var dif_dias = dif_milis / milis_dias;
 
     $('#duracion_ra').val(dif_dias);
+
+    calc_viaticos_RP();
 }
 
 function duracionRA2(dateText)
@@ -887,6 +1149,110 @@ function duracionRA2(dateText)
     var dif_dias = dif_milis / milis_dias;
 
     $('#duracion_ra').val(dif_dias);
+
+    calc_viaticos_RP();
+}
+
+/*view edit duracion RP - RA */
+function duracion_edit_RP(dateText)
+{
+    var fecha_salida = new Date($('#fecha_salida_aprox_rp').val());
+    var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').val()); 
+    var milis_dias = 86400000;
+    var dif_milis = fecha_regreso - fecha_salida;
+    var dif_dias = dif_milis / milis_dias;
+
+    var f = fecha_regreso;
+    f = f.toJSON().slice(0,10);
+    $('#duracion_edit_rp').val(f);
+}
+
+/* validar proyeccion extramural*/
+
+function validar_proy_extramural()
+{
+    // confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica extramural registrada, ¿Desea continuar de igual manera?");
+    var check_confirm = [];
+    $('input[type=checkbox]:checked').each(function()
+    {
+        check_confirm.push(this.value);
+    });
+
+    url = '/proyecc_extramural';
+
+    $.ajax({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: url,
+        type: 'POST',
+        cache: false,
+        data: {'data':check_confirm},                
+        // beforeSend: function(xhr){
+        // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+        // },
+        success:function(respu){
+            console.log(respu);
+
+            if(respu.length >= 1)
+            {
+               var r = confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica extramural registrada, ¿Desea continuar de igual manera?");
+               if(r == true)
+               {
+                 confirm_proy();
+               }
+               else
+               {
+                    alert("Las proyecciones que cuentan con espacios académicos que resgistran práctica estramural son: "+respu);
+               }
+            }
+            else if(respu.length == 0)
+            {
+                confirm_proy();
+            }
+            if ( jQuery.isEmptyObject(respu) || respu == null) {
+                
+            }
+                            
+            },
+            error: function(xhr, textStatus, thrownError) {
+                
+            }
+        });
+}
+
+/* enviar confirmacion proyeccion*/
+function confirm_proy()
+{
+    
+    var check_confirm = [];
+    $('input[type=checkbox]:checked').each(function()
+    {
+        check_confirm.push(this.value);
+    });
+    // $('#nefy').val(check_confirm);
+    url = '/proyeccsend';
+
+    $.ajax({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: url,
+        type: 'PUT',
+        cache: false,
+        data: {'data':check_confirm},                
+        // beforeSend: function(xhr){
+        // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+        // },
+        success:function(respu){
+            console.log(respu);
+
+            window.location.replace(respu);
+            if ( jQuery.isEmptyObject(respu) || respu == null) {
+                // $("#resp_consulta").val('Código no disponible para el programa seleccionado');
+            }
+                            
+            },
+            error: function(xhr, textStatus, thrownError) {
+                
+            }
+        });
 }
 
 

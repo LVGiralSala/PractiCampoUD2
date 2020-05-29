@@ -57,14 +57,14 @@
           </div>
 
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-              <form method="POST" action="{{ route('import_list_proyecc.excel') }}"  enctype="multipart/form-data">
+              <form method="POST" action="{{ route('import_list_users.excel') }}"  enctype="multipart/form-data">
                 @csrf
                
                 <div class="row">
                 {{-- <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">    --}}
                   <div class="form-group">
                     <label for=""></label>
-                        <input type="file"  name="proyecciones_preliminares" >
+                        <input type="file"  name="usuarios" >
                   </div>
                 {{-- </div>  --}}
                 

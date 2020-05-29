@@ -103,7 +103,7 @@
                                         <label for="num_estudiantes_aprox" class="col-form-label text-md-left">{{ __('Estudiantes') }}</label>
                                         <span class="hs-form-required" title="Número Estudiantes">*</span>
                                         <input id="num_estudiantes_aprox" type="text" class="form-control @error('num_estudiantes_aprox') is-invalid @enderror" name="num_estudiantes_aprox" 
-                                        value="" required autocomplete="off" autofocus>
+                                        value="" required autocomplete="off" autofocus onchange="calc_viaticos_RP()">
                                         
                                         @error('num_estudiantes_aprox')
                                             <span class="invalid-feedback" role="alert">
@@ -112,13 +112,11 @@
                                         @enderror
                                     </div>
 
-                                    
-                                    
                                     <div class="col-md-2">
                                         <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <input id="cant_grupos" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
-                                        value="" autocomplete="off" autofocus>
+                                        value="" autocomplete="off" autofocus required>
                                         
                                         @error('cant_grupos')
                                         <span class="invalid-feedback" role="alert">
@@ -130,10 +128,23 @@
                                     <div class="col-md-2">
                                         <label for="num_acompaniantes" class="col-form-label text-md-left" title="Número Acompañantes Adicionales Al Docente">{{ __('Acompañantes') }}</label>
                                         {{-- <span class="hs-form-required">*</span> --}}
-                                        <input id="num_acompaniantes" type="text" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
-                                        value="" autocomplete="off" autofocus>
+                                        <input id="num_acompaniantes" type="number" max="3" min="0" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
+                                        value="" autocomplete="off" autofocus onchange="calc_viaticos_RP()">
                                         
                                         @error('num_acompaniantes')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="num_apoyo" class="col-form-label text-md-left" title="Número Docentes De Apoyo">{{ __('Docent. Apoyo') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="num_apoyo" type="number" max="3" min="0" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
+                                        value="" autocomplete="off" autofocus onchange="calc_viaticos_RP()">
+                                        
+                                        @error('num_apoyo')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -146,9 +157,9 @@
                                 <div  class="form-group row"  id="Grupos">
                                     <div class="col-md-2" id="gp_1">
                                         <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
-                                        <span class="hs-form-required">*</span>
+                                        {{-- <span class="hs-form-required">*</span> --}}
                                         <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
-                                        value="" required autocomplete="off" autofocus>
+                                        value="" autocomplete="off" autofocus>
                                         
                                         @error('grupo_1')
                                             <span class="invalid-feedback" role="alert">
@@ -190,6 +201,232 @@
                                 </div>
 
                                 <!-- 2.1 -->
+
+                                <!-- 2.2 -->
+                                <div  class="form-group row"  id="acompa">
+                                    <div class="col-md-4" id="ac_1">
+                                        <label for="acompa_1" class="col-form-label text-md-left">{{ __('Acompañante 1') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="acompa_1" type="text" class="form-control @error('acompa_1') is-invalid @enderror" name="acompa_1" 
+                                        value="" autocomplete="off" autofocus>
+                                        
+                                        @error('acompa_1')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_2">
+                                        <label for="acompa_2" class="col-form-label text-md-left">{{ __('Acompañante 2') }}</label>
+                                        <input id="acompa_2" type="text" class="form-control @error('acompa_2') is-invalid @enderror" name="acompa_2" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('acompa_2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_3">
+                                        <label for="acompa_3" class="col-form-label text-md-left">{{ __('Acompañante 3') }}</label>
+                                        <input id="acompa_3" type="text" class="form-control @error('acompa_3') is-invalid @enderror" name="acompa_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('acompa_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    {{-- <div class="col-md-4" id="ac_4">
+                                        <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
+                                        <span class="hs-form-required">*</span>
+                                        <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
+                                        value="" required autocomplete="off" autofocus>
+                                        
+                                        @error('grupo_1')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_5">
+                                        <label for="grupo_2" class="col-form-label text-md-left">{{ __('Gp 2') }}</label>
+                                        <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_6">
+                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
+                                        <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_7">
+                                        <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
+                                        <span class="hs-form-required">*</span>
+                                        <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
+                                        value="" required autocomplete="off" autofocus>
+                                        
+                                        @error('grupo_1')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_8">
+                                        <label for="grupo_2" class="col-form-label text-md-left">{{ __('Gp 2') }}</label>
+                                        <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_9">
+                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
+                                        <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ac_10">
+                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
+                                        <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+                                    
+                                </div>
+
+                                <!-- 2.2 -->
+
+                                <!-- 2.3 -->
+                                <div  class="form-group row"  id="apoyo">
+                                    <div class="col-md-4" id="ap_1">
+                                        <label for="apoyo_1" class="col-form-label text-md-left">{{ __('Docente Apoyo 1') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="apoyo_1" type="text" class="form-control @error('apoyo_1') is-invalid @enderror" name="apoyo_1" 
+                                        value="" autocomplete="off" autofocus>
+                                        
+                                        @error('apoyo_1')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_2">
+                                        <label for="apoyo_2" class="col-form-label text-md-left">{{ __('Docente Apoyo 2') }}</label>
+                                        <input id="apoyo_2" type="text" class="form-control @error('apoyo_2') is-invalid @enderror" name="apoyo_2" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('apoyo_2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_3">
+                                        <label for="apoyo_3" class="col-form-label text-md-left">{{ __('Docente Apoyo 3') }}</label>
+                                        <input id="apoyo_3" type="text" class="form-control @error('apoyo_3') is-invalid @enderror" name="apoyo_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('apoyo_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    {{-- <div class="col-md-4" id="ap_4">
+                                        <label for="grupo_1" class="col-form-label text-md-left">{{ __('Docente Apoyo 4') }}</label>
+                                        <span class="hs-form-required">*</span>
+                                        <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
+                                        value="" required autocomplete="off" autofocus>
+                                        
+                                        @error('grupo_1')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_5">
+                                        <label for="grupo_2" class="col-form-label text-md-left">{{ __('Docente Apoyo 5') }}</label>
+                                        <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_6">
+                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Docente Apoyo 6') }}</label>
+                                        <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_7">
+                                        <label for="grupo_1" class="col-form-label text-md-left">{{ __('Docente Apoyo 7') }}</label>
+                                        <span class="hs-form-required">*</span>
+                                        <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
+                                        value="" required autocomplete="off" autofocus>
+                                        
+                                        @error('grupo_1')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_8">
+                                        <label for="grupo_2" class="col-form-label text-md-left">{{ __('Docente Apoyo 8') }}</label>
+                                        <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_9">
+                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Docente Apoyo 9') }}</label>
+                                        <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4" id="ap_10">
+                                        <label for="grupo_3" class="col-form-label text-md-left">{{ __('Docente Apoyo 10') }}</label>
+                                        <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
+                                        value="" autocomplete="off" autofocus>
+                                        @error('grupo_3')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+                                    
+                                </div>
+                                <!-- 2.3 -->
+
                             <!-- información proyección -->
 
                             <br>
@@ -269,7 +506,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="inputDate form-control datetimepicker" id="fecha_salida_aprox_rp" name="fecha_salida_aprox_rp" type="text" required
+                                          <input class="inputDate form-control datetimepicker data-create" id="fecha_salida_aprox_rp" name="fecha_salida_aprox_rp" type="text" required
                                           onchange="duracionRP2(this.value)">
                                         </div>
                                     </div>
@@ -370,7 +607,7 @@
                                                 <label for="vlr_otro_transporte_rp_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="vlr_otro_transporte_rp_1" type="text" class="form-control @error('vlr_otro_transporte_rp_1') is-invalid @enderror" name="vlr_otro_transporte_rp_1" 
-                                                value=""  autocomplete="off" autofocus >
+                                                value=""  autocomplete="off" autofocus required>
 
                                                 @error('vlr_otro_transporte_rp_1')
                                                     <span class="invalid-feedback" role="alert">
@@ -394,9 +631,9 @@
 
                                             <div class="col-md-4">
                                                 <label for="det_tipo_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
-                                                <span class="hs-form-required" title="Observaciones Del Vehículo">*</span>
+                                                {{-- <span class="hs-form-required" title="Observaciones Del Vehículo">*</span> --}}
                                                 <input id="det_tipo_transporte_rp_[]" type="text" class="form-control @error('det_tipo_transporte_rp_[]') is-invalid @enderror" name="det_tipo_transporte_rp_[]" 
-                                                value="" required autocomplete="off" autofocus>
+                                                value="" autocomplete="off" autofocus>
 
                                                 @error('det_tipo_transporte_rp_[]')
                                                     <span class="invalid-feedback" role="alert">
@@ -665,6 +902,48 @@
                                 </div>
                                 <!-- preguntas -->
 
+                                <!-- viaticos -->
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label for="vlr_apoyo_docentes_rp" class="col-form-label text-md-left" title="Apoyo económico para los docentes">{{ __('Valor Apoyo Docentes') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="vlr_apoyo_docentes_rp" type="text"  class="form-control @error('vlr_apoyo_docentes_rp') is-invalid @enderror" name="vlr_apoyo_docentes_rp" 
+                                        value="" autocomplete="off" autofocus readonly>
+                                        
+                                        @error('vlr_apoyo_docentes_rp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="vlr_apoyo_estudiantes_rp" class="col-form-label text-md-left" title="Apoyo económico para los estudiantes">{{ __('Valor Apoyo Estudiantes') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="vlr_apoyo_estudiantes_rp" type="text"  class="form-control @error('vlr_apoyo_estudiantes_rp') is-invalid @enderror" name="vlr_apoyo_estudiantes_rp" 
+                                        value="" autocomplete="off" autofocus readonly>
+                                        
+                                        @error('vlr_apoyo_estudiantes_rp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    {{-- <div class="col-md-3">
+                                        <label for="trasnp_menor_rp" class="col-form-label text-md-left" title="Valor total del transporte menor">{{ __('Total Transporte Menor') }}</label>
+                                        <input id="trasnp_menor_rp" type="text"  class="form-control @error('trasnp_menor_rp') is-invalid @enderror" name="trasnp_menor_rp" 
+                                        value="" autocomplete="off" autofocus readonly>
+                                        
+                                        @error('trasnp_menor_rp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+                                </div>
+                                <!-- viaticos -->
+
                             <!-- ruta principal -->
 
                             <br>
@@ -744,7 +1023,7 @@
                                              <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                             </div>
-                                          <input class="inputDate form-control datetimepicker" id="fecha_salida_aprox_ra" name="fecha_salida_aprox_ra" type="text" required
+                                          <input class="inputDate form-control datetimepicker data-create" id="fecha_salida_aprox_ra" name="fecha_salida_aprox_ra" type="text" required
                                           onchange="duracionRA2(this.value)">
                                         </div>
                                     </div>
@@ -832,7 +1111,7 @@
                                             <div class="col-md-2">
                                                 <label for="otro_transporte_ra_1" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
                                                 <input id="otro_transporte_ra_1" type="text" class="form-control @error('otro_transporte_ra_1') is-invalid @enderror" name="otro_transporte_ra_1" 
-                                                value="" autocomplete="off" autofocus>
+                                                value="" autocomplete="off" autofocus required>
 
                                                 @error('otro_transporte_ra_1')
                                                     <span class="invalid-feedback" role="alert">
@@ -845,7 +1124,7 @@
                                                 <label for="vlr_otro_transporte_ra_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="vlr_otro_transporte_ra_1" type="text" class="form-control @error('vlr_otro_transporte_ra_1') is-invalid @enderror" name="vlr_otro_transporte_ra_1" 
-                                                value=""  autocomplete="off" autofocus >
+                                                value=""  autocomplete="off" autofocus required>
 
                                                 @error('vlr_otro_transporte_ra_1')
                                                     <span class="invalid-feedback" role="alert">
@@ -869,9 +1148,9 @@
 
                                             <div class="col-md-4">
                                                 <label for="det_tipo_transporte_ra_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
-                                                <span class="hs-form-required">*</span>
+                                                {{-- <span class="hs-form-required">*</span> --}}
                                                 <input id="det_tipo_transporte_ra_[]" type="text" class="form-control @error('det_tipo_transporte_ra_[]') is-invalid @enderror" name="det_tipo_transporte_ra_[]" 
-                                                value="" required autocomplete="off" autofocus>
+                                                value=""  autocomplete="off" autofocus>
 
                                                 @error('det_tipo_transporte_ra_[]')
                                                     <span class="invalid-feedback" role="alert">
@@ -1133,6 +1412,48 @@
 
                                 </div>
                                 <!-- preguntas -->
+
+                                <!-- viaticos -->
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label for="vlr_apoyo_docentes_ra" class="col-form-label text-md-left" title="Apoyo económico para los docentes">{{ __('Valor Apoyo Docentes') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="vlr_apoyo_docentes_ra" type="text"  class="form-control @error('vlr_apoyo_docentes_ra') is-invalid @enderror" name="vlr_apoyo_docentes_ra" 
+                                        value="" autocomplete="off" autofocus readonly>
+                                        
+                                        @error('vlr_apoyo_docentes_ra')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="vlr_apoyo_estudiantes_ra" class="col-form-label text-md-left" title="Apoyo económico para los estudiantes">{{ __('Valor Apoyo Estudiantes') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="vlr_apoyo_estudiantes_ra" type="text"  class="form-control @error('vlr_apoyo_estudiantes_ra') is-invalid @enderror" name="vlr_apoyo_estudiantes_ra" 
+                                        value="" autocomplete="off" autofocus readonly>
+                                        
+                                        @error('vlr_apoyo_estudiantes_ra')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    {{-- <div class="col-md-3">
+                                        <label for="trasnp_menor_ra" class="col-form-label text-md-left" title="Valor total del transporte menor">{{ __('Total Transporte Menor') }}</label>
+                                        <input id="trasnp_menor_ra" type="text"  class="form-control @error('trasnp_menor_ra') is-invalid @enderror" name="trasnp_menor_ra" 
+                                        value="" autocomplete="off" autofocus readonly>
+                                        
+                                        @error('trasnp_menor_ra')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+                                </div>
+                                <!-- viaticos -->
 
                             <!-- ruta alterna -->
 

@@ -31,6 +31,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.3/jquery.tipsy.min.js"></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcxFB5k6kTgK_16HMqi_SlKkzHAHMzysQ&callback=initMap"async defer></script>
+
 
 
 <!-- functions-->
@@ -47,11 +49,18 @@ $(document).ready(function() {
         // maxDate: '+0d',
         // minDate: new Date()
     });
-    $('.datetimepicker').datepicker(
+    $('.data-create').datepicker(
         'setDate', new Date()
     );
 });
 
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 4.7059636, lng: -73.4810535},
+        zoom: 9
+      });
+    }
 
 function filterUser(value)
 {
@@ -74,6 +83,64 @@ function filterUser(value)
 $('input:radio[name="id_estado_usuario"]').change(
     function(){
         filterUser(this.value);
+       
+});
+
+function filtrar_proyecciones(value)
+{
+    switch(value)
+    {
+        case '1':
+            href = "{!! route('proyeccion_filter','all'); !!}";
+            // $('#nefy').val(value);
+            break;
+        case '2':
+            href = "{!! route('proyeccion_filter','send'); !!}";
+            // $('#nefy').val(value);
+            break;
+        case '3':
+            href = "{!! route('proyeccion_filter','not_send'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '4':
+            href = "{!! route('proyeccion_filter','ext_mu'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '5':
+            href = "{!! route('proyeccion_filter','sin_pres'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '6':
+            href = "{!! route('proyeccion_filter','elect'); !!}";
+            // $('#nefy').val(value);
+            break;
+        
+        case '7':
+            href = "{!! route('proyeccion_filter','pend'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '8':
+            href = "{!! route('proyeccion_filter','not_aprob'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '9':
+            href = "{!! route('proyeccion_filter','aprob'); !!}";
+            // $('#nefy').val(value);
+            break;
+        default:
+        
+    }
+    window.location.href = href;
+}
+
+$('input:radio[name="id_filtro_proyeccion"]').change(
+    function(){
+        filtrar_proyecciones(this.value);
        
 });
 
