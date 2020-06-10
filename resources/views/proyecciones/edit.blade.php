@@ -9,8 +9,10 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ __('Registro Proyección Preliminar N° ') }}<?php echo $proyeccion_preliminar->id?></div>
-    
+                    <div class="card-header">{{ __('Registro Proyección Preliminar N° ') }}<?php echo $proyeccion_preliminar->id?><?php echo "\t -"?>
+                        {{ __('') }}<?php echo $nombre_usuario?></div>
+
+                    
                     <div class="card-body">
                         <form method="POST" action="{{ route('proyeccion_update',$proyeccion_preliminar->id) }}">
                             @method('PUT')

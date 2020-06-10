@@ -7,6 +7,7 @@
     <th style="width: 35px">Cod.</th>
     <th style="width: 90px">Proy. Curricular</th>
     <th style="width: 95px">Esp. Académico</th> 
+    <th style="width: 95px">Docente</th> 
     <th style="width: 105px">Destino Ruta Principal</th>
     <th style="width: 35px">Fecha Salida</th>
     <th style="width: 35px">Fecha Regreso</th>
@@ -24,6 +25,7 @@
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
    <td>{{ $item->espacio_academico }}</td>
+   <td>{{ $item->full_name }}</td>
    <td>{{ $item->destino_rp }}</td>
    <td>{{ $item->fecha_salida_aprox_rp }}</td>
    <td>{{ $item->fecha_regreso_aprox_rp }}</td> 

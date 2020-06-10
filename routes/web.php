@@ -89,7 +89,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('proyecciones/{id}','Proyeccion\ProyeccionController@update')->name('proyeccion_update');
         Route::delete('proyecciones','Proyeccion\ProyeccionController@destroy')->name('proyeccion_destroy');
         Route::put('proyeccsend','Proyeccion\ProyeccionController@sendProy')->name('proyeccion_send');
-        Route::post('proyecc_extramural','Proyeccion\ProyeccionController@validar_extramurales')->name('proyeccion_extramural');
+        Route::post('proyecc_electiva','Proyeccion\ProyeccionController@validar_electivas')->name('proyeccion_electiva');
+        // Route::post('proyecc_extramural','Proyeccion\ProyeccionController@validar_extramurales')->name('proyeccion_extramural');
         // Route::get('proyecciones/activas','Proyeccion\ProyeccionController@verActiva')->name('proyeccion_activa');
         // Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
 

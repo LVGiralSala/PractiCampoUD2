@@ -229,8 +229,8 @@
 
     <!-- 6 -->
     <div class="form-group row">
-        <div class="col-md-4">
-            <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
+        <div class="col-md-3">
+            <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
             value="{{$proyeccion_preliminar->lugar_salida_rp}}" required autocomplete="off" autofocus readonly>
@@ -254,8 +254,8 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
+        <div class="col-md-3">
+            <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
             value="{{$proyeccion_preliminar->lugar_regreso_rp}}" required autocomplete="off" autofocus readonly>
@@ -277,6 +277,19 @@
               <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
               value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}" readonly disabled>
             </div>
+        </div>
+
+        <div class="col-md-2">
+            <label for="duracion_rp" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="duracion_rp" type="text" class="form-control @error('duracion_rp') is-invalid @enderror" name="duracion_rp" 
+            value="{{$proyeccion_preliminar->duracion_num_dias_rp}}" autocomplete="off" autofocus  readonly>
+            
+            @error('duracion_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
     </div>
@@ -302,13 +315,26 @@
                     @enderror
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="otro_transporte_rp_1" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
                     <span class="hs-form-required">*</span>
                     <input id="otro_transporte_rp_1" type="text" class="form-control @error('otro_transporte_rp_1') is-invalid @enderror" name="otro_transporte_rp_1" 
-                    value=""  autocomplete="off" autofocus required readonly>
+                    value="{{$proyeccion_preliminar->otro_tipo_transporte_rp_1}}"  autocomplete="off" autofocus required readonly>
         
                     @error('otro_transporte_rp_1')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="col-md-2">
+                    <label for="vlr_otro_transporte_rp_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
+                    <span class="hs-form-required">*</span>
+                    <input id="vlr_otro_transporte_rp_1" type="text" class="form-control @error('vlr_otro_transporte_rp_1') is-invalid @enderror" name="vlr_otro_transporte_rp_1" 
+                    value="{{$proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1}}"  autocomplete="off" autofocus required readonly onkeyup="formatVlr(this)" onchange="formatVlr(this)">
+
+                    @error('vlr_otro_transporte_rp_1')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -328,7 +354,7 @@
                     @enderror
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <label for="det_tipo_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
                     <span class="hs-form-required">*</span>
                     <input id="det_tipo_transporte_rp_[]" type="text" class="form-control @error('det_tipo_transporte_rp_[]') is-invalid @enderror" name="det_tipo_transporte_rp_[]" 
@@ -437,8 +463,8 @@
 
     <!-- 12 -->
     <div class="form-group row">
-        <div class="col-md-4">
-            <label for="lugar_salida_ra" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
+        <div class="col-md-3">
+            <label for="lugar_salida_ra" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_salida_ra" type="text" class="form-control @error('lugar_salida_ra') is-invalid @enderror" name="lugar_salida_ra" 
             value="{{$proyeccion_preliminar->lugar_salida_ra}}" required autocomplete="off" autofocus readonly>
@@ -462,8 +488,8 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <label for="lugar_regreso_ra" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
+        <div class="col-md-3">
+            <label for="lugar_regreso_ra" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_regreso_ra" type="text" class="form-control @error('lugar_regreso_ra') is-invalid @enderror" name="lugar_regreso_ra" 
             value="{{$proyeccion_preliminar->lugar_regreso_ra}}" required autocomplete="off" autofocus readonly>
@@ -487,6 +513,19 @@
             </div>
         </div>
 
+        <div class="col-md-2">
+            <label for="duracion_ra" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="duracion_ra" type="text" class="form-control @error('duracion_ra') is-invalid @enderror" name="duracion_ra" 
+            value="{{$proyeccion_preliminar->duracion_num_dias_ra}}" autocomplete="off" autofocus  readonly>
+            
+            @error('duracion_ra')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
     </div>
     <!-- 12 -->
 
@@ -508,13 +547,26 @@
             @enderror
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="otro_transporte_ra_1" class="col-form-label text-md-left">{{ __('Cuál?') }}</label>
             <span class="hs-form-required">*</span>
             <input id="otro_transporte_ra_1" type="text" class="form-control @error('otro_transporte_ra_1') is-invalid @enderror" name="otro_transporte_ra_1" 
-            value=""  autocomplete="off" autofocus required readonly>
+            value="{{$proyeccion_preliminar->otro_tipo_transporte_ra_1}}"  autocomplete="off" autofocus required readonly>
 
             @error('otro_transporte_ra_1')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-2">
+            <label for="vlr_otro_transporte_ra_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
+            <span class="hs-form-required">*</span>
+            <input id="vlr_otro_transporte_ra_1" type="text" class="form-control @error('vlr_otro_transporte_ra_1') is-invalid @enderror" name="vlr_otro_transporte_ra_1" 
+            value="{{$proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1}}"  autocomplete="off" autofocus required readonly onkeyup="formatVlr(this)" onchange="formatVlr(this)">
+
+            @error('vlr_otro_transporte_ra_1')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -534,7 +586,7 @@
             @enderror
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-4">
             <label for="det_tipo_transporte_ra_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
             <span class="hs-form-required">*</span>
             <input id="det_tipo_transporte_ra_[]" type="text" class="form-control @error('det_tipo_transporte_ra_[]') is-invalid @enderror" name="det_tipo_transporte_ra_[]" 
@@ -591,7 +643,7 @@
             <label for="vlr_est_transp_rp" class="col-form-label text-md-left">{{ __('Valor Estimado Transporte RP') }}</label>
             <span class="hs-form-required">*</span>
             <input id="vlr_est_transp_rp" type="text" class="form-control @error('vlr_est_transp_rp') is-invalid @enderror" name="vlr_est_transp_rp" 
-            value="{{ $proyeccion_preliminar->valor_estimado_transporte_rp}}" required autocomplete="off" autofocus>
+            value="{{ $proyeccion_preliminar->valor_estimado_transporte_rp}}" required autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)">
 
             @error('vlr_est_transp_rp')
                 <span class="invalid-feedback" role="alert">
@@ -604,7 +656,7 @@
             <label for="vlr_est_transp_ra" class="col-form-label text-md-left">{{ __('Valor Estimado Transporte RA') }}</label>
             <span class="hs-form-required">*</span>
             <input id="vlr_est_transp_ra" type="text" class="form-control @error('vlr_est_transp_ra') is-invalid @enderror" name="vlr_est_transp_ra" 
-            value="{{ $proyeccion_preliminar->valor_estimado_transporte_ra}}" required autocomplete="off" autofocus>
+            value="{{ $proyeccion_preliminar->valor_estimado_transporte_ra}}" required autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)">
 
             @error('vlr_estvlr_est_transp_ra_transp')
                 <span class="invalid-feedback" role="alert">

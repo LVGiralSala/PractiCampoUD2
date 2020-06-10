@@ -18,34 +18,6 @@
 
       <!-- 0 -->
       {{-- <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-              <div class="form-group">
-                  <label for="id_estado_cliente">Estado</label>
-                  <div class="row">
-                      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="id_estado_cliente"  value="3" checked="checked" onclick="filterProyeccion(this.value)">
-                          <label class="form-check-label" for="">Todos</label>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="id_estado_cliente"  value="1" onclick="filterProyeccion(this.value)">
-                          <label class="form-check-label" for="">Activos</label>
-                        </div>
-                      </div>
-    
-                      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="id_estado_cliente"  value="2" onclick="filterProyeccion(this.value)">
-                            <label class="form-check-label" for="">Inactivos</label>
-                        </div>
-                      </div>
-
-                  </div>
-              </div>
-            </div>
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             </div>
@@ -75,7 +47,7 @@
         <div class="form-group">
           <label for=""></label>
           <div class="row">
-            <a href="{{route('export_list_proyecc.excel')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     XSL</button></a>
+            <a href="{{route('export_list_proyecc.excel')}}"><button class="btn btn-success" title="Exportar Archivo Excel"><i class="fas fa-download"></i>     XSL</button></a>
           </div>
         </div>
       </div> 
@@ -88,7 +60,7 @@
           {{-- <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">    --}}
             <div class="form-group">
               <label for=""></label>
-                  <input type="file"  name="poyecciones_preliminares" >
+                  <input type="file"  name="poyecciones_preliminares" style="color: rgb(243, 3, 3)">
             </div>
           {{-- </div>  --}}
           
@@ -96,7 +68,7 @@
             <div class="form-group">
               {{-- <label for=""></label>
               <div class="row"> --}}
-                <button class="btn btn-success" name="import_proyecciones"><i class="fas fa-file-import"></i>     CSV</button></a>
+                <button class="btn btn-success" name="import_proyecciones" title="Importar Archivo Excel"><i class="fas fa-file-import"></i>     CSV</button></a>
               {{-- </div> --}}
             </div>
           </div> 
@@ -164,10 +136,18 @@
                           @endif
 
                           @if(Auth::user()->coordinador() || Auth::user()->decano() || Auth::user()->admin())
-                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                          {{-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'ext_mu')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="4">
                                 <label class="form-check-label" for="">Extramurales</label>
+                            </div>
+                          </div> --}}
+
+                          @if(Auth::user()->coordinador())
+                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'pend')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="7">
+                                <label class="form-check-label" for="">Pendientes</label>
                             </div>
                           </div>
 
@@ -178,12 +158,16 @@
                             </div>
                           </div> --}}
 
+                          @endif
+
+                          @if(Auth::user()->decano() || Auth::user()->admin())
                           <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'aprob')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="9">
                                 <label class="form-check-label" for="">Aprob.</label>
                             </div>
                           </div>
+                          @endif
                           @endif
 
                           @if(Auth::user()->asistenteD() || Auth::user()->admin())

@@ -116,7 +116,7 @@
                                         <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <input id="cant_grupos" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
-                                        value="" autocomplete="off" autofocus required>
+                                        value="1" autocomplete="off" autofocus required>
                                         
                                         @error('cant_grupos')
                                         <span class="invalid-feedback" role="alert">
@@ -430,7 +430,7 @@
                             <!-- información proyección -->
 
                             <br>
-                            <h4>Ruta Principal</h4>
+                            <h4>Ruta Principal (Destino para cumplir los objetivos de la práctica)</h4>
                             <hr class="divider">
                             <br>
 
@@ -487,7 +487,7 @@
                                 <!-- 6 -->
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
+                                        <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
                                         <span class="hs-form-required" title="URL Google">*</span>
                                         <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
                                         value="" required autocomplete="off" autofocus>
@@ -512,7 +512,7 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
+                                        <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
                                         <span class="hs-form-required" title="URL Google">*</span>
                                         <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
                                         value="" required autocomplete="off" autofocus>
@@ -607,7 +607,7 @@
                                                 <label for="vlr_otro_transporte_rp_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="vlr_otro_transporte_rp_1" type="text" class="form-control @error('vlr_otro_transporte_rp_1') is-invalid @enderror" name="vlr_otro_transporte_rp_1" 
-                                                value=""  autocomplete="off" autofocus required>
+                                                value=""  autocomplete="off" autofocus required  onkeyup="formatVlr(this)" onchange="formatVlr(this)">
 
                                                 @error('vlr_otro_transporte_rp_1')
                                                     <span class="invalid-feedback" role="alert">
@@ -829,6 +829,36 @@
                                 </div> --}}
                                 <!-- 8 transporte_rp_3 -->
 
+                                <!-- materiales -->
+                                <div class="form-group row">
+                                    <div class="col-md-8">
+                                        <label for="det_materiales_rp" class="col-form-label text-md-left" title="Materiales">{{ __('Materiales') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="det_materiales_rp" type="text"  class="form-control @error('det_materiales_rp') is-invalid @enderror" name="det_materiales_rp" 
+                                        value="" autocomplete="off" autofocus>
+                                        
+                                        @error('det_materiales_rp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="vlr_materiales_rp" class="col-form-label text-md-left" title="Valor Total Materiales">{{ __('Valor Total Materiales') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="vlr_materiales_rp" type="text"  class="form-control @error('vlr_materiales_rp') is-invalid @enderror" name="vlr_materiales_rp" 
+                                        value="" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)">
+                                        
+                                        @error('vlr_materiales_rp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- materiales -->
+
                                 <!-- preguntas -->
                                 <div class="form-group row">
                                     <!-- 1 -->
@@ -841,7 +871,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="areas_acuaticas_rp">
+                                                <input type="checkbox" name="areas_acuaticas_rp" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -858,7 +888,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="alturas_rp">
+                                                <input type="checkbox" name="alturas_rp" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -875,7 +905,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="riesgo_biologico_rp">
+                                                <input type="checkbox" name="riesgo_biologico_rp" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -892,7 +922,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="espacios_confinados_rp">
+                                                <input type="checkbox" name="espacios_confinados_rp" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -947,7 +977,7 @@
                             <!-- ruta principal -->
 
                             <br>
-                            <h4>Ruta Alterna</h4>
+                            <h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
                             <hr class="divider">
                             <br>
 
@@ -1004,7 +1034,7 @@
                                 <!-- 12 -->
                                 <div class="form-group row">
                                     <div class="col-md-3">
-                                        <label for="lugar_salida_ra" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
+                                        <label for="lugar_salida_ra" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <input id="lugar_salida_ra" type="text" class="form-control @error('lugar_salida_ra') is-invalid @enderror" name="lugar_salida_ra" 
                                         value="" required autocomplete="off" autofocus>
@@ -1029,7 +1059,7 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label for="lugar_regreso_ra" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
+                                        <label for="lugar_regreso_ra" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
                                         <span class="hs-form-required">*</span>
                                         <input id="lugar_regreso_ra" type="text" class="form-control @error('lugar_regreso_ra') is-invalid @enderror" name="lugar_regreso_ra" 
                                         value="" required autocomplete="off" autofocus>
@@ -1124,7 +1154,7 @@
                                                 <label for="vlr_otro_transporte_ra_1" class="col-form-label text-md-left">{{ __('Valor Transp.?') }}</label>
                                                 <span class="hs-form-required">*</span>
                                                 <input id="vlr_otro_transporte_ra_1" type="text" class="form-control @error('vlr_otro_transporte_ra_1') is-invalid @enderror" name="vlr_otro_transporte_ra_1" 
-                                                value=""  autocomplete="off" autofocus required>
+                                                value=""  autocomplete="off" autofocus required onkeyup="formatVlr(this)" onchange="formatVlr(this)">
 
                                                 @error('vlr_otro_transporte_ra_1')
                                                     <span class="invalid-feedback" role="alert">
@@ -1340,6 +1370,36 @@
                                 </div> --}}
                                 <!-- 14 transporte_ra_3 -->
 
+                                <!-- materiales -->
+                                <div class="form-group row">
+                                    <div class="col-md-8">
+                                        <label for="det_materiales_ra" class="col-form-label text-md-left" title="Materiales">{{ __('Materiales') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="det_materiales_ra" type="text"  class="form-control @error('det_materiales_ra') is-invalid @enderror" name="det_materiales_ra" 
+                                        value="" autocomplete="off" autofocus>
+                                        
+                                        @error('det_materiales_ra')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="vlr_materiales_ra" class="col-form-label text-md-left" title="Valor Total Materiales">{{ __('Valor Total Materiales') }}</label>
+                                        {{-- <span class="hs-form-required">*</span> --}}
+                                        <input id="vlr_materiales_ra" type="text"  class="form-control @error('vlr_materiales_ra') is-invalid @enderror" name="vlr_materiales_ra" 
+                                        value="" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)">
+                                        
+                                        @error('vlr_materiales_ra')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- materiales -->
+
                                 <!-- preguntas -->
                                 <div class="form-group row">
                                     <!-- 1 -->
@@ -1352,7 +1412,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="areas_acuaticas_ra">
+                                                <input type="checkbox" name="areas_acuaticas_ra" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -1369,7 +1429,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="alturas_ra">
+                                                <input type="checkbox" name="alturas_ra" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -1386,7 +1446,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="riesgo_biologico_ra">
+                                                <input type="checkbox" name="riesgo_biologico_ra" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -1403,7 +1463,7 @@
                                     <div class="col-md-1">
                                         <div class="form-group" style="margin-right: 15px;">
                                             <label class="switch">
-                                                <input type="checkbox" name="espacios_confinados_ra">
+                                                <input type="checkbox" name="espacios_confinados_ra" onchange="customAlerts(this, 1)">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -1412,6 +1472,32 @@
 
                                 </div>
                                 <!-- preguntas -->
+
+                                <!-- modal -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+                                    
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+                                        <h4 class="modal-title">Ventana Confirmación</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                        <p id="textModal"></p>
+                                        <p id="textModalConfirm"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="modal-btn-si">Si</button>
+                                            <button type="button" class="btn btn-secondary" id="modal-btn-no">No</button>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+
+                                <!-- modal -->
 
                                 <!-- viaticos -->
                                 <div class="form-group row">

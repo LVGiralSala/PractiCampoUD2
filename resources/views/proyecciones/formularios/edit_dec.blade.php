@@ -232,7 +232,7 @@
     <!-- 6 -->
     <div class="form-group row">
         <div class="col-md-4">
-            <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
+            <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
             value="{{$proyeccion_preliminar->lugar_salida_rp}}" required autocomplete="off" autofocus readonly>
@@ -257,7 +257,7 @@
         </div>
 
         <div class="col-md-4">
-            <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
+            <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
             value="{{$proyeccion_preliminar->lugar_regreso_rp}}" required autocomplete="off" autofocus readonly>
@@ -440,7 +440,7 @@
     <!-- 12 -->
     <div class="form-group row">
         <div class="col-md-4">
-            <label for="lugar_salida_ra" class="col-form-label text-md-left">{{ __('Lugar Salida') }}</label>
+            <label for="lugar_salida_ra" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_salida_ra" type="text" class="form-control @error('lugar_salida_ra') is-invalid @enderror" name="lugar_salida_ra" 
             value="{{$proyeccion_preliminar->lugar_salida_ra}}" required autocomplete="off" autofocus readonly>
@@ -465,7 +465,7 @@
         </div>
 
         <div class="col-md-4">
-            <label for="lugar_regreso_ra" class="col-form-label text-md-left">{{ __('Lugar Regreso') }}</label>
+            <label for="lugar_regreso_ra" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_regreso_ra" type="text" class="form-control @error('lugar_regreso_ra') is-invalid @enderror" name="lugar_regreso_ra" 
             value="{{$proyeccion_preliminar->lugar_regreso_ra}}" required autocomplete="off" autofocus readonly>

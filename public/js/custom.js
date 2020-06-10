@@ -652,7 +652,8 @@ $("#cant_grupos_edit").keypress(function (e) {
 
 
 /*Cantidad Grupos Proyección create*/
-$("#Grupos").hide();
+$("#Grupos").show();
+$("#gp_1").show();
 $("#gp_2").hide();
 $("#gp_3").hide();
 $("#gp_4").hide();
@@ -660,15 +661,15 @@ $("#gp_4").hide();
 $("#cant_grupos").change('keypress', function () {
     val = $("#cant_grupos").val();
     
-    if(val==1)
-    {
-        $("#Grupos").show();
-        $("#gp_1").show();
-        $("#gp_2").hide();
-        $("#gp_3").hide();
-        $("#gp_4").hide();
-    }
-    else if(val==2)
+    // if(val==1)
+    // {
+    //     $("#Grupos").show();
+    //     $("#gp_1").show();
+    //     $("#gp_2").hide();
+    //     $("#gp_3").hide();
+    //     $("#gp_4").hide();
+    // }
+    if(val==2)
     {
         $("#gp_2").show();
         $("#gp_3").hide();
@@ -1048,15 +1049,19 @@ function calc_viaticos_RP()
 
         viaticos_apoyo_doc_rp = (dif_dias-0.5)*(135400*total_docentes);
         viaticos_apoyo_estud_rp = num_estud*52600*dif_dias;
-        $("#vlr_apoyo_docentes_rp").val(viaticos_apoyo_doc_rp);
-        $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp);
+
+        viaticos_apoyo_doc_rp_format = (new Intl.NumberFormat().format(viaticos_apoyo_doc_rp));
+        viaticos_apoyo_estud_rp_format = (new Intl.NumberFormat().format(viaticos_apoyo_estud_rp));
+        $("#vlr_apoyo_docentes_rp").val(viaticos_apoyo_doc_rp_format);
+        $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp_format);
     }
     else
     {
         viaticos_apoyo_doc_rp = 0;
         viaticos_apoyo_estud_rp = num_estud*35100*dif_dias;
+        viaticos_apoyo_estud_rp_format = (new Intl.NumberFormat().format(viaticos_apoyo_estud_rp));
         $("#vlr_apoyo_docentes_rp").val(viaticos_apoyo_doc_rp);
-        $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp);
+        $("#vlr_apoyo_estudiantes_rp").val(viaticos_apoyo_estud_rp_format);
 
     }
 
@@ -1068,16 +1073,19 @@ function calc_viaticos_RP()
 
         viaticos_apoyo_doc_ra = (dif_dias_ra-0.5)*(135400*total_docentes);
         viaticos_apoyo_estud_ra = num_estud*52600*dif_dias_ra;
-        $("#vlr_apoyo_docentes_ra").val(viaticos_apoyo_doc_ra);
-        $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra);
+        viaticos_apoyo_doc_ra_format = (new Intl.NumberFormat().format(viaticos_apoyo_doc_ra));
+        viaticos_apoyo_estud_ra_format = (new Intl.NumberFormat().format(viaticos_apoyo_estud_ra));
+        $("#vlr_apoyo_docentes_ra").val(viaticos_apoyo_doc_ra_format);
+        $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra_format);
     }
     else
     {
 
         viaticos_apoyo_doc_ra = 0;
         viaticos_apoyo_estud_ra = num_estud*35100*dif_dias_ra;
+        viaticos_apoyo_estud_ra_format = (new Intl.NumberFormat().format(viaticos_apoyo_estud_ra));
         $("#vlr_apoyo_docentes_ra").val(viaticos_apoyo_doc_ra);
-        $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra);
+        $("#vlr_apoyo_estudiantes_ra").val(viaticos_apoyo_estud_ra_format);
     }
     
 }
@@ -1169,16 +1177,16 @@ function duracion_edit_RP(dateText)
 
 /* validar proyeccion extramural*/
 
-function validar_proy_extramural()
+function validar_proy_electiva()
 {
-    // confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica extramural registrada, ¿Desea continuar de igual manera?");
+    // confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica electiva registrada, ¿Desea continuar de igual manera?");
     var check_confirm = [];
     $('input[type=checkbox]:checked').each(function()
     {
         check_confirm.push(this.value);
     });
 
-    url = '/proyecc_extramural';
+    url = '/proyecc_electiva';
 
     $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -1194,14 +1202,14 @@ function validar_proy_extramural()
 
             if(respu.length >= 1)
             {
-               var r = confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica extramural registrada, ¿Desea continuar de igual manera?");
+               var r = confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica electiva registrada, ¿Desea continuar de igual manera?");
                if(r == true)
                {
                  confirm_proy();
                }
                else
                {
-                    alert("Las proyecciones que cuentan con espacios académicos que resgistran práctica estramural son: "+respu);
+                    alert("Las proyecciones que cuentan con espacios académicos que resgistran práctica electiva son: "+respu);
                }
             }
             else if(respu.length == 0)
@@ -1255,5 +1263,39 @@ function confirm_proy()
         });
 }
 
+/* dar formato keyup*/
+function formatVlr(input)
+{
+    var num = input.value.replace(/\./g,'');
+    if(!isNaN(num)){
+    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+    num = num.split('').reverse().join('').replace(/^[\.]/,'');
+    input.value = num;
+    }
+     
+    else{ alert('Solo se permiten números');
+    input.value = input.value.replace(/[^\d\.]*/g,'');
+    }
+}
 
+/* Aviso toggle switch*/
+function customAlerts(input, type)
+{
+    if($(input).is(':checked'))
+    {
+        $("#textModal").text("Cuenta con un plan de contingencia basado en la mátriz de riesgos?");
+        $("#textModal").css("text-align","justify");
+        $("#myModal").modal({backdrop: 'static', show: true, keyboard: false});
+        // $('#myModal').modal({backdrop: 'static', keyboard: false});
+        $("#modal-btn-no").on("click", function(){
+            $("#myModal").modal("hide");
+            $(input).prop('checked', false);
+        });
 
+        $("#modal-btn-si").on("click", function(){
+            $("#myModal").modal("hide");
+            // $(input).prop('checked', false);
+        });
+ 
+    }
+}
