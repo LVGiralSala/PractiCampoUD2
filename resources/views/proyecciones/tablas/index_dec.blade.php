@@ -24,7 +24,7 @@
     @if($item->id_estado_doc == 2)
     <td>Usuario Inactivo</td>
     @endif
-    @if($item->id_estado == 1)
+    @if($item->id_estado_doc == 1)
    <td>{{ $item->full_name }}</td>
     @endif
    <td>{{ $item->destino_rp }}</td>
@@ -34,7 +34,7 @@
    <td>{{ number_format($item->total_presupuesto_rp, 0, ',','.') }}</td> 
    {{-- <td>{{ $item->ab_coor }}</td>  --}}
    <td>{{ $item->es_consj }}</td>
-   @if($filter == 'pend' || ($filter == 'aprob-cons' && $item->id_estado == 2))
+   @if($filter == 'pend' || ($filter == 'aprob-cons' && $item->id_estado_doc == 2))
    <td> 
        <a href="{{route('proyeccion_edit',$item->id)}}">
        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>

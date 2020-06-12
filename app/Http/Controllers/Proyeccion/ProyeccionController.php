@@ -493,6 +493,17 @@ class ProyeccionController extends Controller
                         // ->orWhere('aprobacion_coordinador','=',3)
                         // ->orWhere('aprobacion_decano','=',5)
                         ->paginate(10);
+
+                        // foreach ($proyeccion as $proy)
+                        // {
+                        //     $usuario=DB::table('users')
+                        //     ->where('id','=',$proy->id_docente_responsable)->first();
+
+                        //     if(!isEmpty($usuario) || $usuario!=null )
+                        //     {
+
+                        //     }
+                        // }
                     break;
 
                     default;
@@ -1248,7 +1259,8 @@ class ProyeccionController extends Controller
 
                 $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
                 $nomb_usuario = $usuario_log->primer_nombre.' '.$usuario_log->segundo_nombre.' '.$usuario_log->primer_apellido.' '.$usuario_log->segundo_apellido;
-        
+                $nomb_doc_respon = $usuario_respon->primer_nombre.' '.$usuario_respon->segundo_nombre.' '.$usuario_respon->primer_apellido.' '.$usuario_respon->segundo_apellido;
+
                 return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
                                                 "programas_academicos"=>$programa_academico,
                                                 "espacios_academicos"=>$espacio_academico,
@@ -1258,6 +1270,7 @@ class ProyeccionController extends Controller
                                                 "programas_usuario"=>$newArray_prog,
                                                 "usuario_log"=>$usuario_log,
                                                 "nombre_usuario"=>$nomb_usuario,
+                                                "nombre_doc_resp"=>$nomb_doc_respon,
                                                 "estado_doc_respon"=>$estado_doc_respon,
         
                 ]);

@@ -29,7 +29,12 @@
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
    <td>{{ $item->espacio_academico }}</td>
+   @if($item->id_estado_doc == 1)
    <td>{{ $item->full_name }}</td>
+   @endif
+   @if($item->id_estado_doc == 2)
+   <td>Usuario Inactivo</td>
+   @endif
    <td>{{ $item->destino_rp }}</td>
    <td>{{ $item->fecha_salida_aprox_rp }}</td>
    <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
