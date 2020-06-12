@@ -1334,7 +1334,8 @@ class ProyeccionController extends Controller
             if($proyeccion_preliminar->aprobacion_consejo_facultad == 3)
             {
                 $proyeccion_preliminar->id_docente_responsable= $request->get('docentes_activos');
-                $proyeccion_preliminar->id_estado= $request->get('estado_proyeccion');
+                $id_estado= $request->get('estado_proyeccion');
+                $f = m;
             }
             $proyeccion_preliminar->update();
             return redirect('proyecciones/filtrar/pend');
