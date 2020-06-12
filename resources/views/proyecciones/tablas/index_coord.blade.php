@@ -1,20 +1,20 @@
 <table class="table table-bordered table-condensed table-hover table-sm header_table" cellspacing="0">
     <thead>
         @if($filter == 'not_send')
-        <th style="width: 10px">Sel.</th>
+        <th style="width: 15px">Sel.</th>
         @endif 
         <th style="width: 35px">Cod.</th>
-        <th style="width: 90px">Proy. Curricular</th>
-        <th style="width: 95px">Esp. Académico</th> 
+        <th style="width: 80px">Proy. Curricular</th>
+        <th style="width: 85px">Esp. Académico</th> 
         @if($filter == 'pend')
-        <th style="width: 95px">Docente</th> 
+        <th style="width: 75px">Docente</th> 
         @endif
-        <th style="width: 105px">Destino Ruta Principal</th>
-        <th style="width: 35px">Fecha Salida</th>
-        <th style="width: 35px">Fecha Regreso</th>
+        <th style="width: 75px">Destino Ruta Principal</th>
+        <th style="width: 50px">Fecha Salida</th>
+        <th style="width: 50px">Fecha Regreso</th>
         <th style="width: 25px">Coord.</th>
         @if($filter == 'pend')
-        <th style="width: 37px"></th>
+        <th style="width: 35px"></th>
         @endif
     </thead> 
     @foreach ($proyecciones as $item) 
@@ -26,8 +26,14 @@
     <td>{{ $item->programa_academico }}</td>
     <td>{{ $item->espacio_academico }}</td>
     @if($filter == 'pend')
-    <td>{{ $item->full_name }}</td>
+        @if($item->id_estado_doc == 2)
+        <td>Usuario Inactivo</td>
+        @endif
+        @if($item->id_estado_doc == 1)
+        <td>{{ $item->full_name }}</td>
+        @endif
     @endif
+    
     <td>{{ $item->destino_rp }}</td>
     <td>{{ $item->fecha_salida_aprox_rp }}</td>
     <td>{{ $item->fecha_regreso_aprox_rp }}</td> 

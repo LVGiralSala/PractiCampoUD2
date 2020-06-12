@@ -10,7 +10,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">{{ __('Registro Proyección Preliminar N° ') }}<?php echo $proyeccion_preliminar->id?><?php echo "\t -"?>
-                        {{ __('') }}<?php echo $nombre_usuario?></div>
+                        {{ __('') }}<?php if($estado_doc_respon == 1){ echo $nombre_usuario;} elseif ($estado_doc_respon == 2){ echo "Usuario Inactivo";}?></div>
 
                     
                     <div class="card-body">

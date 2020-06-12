@@ -169,7 +169,7 @@
 <!-- información proyección -->
 
 <br>
-<h4>Ruta Principal</h4>
+<h4>Ruta Principal (Destino para cumplir los objetivos de la práctica)</h4>
 <hr class="divider">
 <br>
 
@@ -400,6 +400,37 @@
     </div>
     <!-- 8 transporte_rp_1 -->
 
+    <!-- materiales -->
+    <div class="form-group row">
+        <div class="col-md-8">
+            <label for="det_materiales_rp" class="col-form-label text-md-left" title="Materiales">{{ __('Materiales') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="det_materiales_rp" type="text"  class="form-control @error('det_materiales_rp') is-invalid @enderror" name="det_materiales_rp" 
+            value="{{$proyeccion_preliminar->det_materiales_rp}}" autocomplete="off" autofocus disabled>
+            
+            @error('det_materiales_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-4">
+            <label for="vlr_materiales_rp" class="col-form-label text-md-left" title="Valor Total Materiales">{{ __('Valor Total Materiales') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="vlr_materiales_rp" type="text"  class="form-control @error('vlr_materiales_rp') is-invalid @enderror" name="vlr_materiales_rp" 
+            value="{{number_format($proyeccion_preliminar->vlr_materiales_rp,'0',',','.')}}" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
+            disabled>
+            
+            @error('vlr_materiales_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- materiales -->
+
     <!-- preguntas -->
     <div class="form-group row">
         <!-- 1 -->
@@ -476,7 +507,7 @@
 <!-- ruta principal -->
 
 <br>
-<h4>Ruta Alterna</h4>
+<h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
 <hr class="divider">
 <br>
 
@@ -687,6 +718,37 @@
         </div>
     </div>
     <!-- 14 transporte_ra_1 -->
+
+    <!-- materiales -->
+    <div class="form-group row">
+        <div class="col-md-8">
+            <label for="det_materiales_ra" class="col-form-label text-md-left" title="Materiales">{{ __('Materiales') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="det_materiales_ra" type="text"  class="form-control @error('det_materiales_ra') is-invalid @enderror" name="det_materiales_ra" 
+            value="{{$proyeccion_preliminar->det_materiales_ra}}" autocomplete="off" autofocus disabled>
+            
+            @error('det_materiales_ra')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-4">
+            <label for="vlr_materiales_ra" class="col-form-label text-md-left" title="Valor Total Materiales">{{ __('Valor Total Materiales') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="vlr_materiales_ra" type="text"  class="form-control @error('vlr_materiales_ra') is-invalid @enderror" name="vlr_materiales_ra" 
+            value="{{number_format($proyeccion_preliminar->vlr_materiales_ra,'0',',','.')}}" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
+            disabled>
+            
+            @error('vlr_materiales_ra')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- materiales -->
 
     <!-- preguntas -->
     <div class="form-group row">

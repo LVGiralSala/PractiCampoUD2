@@ -174,7 +174,7 @@
 <!-- información proyección -->
 
 <br>
-<h4>Ruta Principal</h4>
+<h4>Ruta Principal (Destino para cumplir los objetivos de la práctica)</h4>
 <hr class="divider">
 <br>
 
@@ -544,7 +544,7 @@
 <!-- ruta principal -->
 
 <br>
-<h4>Ruta Alterna</h4>
+<h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
 <hr class="divider">
 <br>
 
@@ -1143,7 +1143,7 @@
 <!-- información proyección -->
 
 <br>
-<h4>Ruta Principal</h4>
+<h4>Ruta Principal (Destino para cumplir los objetivos de la práctica)</h4>
 <hr class="divider">
 <br>
 
@@ -1428,7 +1428,7 @@
 <!-- ruta principal -->
 
 <br>
-<h4>Ruta Alterna</h4>
+<h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
 <hr class="divider">
 <br>
 

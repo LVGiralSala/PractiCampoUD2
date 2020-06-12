@@ -144,29 +144,32 @@ class ProyeccionController extends Controller
 
                     case 'all':
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','es_consj.abrev as es_consj',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor','es_dec.abrev  as ab_dec')
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->paginate(10);
                         
                         return view('proyecciones.index',["proyecciones"=>$proyeccion]);
                     break;
+
+                    default;
                 }
             break;
 
             case 2:
                 switch($filter)
                 {
-                    case 'aprob-cons':
+                    case 'inact':
                         $espacios = DB::table('espacio_academico as esp_aca')
                         ->where('electiva','=',1)->get();
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','p_prel.id_docente_responsable',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','es_dec.abrev  as ab_dec','e_aca.electiva','p_prel.confirm_coord','es_consj.abrev as es_consj','users.id_estado',
+                                'es_dec.abrev  as ab_dec','es_dec.abrev  as ab_dec','e_aca.electiva','p_prel.confirm_coord','es_consj.abrev as es_consj','users.id_estado as id_estado_doc',
                                 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                 'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                 DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
@@ -177,9 +180,32 @@ class ProyeccionController extends Controller
                         ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('users','p_prel.id_docente_responsable','=','users.id')
                         ->where('aprobacion_consejo_facultad','=',3)
+                        ->where('p_prel.id_estado','=',2)
                         ->paginate(10);
 
-                        break;
+                    break;
+
+                    case 'aprob-cons':
+                        $espacios = DB::table('espacio_academico as esp_aca')
+                        ->where('electiva','=',1)->get();
+                        $proyeccion=DB::table('proyeccion_preliminar as p_prel')
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','p_prel.id_docente_responsable',
+                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
+                                'es_dec.abrev  as ab_dec','es_dec.abrev  as ab_dec','e_aca.electiva','p_prel.confirm_coord','es_consj.abrev as es_consj','users.id_estado as id_estado_doc',
+                                'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
+                                'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
+                                DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
+                        ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
+                        ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+                        ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
+                        ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                        ->join('users','p_prel.id_docente_responsable','=','users.id')
+                        ->where('aprobacion_consejo_facultad','=',3)
+                        ->where('p_prel.id_estado','=',1)
+                        ->paginate(10);
+
+                    break;
 
                     case 'no-elect':
                         $espacios = DB::table('espacio_academico as esp_aca')
@@ -195,7 +221,7 @@ class ProyeccionController extends Controller
                                     'e_aca.electiva', 'p_prel.id_espacio_academico', 'p_aca.programa_academico',
                                     'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                     'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
-                                    'users.id_estado')
+                                    'users.id_estado as id_estado_doc')
                                     // DB::raw('CONCAT(users.primer_nombre, " ", users.segundo_nombre, " ", users.primer_apellido, " ", users.segundo_apellido) as full_name'))
                             ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                             ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
@@ -206,6 +232,7 @@ class ProyeccionController extends Controller
                             // ->where('confirm_coord','=',0)
                             // ->where('e_aca.electiva','=',0)
                             // // ->where('id_docente_responsable','=',$idUser)
+                            ->where('p_prel.id_estado','=',1)
                             ->where('p_prel.id_espacio_academico','=',$esp->id)->get();
                             // ->paginate(10);
                             
@@ -217,7 +244,7 @@ class ProyeccionController extends Controller
                         }
                         return view('proyecciones.index',["proyecciones"=>$proyeccion, 'filter'=>$filter]);
 
-                        break;
+                    break;
                     
 
                     case 'elect':
@@ -229,7 +256,7 @@ class ProyeccionController extends Controller
                             $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                             ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                     'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                    'es_dec.abrev  as ab_dec','e_aca.electiva','p_prel.confirm_coord','users.id_estado','es_consj.abrev as es_consj',
+                                    'es_dec.abrev  as ab_dec','e_aca.electiva','p_prel.confirm_coord','users.id_estado as id_estado_doc','es_consj.abrev as es_consj',
                                     'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                     'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                     DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
@@ -245,6 +272,7 @@ class ProyeccionController extends Controller
                             ->where('e_aca.electiva','=',1)
                             // ->where('id_docente_responsable','=',$idUser)
                             ->where('aprobacion_coordinador','=',3)
+                            ->where('p_prel.id_estado','=',1)
                             ->paginate(10);
 
                         //     if(count($proyecciones_extra) >= 1)
@@ -252,11 +280,11 @@ class ProyeccionController extends Controller
                         //         $proyeccion += $proyecciones_extra;
                         //     }
                         // }
-                        break;
+                    break;
 
                     case 'pend':
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado','es_consj.abrev as es_consj',
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado as id_estado_doc','es_consj.abrev as es_consj',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
                                 'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                 'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
@@ -271,14 +299,15 @@ class ProyeccionController extends Controller
                         ->where('p_prel.aprobacion_asistD','=',3)
                         ->where('p_prel.aprobacion_decano','=',5)
                         ->where('p_prel.confirm_asistD','=',1)
+                        ->where('p_prel.id_estado','=',1)
                         // ->orWhere('aprobacion_decano','=',3)
                         // ->orWhere('aprobacion_decano','=',5)
                         ->paginate(10);
-                        break;
+                    break;
 
-                        case 'aprob':
+                    case 'aprob':
                             $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                            ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado','es_consj.abrev as es_consj',
+                            ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado as id_estado_doc','es_consj.abrev as es_consj',
                                     'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
                                     'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                     'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
@@ -293,14 +322,15 @@ class ProyeccionController extends Controller
                             ->where('p_prel.aprobacion_asistD','=',3)
                             ->where('p_prel.aprobacion_decano','=',3)
                             ->where('p_prel.confirm_asistD','=',1)
+                            ->where('p_prel.id_estado','=',1)
                             // ->orWhere('aprobacion_decano','=',3)
                             // ->orWhere('aprobacion_decano','=',5)
                             ->paginate(10);
-                            break;
+                    break;
                     
                     case 'all':
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado',
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado as id_estado_doc',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor','es_dec.abrev  as ab_dec',
                                 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
                                 'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
@@ -315,12 +345,16 @@ class ProyeccionController extends Controller
                         ->where('p_prel.aprobacion_coordinador','=',3)
                         ->where('p_prel.aprobacion_asistD','=',3)
                         ->where('p_prel.confirm_asistD','=',1)
+                        ->where('p_prel.id_estado','=',1)
                         // ->orWhere('aprobacion_decano','=',3)
                         // ->orWhere('aprobacion_decano','=',5)
                         ->paginate(10);
                         
                     break;
+
+                    default;
                 }
+
             break;
 
             case 3:
@@ -328,15 +362,16 @@ class ProyeccionController extends Controller
                 {
                     case 'no-aprob-cons':
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
+                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico','es_consj.abrev as es_consj',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
                                 'es_dec.abrev  as ab_dec','p_prel.confirm_coord', 'p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra'
-                                ,'p_prel.aprobacion_coordinador',
+                                ,'p_prel.aprobacion_coordinador','users.id_estado as id_estado_doc',
                                 DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('users','p_prel.id_docente_responsable','=','users.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('p_prel.aprobacion_coordinador','=',3)
@@ -346,6 +381,7 @@ class ProyeccionController extends Controller
                         ->where('p_prel.aprobacion_decano','=',3)
                         ->where('p_prel.aprobacion_asistD','=',3)
                         ->where('p_prel.aprobacion_consejo_facultad','=',5)
+                        ->where('p_prel.id_estado','=',1)
                         // ->where('p_prel.valor_estimado_transporte_rp','!=',null)
                         // ->where('p_prel.valor_estimado_transporte_ra','!=',null)
                         // ->orWhere('p_prel.valor_estimado_transporte_rp','!=',0)
@@ -357,18 +393,20 @@ class ProyeccionController extends Controller
 
                     case 'send':
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
-                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
+                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado as id_estado_doc',
+                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor','es_consj.abrev as es_consj',
                                 'es_dec.abrev  as ab_dec','p_prel.confirm_coord','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                 DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('users','p_prel.id_docente_responsable','=','users.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('p_prel.aprobacion_coordinador','=',3)
                         ->where('p_prel.confirm_asistD','=',1)
+                        ->where('p_prel.id_estado','=',1)
                         // ->orWhere('aprobacion_coordinador','=',3)
                         // ->orWhere('aprobacion_decano','=',5)
                         ->paginate(10);
@@ -376,21 +414,23 @@ class ProyeccionController extends Controller
 
                     case 'not_send':
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
+                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico','es_consj.abrev as es_consj',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
                                 'es_dec.abrev  as ab_dec','p_prel.confirm_coord', 'p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra'
-                                ,'p_prel.aprobacion_coordinador',
+                                ,'p_prel.aprobacion_coordinador','users.id_estado as id_estado_doc',
                                 DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('users','p_prel.id_docente_responsable','=','users.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('p_prel.aprobacion_coordinador','=',3)
                         ->where('p_prel.aprobacion_asistD','=',3)
                         ->where('p_prel.confirm_coord','=',1)
                         ->where('p_prel.confirm_asistD','=',0)
+                        ->where('p_prel.id_estado','=',1)
                         // ->where('p_prel.valor_estimado_transporte_rp','!=',null)
                         // ->where('p_prel.valor_estimado_transporte_ra','!=',null)
                         // ->orWhere('p_prel.valor_estimado_transporte_rp','!=',0)
@@ -402,20 +442,22 @@ class ProyeccionController extends Controller
 
                     case 'sin_pres':
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
-                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
+                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico','es_consj.abrev as es_consj',
+                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor','users.id_estado as id_estado_doc',
                                 'es_dec.abrev  as ab_dec','p_prel.confirm_coord', 'p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
                                 DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('users','p_prel.id_docente_responsable','=','users.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('p_prel.aprobacion_coordinador','=',3)
                         ->where('p_prel.aprobacion_asistD','=',5)
                         ->where('p_prel.confirm_coord','=',1)
                         ->where('p_prel.confirm_asistD','=',0)
+                        ->where('p_prel.id_estado','=',1)
                         ->where(function($query){
                             $query->where('valor_estimado_transporte_rp','=',0)
                                   ->orWhere('valor_estimado_transporte_rp','=',null)
@@ -436,7 +478,7 @@ class ProyeccionController extends Controller
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_coord',
+                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_coord','users.id_estado as id_estado_doc',
                                 DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
@@ -447,11 +489,13 @@ class ProyeccionController extends Controller
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('p_prel.aprobacion_coordinador','=',3)
                         ->where('p_prel.confirm_coord','=',1)
-                        
+                        ->where('p_prel.id_estado','=',1)
                         // ->orWhere('aprobacion_coordinador','=',3)
                         // ->orWhere('aprobacion_decano','=',5)
                         ->paginate(10);
                     break;
+
+                    default;
                 }
             break;
 
@@ -467,16 +511,19 @@ class ProyeccionController extends Controller
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel','e_aca.confirm_coord')
                         ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','p_prel.confirm_coord')
+                                'es_dec.abrev  as ab_dec','es_consj.abrev as es_consj','users.id_estado as id_estado_doc','p_prel.confirm_coord')
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                        ->join('users','p_prel.id_docente_responsable','=','users.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('aprobacion_coordinador','=',3)
                         ->where('e_aca.id_programa_academico','=',$idProgAca_asociado)
                         ->where('confirm_creador','=',1)
                         ->where('confirm_coord','=',1)
+                        ->where('p_prel.id_estado','=',1)
                         ->where(function($query) use ($idUser, $id_prog_coord){
                             $query->where('id_docente_responsable','=',$idUser)
                             ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
@@ -495,16 +542,19 @@ class ProyeccionController extends Controller
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','e_aca.electiva','p_prel.confirm_coord')
+                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','e_aca.electiva','p_prel.confirm_coord','users.id_estado as id_estado_doc')
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                        ->join('users','p_prel.id_docente_responsable','=','users.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('aprobacion_coordinador','=',3)
                         // ->where('e_aca.id_programa_academico','=',$idProgAca_asociado)
                         ->where('confirm_creador','=',1)
                         ->where('confirm_coord','=',0)
+                        ->where('p_prel.id_estado','=',1)
                         ->where(function($query) use ($idUser, $id_prog_coord){
                             $query->where('id_docente_responsable','=',$idUser)
                             ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
@@ -524,18 +574,21 @@ class ProyeccionController extends Controller
                         // foreach($espacios as $esp)
                         // {
                             $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                            ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
+                            ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','es_consj.abrev  as es_consj',
                                     'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                    'es_dec.abrev  as ab_dec','e_aca.extramural','p_prel.confirm_coord')
+                                    'es_dec.abrev  as ab_dec','e_aca.extramural','p_prel.confirm_coord','users.id_estado as id_estado_doc')
                             ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                             ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                             ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                             ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                            ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                            ->join('users','p_prel.id_docente_responsable','=','users.id')
                             ->where('confirm_creador','=',1)
                             ->where('confirm_coord','=',0)
                             ->where('e_aca.electiva','=',1)
                             // ->where('id_docente_responsable','=',$idUser)
                             ->where('aprobacion_coordinador','=',5)
+                            ->where('p_prel.id_estado','=',1)
                             ->where(function($query) use ($idUser, $id_prog_coord){
                                 $query->where('id_docente_responsable','=',$idUser)
                                 ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
@@ -547,64 +600,69 @@ class ProyeccionController extends Controller
                         //         $proyeccion += $proyecciones_extra;
                         //     }
                         // }
-                        break;
+                    break;
 
-                        case 'pend':
-                            $usuario=DB::table('users')->where('id','=',$idUser)->first();
-                            $id_prog_coord = $usuario->id_programa_academico_coord;
-                            $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                            ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
-                                    'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                    'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
-                                    'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
-                                    DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
-                            ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
-                            ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
-                            ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
-                            ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
-                            ->join('users','p_prel.id_docente_responsable','=','users.id')
-                            ->where('p_prel.aprobacion_coordinador','=',5)
-                            // ->where('p_prel.aprobacion_asistD','=',3)
-                            // ->where('p_prel.aprobacion_decano','=',5)
-                            ->where('confirm_creador','=',1)
-                            ->where('confirm_coord','=',0)
-                            ->where(function($query) use ($idUser, $id_prog_coord){
-                                $query->where('id_docente_responsable','=',$idUser)
-                                ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
-                            })
-                            // ->orWhere('aprobacion_decano','=',3)
-                            // ->orWhere('aprobacion_decano','=',5)
-                            ->paginate(10);
-                            break;
+                    case 'pend':
+                        $usuario=DB::table('users')->where('id','=',$idUser)->first();
+                        $id_prog_coord = $usuario->id_programa_academico_coord;
+                        $proyeccion=DB::table('proyeccion_preliminar as p_prel')
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','es_consj.abrev  as es_consj','users.id_estado as id_estado_doc',
+                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
+                                'es_dec.abrev  as ab_dec', 'p_prel.costo_total_transporte_menor_rp','p_prel.costo_total_transporte_menor_ra', 'p_prel.viaticos_estudiantes_rp', 'p_prel.viaticos_estudiantes_ra', 'p_prel.viaticos_docente_rp', 'p_prel.viaticos_docente_ra', 
+                                'p_prel.total_presupuesto_rp','p_prel.total_presupuesto_ra','p_prel.valor_estimado_transporte_rp','p_prel.valor_estimado_transporte_ra',
+                                DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
+                        ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
+                        ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+                        ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
+                        ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                        ->join('users','p_prel.id_docente_responsable','=','users.id')
+                        ->where('p_prel.aprobacion_coordinador','=',5)
+                        // ->where('p_prel.aprobacion_asistD','=',3)
+                        // ->where('p_prel.aprobacion_decano','=',5)
+                        ->where('confirm_creador','=',1)
+                        ->where('confirm_coord','=',0)
+                        ->where('p_prel.id_estado','=',1)
+                        ->where(function($query) use ($idUser, $id_prog_coord){
+                            $query->where('id_docente_responsable','=',$idUser)
+                            ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
+                        })
+                        // ->orWhere('aprobacion_decano','=',3)
+                        // ->orWhere('aprobacion_decano','=',5)
+                        ->paginate(10);
+                    break;
 
-                        case 'not_aprob':
-                            $usuario=DB::table('users')->where('id','=',$idUser)->first();
-                            $id_prog_coord = $usuario->id_programa_academico_coord;
-                            $idProgAca_asociado = Auth::user()->id_programa_academico_coord;
-                            $espacios=DB::table('espacio_academico as esp_aca')
-                            ->where('id_programa_academico','=',$idProgAca_asociado)->get();
-                            $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                            ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
-                                    'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                    'es_dec.abrev  as ab_dec','e_aca.extramural','p_prel.confirm_coord',
-                                    DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
-                            ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
-                            ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
-                            ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
-                            ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
-                            // ->where('id_docente_responsable','=',$idUser)
-                            ->where('aprobacion_coordinador','=',5)
-                            // ->where('e_aca.id_programa_academico','=',$idProgAca_asociado)
-                            ->where('confirm_creador','=',1)
-                            ->where('confirm_coord','=',0)
-                            ->where(function($query) use ($idUser, $id_prog_coord){
-                                $query->where('id_docente_responsable','=',$idUser)
-                                ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
-                            })
-                            // ->orWhere('aprobacion_coordinador','=',3)
-                            // ->orWhere('aprobacion_decano','=',5)
-                            ->paginate(10);
-                        break;
+                    case 'not_aprob':
+                        $usuario=DB::table('users')->where('id','=',$idUser)->first();
+                        $id_prog_coord = $usuario->id_programa_academico_coord;
+                        $idProgAca_asociado = Auth::user()->id_programa_academico_coord;
+                        $espacios=DB::table('espacio_academico as esp_aca')
+                        ->where('id_programa_academico','=',$idProgAca_asociado)->get();
+                        $proyeccion=DB::table('proyeccion_preliminar as p_prel')
+                        ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado as id_estado_doc',
+                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
+                                'es_dec.abrev  as ab_dec','e_aca.extramural','p_prel.confirm_coord','es_consj.abrev  as es_consj',
+                                DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
+                        ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
+                        ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+                        ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
+                        ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                        ->join('users','p_prel.id_docente_responsable','=','users.id')
+                        // ->where('id_docente_responsable','=',$idUser)
+                        ->where('aprobacion_coordinador','=',5)
+                        // ->where('e_aca.id_programa_academico','=',$idProgAca_asociado)
+                        ->where('confirm_creador','=',1)
+                        ->where('confirm_coord','=',0)
+                        ->where('p_prel.id_estado','=',1)
+                        ->where(function($query) use ($idUser, $id_prog_coord){
+                            $query->where('id_docente_responsable','=',$idUser)
+                            ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
+                        })
+                        // ->orWhere('aprobacion_coordinador','=',3)
+                        // ->orWhere('aprobacion_decano','=',5)
+                        ->paginate(10);
+                    break;
                     
                     case 'all':
                         $idProgAca_asociado = Auth::user()->id_programa_academico_coord;
@@ -615,15 +673,19 @@ class ProyeccionController extends Controller
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','p_prel.confirm_coord')
+                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','users.id_estado as id_estado_doc','p_prel.confirm_coord',
+                                DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                        ->join('users','p_prel.id_docente_responsable','=','users.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         // ->where('aprobacion_coordinador','=',5)
                         // ->where('e_aca.id_programa_academico','=',$idProgAca_asociado)
                         ->where('confirm_creador','=',1)
+                        ->where('p_prel.id_estado','=',1)
                         ->where(function($query) use ($idUser, $id_prog_coord){
                             $query->where('id_docente_responsable','=',$idUser)
                             ->orWhere('p_prel.id_programa_academico','=',$id_prog_coord);
@@ -632,6 +694,8 @@ class ProyeccionController extends Controller
                         // ->orWhere('aprobacion_decano','=',5)
                         ->paginate(10);
                     break;
+
+                    default;
                 }
             break;
 
@@ -642,53 +706,63 @@ class ProyeccionController extends Controller
                         $usuario=DB::table('users')->where('id','=',$idUser)->first();
                         $id_prog_coord = $usuario->id_programa_academico_coord;
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','es_consj.abrev  as es_consj',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
                                 'es_dec.abrev  as ab_dec','p_prel.confirm_creador', 'p_prel.confirm_coord')
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         // ->where('aprobacion_coordinador','=',5)
                         ->where('confirm_creador','=',1)
                         ->where('confirm_coord','=',1)
                         ->where('id_docente_responsable','=',$idUser)
+                        ->where('p_prel.id_estado','=',1)
                         ->paginate(10);
-                        break;
+                    break;
+
                     case 'not_send':
                         $usuario=DB::table('users')->where('id','=',$idUser)->first();
                         $id_prog_coord = $usuario->id_programa_academico_coord;
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','p_prel.confirm_creador')
+                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_creador')
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         // ->where('aprobacion_coordinador','=',5)
                         ->where('confirm_creador','=',1)
                         ->where('confirm_coord','=',0)
                         ->where('id_docente_responsable','=',$idUser)
+                        ->where('p_prel.id_estado','=',1)
                         ->paginate(10);
-                        break;
+                    break;
+
                     case 'all':
                         $usuario=DB::table('users')->where('id','=',$idUser)->first();
                         $id_prog_coord = $usuario->id_programa_academico_coord;
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
                         ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','p_prel.confirm_creador')
+                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_creador')
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->where('id_docente_responsable','=',$idUser)
+                        ->where('p_prel.id_estado','=',1)
                         // ->where('aprobacion_coordinador','=',5)
                         // ->where('confirm_creador','=',0)
                         
                         ->paginate(10);
-                        break;
+                        
+                    break;
+
                     default;
                 }
             break;
@@ -993,6 +1067,8 @@ class ProyeccionController extends Controller
                     ];
                     
                 }
+
+                $estado_doc_respon =$usuario->id_estado;
                 
                 $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
                 $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
@@ -1006,7 +1082,8 @@ class ProyeccionController extends Controller
                                                 "programas_usuario"=>$newArray_prog,
                                                 "all_programas_aca"=>$all_prog_aca,
                                                 "all_espacios_aca"=>$all_esp_aca,
-                                                "nombre_usuario"=>$nomb_usuario
+                                                "nombre_usuario"=>$nomb_usuario,
+                                                "estado_doc_respon"=>$estado_doc_respon,
         
                 ]);
 
@@ -1033,9 +1110,18 @@ class ProyeccionController extends Controller
                 // ->select(
                 // DB::raw('CONCAT(users.primer_nombre, " ", users.segundo_nombre, " ", users.primer_apellido, " ", users.segundo_apellido) as full_name'))
                 // ->join('proyeccion_preliminar as p_prel','users.id','=','p_prel.id_docente_responsable')
-                // ->join('roles','users.id_role','=','roles.id')
+                // ->whereIn($proyeccion_preliminar->id_espacio_academico, ['users.id_espacio_academico_1', 'users.id_espacio_academico_2', 'users.id_espacio_academico_3', 
+                // 'users.id_espacio_academico_4', 'users.id_espacio_academico_5', 'users.id_espacio_academico_6'])
                 ->where('users.id_estado','=',1)
-                ->where('users.id_role','=',5)->get();
+                ->where('users.id_role','=',5)
+                ->where('users.id_espacio_academico_1','=',$proyeccion_preliminar->id_espacio_academico)
+                ->orWhere('users.id_espacio_academico_2','=',$proyeccion_preliminar->id_espacio_academico)
+                ->orWhere('users.id_espacio_academico_3','=',$proyeccion_preliminar->id_espacio_academico)
+                ->orWhere('users.id_espacio_academico_4','=',$proyeccion_preliminar->id_espacio_academico)
+                ->orWhere('users.id_espacio_academico_5','=',$proyeccion_preliminar->id_espacio_academico)
+                ->orWhere('users.id_espacio_academico_6','=',$proyeccion_preliminar->id_espacio_academico)->get();
+
+                $estado_doc_respon =$usuario->id_estado;
         
                 $num_grupos_proy = 0; 
         
@@ -1063,6 +1149,7 @@ class ProyeccionController extends Controller
                                                 "programas_usuario"=>$newArray_prog,
                                                 "nombre_usuario"=>$nomb_usuario,
                                                 "docentes_activos"=>$docentes_activos,
+                                                "estado_doc_respon"=>$estado_doc_respon,
         
                 ]);
             break;
@@ -1101,6 +1188,8 @@ class ProyeccionController extends Controller
                     ];
                     
                 }
+
+                $estado_doc_respon =$usuario->id_estado;
                 
                 $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
                 $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
@@ -1114,104 +1203,114 @@ class ProyeccionController extends Controller
                                                 "programas_usuario"=>$newArray_prog,
                                                 "all_programas_aca"=>$all_prog_aca,
                                                 "all_espacios_aca"=>$all_esp_aca,
-                                                "nombre_usuario"=>$nomb_usuario
+                                                "nombre_usuario"=>$nomb_usuario,
+                                                "estado_doc_respon"=>$estado_doc_respon,
         
                 ]);
             break;
 
             case 4:
-            $proyeccion_preliminar = proyeccion::find($id);
-            $idUser = $proyeccion_preliminar->id_docente_responsable;
-            $idUser_log = Auth::user()->id;
-            $usuario_log=DB::table('users')
-            ->where('id','=',$idUser_log)->first();
-            $usuario_respon=DB::table('users')
-            ->where('id','=',$idUser)->first();
-            $programa_academico = DB::table('programa_academico')->get();
-            $espacio_academico=DB::table('espacio_academico as esp_aca')
-            ->select('esp_aca.id', 'esp_aca.id_programa_academico', 'prog_aca.programa_academico', 'esp_aca.codigo_espacio_academico',
-                     'esp_aca.espacio_academico', 'esp_aca.plan_estudios_1', 'esp_aca.plan_estudios_2', 'esp_aca.tipo_espacio')
-            ->join('programa_academico as prog_aca','esp_aca.id_programa_academico','=','prog_aca.id')
-            ->whereIn('esp_aca.id', [$usuario_respon->id_espacio_academico_1, $usuario_respon->id_espacio_academico_2, $usuario_respon->id_espacio_academico_3, 
-            $usuario_respon->id_espacio_academico_4, $usuario_respon->id_espacio_academico_5, $usuario_respon->id_espacio_academico_6])->get();
-            $periodo_academico=DB::table('periodo_academico')->get();
-            $semestre_asignatura=DB::table('semestre_asignatura')->get();
-            $tipo_transporte=DB::table('tipo_transporte')->get();
-    
-            $num_grupos_proy = 0; 
-    
-            $prog_aca_user = [];
-            $esp_aca_user = [];
-           
-            foreach($espacio_academico as $esp_aca)
-            {
-                $prog_aca_user[] = [
-                    'id'=>$esp_aca->id_programa_academico,
-                    'programa_academico'=>$esp_aca->programa_academico,
-                ];
-                
-            }
+                $proyeccion_preliminar = proyeccion::find($id);
+                $idUser = $proyeccion_preliminar->id_docente_responsable;
+                $idUser_log = Auth::user()->id;
+                $usuario_log=DB::table('users')
+                ->where('id','=',$idUser_log)->first();
+
+                $usuario_respon=DB::table('users')
+                ->where('id','=',$idUser)->first();
+
+                $programa_academico = DB::table('programa_academico')->get();
+                $espacio_academico=DB::table('espacio_academico as esp_aca')
+                ->select('esp_aca.id', 'esp_aca.id_programa_academico', 'prog_aca.programa_academico', 'esp_aca.codigo_espacio_academico',
+                        'esp_aca.espacio_academico', 'esp_aca.plan_estudios_1', 'esp_aca.plan_estudios_2', 'esp_aca.tipo_espacio')
+                ->join('programa_academico as prog_aca','esp_aca.id_programa_academico','=','prog_aca.id')
+                ->whereIn('esp_aca.id', [$usuario_respon->id_espacio_academico_1, $usuario_respon->id_espacio_academico_2, $usuario_respon->id_espacio_academico_3, 
+                $usuario_respon->id_espacio_academico_4, $usuario_respon->id_espacio_academico_5, $usuario_respon->id_espacio_academico_6])->get();
+                $periodo_academico=DB::table('periodo_academico')->get();
+                $semestre_asignatura=DB::table('semestre_asignatura')->get();
+                $tipo_transporte=DB::table('tipo_transporte')->get();
+        
+                $num_grupos_proy = 0; 
+        
+                $prog_aca_user = [];
+                $esp_aca_user = [];
             
-            $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
-            $nomb_usuario = $usuario_log->primer_nombre.' '.$usuario_log->segundo_nombre.' '.$usuario_log->primer_apellido.' '.$usuario_log->segundo_apellido;
-    
-            return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
-                                             "programas_academicos"=>$programa_academico,
-                                             "espacios_academicos"=>$espacio_academico,
-                                             "periodos_academicos"=>$periodo_academico,
-                                             "semestres_asignaturas"=>$semestre_asignatura,
-                                             "tipos_transportes"=>$tipo_transporte,
-                                             "programas_usuario"=>$newArray_prog,
-                                             "usuario_log"=>$usuario_log,
-                                             "nombre_usuario"=>$nomb_usuario
-    
-            ]);
+                foreach($espacio_academico as $esp_aca)
+                {
+                    $prog_aca_user[] = [
+                        'id'=>$esp_aca->id_programa_academico,
+                        'programa_academico'=>$esp_aca->programa_academico,
+                    ];
+                    
+                }
+                
+                $estado_doc_respon =$usuario_respon->id_estado;
+
+                $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
+                $nomb_usuario = $usuario_log->primer_nombre.' '.$usuario_log->segundo_nombre.' '.$usuario_log->primer_apellido.' '.$usuario_log->segundo_apellido;
+        
+                return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
+                                                "programas_academicos"=>$programa_academico,
+                                                "espacios_academicos"=>$espacio_academico,
+                                                "periodos_academicos"=>$periodo_academico,
+                                                "semestres_asignaturas"=>$semestre_asignatura,
+                                                "tipos_transportes"=>$tipo_transporte,
+                                                "programas_usuario"=>$newArray_prog,
+                                                "usuario_log"=>$usuario_log,
+                                                "nombre_usuario"=>$nomb_usuario,
+                                                "estado_doc_respon"=>$estado_doc_respon,
+        
+                ]);
             break;
 
             case 5:
-            $proyeccion_preliminar = proyeccion::find($id);
-            $idUser = $proyeccion_preliminar->id_docente_responsable;
-            // $idUser = Auth::user()->id;
-            $usuario=DB::table('users')
-            ->where('id','=',$idUser)->first();
-            $programa_academico = DB::table('programa_academico')->get();
-            $espacio_academico=DB::table('espacio_academico as esp_aca')
-            ->select('esp_aca.id', 'esp_aca.id_programa_academico', 'prog_aca.programa_academico', 'esp_aca.codigo_espacio_academico',
-                     'esp_aca.espacio_academico', 'esp_aca.plan_estudios_1', 'esp_aca.plan_estudios_2', 'esp_aca.tipo_espacio')
-            ->join('programa_academico as prog_aca','esp_aca.id_programa_academico','=','prog_aca.id')
-            ->whereIn('esp_aca.id', [$usuario->id_espacio_academico_1, $usuario->id_espacio_academico_2, $usuario->id_espacio_academico_3, 
-            $usuario->id_espacio_academico_4, $usuario->id_espacio_academico_5, $usuario->id_espacio_academico_6])->get();
-            $periodo_academico=DB::table('periodo_academico')->get();
-            $semestre_asignatura=DB::table('semestre_asignatura')->get();
-            $tipo_transporte=DB::table('tipo_transporte')->get();
-    
-            $num_grupos_proy = 0; 
-    
-            $prog_aca_user = [];
-            $esp_aca_user = [];
-           
-            foreach($espacio_academico as $esp_aca)
-            {
-                $prog_aca_user[] = [
-                    'id'=>$esp_aca->id_programa_academico,
-                    'programa_academico'=>$esp_aca->programa_academico,
-                ];
-                
-            }
+                $proyeccion_preliminar = proyeccion::find($id);
+                $idUser = $proyeccion_preliminar->id_docente_responsable;
+                // $idUser = Auth::user()->id;
+                $usuario=DB::table('users')
+                ->where('id','=',$idUser)->first();
+
+                $programa_academico = DB::table('programa_academico')->get();
+                $espacio_academico=DB::table('espacio_academico as esp_aca')
+                ->select('esp_aca.id', 'esp_aca.id_programa_academico', 'prog_aca.programa_academico', 'esp_aca.codigo_espacio_academico',
+                        'esp_aca.espacio_academico', 'esp_aca.plan_estudios_1', 'esp_aca.plan_estudios_2', 'esp_aca.tipo_espacio')
+                ->join('programa_academico as prog_aca','esp_aca.id_programa_academico','=','prog_aca.id')
+                ->whereIn('esp_aca.id', [$usuario->id_espacio_academico_1, $usuario->id_espacio_academico_2, $usuario->id_espacio_academico_3, 
+                $usuario->id_espacio_academico_4, $usuario->id_espacio_academico_5, $usuario->id_espacio_academico_6])->get();
+                $periodo_academico=DB::table('periodo_academico')->get();
+                $semestre_asignatura=DB::table('semestre_asignatura')->get();
+                $tipo_transporte=DB::table('tipo_transporte')->get();
+        
+                $num_grupos_proy = 0; 
+        
+                $prog_aca_user = [];
+                $esp_aca_user = [];
             
-            $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
-            $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
-    
-            return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
-                                             "programas_academicos"=>$programa_academico,
-                                             "espacios_academicos"=>$espacio_academico,
-                                             "periodos_academicos"=>$periodo_academico,
-                                             "semestres_asignaturas"=>$semestre_asignatura,
-                                             "tipos_transportes"=>$tipo_transporte,
-                                             "programas_usuario"=>$newArray_prog,
-                                             "nombre_usuario"=>$nomb_usuario
-    
-            ]);
+                foreach($espacio_academico as $esp_aca)
+                {
+                    $prog_aca_user[] = [
+                        'id'=>$esp_aca->id_programa_academico,
+                        'programa_academico'=>$esp_aca->programa_academico,
+                    ];
+                    
+                }
+
+                $estado_doc_respon =$usuario->id_estado;
+                
+                $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
+                $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
+        
+                return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
+                                                "programas_academicos"=>$programa_academico,
+                                                "espacios_academicos"=>$espacio_academico,
+                                                "periodos_academicos"=>$periodo_academico,
+                                                "semestres_asignaturas"=>$semestre_asignatura,
+                                                "tipos_transportes"=>$tipo_transporte,
+                                                "programas_usuario"=>$newArray_prog,
+                                                "nombre_usuario"=>$nomb_usuario,
+                                                "estado_doc_respon"=>$estado_doc_respon,
+        
+                ]);
             break;
         }
     }
@@ -1334,8 +1433,7 @@ class ProyeccionController extends Controller
             if($proyeccion_preliminar->aprobacion_consejo_facultad == 3)
             {
                 $proyeccion_preliminar->id_docente_responsable= $request->get('docentes_activos');
-                $id_estado= $request->get('estado_proyeccion');
-                $f = m;
+                $proyeccion_preliminar->id_estado= $request->get('estado_proyeccion');
             }
             $proyeccion_preliminar->update();
             return redirect('proyecciones/filtrar/pend');

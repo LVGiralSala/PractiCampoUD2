@@ -21,7 +21,7 @@
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
    <td>{{ $item->espacio_academico }}</td>
-    @if($item->id_estado == 2)
+    @if($item->id_estado_doc == 2)
     <td>Usuario Inactivo</td>
     @endif
     @if($item->id_estado == 1)
