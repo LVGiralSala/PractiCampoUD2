@@ -15,6 +15,7 @@ use Illuminate\Auth\Access\Response;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Null_;
 use PractiCampoUD\espacio_academico;
+use PractiCampoUD\image;
 use PractiCampoUD\programa_academico;
 
 use function Complex\add;
@@ -1744,5 +1745,26 @@ class ProyeccionController extends Controller
         }
 
         return response()->json($id_elect);
+    }
+
+    public function importPlanConting(Request $request)
+    {
+        $file = $request->file('plan_contingencia');
+        $img= base64_encode(file_get_contents($request->file('plan_contingencia')->path()));
+        $v = "dsf";
+
+        $image=new image();
+        $image->id = 1;
+        $image->image= $img;
+
+        $image->save();
+
+        $rec_image=DB::table('images')
+        ->where('id','=',1)->first();
+
+        $ccc = $rec_image->image;
+        $show_image = base64_decode($ccc);
+        $img="data:image/png;base64,$ccc";
+        return view('proyecciones.image',["imagen"=>$show_image, "img"=>$img]);
     }
 }

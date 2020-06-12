@@ -80,6 +80,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('solicitudes_pdf','Pdf\PdfController@exportSolicitudPdf')->name('solicitud.pdf');
         Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
 
+        // ------> image Routes <------
+        Route::post('imp-proyecc-plan-conting','Proyeccion\ProyeccionController@importPlanConting')->name('import_plan_conting.img');
+        Route::get('exp-proyecc-plan-conting','Proyeccion\ProyeccionController@exportPlanConting')->name('export_plan_conting.img');
+
         // ------> Proyecciones Routes <------
         // Route::get('proyecciones','Proyeccion\ProyeccionController@index')->name('proyeccion_index');
         Route::get('proyecciones/filtrar/{id}','Proyeccion\ProyeccionController@filterProyeccion')->name('proyeccion_filter');

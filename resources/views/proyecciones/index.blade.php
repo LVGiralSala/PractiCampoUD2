@@ -85,7 +85,7 @@
           {{-- <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">    --}}
             <div class="form-group">
               <label for=""></label>
-                  <input type="file"  name="poyecciones_preliminares" >
+                  <input type="file"  name="poyecciones_preliminares" style="color: rgb(243, 3, 3)">
             </div>
           {{-- </div>  --}}
           
@@ -93,7 +93,7 @@
             <div class="form-group">
               {{-- <label for=""></label>
               <div class="row"> --}}
-                <button class="btn btn-success" name="import_proyecciones"><i class="fas fa-file-import"></i>     CSV</button></a>
+                <button class="btn btn-success" name="import_proyecciones" title="Importar Archivo Excel"><i class="fas fa-file-import"></i>     CSV</button></a>
               {{-- </div> --}}
             </div>
           </div> 

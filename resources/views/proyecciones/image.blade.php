@@ -43,7 +43,7 @@
       </tbody>
     </table>
 
-  {{-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
       <form method="POST" action="{{ route('import_plan_conting.img') }}"  enctype="multipart/form-data">
         @csrf
        
@@ -57,16 +57,12 @@
         </div>
       </div>
 
-    </form>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
-            <div class="form-group">
-              <label for=""></label>
-              <div class="row">
-                <a href="{{route('proyeccion_preliminar.pdf')}}"><button class="btn btn-success" ><i class="fas fa-download"></i>     PDF</button></a>
-              </div>
-          </div>
-        </div>
-  </div> --}}
+      <div>
+        {{-- <input type="img"  name="plan_contingencia" style="color: rgb(243, 3, 3)" <php echo $imagen?>> --}}
+        <img src="{{$img}}" alt="">
+      </div>
+      </form>
+  </div>
     {{-- <div>
         <button class="btn btn-success" name="import_users" href="{{route('enviar_correo') }}">Enviar</button></a>
     </div> --}}
