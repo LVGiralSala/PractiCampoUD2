@@ -27,7 +27,7 @@ class ProyeccionesPreliminaresExport implements FromCollection, WithHeadings, Sh
     {
         $proyecciones=DB::table('proyeccion_preliminar as proy_prel')
         ->select('proy_prel.id', 'prog_aca.programa_academico', 'espa.codigo_espacio_academico','espa.espacio_academico', 'sem_asig.semestre_asignatura', 
-                 'per_aca.periodo_academico', DB::raw('CONCAT(us.primer_nombre, " ", us.segundo_nombre, " ", us.primer_apellido, " ", us.segundo_apellido)'),
+                 'per_aca.periodo_academico', DB::raw('CONCAT_WS(" ", us.primer_nombre, us.segundo_nombre, us.primer_apellido, us.segundo_apellido)'),
                 //  DB::raw('CONCAT(proy_prel.grupo_1, " - ", proy_prel.grupo_2, " - ", proy_prel.grupo_3, " - ",proy_prel.grupo_4)'),
                  'proy_prel.grupo_1', 'proy_prel.grupo_2', 'proy_prel.grupo_3', 'proy_prel.grupo_4', 
                  'proy_prel.destino_rp', 'proy_prel.det_recorrido_interno_rp', 'proy_prel.lugar_salida_rp', 

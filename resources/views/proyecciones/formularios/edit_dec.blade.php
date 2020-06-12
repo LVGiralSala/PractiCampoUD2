@@ -1,3 +1,31 @@
+ @if($proyeccion_preliminar->aprobacion_consejo_facultad == 3)
+ <!-- información docente -->   
+    <!-- 1 -->
+    <div class="form-group row">
+        <div class="col-md-5">
+            <label for="docentes_activos" class="col-form-label text-md-right">{{ __('Docentes Activos') }}</label>
+            <span class="hs-form-required">*</span>
+            <select name="docentes_activos" class="form-control" required>
+                {{-- @foreach($programas_academicos as $pro_aca)
+                    <option <php if($pro_aca->id==$proyeccion_preliminar->id_programa_academico) echo 'selected'?> value="{{$pro_aca->id}}">{{$pro_aca->programa_academico}}</option>  
+                @endforeach --}}
+                @foreach($docentes_activos as $doc_act)
+                    <option value="{{$doc_act->id}}" selected>{{$doc_act->primer_nombre}} {{$doc_act->segundo_nombre}} {{$doc_act->primer_apellido}} {{$doc_act->segundo_apellido}}</option>  
+                    {{-- <option value="{{$prog_aca['id']}}" selected>{{$prog_aca['programa_academico']}}</option>  --}}
+                @endforeach
+            </select>
+            @error('id_programa_academico')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+    </div>
+    <!-- 1 -->
+<!-- información docente -->
+@endif
+
 <!-- información proyección -->
     <!-- 1 -->
     <div class="form-group row">
@@ -714,7 +742,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="aprobacion_decano" value="5"
-                    <?php if($proyeccion_preliminar->aprobacion_decano == 5) echo 'checked'?>>
+                    <?php if($proyeccion_preliminar->aprobacion_decano == 5) echo 'checked'?>
+                    <?php if($proyeccion_preliminar->aprobacion_consejo_facultad == 3) echo 'disabled'?>>
                     <label class="form-check-label" for="">Pendiente</label>
                     </div>
                 </div>
@@ -722,7 +751,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="aprobacion_decano" value="3"
-                    <?php if($proyeccion_preliminar->aprobacion_decano == 3) echo 'checked'?>>
+                    <?php if($proyeccion_preliminar->aprobacion_decano == 3) echo 'checked'?>
+                    <?php if($proyeccion_preliminar->aprobacion_consejo_facultad == 3) echo 'disabled'?>>
                     <label class="form-check-label" for="">Aprobado</label>
                     </div>
                 </div>
@@ -730,7 +760,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="aprobacion_decano"  value="4" 
-                        <?php if($proyeccion_preliminar->aprobacion_decano == 4) echo 'checked'?>>
+                        <?php if($proyeccion_preliminar->aprobacion_decano == 4) echo 'checked'?>
+                        <?php if($proyeccion_preliminar->aprobacion_consejo_facultad == 3) echo 'disabled'?>>
                         <label class="form-check-label" for="">Rechazado</label>
                     </div>
                 </div>

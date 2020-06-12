@@ -61,5 +61,6 @@ class proyeccion extends Model
             'docen_respo_trasnporte_rp_2',
             'docen_respo_trasnporte_rp_3',
             'confirm_docente',
+            'aprobacion_consejo_facultad',
     ];
 }

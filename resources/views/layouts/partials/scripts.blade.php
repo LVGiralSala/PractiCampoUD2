@@ -132,6 +132,22 @@ function filtrar_proyecciones(value)
             href = "{!! route('proyeccion_filter','aprob'); !!}";
             // $('#nefy').val(value);
             break;
+
+        case '10':
+            href = "{!! route('proyeccion_filter','no-elect'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '11':
+            href = "{!! route('proyeccion_filter','aprob-cons'); !!}";
+            // $('#nefy').val(value);
+            break;
+        
+            case '12':
+            href = "{!! route('proyeccion_filter','no-aprob-cons'); !!}";
+            // $('#nefy').val(value);
+            break;
+            
         default:
         
     }

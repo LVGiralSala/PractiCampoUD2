@@ -107,11 +107,11 @@
           {{-- <table class="table table-bordered table-condensed table-hover table-sm" cellspacing="0" style="table-layout: fixed; width:100%; word-break: break-word; font-size: 12px"> --}}
             <!-- filtro -->
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-group">
                       <label for="id_filtro_proyeccion">Filtro</label>
                       <div class="row">
-                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="id_filtro_proyeccion"   @if(!isset($filter)) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="1" checked>
                               <label class="form-check-label" for="">Todos</label>
@@ -161,7 +161,7 @@
                           @endif
 
                           @if(Auth::user()->decano() || Auth::user()->admin())
-                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'aprob')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="9">
                                 <label class="form-check-label" for="">Aprob.</label>
@@ -171,19 +171,33 @@
                           @endif
 
                           @if(Auth::user()->asistenteD() || Auth::user()->admin())
-                          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'sin_pres')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="5">
                                 <label class="form-check-label" for="">Sin Presupuesto</label>
                             </div>
                           </div>
+
+                          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'no-aprob-cons')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="12">
+                                <label class="form-check-label" for="">Sin Aprob. Consejo Facultad</label>
+                            </div>
+                          </div>
                           @endif
 
                           @if(Auth::user()->decano() || Auth::user()->admin())
-                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'elect')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="6">
                                 <label class="form-check-label" for="">Electivas</label>
+                            </div>
+                          </div>
+                          
+                          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'no-elect')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="10">
+                                <label class="form-check-label" for="">Oblig. Sin Proyección</label>
                             </div>
                           </div>
 
@@ -191,6 +205,13 @@
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'pend')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="7">
                                 <label class="form-check-label" for="">Pendientes</label>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="id_filtro_proyeccion"  @if(isset($filter) and ($filter == 'aprob-cons')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="11">
+                                <label class="form-check-label" for="">Aprob. Consejo Facultad</label>
                             </div>
                           </div>
                           @endif

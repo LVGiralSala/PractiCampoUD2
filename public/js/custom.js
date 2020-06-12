@@ -1175,7 +1175,7 @@ function duracion_edit_RP(dateText)
     $('#duracion_edit_rp').val(f);
 }
 
-/* validar proyeccion extramural*/
+/* validar proyeccion electiva*/
 
 function validar_proy_electiva()
 {

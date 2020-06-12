@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('users/filtrar/{id}','Users\UsersController@filterUser')->name('users_filter');
         // Route::get('users/activos','Users\UsersController@verActivo')->name('users_activos');       
         // Route::get('users/inactivos','Users\UsersController@verInactivo')->name('users_inactivos');
-;
+
     });
 
     Route::group(['middleware'=>'otros'], function (){

@@ -643,7 +643,8 @@
             <label for="vlr_est_transp_rp" class="col-form-label text-md-left">{{ __('Valor Estimado Transporte RP') }}</label>
             <span class="hs-form-required">*</span>
             <input id="vlr_est_transp_rp" type="text" class="form-control @error('vlr_est_transp_rp') is-invalid @enderror" name="vlr_est_transp_rp" 
-            value="{{ $proyeccion_preliminar->valor_estimado_transporte_rp}}" required autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)">
+            value="{{ number_format($proyeccion_preliminar->valor_estimado_transporte_rp,0,',','.')}}" required autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
+            <?php if($proyeccion_preliminar->aprobacion_decano == 3) echo "disabled"?>>
 
             @error('vlr_est_transp_rp')
                 <span class="invalid-feedback" role="alert">
@@ -656,7 +657,8 @@
             <label for="vlr_est_transp_ra" class="col-form-label text-md-left">{{ __('Valor Estimado Transporte RA') }}</label>
             <span class="hs-form-required">*</span>
             <input id="vlr_est_transp_ra" type="text" class="form-control @error('vlr_est_transp_ra') is-invalid @enderror" name="vlr_est_transp_ra" 
-            value="{{ $proyeccion_preliminar->valor_estimado_transporte_ra}}" required autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)">
+            value="{{ number_format($proyeccion_preliminar->valor_estimado_transporte_ra,0,',','.')}}" required autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
+            <?php if($proyeccion_preliminar->aprobacion_decano == 3) echo "disabled"?>>
 
             @error('vlr_estvlr_est_transp_ra_transp')
                 <span class="invalid-feedback" role="alert">
@@ -668,18 +670,18 @@
 
 <!-- valor estimado transporte -->
 
-<br>
+{{-- <br>
 <h4>Observaciones</h4>
 <hr class="divider">
-<br>
+<br> --}}
 
 <!-- Coordinador-->
     <!-- 18 -->
-    <div class="form-group row">
+    {{-- <div class="form-group row">
         <div class="col-md-12">
             <label for="observ_coordinador" class="col-form-label text-md-left">{{ __('Observaciones Coordinador') }}</label>
             <textarea id="observ_coordinador" style="min-height:5rem;" type="text" class="form-control @error('observ_coordinador') is-invalid @enderror" name="observ_coordinador" 
-            autocomplete="off" autofocus  readonly><?php echo $proyeccion_preliminar->observ_coordinador?></textarea>
+            autocomplete="off" autofocus  readonly><php echo $proyeccion_preliminar->observ_coordinador?></textarea>
 
             @error('observ_coordinador')
                 <span class="invalid-feedback" role="alert">
@@ -687,13 +689,13 @@
                 </span>
             @enderror
         </div>
-    </div>
+    </div> --}}
     <!-- 18 -->
 
     <!-- 19 -->
     <!-- estado coord-->
     <!-- 0 -->
-    <div class="form-group row">
+    {{-- <div class="form-group row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
             <label for="id_estado">Estado Área de Coordinación</label>
@@ -702,7 +704,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="id_estado" value="1"
-                    <?php if($proyeccion_preliminar->aprobacion_coordinador == 5) echo 'checked'?> disabled>
+                    <php if($proyeccion_preliminar->aprobacion_coordinador == 5) echo 'checked'?> disabled>
                     <label class="form-check-label" for="">Pendiente</label>
                     </div>
                 </div>
@@ -710,7 +712,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="id_estado" value="1"
-                    <?php if($proyeccion_preliminar->aprobacion_coordinador == 3) echo 'checked'?> disabled>
+                    <php if($proyeccion_preliminar->aprobacion_coordinador == 3) echo 'checked'?> disabled>
                     <label class="form-check-label" for="">Aprobado</label>
                     </div>
                 </div>
@@ -718,7 +720,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="id_estado"  value="2" 
-                        <?php if($proyeccion_preliminar->aprobacion_coordinador == 4) echo 'checked'?> disabled>
+                        <php if($proyeccion_preliminar->aprobacion_coordinador == 4) echo 'checked'?> disabled>
                         <label class="form-check-label" for="">Rechazado</label>
                     </div>
                 </div>
@@ -726,7 +728,7 @@
             </div>
         </div>
         </div>
-    </div>
+    </div> --}}
     <!-- 0 -->
     <!-- estado coord-->
     <!-- 19 -->
@@ -796,3 +798,47 @@
     <!-- 21 -->
 
 <!-- Decano -->
+
+<!-- Aprob Consejo Facultad - Tesorería -->
+<!-- estado Consejo Facultad-->
+    <!-- 0 -->
+
+    @if($proyeccion_preliminar->aprobacion_decano == 3)
+    <div class="form-group row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+            <label for="id_estado">Estado Consejo De Facultad</label>
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aprobacion_consejo_facultad" value="5"
+                    <?php if($proyeccion_preliminar->aprobacion_consejo_facultad == 5) echo 'checked'?>>
+                    <label class="form-check-label" for="">Pendiente</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aprobacion_consejo_facultad" value="3"
+                    <?php if($proyeccion_preliminar->aprobacion_consejo_facultad == 3) echo 'checked'?>>
+                    <label class="form-check-label" for="">Aprobado</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="aprobacion_consejo_facultad"  value="4" 
+                        <?php if($proyeccion_preliminar->aprobacion_consejo_facultad == 4) echo 'checked'?>>
+                        <label class="form-check-label" for="">Rechazado</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+    @endif
+    <!-- 0 -->
+    <!-- estado Consejo Facultad-->
+<!-- Aprob Consejo Facultad - Tesorería -->

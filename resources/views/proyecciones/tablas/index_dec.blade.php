@@ -1,18 +1,19 @@
-@if($filter!='ext_mu')
+@if($filter!='no-elect')
 <table class="table table-bordered table-condensed table-hover table-sm header_table" cellspacing="0">
 <thead>
     <th style="width: 35px">Cod.</th>
     <th style="width: 80px">Proy. Curricular</th>
     <th style="width: 85px">Esp. Académico</th> 
-    <th style="width: 95px">Docente</th> 
-    <th style="width: 95px">Destino Ruta Principal</th>
-    <th style="width: 35px">Viat. Est.</th>
-    <th style="width: 35px">Viat. Doc.</th>
-    <th style="width: 35px">Transporte</th>
-    <th style="width: 35px">Total</th>
+    <th style="width: 75px">Docente</th> 
+    <th style="width: 75px">Destino Ruta Principal</th>
+    <th style="width: 45px">Viat. Est.</th>
+    <th style="width: 45px">Viat. Doc.</th>
+    <th style="width: 45px">Transporte</th>
+    <th style="width: 45px">Total</th>
     {{-- <th style="width: 25px">Coord.</th> --}}
-    @if($filter == 'pend')
-    <th style="width: 37px"></th>
+    <th style="width: 25px">Consj.</th>
+    @if($filter == 'pend'|| ($filter == 'aprob-cons'))
+    <th style="width: 35px"></th>
     @endif
 </thead> 
 @foreach ($proyecciones as $item) 
@@ -20,14 +21,20 @@
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
    <td>{{ $item->espacio_academico }}</td>
+    @if($item->id_estado == 2)
+    <td>Usuario Inactivo</td>
+    @endif
+    @if($item->id_estado == 1)
    <td>{{ $item->full_name }}</td>
+    @endif
    <td>{{ $item->destino_rp }}</td>
-   <td>{{ $item->viaticos_estudiantes_rp }}</td>
-   <td>{{ $item->viaticos_docente_rp }}</td> 
-   <td>{{ $item->costo_total_transporte_menor_rp }}</td>
-   <td>{{ $item->total_presupuesto_rp }}</td> 
+   <td>{{ number_format($item->viaticos_estudiantes_rp, 0, ',','.') }}</td>
+   <td>{{ number_format($item->viaticos_docente_rp, 0, ',','.') }}</td> 
+   <td>{{ number_format($item->costo_total_transporte_menor_rp + $item->valor_estimado_transporte_rp, 0, ',','.') }}</td>
+   <td>{{ number_format($item->total_presupuesto_rp, 0, ',','.') }}</td> 
    {{-- <td>{{ $item->ab_coor }}</td>  --}}
-   @if($filter == 'pend')
+   <td>{{ $item->es_consj }}</td>
+   @if($filter == 'pend' || ($filter == 'aprob-cons' && $item->id_estado == 2))
    <td> 
        <a href="{{route('proyeccion_edit',$item->id)}}">
        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
@@ -39,12 +46,12 @@
 </table>
 @endif
 
-@if($filter=='ext_mu')
+@if($filter=='no-elect')
 <table class="table table-bordered table-condensed table-hover table-sm header_table" cellspacing="0" style="width: 60%">
     
     <thead style="text-align: center" style="margin-right: 20%;margin-left: 20%; width: 60%;">
         {{-- <th style="width: 425pxpx"> --}}
-        ESPACIOS ACADÉMICOS EXTRAMURALES SIN PROYECCIONES PRELIMINARES REGISTRADAS
+        ESPACIOS ACADÉMICOS NO ELECTIVOS SIN PROYECCIONES PRELIMINARES REGISTRADAS
         {{-- </th> --}}
     </thead> 
     <thead>
@@ -65,3 +72,4 @@
     @endforeach 
 </table>
 @endif
+{{-- {{$proyecciones->render()}} --}}

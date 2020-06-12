@@ -2,20 +2,24 @@
 <table class="table table-bordered table-condensed table-hover table-sm header_table" cellspacing="0">
 <thead>
     @if($filter == 'not_send')
-    <th style="width: 10px">Sel.</th>
+    <th style="width: 15px">Sel.</th>
     @endif
     <th style="width: 35px">Cod.</th>
-    <th style="width: 90px">Proy. Curricular</th>
-    <th style="width: 95px">Esp. Académico</th> 
-    <th style="width: 95px">Docente</th> 
-    <th style="width: 105px">Destino Ruta Principal</th>
-    <th style="width: 35px">Fecha Salida</th>
-    <th style="width: 35px">Fecha Regreso</th>
+    <th style="width: 80px">Proy. Curricular</th>
+    <th style="width: 85px">Esp. Académico</th> 
+    <th style="width: 75px">Docente</th> 
+    <th style="width: 75px">Destino Ruta Principal</th>
+    <th style="width: 50px">Fecha Salida</th>
+    <th style="width: 50px">Fecha Regreso</th>
     <th style="width: 25px">Coord.</th>
+    @if($filter == 'no-aprob-cons' || $filter == 'all')
     <th style="width: 25px">Decan.</th>
-    @if($filter == 'sin_pres')
-    <th style="width: 37px"></th>
     @endif
+    <th style="width: 25px">Consj.</th>
+    @if($filter == 'sin_pres' || $filter == 'no-aprob-cons')
+    <th style="width: 35px"></th>
+    @endif
+    
 </thead> 
 @foreach ($proyecciones as $item) 
 <tr>
@@ -30,8 +34,11 @@
    <td>{{ $item->fecha_salida_aprox_rp }}</td>
    <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
    <td>{{ $item->ab_coor }}</td> 
+   @if($filter == 'no-aprob-cons' || $filter == 'all')
    <td>{{ $item->ab_dec }}</td>
-   @if($filter == 'sin_pres')
+   @endif
+   <td>{{ $item->es_consj }}</td>
+   @if($filter == 'sin_pres' || $filter == 'no-aprob-cons')
    <td> 
        <a href="{{route('proyeccion_edit',$item->id)}}">
        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
