@@ -646,6 +646,7 @@
 
 <!-- valor estimado transporte -->
 
+@if($proyeccion_preliminar->aprobacion_consejo_facultad != 3)
 <br>
 <h4>Observaciones</h4>
 <hr class="divider">
@@ -731,6 +732,8 @@
     <!-- 20 -->
 
     <!-- 21 -->
+
+    
     <!-- estado dec-->
     <!-- 0 -->
     <div class="form-group row">
@@ -772,6 +775,45 @@
     </div>
     <!-- 0 -->
     <!-- estado dec-->
+    @endif
+
+    @if($proyeccion_preliminar->aprobacion_consejo_facultad == 3)
+
+    <br>
+    {{-- <h4>Estado</h4> --}}
+    <hr class="divider">
+    <br>
+    <!-- estado proyección-->
+    <!-- 1 -->
+    <div class="form-group row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+            <label for="estado_proyeccion">Estado Proyección Preliminar</label>
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="estado_proyeccion" value="1"
+                    <?php if($proyeccion_preliminar->estado_proyeccion == 1) echo 'checked'?>>
+                    <label class="form-check-label" for="">Activo</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="estado_proyeccion" value="2"
+                    <?php if($proyeccion_preliminar->estado_proyeccion == 2) echo 'checked'?>>
+                    <label class="form-check-label" for="">Inactivo</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- 1 -->
+    <!-- estado proyección-->
+    @endif
     <!-- 21 -->
 
 <!-- Decano -->

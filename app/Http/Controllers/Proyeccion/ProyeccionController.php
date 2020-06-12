@@ -775,6 +775,7 @@ class ProyeccionController extends Controller
 
         $proyeccion_preliminar = new proyeccion;
         $mytime = Carbon::now('America/Bogota');
+        $proyeccion_preliminar->id_estado = 1;
         $proyeccion_preliminar->fecha_diligenciamiento=$mytime->toDateTimeString();
         $proyeccion_preliminar->id_docente_responsable=Auth::user()->id;
         $proyeccion_preliminar->id_programa_academico=$request->get('id_programa_academico');
@@ -1333,6 +1334,7 @@ class ProyeccionController extends Controller
             if($proyeccion_preliminar->aprobacion_consejo_facultad == 3)
             {
                 $proyeccion_preliminar->id_docente_responsable= $request->get('docentes_activos');
+                $proyeccion_preliminar->id_estado= $request->get('estado_proyeccion');
             }
             $proyeccion_preliminar->update();
             return redirect('proyecciones/filtrar/pend');
