@@ -43,7 +43,7 @@
       </tbody>
     </table>
 
-  {{-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
       <form method="POST" action="{{ route('import_plan_conting.img') }}"  enctype="multipart/form-data">
         @csrf
        
@@ -66,7 +66,7 @@
               </div>
           </div>
         </div>
-  </div> --}}
+  </div>
     {{-- <div>
         <button class="btn btn-success" name="import_users" href="{{route('enviar_correo') }}">Enviar</button></a>
     </div> --}}

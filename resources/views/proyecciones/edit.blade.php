@@ -10,8 +10,8 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">{{ __('Registro Proyección Preliminar N° ') }}<?php echo $proyeccion_preliminar->id?><?php echo "\t -"?>
-                        {{ __('') }}<?php if($estado_doc_respon == 1){ echo $nombre_doc_resp;} elseif ($estado_doc_respon == 2){ echo "Usuario Inactivo";}?></div>
-
+                        {{ __('') }}</div>
+                        {{-- <php if($estado_doc_respon == 1){ echo $nombre_doc_resp;} elseif ($estado_doc_respon == 2){ echo "Usuario Inactivo";}?> --}}
                     
                     <div class="card-body">
                         <form method="POST" action="{{ route('proyeccion_update',$proyeccion_preliminar->id) }}">
