@@ -14,9 +14,15 @@ use DateTime;
 use Illuminate\Auth\Access\Response;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Null_;
+use PractiCampoUD\costos_proyeccion;
+use PractiCampoUD\docentes_practica;
 use PractiCampoUD\espacio_academico;
 use PractiCampoUD\image;
+use PractiCampoUD\materiales_herramientas_proyeccion;
 use PractiCampoUD\programa_academico;
+use PractiCampoUD\riesgos_amenazas_practica;
+use PractiCampoUD\riesgos_amenazas_proyeccion;
+use PractiCampoUD\transporte_proyeccion;
 
 use function Complex\add;
 
@@ -844,6 +850,8 @@ class ProyeccionController extends Controller
     {
         $idRole = Auth::user()->id_role;
         $idUser = Auth::user()->id;
+        $mytime = Carbon::now('America/Bogota');
+
         $tipo_transporte_rp = $request->get('id_tipo_transporte_rp_');
         $tipo_transporte_ra = $request->get('id_tipo_transporte_ra_');
         $det_tipo_transporte_rp = $request->get('det_tipo_transporte_rp_');
@@ -856,23 +864,28 @@ class ProyeccionController extends Controller
         $id_prog_aca = $request->get('id_programa_academico');
 
         $esp_aca = DB::table('espacio_academico')
-        // ->where('id_programa_academico','=',$id_prog_aca)
         ->where('id','=',$id_esp_aca)->first();
 
+        /**Tabla proyeccion_preliminar */
         $proyeccion_preliminar = new proyeccion;
-        $mytime = Carbon::now('America/Bogota');
         $proyeccion_preliminar->id_estado = 1;
-        $proyeccion_preliminar->fecha_diligenciamiento=$mytime->toDateTimeString();
-        $proyeccion_preliminar->id_docente_responsable=Auth::user()->id;
         $proyeccion_preliminar->id_programa_academico=$request->get('id_programa_academico');
-        
         $proyeccion_preliminar->id_espacio_academico=(!empty($esp_aca->id))?$esp_aca->id:Auth::user()->id_espacio_academico_1;
         $proyeccion_preliminar->id_peridodo_academico=$request->get('id_periodo_academico');
         $proyeccion_preliminar->id_semestre_asignatura=$request->get('id_semestre_asignatura');
+        $proyeccion_preliminar->num_estudiantes_aprox=$request->get('num_estudiantes_aprox');
+        $proyeccion_preliminar->cantidad_grupos=$request->get('cant_grupos');
+        $proyeccion_preliminar->grupo_1=$request->get('grupo_1');
+        $proyeccion_preliminar->grupo_2=$request->get('grupo_2');
+        $proyeccion_preliminar->grupo_3=$request->get('grupo_3');
+        $proyeccion_preliminar->grupo_4=$request->get('grupo_4');
+
         $proyeccion_preliminar->destino_rp=$request->get('destino_rp');
-        $proyeccion_preliminar->ruta_principal=$request->get('ruta_principal');
         $proyeccion_preliminar->destino_ra=$request->get('destino_ra');
+        $proyeccion_preliminar->ruta_principal=$request->get('ruta_principal');
         $proyeccion_preliminar->ruta_alterna=$request->get('ruta_alterna');
+        $proyeccion_preliminar->det_recorrido_interno_rp=$request->get('det_recorrido_interno_rp');
+        $proyeccion_preliminar->det_recorrido_interno_ra=$request->get('det_recorrido_interno_ra');
         $proyeccion_preliminar->lugar_salida_rp=$request->get('lugar_salida_rp');
         $proyeccion_preliminar->lugar_salida_ra=$request->get('lugar_salida_ra');
         $proyeccion_preliminar->lugar_regreso_rp=$request->get('lugar_regreso_rp');
@@ -881,93 +894,7 @@ class ProyeccionController extends Controller
         $proyeccion_preliminar->fecha_salida_aprox_ra=$request->get('fecha_salida_aprox_ra');
         $proyeccion_preliminar->fecha_regreso_aprox_rp=$request->get('fecha_regreso_aprox_rp');
         $proyeccion_preliminar->fecha_regreso_aprox_ra=$request->get('fecha_regreso_aprox_ra');
-        $proyeccion_preliminar->num_estudiantes_aprox=$request->get('num_estudiantes_aprox');
-        $proyeccion_preliminar->num_acompaniantes=$request->get('num_acompaniantes');
-        $proyeccion_preliminar->num_acompaniantes=$request->get('num_acompaniantes');
-        $proyeccion_preliminar->num_apoyo=$request->get('num_apoyo');
-        $proyeccion_preliminar->det_recorrido_interno_rp=$request->get('det_recorrido_interno_rp');
-        $proyeccion_preliminar->det_recorrido_interno_ra=$request->get('det_recorrido_interno_ra');
-        $proyeccion_preliminar->cant_transporte_rp=$request->get('cant_transporte_rp');
-        $proyeccion_preliminar->cant_transporte_ra=$request->get('cant_transporte_ra');
-        $proyeccion_preliminar->exclusiv_tiempo_rp_1=$request->get('exclusiv_tiempo_rp_1');
-        $proyeccion_preliminar->exclusiv_tiempo_rp_2=$request->get('exclusiv_tiempo_rp_2');
-        $proyeccion_preliminar->exclusiv_tiempo_rp_3=$request->get('exclusiv_tiempo_rp_3');
-        $proyeccion_preliminar->exclusiv_tiempo_ra_1=$request->get('exclusiv_tiempo_ra_1');
-        $proyeccion_preliminar->exclusiv_tiempo_ra_2=$request->get('exclusiv_tiempo_ra_2');
-        $proyeccion_preliminar->exclusiv_tiempo_ra_3=$request->get('exclusiv_tiempo_ra_3');
-        $proyeccion_preliminar->id_tipo_transporte_rp_1 =$tipo_transporte_rp[0];
-        $proyeccion_preliminar->id_tipo_transporte_rp_2 =$tipo_transporte_rp[1]??NULL;
-        $proyeccion_preliminar->id_tipo_transporte_rp_3 =$tipo_transporte_rp[2]??NULL;
-        $proyeccion_preliminar->id_tipo_transporte_ra_1 =$tipo_transporte_ra[0];
-        $proyeccion_preliminar->id_tipo_transporte_ra_2 =$tipo_transporte_ra[1]??NULL;
-        $proyeccion_preliminar->id_tipo_transporte_ra_3 =$tipo_transporte_ra[2]??NULL;
-        $proyeccion_preliminar->det_tipo_transporte_rp_1=$det_tipo_transporte_rp[0];
-        $proyeccion_preliminar->det_tipo_transporte_rp_2=$det_tipo_transporte_rp[1]??NULL;
-        $proyeccion_preliminar->det_tipo_transporte_rp_3=$det_tipo_transporte_rp[2]??NULL;
-        $proyeccion_preliminar->det_tipo_transporte_ra_1=$det_tipo_transporte_ra[0];
-        $proyeccion_preliminar->det_tipo_transporte_ra_2=$det_tipo_transporte_ra[1]??NULL;
-        $proyeccion_preliminar->det_tipo_transporte_ra_3=$det_tipo_transporte_ra[2]??NULL;
-        $proyeccion_preliminar->capac_transporte_rp_1=$capacid_transporte_rp[0];
-        $proyeccion_preliminar->capac_transporte_rp_2=$capacid_transporte_rp[1]??NULL;
-        $proyeccion_preliminar->capac_transporte_rp_3=$capacid_transporte_rp[2]??NULL;
-        $proyeccion_preliminar->capac_transporte_ra_1=$capacid_transporte_ra[0];
-        $proyeccion_preliminar->capac_transporte_ra_2=$capacid_transporte_ra[1]??NULL;
-        $proyeccion_preliminar->capac_transporte_ra_3=$capacid_transporte_ra[2]??NULL;
-        $proyeccion_preliminar->docen_respo_trasnporte_rp_1=$docen_respo_trasnporte_rp[0]??NULL;
-        $proyeccion_preliminar->docen_respo_trasnporte_rp_2=$docen_respo_trasnporte_rp[1]??NULL;
-        $proyeccion_preliminar->docen_respo_trasnporte_rp_3=$docen_respo_trasnporte_rp[2]??NULL;
-        $proyeccion_preliminar->docen_respo_trasnporte_ra_1=$docen_respo_trasnporte_ra[0]??NULL;
-        $proyeccion_preliminar->docen_respo_trasnporte_ra_2=$docen_respo_trasnporte_ra[1]??NULL;
-        $proyeccion_preliminar->docen_respo_trasnporte_ra_3=$docen_respo_trasnporte_ra[2]??NULL;
-
-        $proyeccion_preliminar->otro_tipo_transporte_rp_1=$request->get('otro_transporte_rp_1');
-        $proyeccion_preliminar->otro_tipo_transporte_rp_2=$request->get('otro_transporte_rp_2');
-        $proyeccion_preliminar->otro_tipo_transporte_rp_3=$request->get('otro_transporte_rp_3');
-        $proyeccion_preliminar->otro_tipo_transporte_ra_1=$request->get('otro_transporte_ra_1');
-        $proyeccion_preliminar->otro_tipo_transporte_ra_2=$request->get('otro_transporte_ra_2');
-        $proyeccion_preliminar->otro_tipo_transporte_ra_3=$request->get('otro_transporte_ra_3');
-
-
-        $vlr_otro_tipo_transporte_rp_1=$request->get('vlr_otro_transporte_rp_1')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_rp_1'))):0;
-        $vlr_otro_tipo_transporte_rp_2=$request->get('vlr_otro_transporte_rp_2')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_rp_2'))):0;
-        $vlr_otro_tipo_transporte_rp_3=$request->get('vlr_otro_transporte_rp_3')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_rp_3'))):0;
-        $vlr_otro_tipo_transporte_ra_1=$request->get('vlr_otro_transporte_ra_1')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_ra_1'))):0;
-        $vlr_otro_tipo_transporte_ra_2=$request->get('vlr_otro_transporte_ra_2')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_ra_2'))):0;
-        $vlr_otro_tipo_transporte_ra_3=$request->get('vlr_otro_transporte_ra_3')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_ra_3'))):0;
-
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_1=$vlr_otro_tipo_transporte_rp_1;
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_2=$vlr_otro_tipo_transporte_rp_2;
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_rp_3=$vlr_otro_tipo_transporte_rp_3;
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_1=$vlr_otro_tipo_transporte_ra_1;
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_2=$vlr_otro_tipo_transporte_ra_2;
-        $proyeccion_preliminar->vlr_otro_tipo_transporte_ra_3=$vlr_otro_tipo_transporte_ra_3;
-
-        $costo_total_transporte_menor_rp = $vlr_otro_tipo_transporte_rp_1 + $vlr_otro_tipo_transporte_rp_2 + $vlr_otro_tipo_transporte_rp_3;
-        $costo_total_transporte_menor_ra = $vlr_otro_tipo_transporte_ra_1 + $vlr_otro_tipo_transporte_ra_2 + $vlr_otro_tipo_transporte_ra_3;
-
-        $proyeccion_preliminar->costo_total_transporte_menor_rp =$costo_total_transporte_menor_rp;
-        $proyeccion_preliminar->costo_total_transporte_menor_ra =$costo_total_transporte_menor_ra;
-
-        $proyeccion_preliminar->det_materiales_rp=$request->get('det_materiales_rp');
-        $proyeccion_preliminar->vlr_materiales_rp=intval(str_replace(".","",$request->get('vlr_materiales_rp')));
-        $proyeccion_preliminar->det_materiales_ra=$request->get('det_materiales_ra');
-        $proyeccion_preliminar->vlr_materiales_ra=intval(str_replace(".","",$request->get('vlr_materiales_ra')));
         
-        $proyeccion_preliminar->areas_acuaticas_rp=$request->get('areas_acuaticas_rp')=='on'?1:0;
-        $proyeccion_preliminar->areas_acuaticas_ra=$request->get('areas_acuaticas_ra')=='on'?1:0;
-        $proyeccion_preliminar->alturas_rp=$request->get('alturas_rp')=='on'?1:0;
-        $proyeccion_preliminar->alturas_ra=$request->get('alturas_ra')=='on'?1:0;
-        $proyeccion_preliminar->riesgo_biologico_rp=$request->get('riesgo_biologico_rp')=='on'?1:0;
-        $proyeccion_preliminar->riesgo_biologico_ra=$request->get('riesgo_biologico_ra')=='on'?1:0;
-        $proyeccion_preliminar->espacios_confinados_rp=$request->get('espacios_confinados_rp')=='on'?1:0;
-        $proyeccion_preliminar->espacios_confinados_ra=$request->get('espacios_confinados_ra')=='on'?1:0;
-
-        $proyeccion_preliminar->cantidad_grupos=$request->get('cant_grupos');
-        $proyeccion_preliminar->grupo_1=$request->get('grupo_1');
-        $proyeccion_preliminar->grupo_2=$request->get('grupo_2');
-        $proyeccion_preliminar->grupo_3=$request->get('grupo_3');
-        $proyeccion_preliminar->grupo_4=$request->get('grupo_4');
-
         $fecha_salida_rp = new DateTime($proyeccion_preliminar->fecha_salida_aprox_rp);
         $fecha_regreso_rp = new DateTime($proyeccion_preliminar->fecha_regreso_aprox_rp);
         $num_dias_rp = $fecha_salida_rp->diff($fecha_regreso_rp);
@@ -976,29 +903,12 @@ class ProyeccionController extends Controller
         $fecha_regreso_ra = new DateTime($proyeccion_preliminar->fecha_regreso_aprox_ra);
         $num_dias_ra = $fecha_salida_ra->diff($fecha_regreso_ra);
         $proyeccion_preliminar->duracion_num_dias_ra=$num_dias_ra->days+1;
-
-        $viaticos_estudiantes_rp = intval(str_replace(".","",$request->get('vlr_apoyo_estudiantes_rp')));
-        $viaticos_docente_rp =intval(str_replace(".","",$request->get('vlr_apoyo_docentes_rp')));
-
-        $viaticos_estudiantes_ra = intval(str_replace(".","",$request->get('vlr_apoyo_estudiantes_ra')));
-        $viaticos_docente_ra =intval(str_replace(".","",$request->get('vlr_apoyo_docentes_ra')));
-
-        // $total_viaticos_estu = $viaticos_estudiantes_rp + $viaticos_estudiantes_ra;
-        // $total_viaticos_docen= $viaticos_docente_rp + $viaticos_docente_ra;
-
-        $proyeccion_preliminar->viaticos_estudiantes_rp=$viaticos_estudiantes_rp;
-        $proyeccion_preliminar->viaticos_docente_rp=$viaticos_docente_rp;
-
-        $proyeccion_preliminar->viaticos_estudiantes_ra=$viaticos_estudiantes_ra;
-        $proyeccion_preliminar->viaticos_docente_ra=$viaticos_docente_ra;
-
-
+        $proyeccion_preliminar->id_docente_responsable=Auth::user()->id;
         $proyeccion_preliminar->observ_coordinador= $request->get('observ_coordinador');
         $proyeccion_preliminar->aprobacion_coordinador= 5;
 
         $proyeccion_preliminar->aprobacion_asistD= 5;
 
-        // $proyeccion_preliminar->observ_decano= $request->get('observ_decano');
         $proyeccion_preliminar->aprobacion_decano= 5;
         $proyeccion_preliminar->aprobacion_consejo_facultad= 5;
 
@@ -1014,13 +924,181 @@ class ProyeccionController extends Controller
             $proyeccion_preliminar->confirm_coord= 0;
             $proyeccion_preliminar->confirm_asistD= 0;
         }
+        
+        $proyeccion_preliminar->fecha_diligenciamiento=$mytime->toDateTimeString();
 
         $proyeccion_preliminar->save();
-        $filter = "all";
+        $id_proyeccion_preliminar = $proyeccion_preliminar->id;
+        /**Tabla proyeccion_preliminar */
+        
+        /**Tabla docentes_practica */
+        $docentes_practica = new docentes_practica;
+        $docentes_practica->id_proyeccion_preliminar = $id_proyeccion_preliminar;
+        $docentes_practica->num_docentes_acomp=$request->get('num_acompaniantes');
+        $docentes_practica->num_docentes_apoyo=$request->get('num_apoyo');
+        $docentes_practica->num_doc_docente_acomp_1=$request->get('doc_acompa_1');
+        $docentes_practica->num_doc_docente_acomp_2=$request->get('doc_acompa_2');
+        $docentes_practica->num_doc_docente_acomp_3=$request->get('doc_acompa_3');
+        $docentes_practica->num_doc_docente_acomp_4=$request->get('doc_acompa_4');
+        $docentes_practica->num_doc_docente_acomp_5=$request->get('doc_acompa_5');
+        $docentes_practica->num_doc_docente_acomp_6=$request->get('doc_acompa_6');
+        $docentes_practica->num_doc_docente_acomp_7=$request->get('doc_acompa_7');
+        $docentes_practica->num_doc_docente_acomp_8=$request->get('doc_acompa_8');
+        $docentes_practica->num_doc_docente_acomp_9=$request->get('doc_acompa_9');
+        $docentes_practica->num_doc_docente_acomp_10=$request->get('doc_acompa_10');
+        $docentes_practica->docente_acomp_1=$request->get('acompa_1');
+        $docentes_practica->docente_acomp_2=$request->get('acompa_2');
+        $docentes_practica->docente_acomp_3=$request->get('acompa_3');
+        $docentes_practica->docente_acomp_4=$request->get('acompa_4');
+        $docentes_practica->docente_acomp_5=$request->get('acompa_5');
+        $docentes_practica->docente_acomp_6=$request->get('acompa_6');
+        $docentes_practica->docente_acomp_7=$request->get('acompa_7');
+        $docentes_practica->docente_acomp_8=$request->get('acompa_8');
+        $docentes_practica->docente_acomp_9=$request->get('acompa_9');
+        $docentes_practica->docente_acomp_10=$request->get('acompa_10');
+        $docentes_practica->num_doc_docente_apoyo_1=$request->get('doc_apoyo_1');
+        $docentes_practica->num_doc_docente_apoyo_2=$request->get('doc_apoyo_2');
+        $docentes_practica->num_doc_docente_apoyo_3=$request->get('doc_apoyo_3');
+        $docentes_practica->num_doc_docente_apoyo_4=$request->get('doc_apoyo_4');
+        $docentes_practica->num_doc_docente_apoyo_5=$request->get('doc_apoyo_5');
+        $docentes_practica->num_doc_docente_apoyo_6=$request->get('doc_apoyo_6');
+        $docentes_practica->num_doc_docente_apoyo_7=$request->get('doc_apoyo_7');
+        $docentes_practica->num_doc_docente_apoyo_8=$request->get('doc_apoyo_8');
+        $docentes_practica->num_doc_docente_apoyo_9=$request->get('doc_apoyo_9');
+        $docentes_practica->num_doc_docente_apoyo_10=$request->get('doc_apoyo_10');
+        $docentes_practica->docente_apoyo_1=$request->get('apoyo_1');
+        $docentes_practica->docente_apoyo_2=$request->get('apoyo_2');
+        $docentes_practica->docente_apoyo_3=$request->get('apoyo_3');
+        $docentes_practica->docente_apoyo_4=$request->get('apoyo_4');
+        $docentes_practica->docente_apoyo_5=$request->get('apoyo_5');
+        $docentes_practica->docente_apoyo_6=$request->get('apoyo_6');
+        $docentes_practica->docente_apoyo_7=$request->get('apoyo_7');
+        $docentes_practica->docente_apoyo_8=$request->get('apoyo_8');
+        $docentes_practica->docente_apoyo_9=$request->get('apoyo_9');
+        $docentes_practica->docente_apoyo_10=$request->get('apoyo_10');
+
+        $docentes_practica->save();
+        /**Tabla docentes_practica */
+
+        /**Tabla transporte_proyeccion */
+        $transporte_proyeccion = new transporte_proyeccion;
+        $transporte_proyeccion->id_proyeccion_preliminar = $id_proyeccion_preliminar;
+        $transporte_proyeccion->id_tipo_transporte_rp_1 =$tipo_transporte_rp[0];
+        $transporte_proyeccion->id_tipo_transporte_rp_2 =$tipo_transporte_rp[1]??NULL;
+        $transporte_proyeccion->id_tipo_transporte_rp_3 =$tipo_transporte_rp[2]??NULL;
+        $transporte_proyeccion->id_tipo_transporte_ra_1 =$tipo_transporte_ra[0];
+        $transporte_proyeccion->id_tipo_transporte_ra_2 =$tipo_transporte_ra[1]??NULL;
+        $transporte_proyeccion->id_tipo_transporte_ra_3 =$tipo_transporte_ra[2]??NULL;
+        $transporte_proyeccion->otro_tipo_transporte_rp_1=$request->get('otro_transporte_rp_1');
+        $transporte_proyeccion->otro_tipo_transporte_rp_2=$request->get('otro_transporte_rp_2');
+        $transporte_proyeccion->otro_tipo_transporte_rp_3=$request->get('otro_transporte_rp_3');
+        $transporte_proyeccion->otro_tipo_transporte_ra_1=$request->get('otro_transporte_ra_1');
+        $transporte_proyeccion->otro_tipo_transporte_ra_2=$request->get('otro_transporte_ra_2');
+        $transporte_proyeccion->otro_tipo_transporte_ra_3=$request->get('otro_transporte_ra_3');
+        $transporte_proyeccion->det_tipo_transporte_rp_1=$det_tipo_transporte_rp[0];
+        $transporte_proyeccion->det_tipo_transporte_rp_2=$det_tipo_transporte_rp[1]??NULL;
+        $transporte_proyeccion->det_tipo_transporte_rp_3=$det_tipo_transporte_rp[2]??NULL;
+        $transporte_proyeccion->det_tipo_transporte_ra_1=$det_tipo_transporte_ra[0];
+        $transporte_proyeccion->det_tipo_transporte_ra_2=$det_tipo_transporte_ra[1]??NULL;
+        $transporte_proyeccion->det_tipo_transporte_ra_3=$det_tipo_transporte_ra[2]??NULL;
+
+        $vlr_otro_tipo_transporte_rp_1=$request->get('vlr_otro_transporte_rp_1')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_rp_1'))):0;
+        $vlr_otro_tipo_transporte_rp_2=$request->get('vlr_otro_transporte_rp_2')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_rp_2'))):0;
+        $vlr_otro_tipo_transporte_rp_3=$request->get('vlr_otro_transporte_rp_3')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_rp_3'))):0;
+        $vlr_otro_tipo_transporte_ra_1=$request->get('vlr_otro_transporte_ra_1')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_ra_1'))):0;
+        $vlr_otro_tipo_transporte_ra_2=$request->get('vlr_otro_transporte_ra_2')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_ra_2'))):0;
+        $vlr_otro_tipo_transporte_ra_3=$request->get('vlr_otro_transporte_ra_3')!=Null?intval(str_replace(".","",$request->get('vlr_otro_transporte_ra_3'))):0;
+
+        $transporte_proyeccion->vlr_otro_tipo_transporte_rp_1=$vlr_otro_tipo_transporte_rp_1;
+        $transporte_proyeccion->vlr_otro_tipo_transporte_rp_2=$vlr_otro_tipo_transporte_rp_2;
+        $transporte_proyeccion->vlr_otro_tipo_transporte_rp_3=$vlr_otro_tipo_transporte_rp_3;
+        $transporte_proyeccion->vlr_otro_tipo_transporte_ra_1=$vlr_otro_tipo_transporte_ra_1;
+        $transporte_proyeccion->vlr_otro_tipo_transporte_ra_2=$vlr_otro_tipo_transporte_ra_2;
+        $transporte_proyeccion->vlr_otro_tipo_transporte_ra_3=$vlr_otro_tipo_transporte_ra_3;
+
+        $transporte_proyeccion->docen_respo_trasnporte_rp_1=$docen_respo_trasnporte_rp[0]??NULL;
+        $transporte_proyeccion->docen_respo_trasnporte_rp_2=$docen_respo_trasnporte_rp[1]??NULL;
+        $transporte_proyeccion->docen_respo_trasnporte_rp_3=$docen_respo_trasnporte_rp[2]??NULL;
+        $transporte_proyeccion->docen_respo_trasnporte_ra_1=$docen_respo_trasnporte_ra[0]??NULL;
+        $transporte_proyeccion->docen_respo_trasnporte_ra_2=$docen_respo_trasnporte_ra[1]??NULL;
+        $transporte_proyeccion->docen_respo_trasnporte_ra_3=$docen_respo_trasnporte_ra[2]??NULL;
+
+        $transporte_proyeccion->capac_transporte_rp_1=$capacid_transporte_rp[0];
+        $transporte_proyeccion->capac_transporte_rp_2=$capacid_transporte_rp[1]??NULL;
+        $transporte_proyeccion->capac_transporte_rp_3=$capacid_transporte_rp[2]??NULL;
+        $transporte_proyeccion->capac_transporte_ra_1=$capacid_transporte_ra[0];
+        $transporte_proyeccion->capac_transporte_ra_2=$capacid_transporte_ra[1]??NULL;
+        $transporte_proyeccion->capac_transporte_ra_3=$capacid_transporte_ra[2]??NULL;
+
+        $transporte_proyeccion->exclusiv_tiempo_rp_1=intval($request->get('exclusiv_tiempo_rp_1'));
+        $transporte_proyeccion->exclusiv_tiempo_rp_2=$request->get('exclusiv_tiempo_rp_2')==NULL?NULL:intval($request->get('exclusiv_tiempo_rp_2'));
+        $transporte_proyeccion->exclusiv_tiempo_rp_3=$request->get('exclusiv_tiempo_rp_3')==NULL?NULL:intval($request->get('exclusiv_tiempo_rp_3'));
+        $transporte_proyeccion->exclusiv_tiempo_ra_1=intval($request->get('exclusiv_tiempo_ra_1'));
+        $transporte_proyeccion->exclusiv_tiempo_ra_2=$request->get('exclusiv_tiempo_ra_2')==NULL?NULL:intval($request->get('exclusiv_tiempo_ra_2'));
+        $transporte_proyeccion->exclusiv_tiempo_ra_3=$request->get('exclusiv_tiempo_ra_3')==NULL?NULL:intval($request->get('exclusiv_tiempo_ra_3'));
+
+        $transporte_proyeccion->cant_transporte_rp=$request->get('cant_transporte_rp');
+        $transporte_proyeccion->cant_transporte_ra=$request->get('cant_transporte_ra');
+
+        $transporte_proyeccion->save();
+        /**Tabla transporte_proyeccion */
+
+        /**Tabla materiales_herramientas_proyeccion */
+        $mater_herra_proyeccion = new materiales_herramientas_proyeccion;
+        $mater_herra_proyeccion->id_proyeccion_preliminar = $id_proyeccion_preliminar;
+        $mater_herra_proyeccion->det_materiales_rp=$request->get('det_materiales_rp');
+        $mater_herra_proyeccion->det_materiales_ra=$request->get('det_materiales_ra');
+        // $mater_herra_proyeccion->det_herramientas_rp=$request->get('det_herramientas_rp');
+        // $mater_herra_proyeccion->det_herramientas_ra=$request->get('det_herramientas_ra');
+        // $mater_herra_proyeccion->det_equipos_rp=$request->get('det_equipos_rp');
+        // $mater_herra_proyeccion->det_equipos_ra=$request->get('det_equipos_ra');
+
+        $mater_herra_proyeccion->save();
+        /**Tabla materiales_herramientas_proyeccion */
+
+        /**Tabla riesgos_amenazas_proyeccion */
+        $riesg_amen_practica = new riesgos_amenazas_practica;
+        $riesg_amen_practica->id_proyeccion_preliminar = $id_proyeccion_preliminar;
+        $riesg_amen_practica->areas_acuaticas_rp=$request->get('areas_acuaticas_rp')=='on'?1:0;
+        $riesg_amen_practica->areas_acuaticas_ra=$request->get('areas_acuaticas_ra')=='on'?1:0;
+        $riesg_amen_practica->alturas_rp=$request->get('alturas_rp')=='on'?1:0;
+        $riesg_amen_practica->alturas_ra=$request->get('alturas_ra')=='on'?1:0;
+        $riesg_amen_practica->riesgo_biologico_rp=$request->get('riesgo_biologico_rp')=='on'?1:0;
+        $riesg_amen_practica->riesgo_biologico_ra=$request->get('riesgo_biologico_ra')=='on'?1:0;
+        $riesg_amen_practica->espacios_confinados_rp=$request->get('espacios_confinados_rp')=='on'?1:0;
+        $riesg_amen_practica->espacios_confinados_ra=$request->get('espacios_confinados_ra')=='on'?1:0;
+
+        $riesg_amen_practica->save();
+        /**Tabla riesgos_amenazas_proyeccion */
+
+        /**Tabla costos_proyeccion */
+        $costos_proyeccion = new costos_proyeccion;
+        $costos_proyeccion->id_proyeccion_preliminar = $id_proyeccion_preliminar;
+        $costos_proyeccion->vlr_materiales_rp=intval(str_replace(".","",$request->get('vlr_materiales_rp')));
+        $costos_proyeccion->vlr_materiales_ra=intval(str_replace(".","",$request->get('vlr_materiales_ra')));
+
+        $viaticos_estudiantes_rp = intval(str_replace(".","",$request->get('vlr_apoyo_estudiantes_rp')));
+        $viaticos_docente_rp =intval(str_replace(".","",$request->get('vlr_apoyo_docentes_rp')));
+
+        $viaticos_estudiantes_ra = intval(str_replace(".","",$request->get('vlr_apoyo_estudiantes_ra')));
+        $viaticos_docente_ra =intval(str_replace(".","",$request->get('vlr_apoyo_docentes_ra')));
+
+        $costos_proyeccion->viaticos_estudiantes_rp=$viaticos_estudiantes_rp;
+        $costos_proyeccion->viaticos_estudiantes_ra=$viaticos_estudiantes_ra;
+        $costos_proyeccion->viaticos_docente_rp=$viaticos_docente_rp;
+        $costos_proyeccion->viaticos_docente_ra=$viaticos_docente_ra;
+
+        $costo_total_transporte_menor_rp = $vlr_otro_tipo_transporte_rp_1 + $vlr_otro_tipo_transporte_rp_2 + $vlr_otro_tipo_transporte_rp_3;
+        $costo_total_transporte_menor_ra = $vlr_otro_tipo_transporte_ra_1 + $vlr_otro_tipo_transporte_ra_2 + $vlr_otro_tipo_transporte_ra_3;
+
+        $costos_proyeccion->costo_total_transporte_menor_rp =$costo_total_transporte_menor_rp;
+        $costos_proyeccion->costo_total_transporte_menor_ra =$costo_total_transporte_menor_ra;
+
+        $costos_proyeccion->save();
+        /**Tabla costos_proyeccion */
+
         
         return redirect('proyecciones/filtrar/all');
-        // return route('proyeccion_filter',['filter'=>$filter]);
-        // return Redirect::to('proyecciones');
     }
 
     /**

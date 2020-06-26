@@ -374,8 +374,8 @@
 
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_1"  value="2"
-                                    <?php if($proyeccion_preliminar->exclusiv_tiempo_rp_1 == 2) echo 'checked'?>>
+                                    <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_1"  value="0"
+                                    <?php if($proyeccion_preliminar->exclusiv_tiempo_rp_1 == 0) echo 'checked'?>>
                                     <label class="form-check-label" for="">No</label>
                                 </div>
                             </div>
@@ -452,7 +452,7 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_2"  value="2">
+                            <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_2"  value="0">
                             <label class="form-check-label" for="">No</label>
                         </div>
                     </div>
@@ -522,7 +522,7 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_3"  value="2">
+                            <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_3"  value="0">
                             <label class="form-check-label" for="">No</label>
                         </div>
                     </div>
@@ -739,8 +739,8 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exclusiv_tiempo_ra_1"  value="2"
-                            <?php if($proyeccion_preliminar->exclusiv_tiempo_ra_1 == 2) echo 'checked'?>>
+                            <input class="form-check-input" type="radio" name="exclusiv_tiempo_ra_1"  value="0"
+                            <?php if($proyeccion_preliminar->exclusiv_tiempo_ra_1 == 0) echo 'checked'?>>
                             <label class="form-check-label" for="">No</label>
                         </div>
                     </div>
