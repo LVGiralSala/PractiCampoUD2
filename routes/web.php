@@ -99,8 +99,10 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::get('proyecciones/inactivas','Proyeccion\ProyeccionController@verInactiva')->name('proyeccion_inactiva');
 
         // ------> solicitudes Routes <------
-        // Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
+        Route::get('solicitudes/filtrar/{id}','Solicitud\SolicitudController@filterSolicitud')->name('solicitud_filter');
+        // Route::get('solicitudes','Solicitud\SolicitudController@pre_solicitud')->name('solicitud_index');
         Route::get('solicitudes/create','Solicitud\SolicitudController@create')->name('solicitud_create');
+        Route::get('solicitudes','Solicitud\SolicitudController@pre_solicitud')->name('pre_solicitud');
         Route::post('solicitudes','Solicitud\SolicitudController@store')->name('solicitud_store');
         Route::get('solicitudes/{id}','Solicitud\SolicitudController@edit')->name('solicitud_edit');
         Route::put('solicitudes','Solicitud\SolicitudController@update')->name('solicitud_update');
@@ -112,9 +114,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::resource('buscar/espa_aca','Otros\EspacioAcademicoController');
         Route::post('buscar/espa_aca','Otros\EspacioAcademicoController@searchEspaAca')->name('espa_aca');
 
-        // ------> prueba consulta codigo Routes <------
-        Route::get('solicitudes','Solicitud\SolicitudController@index_codigo')->name('index_codigo');
-        Route::post('solicitudes','Solicitud\SolicitudController@consulta_codigo')->name('consulta_codigo');
+        // // ------> prueba consulta codigo Routes <------
+        // Route::get('solicitudes','Solicitud\SolicitudController@index_codigo')->name('index_codigo');
+        // Route::post('solicitudes','Solicitud\SolicitudController@consulta_codigo')->name('consulta_codigo');
 
         // ------> SEND EMAIL <------
         // Route::get('/sendemail', function () {

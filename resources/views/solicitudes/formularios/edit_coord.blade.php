@@ -506,7 +506,7 @@
         <div class="col-md-11">
             <div class="form-group">
                 <label for="conf_curricul_plan_pract_rp">{{ __('La duración de esta práctica presenta conformidad a la curricularización del 
-                plan de prácticas del proyecto curricular aprobado por el consejo de facultades?') }}</label>
+                plan de practicas del proyecto curricular aprobado por el consejo de facultades?') }}</label>
             </div>
         </div>
 
@@ -870,7 +870,7 @@
         <div class="col-md-11">
             <div class="form-group">
                 <label for="conf_curricul_plan_pract_ra">{{ __('La duración de esta práctica presenta conformidad a la curricularización del 
-                plan de prácticas del proyecto curricular aprobado por el consejo de facultades?') }}</label>
+                plan de practicas del proyecto curricular aprobado por el consejo de facultades?') }}</label>
             </div>
         </div>
 

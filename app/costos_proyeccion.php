@@ -10,5 +10,7 @@ class costos_proyeccion extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [];
+    protected $fillable = [
+        
+    ];
 }

@@ -10,5 +10,7 @@ class riesgos_amenazas_practica extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [];
+    protected $fillable = [
+
+    ];
 }

@@ -11,7 +11,6 @@ class docentes_practica extends Model
     public $timestamps = false;
     
     protected $fillable = [
-            'id_proyeccion_preliminar',
             'num_doc_docente_acomp_1',
             'num_doc_docente_acomp_2',
             'num_doc_docente_acomp_3',

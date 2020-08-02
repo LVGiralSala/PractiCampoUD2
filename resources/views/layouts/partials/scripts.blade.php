@@ -188,6 +188,85 @@ function direccionCompleta()
 }
 
 
+function filtrar_solicitudes(value)
+{
+    switch(value)
+    {
+        case '1':
+            href = "{!! route('solicitud_filter','all'); !!}";
+            // $('#nefy').val(value);
+            break;
+        case '2':
+            href = "{!! route('solicitud_filter','send'); !!}";
+            // $('#nefy').val(value);
+            break;
+        case '3':
+            href = "{!! route('solicitud_filter','not_send'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '4':
+            href = "{!! route('solicitud_filter','ext_mu'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '5':
+            href = "{!! route('solicitud_filter','sin_pres'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '6':
+            href = "{!! route('solicitud_filter','elect'); !!}";
+            // $('#nefy').val(value);
+            break;
+        
+        case '7':
+            href = "{!! route('solicitud_filter','pend'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '8':
+            href = "{!! route('solicitud_filter','not_aprob'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '9':
+            href = "{!! route('solicitud_filter','aprob'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '10':
+            href = "{!! route('solicitud_filter','no-elect'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '11':
+            href = "{!! route('solicitud_filter','aprob-cons'); !!}";
+            // $('#nefy').val(value);
+            break;
+        
+        case '12':
+            href = "{!! route('solicitud_filter','no-aprob-cons'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '13':
+            href = "{!! route('solicitud_filter','pre-proy'); !!}";
+            // $('#nefy').val(value);
+            break;
+            
+        default:
+        
+    }
+    window.location.href = href;
+}
+
+$('input:radio[name="id_filtro_solicitud"]').change(
+    function(){
+        filtrar_solicitudes(this.value);
+       
+});
+
 
 </script>
 

@@ -10,5 +10,7 @@ class materiales_herramientas_proyeccion extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [];
+    protected $fillable = [
+        
+    ];
 }
