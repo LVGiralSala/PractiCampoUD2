@@ -254,6 +254,12 @@ function filtrar_solicitudes(value)
             href = "{!! route('solicitud_filter','pre-proy'); !!}";
             // $('#nefy').val(value);
             break;
+        
+        case '14':
+            href = "{!! route('solicitud_filter','proy-aprob'); !!}";
+            // $('#nefy').val(value);
+            break;
+            
             
         default:
         

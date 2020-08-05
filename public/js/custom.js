@@ -1299,3 +1299,53 @@ function customAlerts(input, type)
  
     }
 }
+
+function validar_proy_estudiantes()
+{
+    // confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica electiva registrada, ¿Desea continuar de igual manera?");
+    var check_confirm = [];
+    $('input[type=checkbox]:checked').each(function()
+    {
+        check_confirm.push(this.value);
+    });
+
+    url = '/proyecc_electiva';
+
+    $.ajax({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: url,
+        type: 'POST',
+        cache: false,
+        data: {'data':check_confirm},                
+        // beforeSend: function(xhr){
+        // xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+        // },
+        success:function(respu){
+            console.log(respu);
+
+            if(respu.length >= 1)
+            {
+               var r = confirm("Una ó más proyecciones preliminares seleccionadas cuentan espacios académico con práctica electiva registrada, ¿Desea continuar de igual manera?");
+               if(r == true)
+               {
+                 confirm_proy();
+               }
+               else
+               {
+                    alert("Las proyecciones que cuentan con espacios académicos que resgistran práctica electiva son: "+respu);
+               }
+            }
+            else if(respu.length == 0)
+            {
+                confirm_proy();
+            }
+            if ( jQuery.isEmptyObject(respu) || respu == null) {
+                
+            }
+                            
+            },
+            error: function(xhr, textStatus, thrownError) {
+                
+            }
+        });
+}

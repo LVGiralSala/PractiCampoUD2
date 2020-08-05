@@ -115,7 +115,7 @@
                                     <div class="col-md-2">
                                         <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
                                         <span class="hs-form-required">*</span>
-                                        <input id="cant_grupos" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
+                                        <input id="cant_grupos" type="number" max="4" min="1" pattern="^[0-9]+" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
                                         value="1" autocomplete="off" autofocus required>
                                         
                                         @error('cant_grupos')
@@ -128,7 +128,7 @@
                                     <div class="col-md-2">
                                         <label for="num_acompaniantes" class="col-form-label text-md-left" title="Número Acompañantes Adicionales Al Docente">{{ __('Acompañantes') }}</label>
                                         {{-- <span class="hs-form-required">*</span> --}}
-                                        <input id="num_acompaniantes" type="number" max="3" min="0" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
+                                        <input id="num_acompaniantes" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
                                         value="" autocomplete="off" autofocus onchange="calc_viaticos_RP()">
                                         
                                         @error('num_acompaniantes')
@@ -141,7 +141,7 @@
                                     <div class="col-md-2">
                                         <label for="num_apoyo" class="col-form-label text-md-left" title="Número Docentes De Apoyo">{{ __('Docent. Apoyo') }}</label>
                                         {{-- <span class="hs-form-required">*</span> --}}
-                                        <input id="num_apoyo" type="number" max="3" min="0" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
+                                        <input id="num_apoyo" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
                                         value="" autocomplete="off" autofocus onchange="calc_viaticos_RP()">
                                         
                                         @error('num_apoyo')

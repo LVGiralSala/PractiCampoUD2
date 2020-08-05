@@ -13,6 +13,7 @@ use PractiCampoUD\Imports\UsersImport;
 use DB;
 use PractiCampoUD\Exports\ReportProyeccionesExport;
 use PractiCampoUD\Imports\ProyeccionesPreliminaresImport;
+use PractiCampoUD\Imports\EstudiantesImport;
 
 class ExcelController extends Controller
 {
@@ -119,6 +120,17 @@ class ExcelController extends Controller
     public function importProyeccionesExcel(){
         Excel::import(new ProyeccionesPreliminaresImport,request()->file('poyecciones_preliminares'));
         return Redirect::to('proyecciones')->with('success', 'Creación exitosa');
+    }
+
+    public function importEstudiantesExcel(){
+        Excel::import(new EstudiantesImport,request()->file('listado_estudiantes'));
+        return Redirect::to('solicitudes')->with('success', 'Creación exitosa');
+    }
+
+    public function prueba()
+    {
+        $estudiantes = Excel::toArray(new EstudiantesImport,request()->file('listado_estudiantes'));
+
     }
 
 }

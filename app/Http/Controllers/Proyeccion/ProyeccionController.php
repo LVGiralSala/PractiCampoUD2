@@ -1446,6 +1446,7 @@ class ProyeccionController extends Controller
         $proyeccion_preliminar = proyeccion::where('id', '=', $id)->first();
         $transporte_proyeccion = transporte_proyeccion::where('id','=',$id)->first();
         $costos_proyeccion=costos_proyeccion::where('id','=',$id)->first();
+        $solicitud_practica = new  solicitud;
 
         if(Auth::user()->id_role == 4)
         {
@@ -1605,7 +1606,7 @@ class ProyeccionController extends Controller
 
                 if($aprob_cons == 3)
                 {
-                    $solicitud_practica = new  solicitud;
+                    
                     $solicitud_practica->id_proyeccion_preliminar = $id;
 
                 }
@@ -1889,5 +1890,49 @@ class ProyeccionController extends Controller
         $show_image = base64_decode($ccc);
         $img="data:image/png;base64,$ccc";
         return view('proyecciones.image',["imagen"=>$show_image, "img"=>$img]);
+    }
+
+    public function validar_estudiantes(Request $request)
+    {
+        $id_proyecciones_confimadas = $request->get('data');
+        $proy = 0;
+        $id_elect = [];
+
+        if(count($id_proyecciones_confimadas) == 1)
+        {
+            $proyeccion=DB::table('proyeccion_preliminar as p_prel')
+            ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico','e_aca.electiva')
+            ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
+            ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+            ->where('p_prel.id','=',$id_proyecciones_confimadas)
+            ->where('e_aca.electiva','=',1)->first();
+
+            if(!empty($proyeccion))
+            {
+                $id_elect[] += $proyeccion->id;
+            }
+        }
+
+        elseif(count($id_proyecciones_confimadas) > 1)
+        {
+
+            foreach($id_proyecciones_confimadas as $id)
+            {
+                $proyeccion=DB::table('proyeccion_preliminar as p_prel')
+                            ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico','e_aca.electiva')
+                            ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
+                            ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+                            ->where('p_prel.id','=',$id)
+                            ->where('e_aca.electiva','=',1)->first();
+    
+                
+                if(!empty($proyeccion))
+                {
+                    $id_elect[] += $proyeccion->id;
+                }
+            }
+        }
+
+        return response()->json($id_elect);
     }
 }

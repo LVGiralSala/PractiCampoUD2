@@ -74,9 +74,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('exp-proyecc-list-excel','Excel\ExcelController@exportProyeccionesExcel')->name('export_list_proyecc.excel');
         Route::post('imp-proyecc-list-excel','Excel\ExcelController@importProyeccionesExcel')->name('import_list_proyecc.excel');
 
+        Route::post('imp-estud-list-excel','Excel\ExcelController@prueba')->name('import_list_estud.excel');
+
         // ------> PDF Routes <------
         Route::get('proyecciones_pdf-html','Pdf\PdfController@generateHtml')->name('proyeccion_preliminar.excel');
-        Route::get('proyecciones_pdf','Pdf\PdfController@exportPdf')->name('proyeccion_preliminar.pdf');
+        // Route::get('proyecciones_pdf','Pdf\PdfController@exportPdf')->name('proyeccion_preliminar.pdf');
+        Route::get('proyecciones_pdf/{id}','Pdf\PdfController@exportPdf')->name('proyeccion_preliminar.pdf');
         Route::get('solicitudes_pdf','Pdf\PdfController@exportSolicitudPdf')->name('solicitud.pdf');
         Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
 
@@ -105,7 +108,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('solicitudes','Solicitud\SolicitudController@pre_solicitud')->name('pre_solicitud');
         Route::post('solicitudes','Solicitud\SolicitudController@store')->name('solicitud_store');
         Route::get('solicitudes/{id}','Solicitud\SolicitudController@edit')->name('solicitud_edit');
-        Route::put('solicitudes','Solicitud\SolicitudController@update')->name('solicitud_update');
+        Route::put('solicitudes/{id}','Solicitud\SolicitudController@update')->name('solicitud_update');
         Route::delete('solicitudes','Solicitud\SolicitudController@destroy')->name('solicitud_destroy');
         // Route::get('solicitudes/activas','Solicitud\SolicitudController@verActiva')->name('solicitud_activa');
         // Route::get('solicitudes/inactivas','Solicitud\SolicitudController@verInactiva')->name('solicitud_inactiva');
@@ -138,9 +141,9 @@ Route::group(['middleware' => 'auth'], function () {
         //     return "Email enviado con exito!";
         // })->name('enviar_correo');
 
-        Route::get('/pdf', function () {
-            return view('prueba');
-        });
+        // Route::get('/pdf', function () {
+        //     return view('prueba');
+        // });
     });
 
 // });

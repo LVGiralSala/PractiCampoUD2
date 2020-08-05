@@ -23,6 +23,7 @@ use PractiCampoUD\riesgos_amenazas_practica;
 use PractiCampoUD\riesgos_amenazas_proyeccion;
 use PractiCampoUD\transporte_proyeccion;
 use DB;
+use PractiCampoUD\estudiantes_practica;
 use PractiCampoUD\solicitud;
 
 class SolicitudController extends Controller
@@ -396,7 +397,18 @@ class SolicitudController extends Controller
 
             case 5:
                 $proyeccion_preliminar = proyeccion::find($id);
+                $costos_proyeccion = costos_proyeccion::find($id);
+                $docentes_practica = docentes_practica::find($id);
+                $mate_herra_proyeccion = materiales_herramientas_proyeccion::find($id);
+                $riesg_amen_practica = riesgos_amenazas_practica::find($id);
+                $transporte_proyeccion = riesgos_amenazas_practica::find($id);
                 $solicitud_practica = DB::table('solicitud_practica as sol_prac')
+                // ->join('proyeccion_preliminar as p_prel','sol_prac.id_proyeccion_preliminar','=','p_prel.id')
+                // ->join('costos_proyeccion as c_proy','sol_prac.id_proyeccion_preliminar','=','c_proy.id')
+                // ->join('docentes_practica as doc_prac','sol_prac.id_proyeccion_preliminar','=','doc_prac.id')
+                // ->join('materiales_herramientas_proyeccion as mat_herr_proy','sol_prac.id_proyeccion_preliminar','=','mat_herr_proy.id')
+                // ->join('riesgos_amenazas_practica as ries_amen_prac','sol_prac.id_proyeccion_preliminar','=','ries_amen_prac.id')
+                // ->join('transporte_proyeccion as transp_proy','sol_prac.id_proyeccion_preliminar','=','transp_proy.id')
                 ->where('sol_prac.id_proyeccion_preliminar','=',$id)->first();
                 $idUser = $proyeccion_preliminar->id_docente_responsable;
                 // $idUser = Auth::user()->id;
@@ -442,6 +454,12 @@ class SolicitudController extends Controller
                                                 "nombre_usuario"=>$nomb_usuario,
                                                 "estado_doc_respon"=>$estado_doc_respon,
                                                 "solicitud_practica"=>$solicitud_practica,
+                                                "costos_proyeccion"=>$costos_proyeccion,
+                                                "docentes_practica"=>$docentes_practica,
+                                                "mate_herra_proyeccion"=>$mate_herra_proyeccion,
+                                                "riesg_amen_practica"=>$riesg_amen_practica,
+                                                "transporte_proyeccion"=>$transporte_proyeccion,
+                                                
         
                 ]);
             break;
@@ -457,7 +475,125 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $mytime = Carbon::now('America/Bogota');
+        $proyeccion_preliminar = proyeccion::where('id', '=', $id)->first();
+        $transporte_proyeccion = transporte_proyeccion::where('id','=',$id)->first();
+        $costos_proyeccion = costos_proyeccion::where('id','=',$id)->first();
+        $solicitud_practica = solicitud::where('id_proyeccion_preliminar', '=', $id)->first();
+
+        if(Auth::user()->id_role == 1 ||  Auth::user()->id_role == 5)
+        {
+            
+            $cod_esp_aca = $request->get('id_espacio_academico');
+            $id_prog_aca = $request->get('id_programa_academico');
+            $esp_aca = DB::table('espacio_academico')
+            ->where('id_programa_academico','=',$id_prog_aca)
+            ->where('codigo_espacio_academico','=',$cod_esp_aca)->first();
+            $proyeccion_preliminar->id_espacio_academico=(!empty($esp_aca)||null)?
+            $esp_aca->id:$proyeccion_preliminar->id_espacio_academico;
+
+            // $proyeccion_preliminar->id_peridodo_academico=$request->get('id_periodo_academico');
+            // $proyeccion_preliminar->id_semestre_asignatura=$request->get('id_semestre_asignatura');
+
+            $proyeccion_preliminar->num_estudiantes_aprox=$request->get('num_estudiantes_aprox');
+            // $proyeccion_preliminar->num_acompaniantes=$request->get('num_acompaniantes');
+            $proyeccion_preliminar->cantidad_grupos=$request->get('cant_grupos_edit');
+
+            $proyeccion_preliminar->grupo_1=$request->get('grupo_1');
+            $proyeccion_preliminar->grupo_2=$request->get('grupo_2');
+            $proyeccion_preliminar->grupo_3=$request->get('grupo_3');
+            $proyeccion_preliminar->grupo_4=$request->get('grupo_4');
+
+            // $proyeccion_preliminar->destino_rp=$request->get('destino_rp');
+            // $proyeccion_preliminar->ruta_principal=$request->get('ruta_principal');
+            // $proyeccion_preliminar->destino_ra=$request->get('destino_ra');
+            // $proyeccion_preliminar->ruta_alterna=$request->get('ruta_alterna');
+            $proyeccion_preliminar->det_recorrido_interno_rp=$request->get('det_recorrido_interno_rp');
+            // $proyeccion_preliminar->det_recorrido_interno_ra=$request->get('det_recorrido_interno_ra');
+            
+            $proyeccion_preliminar->lugar_salida_rp=$request->get('lugar_salida_rp');
+            // $proyeccion_preliminar->lugar_salida_ra=$request->get('lugar_salida_ra');
+            $proyeccion_preliminar->lugar_regreso_rp=$request->get('lugar_regreso_rp');
+            // $proyeccion_preliminar->lugar_regreso_ra=$request->get('lugar_regreso_ra');
+
+            $proyeccion_preliminar->fecha_salida_aprox_rp= $request->get('fecha_salida_aprox_rp');
+            $proyeccion_preliminar->fecha_regreso_aprox_rp= $request->get('fecha_regreso_aprox_rp');
+            // $proyeccion_preliminar->fecha_salida_aprox_ra= $request->get('fecha_salida_aprox_ra');
+            // $proyeccion_preliminar->fecha_regreso_aprox_ra= $request->get('fecha_regreso_aprox_ra');
+
+            $fecha_salida_rp = new DateTime($proyeccion_preliminar->fecha_salida_aprox_rp);
+            $fecha_regreso_rp = new DateTime($proyeccion_preliminar->fecha_regreso_aprox_rp);
+            $num_dias_rp = $fecha_salida_rp->diff($fecha_regreso_rp);
+            $proyeccion_preliminar->duracion_num_dias_rp=$num_dias_rp->days+1;
+
+            // $fecha_salida_ra = new DateTime($proyeccion_preliminar->fecha_salida_aprox_ra);
+            // $fecha_regreso_ra = new DateTime($proyeccion_preliminar->fecha_regreso_aprox_ra);
+            // $num_dias_ra = $fecha_salida_ra->diff($fecha_regreso_ra);
+
+
+
+            // $tipo_transporte_rp = $request->get('id_tipo_transporte_rp_');
+            // $tipo_transporte_ra = $request->get('id_tipo_transporte_ra_');
+            // $det_tipo_transporte_rp = $request->get('det_tipo_transporte_rp_');
+            // $det_tipo_transporte_ra = $request->get('det_tipo_transporte_ra_');
+            // $capacid_transporte_rp = $request->get('capac_transporte_rp_');
+            // $capacid_transporte_ra = $request->get('capac_transporte_ra_');
+            
+            // $proyeccion_preliminar->id_tipo_transporte_rp_1 =$tipo_transporte_rp[0];
+            // $proyeccion_preliminar->id_tipo_transporte_rp_2 =$tipo_transporte_rp[1]??NULL;
+            // $proyeccion_preliminar->id_tipo_transporte_rp_3 =$tipo_transporte_rp[2]??NULL;
+            // $proyeccion_preliminar->id_tipo_transporte_ra_1 =$tipo_transporte_ra[0];
+            // $proyeccion_preliminar->id_tipo_transporte_ra_2 =$tipo_transporte_ra[1]??NULL;
+            // $proyeccion_preliminar->id_tipo_transporte_ra_3 =$tipo_transporte_ra[2]??NULL;
+
+            // $proyeccion_preliminar->det_tipo_transporte_rp_1=$det_tipo_transporte_rp[0];
+            // $proyeccion_preliminar->det_tipo_transporte_rp_2=$det_tipo_transporte_rp[1]??NULL;
+            // $proyeccion_preliminar->det_tipo_transporte_rp_3=$det_tipo_transporte_rp[2]??NULL;
+            // $proyeccion_preliminar->det_tipo_transporte_ra_1=$det_tipo_transporte_ra[0];
+            // $proyeccion_preliminar->det_tipo_transporte_ra_2=$det_tipo_transporte_ra[1]??NULL;
+            // $proyeccion_preliminar->det_tipo_transporte_ra_3=$det_tipo_transporte_ra[2]??NULL;
+
+            // $proyeccion_preliminar->capac_transporte_rp_1=$capacid_transporte_rp[0];
+            // $proyeccion_preliminar->capac_transporte_rp_2=$capacid_transporte_rp[1]??NULL;
+            // $proyeccion_preliminar->capac_transporte_rp_3=$capacid_transporte_rp[2]??NULL;
+            // $proyeccion_preliminar->capac_transporte_ra_1=$capacid_transporte_ra[0];
+            // $proyeccion_preliminar->capac_transporte_ra_2=$capacid_transporte_ra[1]??NULL;
+            // $proyeccion_preliminar->capac_transporte_ra_3=$capacid_transporte_ra[2]??NULL;
+            
+            // $proyeccion_preliminar->cant_transporte_rp=count($capacid_transporte_rp);
+            // $proyeccion_preliminar->cant_transporte_ra=count($capacid_transporte_ra);
+
+            // $proyeccion_preliminar->exclusiv_tiempo_rp_1=$request->get('exclusiv_tiempo_rp_1');
+            // $proyeccion_preliminar->exclusiv_tiempo_rp_2=$request->get('exclusiv_tiempo_rp_2');
+            // $proyeccion_preliminar->exclusiv_tiempo_rp_3=$request->get('exclusiv_tiempo_rp_3');
+            // $proyeccion_preliminar->exclusiv_tiempo_ra_1=$request->get('exclusiv_tiempo_ra_1');
+            // $proyeccion_preliminar->exclusiv_tiempo_ra_2=$request->get('exclusiv_tiempo_ra_2');
+            // $proyeccion_preliminar->exclusiv_tiempo_ra_3=$request->get('exclusiv_tiempo_ra_3');
+
+            $solicitud_practica->cronograma = $request->get('cronograma');
+            $solicitud_practica->observaciones = $request->get('observaciones');
+            $solicitud_practica->justificacion = $request->get('justificacion');
+            $solicitud_practica->objetivo_general = $request->get('objetivo_general');
+            $solicitud_practica->metodologia_evaluacion = $request->get('metodologia_evaluacion');
+
+            if(Auth::user()->id_role == 1)
+            {
+                $proyeccion_preliminar->observ_coordinador= $request->get('observ_coordinador');
+                $proyeccion_preliminar->aprobacion_coordinador= $request->get('aprobacion_coordinador');
+                $proyeccion_preliminar->id_coordinador_aprob = Auth::user()->id;
+    
+                $proyeccion_preliminar->observ_decano= $request->get('observ_decano');
+                $proyeccion_preliminar->aprobacion_decano= $request->get('aprobacion_decano');
+                $proyeccion_preliminar->id_decano_aprob = Auth::user()->id;
+            }
+            
+        }
+
+        $proyeccion_preliminar->update();
+        $costos_proyeccion->update();
+        $transporte_proyeccion->update();
+        $solicitud_practica->update();
+        return redirect('solicituds/filtrar/all');
     }
 
     /**
@@ -1171,6 +1307,34 @@ class SolicitudController extends Controller
                         ->paginate(10);
                     break;
 
+                    case 'proy-aprob':
+                        $usuario=DB::table('users')->where('id','=',$idUser)->first();
+                        $id_prog_coord = $usuario->id_programa_academico_coord;
+                        $proyeccion=DB::table('proyeccion_preliminar as p_prel')
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
+                                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
+                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_creador',
+                                'sol_prac.id as id_solicitud')
+                        ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
+                        ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+                        ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
+                        ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+                        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+                        ->join('solicitud_practica as sol_prac','p_prel.id','=','sol_prac.id_proyeccion_preliminar')
+                        // ->where('aprobacion_coordinador','=',5)
+                        // ->where('confirm_creador','=',1)
+                        // ->where('confirm_docente','=',1)
+                        // ->where('confirm_coord','=',1)
+                        // ->where('confirm_asistD','=',1)
+                        // ->where('id_docente_responsable','=',$idUser)
+                        // ->where('p_prel.id_estado','=',1)
+                        // ->where('aprobacion_consejo_facultad','=',3)
+                        ->where('id_estado_solicitud_practica','=',3)
+                        ->where('si_capital','=',1)
+                        ->where('tiene_resolucion','=',1)
+                        ->paginate(10);
+                    break;
+
                     case 'all':
                         $espacios = DB::table('espacio_academico as esp_aca')
                         ->where('electiva','=',1)->get();
@@ -1194,13 +1358,16 @@ class SolicitudController extends Controller
                         ->paginate(10);
                         
                         // $filter="all";
+
+                        // $estudiantes=new estudiantes_practica();
+                        $estudiantes=DB::table('estudiantes_solicitud_practica')->get();
                     break;
 
                     default;
                 }
             break;
         }
-        
         return view('solicitudes.index',["proyecciones"=>$proyeccion, 'filter'=>$filter]);
+        // return view('solicitudes.index',["proyecciones"=>$proyeccion,"estudiantes"=>$estudiantes, 'filter'=>$filter]);
     }
 }

@@ -191,74 +191,74 @@
 					<th style="border: solid; font-size: 6.5pt;text-align: center;width:67.5pt">AUXILIO ESTUDIANTES</th>
 					<th style="border: solid; font-size: 6.5pt;text-align: center;width:35pt">TOTAL DISPONIBILIDAD</th>
 				</tr>
+				@foreach ($solicitudes_practica as $item) 
 				<tr>
-					<td rowspan="2" style="border: solid;font-size: 5.5pt;text-align:center">TECNOLOGIAS APROPIADAS I</td>
+					<td rowspan="2" style="border: solid;font-size: 5.5pt;text-align:center">{{ $item->espacio_academico }}</td>
 					<td style="border: solid;">
 						<p class="MsoNormal" style="text-align:center;margin-top: 4px;margin-bottom: 0px;" align="center">
-							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">MARTHA
-							ISABEL MEJIA DE ALBA<o:p></o:p></span></p>
+							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">{{ $item->full_name }}
+								<o:p></o:p></span></p>
 						<p class="MsoNormal" style="text-align:center;margin-top: 4px;margin-bottom: 0px;height:5px" align="center">
 							<span ><o:p>&nbsp;</o:p></span>
 						</p>
 						<p class="MsoNormal" style="text-align:center;margin-bottom: 4px;" align="center">
-							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">ALVARO
-							MARTÍN GUTIÉRREZ<o:p></o:p>	
+							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">{{ $item->docente_apoyo_1 }}
+								<o:p></o:p>	
 							</span>
 						</p>
 					</td>
 					<td style="border: solid;padding: 0cm 3pt 0cm 3pt;">
 						<p class="MsoNormal" style="text-align:center;margin-bottom: 8px;margin-top: 8px;" align="center">
-							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">BOGOTÁ
-							– NOBSA-SOGAMOSO, ( DIA 1:<span style="mso-spacerun:yes">&nbsp; </span>VISITA
-							INALVERSOG,<span style="mso-spacerun:yes">&nbsp; </span>DIA 2:VISITA SIDENAL) –
-							TIBASOSA-BOGOTA"<o:p></o:p></span>
+							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">{{ $item->destino_rp }}
+								<o:p></o:p></span>
 						</p>
 					</td>
 					<td style="border: solid;font-size: 5.5pt;text-align:center">
 						<p class="MsoNormal" style="text-align:center;margin-bottom: 8px;margin-top: 8px;" align="center">
-							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">10 Y 11
+							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">{{ $item->fecha_salida_aprox_rp }}
 							</span>
 						</p>
 						<p class="MsoNormal" style="text-align:center;margin-bottom: 8px;margin-top: 8px;" align="center">
-							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">DE
-								<span style="mso-spacerun:yes">&nbsp; </span>MARZO
+							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">
+								
 							</span>
 						</p>
 						<p class="MsoNormal" style="text-align:center;margin-bottom: 8px;margin-top: 8px;" align="center">
-							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">DE
-								<span style="mso-spacerun:yes">&nbsp; </span>2020<o:p></o:p>
+							<span style="font-size:5.5pt;font-family:&quot;Arial&quot;,sans-serif;mso-ansi-language:PT-BR" lang="PT-BR">{{ $item->fecha_regreso_aprox_rp }}
+							
 							</span>
 						</p>
 					</td>
-					<td style="border: solid;font-size: 5.5pt;text-align:center">2</td>
+					<td style="border: solid;font-size: 5.5pt;text-align:center">{{ $item->duracion_num_dias_rp }}</td>
 					<td style="border: solid;">
 						<p class="MsoNormal" style="text-align:center;margin-top: 10px;margin-bottom: 2.5px" align="center">
-							<span style="text-align:center;font-size:6.5pt;font-family:&quot;Arial&quot;,sans-serif" lang="ES">$135.400*2*1.5 días 
+							<span style="text-align:center;font-size:6.5pt;font-family:&quot;Arial&quot;,sans-serif" lang="ES">$ {{  number_format($item->viaticos_docente_rp, 0, ',','.') }} 
 							</span>
 						</p>
-						<p class="MsoNormal" style="text-align:center;margin-bottom: 0px;" align="center">
+						{{-- <p class="MsoNormal" style="text-align:center;margin-bottom: 0px;" align="center">
 							<span style="mso-spacerun:yes;font-size:7.7pt;font-family:&quot;Arial&quot;,sans-serif"> = </span><o:p></o:p>
 						</p>
 						<p class="MsoNormal" style="text-align:center;margin-bottom: 10px;margin-top: 2.5px;" align="center">
 							<span style="mso-spacerun:yes;font-size:6.5pt;font-family:&quot;Arial&quot;,sans-serif">&nbsp; $406.200</span><o:p></o:p>
-						</p>
+						</p> --}}
 					</td>
 					<td style="border: solid;">
 						<p class="MsoNormal" style="text-align:center;margin-top: 10px;margin-bottom: 2.5px" align="center">
-							<span style="text-align:center;font-size:6.5pt;font-family:&quot;Arial&quot;,sans-serif" lang="ES">$52.600*34*2 días 
+							<span style="text-align:center;font-size:6.5pt;font-family:&quot;Arial&quot;,sans-serif" lang="ES">$ {{ number_format($item->viaticos_estudiantes_rp, 0, ',','.') }} 
 							</span>
 						</p>
-						<p class="MsoNormal" style="text-align:center;margin-bottom: 0px;" align="center">
+						{{-- <p class="MsoNormal" style="text-align:center;margin-bottom: 0px;" align="center">
 							<span style="mso-spacerun:yes;font-size:7.7pt;font-family:&quot;Arial&quot;,sans-serif"> = </span><o:p></o:p>
 						</p>
 						<p class="MsoNormal" style="text-align:center;margin-bottom: 10px;margin-top: 2.5px;" align="center">
 							<span style="mso-spacerun:yes;font-size:6.5pt;font-family:&quot;Arial&quot;,sans-serif">&nbsp; $3.576.800</span><o:p></o:p>
-						</p>
+						</p> --}}
 					</td>
-					<td rowspan="2" style="border: solid;font-size: 7pt;text-align:center">$7.650.400</td>
+					<td rowspan="2" style="border: solid;font-size: 7pt;text-align:center">$ {{ number_format($item->total_presupuesto_rp, 0, ',','.') }}</td>
 					
 				</tr>
-				<tr>
+				@endforeach 
+				{{-- <tr>
 					
 					<td style="border: solid;">
 						<p class="MsoNormal" style="text-align:center;margin-top: 4px;margin-bottom: 0px;" align="center">
@@ -326,7 +326,7 @@
 						</p>
 					</td>
 					
-				</tr>
+				</tr> --}}
 			</table>
 			
 			</div>

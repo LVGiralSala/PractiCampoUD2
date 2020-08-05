@@ -44,7 +44,7 @@
         <th style="width: 35px">Fecha Regreso</th>
         <th style="width: 25px">Coord.</th>
         {{-- <th style="width: 25px">Decan.</th> --}}
-        @if($filter == 'pre-proy')
+        @if($filter == 'pre-proy' || $filter == 'proy-aprob')
         <th style="width: 37px"></th>
         @endif
     </thead> 
@@ -68,8 +68,16 @@
        </a> 
     </td> 
     @endif
-</tr>
-@endforeach 
+
+    @if($filter == 'proy-aprob')
+    <td> 
+        <a href="{{route('proyeccion_preliminar.pdf',$item->id)}}"><button class="btn btn-success" ></button></a>
+       </a> 
+    </td> 
+    @endif
+    
+    </tr>
+    @endforeach 
 
 </table>
 {{$proyecciones->render()}}
