@@ -401,7 +401,7 @@ class SolicitudController extends Controller
                 $docentes_practica = docentes_practica::find($id);
                 $mate_herra_proyeccion = materiales_herramientas_proyeccion::find($id);
                 $riesg_amen_practica = riesgos_amenazas_practica::find($id);
-                $transporte_proyeccion = riesgos_amenazas_practica::find($id);
+                $transporte_proyeccion = transporte_proyeccion::find($id);
                 $solicitud_practica = DB::table('solicitud_practica as sol_prac')
                 // ->join('proyeccion_preliminar as p_prel','sol_prac.id_proyeccion_preliminar','=','p_prel.id')
                 // ->join('costos_proyeccion as c_proy','sol_prac.id_proyeccion_preliminar','=','c_proy.id')
@@ -467,7 +467,7 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage. 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -593,7 +593,7 @@ class SolicitudController extends Controller
         $costos_proyeccion->update();
         $transporte_proyeccion->update();
         $solicitud_practica->update();
-        return redirect('solicituds/filtrar/all');
+        return redirect('solicitudes/filtrar/all');
     }
 
     /**
@@ -1297,13 +1297,14 @@ class SolicitudController extends Controller
                         ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('solicitud_practica as sol_prac','p_prel.id','=','sol_prac.id_proyeccion_preliminar')
                         // ->where('aprobacion_coordinador','=',5)
-                        ->where('confirm_creador','=',1)
-                        ->where('confirm_docente','=',1)
-                        ->where('confirm_coord','=',1)
-                        ->where('confirm_asistD','=',1)
-                        ->where('id_docente_responsable','=',$idUser)
+                        ->where('p_prel.confirm_creador','=',1)
+                        ->where('p_prel.confirm_docente','=',1)
+                        ->where('p_prel.confirm_coord','=',1)
+                        ->where('p_prel.confirm_asistD','=',1)
+                        ->where('p_prel.id_docente_responsable','=',$idUser)
                         ->where('p_prel.id_estado','=',1)
-                        ->where('aprobacion_consejo_facultad','=',3)
+                        ->where('p_prel.aprobacion_consejo_facultad','=',3)
+                        ->where('sol_prac.id_estado_solicitud_practica','=',5)
                         ->paginate(10);
                     break;
 

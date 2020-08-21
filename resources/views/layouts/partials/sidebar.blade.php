@@ -41,21 +41,20 @@
         </div>
   
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link collapsed" href="#collapseTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-business-time"></i>
             <span>PROYECCIONES</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              {{-- <a class="collapse-item" href="{{route('proyeccion_index') }}">Listar Proyecciones</a> --}}
               <a class="collapse-item" href="{{url('proyecciones/filtrar/all') }}">Listar Proyecciones</a>
               @if(Auth::user()->admin() || Auth::user()->coordinador() || Auth::user()->docente())
               <a class="collapse-item" href="{{route('proyeccion_create')}}">Nueva Proyección</a>
               @endif
             </div>
           </div>
-        </li>
+        </li> --}}
 
          <!-- Nav Item - Pages Collapse Menu -->
          <li class="nav-item">

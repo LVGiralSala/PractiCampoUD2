@@ -81,7 +81,7 @@
             <label for="num_estudiantes_aprox" class="col-form-label text-md-left">{{ __('Estudiantes') }}</label>
             <span class="hs-form-required">*</span>
             <input id="num_estudiantes_aprox" type="text" class="form-control @error('num_estudiantes_aprox') is-invalid @enderror" name="num_estudiantes_aprox" 
-            value="{{$proyeccion_preliminar->num_estudiantes_aprox}}" required autocomplete="off" autofocus onchange="calc_viaticos_RP()">
+            value="{{$proyeccion_preliminar->num_estudiantes_aprox}}" required autocomplete="off" autofocus onchange="calc_viaticos_RP()" readonly>
             
             @error('num_estudiantes_aprox')
                 <span class="invalid-feedback" role="alert">
@@ -94,7 +94,7 @@
             <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="num_acompaniantes" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
-            value="{{$docentes_practica->num_docentes_acomp}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()">
+            value="{{$docentes_practica->num_docentes_acomp}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" disabled>
             
             @error('num_acompaniantes')
                 <span class="invalid-feedback" role="alert">
@@ -107,7 +107,7 @@
             <label for="num_apoyo" class="col-form-label text-md-left" title="Número Docentes De Apoyo">{{ __('Docent. Apoyo') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="num_apoyo" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
-            value="{{$docentes_practica->num_docentes_apoyo}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()">
+            value="{{$docentes_practica->num_docentes_apoyo}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" disabled>
             
             @error('num_apoyo')
                 <span class="invalid-feedback" role="alert">
@@ -137,7 +137,7 @@
             <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
             <span class="hs-form-required">*</span>
             <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
-            value="{{$proyeccion_preliminar->grupo_1}}" required autocomplete="off" autofocus>
+            value="{{$proyeccion_preliminar->grupo_1}}" required autocomplete="off" autofocus readonly>
             
             @error('grupo_1')
                 <span class="invalid-feedback" role="alert">
@@ -148,7 +148,7 @@
         <div class="col-md-2" id="gp_2_edit">
             <label for="grupo_2" class="col-form-label text-md-left">{{ __('Gp 2') }}</label>
             <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
-            value="{{$proyeccion_preliminar->grupo_2}}" autocomplete="off" autofocus>
+            value="{{$proyeccion_preliminar->grupo_2}}" autocomplete="off" autofocus readonly>
             @error('grupo_2')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -158,7 +158,7 @@
         <div class="col-md-2" id="gp_3_edit">
             <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
             <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
-            value="{{$proyeccion_preliminar->grupo_3}}" autocomplete="off" autofocus>
+            value="{{$proyeccion_preliminar->grupo_3}}" autocomplete="off" autofocus readonly>
             @error('grupo_3')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -168,7 +168,7 @@
         <div class="col-md-2" id="gp_4_edit">
             <label for="grupo_4" class="col-form-label text-md-left">{{ __('Gp 4') }}</label>
             <input id="grupo_4" type="text" class="form-control @error('grupo_4') is-invalid @enderror" name="grupo_4" 
-            value="{{$proyeccion_preliminar->grupo_4}}" autocomplete="off" autofocus>
+            value="{{$proyeccion_preliminar->grupo_4}}" autocomplete="off" autofocus readonly>
             @error('grupo_4')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -460,7 +460,7 @@
             <label for="det_recorrido_interno_rp" class="col-form-label text-md-left">{{ __('Detalle Recorrido') }}</label>
             <span class="hs-form-required">*</span>
             <textarea id="det_recorrido_interno_rp" style="min-height:5rem;" type="text" class="form-control @error('det_recorrido_interno_rp') is-invalid @enderror" name="det_recorrido_interno_rp" 
-            required autocomplete="off" autofocus><?php echo $proyeccion_preliminar->det_recorrido_interno_rp?></textarea>
+            required autocomplete="off" autofocus readonly><?php echo $proyeccion_preliminar->det_recorrido_interno_rp?></textarea>
             
             @error('det_recorrido_interno_rp')
                 <span class="invalid-feedback" role="alert">
@@ -477,7 +477,7 @@
             <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
-            value="{{$proyeccion_preliminar->lugar_salida_rp}}" required autocomplete="off" autofocus>
+            value="{{$proyeccion_preliminar->lugar_salida_rp}}" required autocomplete="off" autofocus readonly>
             
             @error('lugar_salida_rp')
                 <span class="invalid-feedback" role="alert">
@@ -494,7 +494,7 @@
                   <i class="fa fa-calendar"></i>
                 </div>
               <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required
-              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}"  onchange="duracionRP2(this.value)">
+              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}"  onchange="duracionRP2(this.value)" readonly>
             </div>
         </div>
 
@@ -502,7 +502,7 @@
             <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
             <span class="hs-form-required">*</span>
             <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
-            value="{{$proyeccion_preliminar->lugar_regreso_rp}}" required autocomplete="off" autofocus>
+            value="{{$proyeccion_preliminar->lugar_regreso_rp}}" required autocomplete="off" autofocus readonly>
             
             @error('lugar_regreso_rp')
                 <span class="invalid-feedback" role="alert">
@@ -519,7 +519,7 @@
                   <i class="fa fa-calendar"></i>
                 </div>
               <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
-              value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}" onchange="duracion_edit_RP(this.value)">
+              value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}" onchange="duracion_edit_RP(this.value)" readonly>
             </div>
         </div>
 
@@ -546,7 +546,7 @@
                 <div class="col-md-2">
                     <label for="id_tipo_transporte_rp_[]" class="col-form-label text-md-right">{{ __('Tipo Vehículo') }}</label>
                     <span class="hs-form-required">*</span>
-                    <select name="id_tipo_transporte_rp_[]" class="form-control" required>
+                    <select name="id_tipo_transporte_rp_[]" class="form-control" required disabled>
                         @foreach($tipos_transportes as $tp_trans)
                             <option <?php if($tp_trans->id==$proyeccion_preliminar->id_tipo_transporte_rp_1) echo 'selected'?> value="{{$tp_trans->id}}">{{$tp_trans->tipo_transporte}}</option>  
 
@@ -576,7 +576,7 @@
                     <label for="capac_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Cap. Vehíc.') }}</label>
                     <span class="hs-form-required">*</span>
                     <input id="capac_transporte_rp_[]" type="text" class="form-control @error('capac_transporte_rp_[]') is-invalid @enderror" name="capac_transporte_rp_[]" 
-                    value="{{$proyeccion_preliminar->capac_transporte_rp_1}}" required autocomplete="off" autofocus>
+                    value="{{$transporte_proyeccion->capac_transporte_rp_1}}" required autocomplete="off" autofocus readonly>
 
                     @error('capac_transporte_rp_[]')
                         <span class="invalid-feedback" role="alert">
@@ -587,9 +587,9 @@
 
                 <div class="col-md-5">
                     <label for="det_tipo_transporte_rp_[]" class="col-form-label text-md-left">{{ __('Det. Vehíc.') }}</label>
-                    <span class="hs-form-required">*</span>
+                    {{-- <span class="hs-form-required">*</span> --}}
                     <input id="det_tipo_transporte_rp_[]" type="text" class="form-control @error('det_tipo_transporte_rp_[]') is-invalid @enderror" name="det_tipo_transporte_rp_[]" 
-                    value="{{$proyeccion_preliminar->det_tipo_transporte_rp_1}}" required autocomplete="off" autofocus>
+                    value="{{$transporte_proyeccion->det_tipo_transporte_rp_1}}" autocomplete="off" autofocus readonly>
 
                     @error('det_tipo_transporte_rp_[]')
                         <span class="invalid-feedback" role="alert">
@@ -620,7 +620,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_1" value="1" 
-                                <?php if($proyeccion_preliminar->exclusiv_tiempo_rp_1 == 1) echo 'checked'?>>
+                                <?php if($proyeccion_preliminar->exclusiv_tiempo_rp_1 == 1) echo 'checked'?> readonly disabled>
                                 <label class="form-check-label" for="">Si</label>
                                 </div>
                             </div>
@@ -628,7 +628,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="exclusiv_tiempo_rp_1"  value="0"
-                                    <?php if($proyeccion_preliminar->exclusiv_tiempo_rp_1 == 0) echo 'checked'?>>
+                                    <?php if($proyeccion_preliminar->exclusiv_tiempo_rp_1 == 0) echo 'checked'?> readonly disabled>
                                     <label class="form-check-label" for="">No</label>
                                 </div>
                             </div>
@@ -652,7 +652,7 @@
             <label for="det_materiales_rp" class="col-form-label text-md-left" title="Materiales">{{ __('Materiales') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="det_materiales_rp" type="text"  class="form-control @error('det_materiales_rp') is-invalid @enderror" name="det_materiales_rp" 
-            value="{{$proyeccion_preliminar->det_materiales_rp}}" autocomplete="off" autofocus disabled>
+            value="{{$mate_herra_proyeccion->det_materiales_rp}}" autocomplete="off" autofocus disabled>
             
             @error('det_materiales_rp')
                 <span class="invalid-feedback" role="alert">
@@ -665,7 +665,7 @@
             <label for="vlr_materiales_rp" class="col-form-label text-md-left" title="Valor Total Materiales">{{ __('Valor Total Materiales') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="vlr_materiales_rp" type="text"  class="form-control @error('vlr_materiales_rp') is-invalid @enderror" name="vlr_materiales_rp" 
-            value="{{number_format($proyeccion_preliminar->vlr_materiales_rp,'0',',','.')}}" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
+            value="$ {{number_format($costos_proyeccion->vlr_materiales_rp,'0',',','.')}}" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
             disabled>
             
             @error('vlr_materiales_rp')
@@ -758,7 +758,7 @@
             <label for="vlr_apoyo_docentes_rp" class="col-form-label text-md-left" title="Apoyo económico para los docentes">{{ __('Valor Apoyo Docentes') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="vlr_apoyo_docentes_rp" type="text"  class="form-control @error('vlr_apoyo_docentes_rp') is-invalid @enderror" name="vlr_apoyo_docentes_rp" 
-            value="" autocomplete="off" autofocus readonly>
+            value="$ {{number_format($costos_proyeccion->viaticos_docente_rp, 0, ',','.')}}" autocomplete="off" autofocus readonly>
             
             @error('vlr_apoyo_docentes_rp')
                 <span class="invalid-feedback" role="alert">
@@ -771,7 +771,7 @@
             <label for="vlr_apoyo_estudiantes_rp" class="col-form-label text-md-left" title="Apoyo económico para los estudiantes">{{ __('Valor Apoyo Estudiantes') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="vlr_apoyo_estudiantes_rp" type="text"  class="form-control @error('vlr_apoyo_estudiantes_rp') is-invalid @enderror" name="vlr_apoyo_estudiantes_rp" 
-            value="" autocomplete="off" autofocus readonly>
+            value="$ {{number_format($costos_proyeccion->viaticos_estudiantes_rp, 0, ',','.')}}" autocomplete="off" autofocus readonly>
             
             @error('vlr_apoyo_estudiantes_rp')
                 <span class="invalid-feedback" role="alert">
@@ -800,7 +800,7 @@
             <label for="cronograma" class="col-form-label text-md-left">{{ __('Cronograma Recorrido') }}</label>
             <span class="hs-form-required">*</span>
             <textarea id="cronograma" style="min-height:5rem;" type="text" class="form-control @error('cronograma') is-invalid @enderror" name="cronograma" 
-            required autocomplete="off" autofocus></textarea>
+            required autocomplete="off" autofocus><?php echo $solicitud_practica->cronograma?></textarea>
             
             @error('cronograma')
                 <span class="invalid-feedback" role="alert">
@@ -817,7 +817,7 @@
             <label for="observaciones" class="col-form-label text-md-left">{{ __('Observaciones Práctica') }}</label>
             <span class="hs-form-required">*</span>
             <textarea id="observaciones" style="min-height:5rem;" type="text" class="form-control @error('observaciones') is-invalid @enderror" name="observaciones" 
-            required autocomplete="off" autofocus></textarea>
+            autocomplete="off" autofocus><?php echo $solicitud_practica->observaciones?></textarea>
             
             @error('observaciones')
                 <span class="invalid-feedback" role="alert">
@@ -834,7 +834,7 @@
             <label for="justificacion" class="col-form-label text-md-left">{{ __('Justificación Práctica') }}</label>
             <span class="hs-form-required">*</span>
             <textarea id="justificacion" style="min-height:5rem;" type="text" class="form-control @error('justificacion') is-invalid @enderror" name="justificacion" 
-            required autocomplete="off" autofocus></textarea>
+            required autocomplete="off" autofocus><?php echo $solicitud_practica->justificacion?></textarea>
             
             @error('justificacion')
                 <span class="invalid-feedback" role="alert">
@@ -851,7 +851,7 @@
             <label for="objetivo_general" class="col-form-label text-md-left">{{ __('Objetivo General Práctica') }}</label>
             <span class="hs-form-required">*</span>
             <textarea id="objetivo_general" style="min-height:5rem;" type="text" class="form-control @error('objetivo_general') is-invalid @enderror" name="objetivo_general" 
-            required autocomplete="off" autofocus></textarea>
+            required autocomplete="off" autofocus><?php echo $solicitud_practica->objetivo_general?></textarea>
             
             @error('objetivo_general')
                 <span class="invalid-feedback" role="alert">
@@ -868,7 +868,7 @@
             <label for="metodologia_evaluacion" class="col-form-label text-md-left">{{ __('Metodología Trabajo - Evaluacion Práctica') }}</label>
             <span class="hs-form-required">*</span>
             <textarea id="metodologia_evaluacion" style="min-height:5rem;" type="text" class="form-control @error('metodologia_evaluacion') is-invalid @enderror" name="metodologia_evaluacion" 
-            required autocomplete="off" autofocus></textarea>
+            required autocomplete="off" autofocus><?php echo $solicitud_practica->metodologia_evaluacion?></textarea>
             
             @error('metodologia_evaluacion')
                 <span class="invalid-feedback" role="alert">
