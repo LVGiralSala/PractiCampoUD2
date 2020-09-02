@@ -9,7 +9,8 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ __('Registro Solicitud Práctica N° ') }}<?php echo $solicitud_practica->id_proyeccion_preliminar?><?php echo "\t -"?>
+                    {{-- <div class="card-header">{{ __('Registro Solicitud Práctica N° ') }}<php echo $solicitud_practica->id_proyeccion_preliminar?> <php echo "\t -"?> --}}
+                        <div class="card-header">{{ __('Registro Solicitud Práctica N° ') }}<?php echo $solicitud_practica->id_proyeccion_preliminar?>
                         {{ __('') }}</div>
                         {{-- <php if($estado_doc_respon == 1){ echo $nombre_doc_resp;} elseif ($estado_doc_respon == 2){ echo "Usuario Inactivo";}?> --}}
                     
@@ -42,8 +43,10 @@
 
 
                             @if(Auth::user()->docente())
-                                @include('solicitudes.formularios.edit_docen',array($proyeccion_preliminar,$programas_usuario, 
-                                $espacios_academicos, $periodos_academicos,$semestres_asignaturas, $tipos_transportes))
+                                @include('solicitudes.formularios.edit_docen',array($proyeccion_preliminar, $programas_academicos, $programas_usuario, 
+                                $espacios_academicos, $periodos_academicos, $semestres_asignaturas, $tipos_transportes, $nombre_usuario, $estado_doc_respon,
+                                $solicitud_practica, $costos_proyeccion, $docentes_practica, $mate_herra_proyeccion, $riesg_amen_practica, $transporte_proyeccion,
+                                $tipo_ruta))
                             @endif
 
                             <!-- 25 -->

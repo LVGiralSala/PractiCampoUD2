@@ -414,6 +414,7 @@
 
 <!-- información proyección -->
 
+@if($tipo_ruta == 1)
 <br>
 <h4>Ruta Principal (Destino para cumplir los objetivos de la práctica)</h4>
 <hr class="divider">
@@ -880,9 +881,10 @@
     <!-- 5 -->
 
 <!-- ruta principal -->
+@endif
 
-
-@if(Auth::user()->decano())
+@if($tipo_ruta == 2)
+{{-- @if(Auth::user()->docente()) --}}
 <br>
 <h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
 <hr class="divider">

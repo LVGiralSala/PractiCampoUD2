@@ -103,11 +103,13 @@ Route::group(['middleware' => 'auth'], function () {
 
         // ------> solicitudes Routes <------
         Route::get('solicitudes/filtrar/{id}','Solicitud\SolicitudController@filterSolicitud')->name('solicitud_filter');
+        Route::get('solicitudes/sel_ruta/{ruta}','Solicitud\SolicitudController@selRutaSolicitud')->name('solicitud_sel_ruta');
+        Route::get('solicitudes/rutas/{id}','Solicitud\SolicitudController@showRuta')->name('solicitud_rutas');
         // Route::get('solicitudes','Solicitud\SolicitudController@pre_solicitud')->name('solicitud_index');
         Route::get('solicitudes/create','Solicitud\SolicitudController@create')->name('solicitud_create');
         Route::get('solicitudes','Solicitud\SolicitudController@pre_solicitud')->name('pre_solicitud');
         Route::post('solicitudes','Solicitud\SolicitudController@store')->name('solicitud_store');
-        Route::get('solicitudes/{id}','Solicitud\SolicitudController@edit')->name('solicitud_edit');
+        Route::get('solicitudes/{id}/{tipoRuta}','Solicitud\SolicitudController@edit')->name('solicitud_edit');
         Route::put('solicitudes/{id}','Solicitud\SolicitudController@update')->name('solicitud_update');
         Route::delete('solicitudes','Solicitud\SolicitudController@destroy')->name('solicitud_destroy');
         // Route::get('solicitudes/activas','Solicitud\SolicitudController@verActiva')->name('solicitud_activa');

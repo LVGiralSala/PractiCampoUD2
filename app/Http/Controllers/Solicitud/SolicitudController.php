@@ -24,7 +24,10 @@ use PractiCampoUD\riesgos_amenazas_proyeccion;
 use PractiCampoUD\transporte_proyeccion;
 use DB;
 use PractiCampoUD\estudiantes_practica;
+use PractiCampoUD\rutas;
 use PractiCampoUD\solicitud;
+use Illuminate\Support\Collection;
+use stdClass;
 
 class SolicitudController extends Controller
 {
@@ -158,7 +161,7 @@ class SolicitudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$tipo_ruta)
     {
         $idRole = Auth::user()->id_role;
         switch($idRole)
@@ -459,7 +462,7 @@ class SolicitudController extends Controller
                                                 "mate_herra_proyeccion"=>$mate_herra_proyeccion,
                                                 "riesg_amen_practica"=>$riesg_amen_practica,
                                                 "transporte_proyeccion"=>$transporte_proyeccion,
-                                                
+                                                "tipo_ruta"=>$tipo_ruta
         
                 ]);
             break;
@@ -1370,5 +1373,62 @@ class SolicitudController extends Controller
         }
         return view('solicitudes.index',["proyecciones"=>$proyeccion, 'filter'=>$filter]);
         // return view('solicitudes.index',["proyecciones"=>$proyeccion,"estudiantes"=>$estudiantes, 'filter'=>$filter]);
+    }
+
+    public function showRuta($id)
+    {
+        $idRole = Auth::user()->id_role;
+        $idUser = Auth::user()->id;
+        $usuario=DB::table('users')->where('id','=',$idUser)->first();
+        $id_prog_coord = $usuario->id_programa_academico_coord;
+        $proyeccion=DB::table('proyeccion_preliminar as p_prel')
+        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
+                'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp',
+                'p_prel.destino_ra','p_prel.fecha_salida_aprox_ra','p_prel.fecha_regreso_aprox_ra','es_coor.abrev as ab_coor',
+                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_creador',
+                'sol_prac.id as id_solicitud')
+        ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
+        ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
+        ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
+        ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
+        ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
+        ->join('solicitud_practica as sol_prac','p_prel.id','=','sol_prac.id_proyeccion_preliminar')
+        // ->where('aprobacion_coordinador','=',5)
+        ->where('p_prel.confirm_creador','=',1)
+        ->where('p_prel.confirm_docente','=',1)
+        ->where('p_prel.confirm_coord','=',1)
+        ->where('p_prel.confirm_asistD','=',1)
+        ->where('p_prel.id_docente_responsable','=',$idUser)
+        ->where('p_prel.id_estado','=',1)
+        ->where('p_prel.aprobacion_consejo_facultad','=',3)
+        ->where('sol_prac.id_estado_solicitud_practica','=',5)
+        ->where('p_prel.id','=',$id)
+        ->first();
+
+        $rp = new stdClass();
+        $rp->programa_academico = $proyeccion->programa_academico;
+        $rp->espacio_academico = $proyeccion->espacio_academico;
+        $rp->destino = $proyeccion->destino_ra;
+        $rp->fecha_salida = $proyeccion->fecha_salida_aprox_ra;
+        $rp->fecha_regreso = $proyeccion->fecha_regreso_aprox_ra;
+        $rp->tipo_ruta = 1;
+        
+        $ra = new stdClass();
+        $ra->programa_academico = $proyeccion->programa_academico;
+        $ra->espacio_academico = $proyeccion->espacio_academico;
+        $ra->destino = $proyeccion->destino_rp;
+        $ra->fecha_salida = $proyeccion->fecha_salida_aprox_rp;
+        $ra->fecha_regreso = $proyeccion->fecha_regreso_aprox_rp;
+        $ra->tipo_ruta = 2;
+
+        $rutas = array($rp,$ra);
+      
+        return view('solicitudes.rutas.index_rutas',["proyeccion_preliminar"=>$proyeccion,
+                                                     "rutas"=>$rutas]);
+    }
+
+    public function selRutaSolicitud($ruta)
+    {
+        return view('solicitudes.edit',["proyeccion_preliminar",]);
     }
 }
