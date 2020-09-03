@@ -60,11 +60,11 @@ CREATE TABLE IF NOT EXISTS `costos_proyeccion` (
   CONSTRAINT `fk_costos_proyeccion_preliminar` FOREIGN KEY (`id`) REFERENCES `proyeccion_preliminar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampoud.costos_proyeccion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampoud.costos_proyeccion: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `costos_proyeccion` DISABLE KEYS */;
 REPLACE INTO `costos_proyeccion` (`id`, `vlr_materiales_rp`, `vlr_materiales_ra`, `viaticos_estudiantes_rp`, `viaticos_estudiantes_ra`, `viaticos_docente_rp`, `viaticos_docente_ra`, `costo_total_transporte_menor_rp`, `costo_total_transporte_menor_ra`, `valor_estimado_transporte_rp`, `valor_estimado_transporte_ra`, `total_presupuesto_rp`, `total_presupuesto_ra`) VALUES
 	(1, 150000, 100000, 5523000, 3682000, 1015500, 609300, 0, 0, 150, 200, 6538650, 4291500),
-	(2, 0, 0, 105200, 263000, 609300, 1827900, 0, 0, 1500000, 2500000, 2214500, 4590900);
+	(2, 35000, 0, 105200, 263000, 609300, 1827900, 0, 0, 1500000, 2500000, 2214500, 4590900);
 /*!40000 ALTER TABLE `costos_proyeccion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampoud.docentes_practica
@@ -116,11 +116,11 @@ CREATE TABLE IF NOT EXISTS `docentes_practica` (
   CONSTRAINT `fk_docente_practica_proyeccion_preliminar` FOREIGN KEY (`id`) REFERENCES `proyeccion_preliminar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampoud.docentes_practica: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampoud.docentes_practica: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `docentes_practica` DISABLE KEYS */;
 REPLACE INTO `docentes_practica` (`id`, `num_docentes_acomp`, `num_docentes_apoyo`, `num_doc_docente_acomp_1`, `num_doc_docente_acomp_2`, `num_doc_docente_acomp_3`, `num_doc_docente_acomp_4`, `num_doc_docente_acomp_5`, `num_doc_docente_acomp_6`, `num_doc_docente_acomp_7`, `num_doc_docente_acomp_8`, `num_doc_docente_acomp_9`, `num_doc_docente_acomp_10`, `num_doc_docente_apoyo_1`, `num_doc_docente_apoyo_2`, `num_doc_docente_apoyo_3`, `num_doc_docente_apoyo_4`, `num_doc_docente_apoyo_5`, `num_doc_docente_apoyo_6`, `num_doc_docente_apoyo_7`, `num_doc_docente_apoyo_8`, `num_doc_docente_apoyo_9`, `num_doc_docente_apoyo_10`, `docente_acomp_1`, `docente_acomp_2`, `docente_acomp_3`, `docente_acomp_4`, `docente_acomp_5`, `docente_acomp_6`, `docente_acomp_7`, `docente_acomp_8`, `docente_acomp_9`, `docente_acomp_10`, `docente_apoyo_1`, `docente_apoyo_2`, `docente_apoyo_3`, `docente_apoyo_4`, `docente_apoyo_5`, `docente_apoyo_6`, `docente_apoyo_7`, `docente_apoyo_8`, `docente_apoyo_9`, `docente_apoyo_10`) VALUES
-	(1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Ana', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Analia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(2, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'xfgh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dfgh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	(1, 1, 3, 52369546, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6359623, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Ana Garcia Nuñez', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Analia Suarez', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(2, 2, 1, 10385692, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4236520, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Beatriz Lopez', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Josefina Galindo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `docentes_practica` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampoud.espacio_academico
@@ -302,31 +302,33 @@ REPLACE INTO `estado` (`id`, `estado`, `abrev`) VALUES
 
 -- Volcando estructura para tabla practicampoud.estudiantes_solicitud_practica
 CREATE TABLE IF NOT EXISTS `estudiantes_solicitud_practica` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_tipo_identificacion` int(11) NOT NULL DEFAULT '0',
   `num_identificacion` bigint(20) NOT NULL,
   `cod_estudiantil` bigint(20) NOT NULL,
-  `id_tipo_identificacion` int(11) NOT NULL DEFAULT '0',
   `id_solicitud_practica` int(11) NOT NULL DEFAULT '0',
   `nombres` varchar(50) NOT NULL DEFAULT '0',
   `apellidos` varchar(50) NOT NULL DEFAULT '0',
   `fecha_nacimiento` date NOT NULL,
   `eps` varchar(50) NOT NULL DEFAULT '0',
   `email` varchar(255) NOT NULL DEFAULT '0',
-  `aprob_terminos_condiciones` bit(1) NOT NULL DEFAULT b'0',
-  `verificacion_asistencia` bit(1) NOT NULL DEFAULT b'0',
-  `permiso_padres` blob NOT NULL,
-  `seguro_estudiantil` blob NOT NULL,
-  `documento_adicional_1` blob NOT NULL,
-  `documento_adicional_2` blob NOT NULL,
+  `aprob_terminos_condiciones` bit(1) DEFAULT b'0',
+  `verificacion_asistencia` bit(1) DEFAULT b'0',
+  `permiso_padres` blob,
+  `seguro_estudiantil` blob,
+  `documento_adicional_1` blob,
+  `documento_adicional_2` blob,
   PRIMARY KEY (`id`),
   KEY `fk_estudiantes_solicitud_practica_tipo_identificacion_idx` (`id_tipo_identificacion`),
   KEY `fk_estudiantes_solicitud_practica_solicitud_practica_idx` (`id_solicitud_practica`),
   CONSTRAINT `fk_estudiantes_solicitud_practica_solicitud_practica` FOREIGN KEY (`id_solicitud_practica`) REFERENCES `solicitud_practica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_estudiantes_solicitud_practica_tipo_identificacion` FOREIGN KEY (`id_tipo_identificacion`) REFERENCES `tipo_identificacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampoud.estudiantes_solicitud_practica: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampoud.estudiantes_solicitud_practica: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `estudiantes_solicitud_practica` DISABLE KEYS */;
+REPLACE INTO `estudiantes_solicitud_practica` (`id`, `id_tipo_identificacion`, `num_identificacion`, `cod_estudiantil`, `id_solicitud_practica`, `nombres`, `apellidos`, `fecha_nacimiento`, `eps`, `email`, `aprob_terminos_condiciones`, `verificacion_asistencia`, `permiso_padres`, `seguro_estudiantil`, `documento_adicional_1`, `documento_adicional_2`) VALUES
+	(1, 1, 78532158, 8954, 1, 'Camila', 'Suarez', '1988-03-23', 'Sanitas', 'csuarez@gmail.com', b'0', b'0', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `estudiantes_solicitud_practica` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampoud.materiales_herramientas_proyeccion
@@ -342,11 +344,11 @@ CREATE TABLE IF NOT EXISTS `materiales_herramientas_proyeccion` (
   CONSTRAINT `fk_materiales_herramientas_proyeccion_preliminar` FOREIGN KEY (`id`) REFERENCES `proyeccion_preliminar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampoud.materiales_herramientas_proyeccion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampoud.materiales_herramientas_proyeccion: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `materiales_herramientas_proyeccion` DISABLE KEYS */;
 REPLACE INTO `materiales_herramientas_proyeccion` (`id`, `det_materiales_rp`, `det_materiales_ra`, `det_herramientas_rp`, `det_herramientas_ra`, `det_equipos_rp`, `det_equipos_ra`) VALUES
 	(1, 'prueba', 'prueba', NULL, NULL, NULL, NULL),
-	(2, NULL, NULL, NULL, NULL, NULL, NULL);
+	(2, 'prueba2', 'prueba2', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `materiales_herramientas_proyeccion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampoud.migrations
@@ -497,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `proyeccion_preliminar` (
 /*!40000 ALTER TABLE `proyeccion_preliminar` DISABLE KEYS */;
 REPLACE INTO `proyeccion_preliminar` (`id`, `id_estado`, `id_programa_academico`, `id_espacio_academico`, `id_peridodo_academico`, `id_semestre_asignatura`, `id_docente_responsable`, `num_estudiantes_aprox`, `cantidad_grupos`, `grupo_1`, `grupo_2`, `grupo_3`, `grupo_4`, `ruta_principal`, `destino_rp`, `ruta_alterna`, `destino_ra`, `det_recorrido_interno_rp`, `det_recorrido_interno_ra`, `lugar_salida_rp`, `lugar_salida_ra`, `lugar_regreso_rp`, `lugar_regreso_ra`, `fecha_salida_aprox_rp`, `fecha_salida_aprox_ra`, `fecha_regreso_aprox_rp`, `fecha_regreso_aprox_ra`, `duracion_num_dias_ra`, `duracion_num_dias_rp`, `confirm_creador`, `id_creador_confirm`, `confirm_docente`, `id_docente_confirm`, `confirm_coord`, `id_coordinador_confirm`, `confirm_electiva_coord`, `id_coordinador_electiva_confirm`, `confirm_asistD`, `id_asistD_confirm`, `conf_curricul_plan_pract_rp`, `conf_curricul_plan_pract_ra`, `observ_coordinador`, `observ_decano`, `aprobacion_coordinador`, `id_coordinador_aprob`, `aprobacion_decano`, `id_decano_aprob`, `aprobacion_asistD`, `id_asistD_aprob`, `aprobacion_consejo_facultad`, `cod_presup_tesoreria`, `id_asistD_aprob_consejo`, `fecha_diligenciamiento`, `created_at`, `updated_at`) VALUES
 	(1, 1, 10, 6, 3, 10, 79418769, 35, 1, 302, NULL, NULL, NULL, _binary 0x707275656261, 'prueba', _binary 0x707275656261, 'prueba', _binary 0x7072756562612070727565626120707275656261207072756562617072756562617072756562617072756562612070727565626120707275656261207072756562612070727565626120707275656261207072756562612070727565626120707275656261207072756562612070727565626120707275656261, _binary 0x707275656261207072756562612070727565626120707275656261207072756562612070727565626120707275656261207072756562612070727565626120707275656261, _binary 0x707275656261, _binary 0x707275656261, _binary 0x707275656261, _binary 0x707275656261, '2020-07-16', '2020-07-16', '2020-07-19', '2020-07-18', 3, 4, b'1', 79418769, b'1', 79418769, b'1', 52527490, b'0', NULL, b'1', 659863256, b'1', b'1', NULL, NULL, 3, 52527490, 3, NULL, 3, 659863256, 3, NULL, 659863256, '2020-07-16', '2020-07-16 20:17:52', '2020-07-28 23:29:43'),
-	(2, 1, 10, 6, 3, 10, 79418769, 1, 1, NULL, NULL, NULL, NULL, _binary 0x64666768, 'gfhd', _binary 0x66646768, 'dfgh', _binary 0x66646768, _binary 0x64666768, _binary 0x64666768, _binary 0x66646768, _binary 0x66646768, _binary 0x66646768, '2020-07-23', '2020-07-23', '2020-07-25', '2020-07-28', 6, 3, b'1', 79418769, b'1', 79418769, b'1', 52527490, NULL, NULL, b'1', 659863256, b'1', b'1', NULL, NULL, 3, 52527490, 3, NULL, 3, 659863256, 3, NULL, 659863256, '2020-07-23', '2020-07-23 15:33:54', '2020-07-29 21:38:57');
+	(2, 1, 10, 6, 3, 10, 79418769, 1, 1, 5, NULL, NULL, NULL, _binary 0x64666768, 'gfhd', _binary 0x66646768, 'dfgh', _binary 0x66646768, _binary 0x64666768, _binary 0x64666768, _binary 0x66646768, _binary 0x66646768, _binary 0x66646768, '2020-07-23', '2020-07-23', '2020-07-26', '2020-07-28', 6, 4, b'1', 79418769, b'1', 79418769, b'1', 52527490, NULL, NULL, b'1', 659863256, b'1', b'1', NULL, NULL, 3, 52527490, 3, NULL, 3, 659863256, 3, NULL, 659863256, '2020-07-23', '2020-07-23 15:33:54', '2020-09-03 00:14:31');
 /*!40000 ALTER TABLE `proyeccion_preliminar` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampoud.riesgos_amenazas_practica
@@ -517,7 +519,7 @@ CREATE TABLE IF NOT EXISTS `riesgos_amenazas_practica` (
   CONSTRAINT `fk_riesgos_amenazas_proyeccion_preliminar` FOREIGN KEY (`id`) REFERENCES `proyeccion_preliminar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampoud.riesgos_amenazas_practica: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampoud.riesgos_amenazas_practica: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `riesgos_amenazas_practica` DISABLE KEYS */;
 REPLACE INTO `riesgos_amenazas_practica` (`id`, `areas_acuaticas_rp`, `areas_acuaticas_ra`, `alturas_rp`, `alturas_ra`, `riesgo_biologico_rp`, `riesgo_biologico_ra`, `espacios_confinados_rp`, `espacios_confinados_ra`, `plan_contingencia_rp`, `plan_contingencia_ra`) VALUES
 	(1, b'0', b'1', b'0', b'1', b'0', b'1', b'0', b'1', NULL, NULL),
@@ -570,9 +572,22 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_proyeccion_preliminar` int(11) DEFAULT NULL,
   `id_estado_solicitud_practica` int(11) DEFAULT NULL,
+  `tipo_ruta` int(11) DEFAULT '1',
   `si_capital` bit(1) DEFAULT b'0',
   `tiene_resolucion` bit(1) DEFAULT b'0',
-  `num_cdp` bigint(20) DEFAULT '0',
+  `confirm_docente` bit(1) DEFAULT b'0',
+  `id_docente_confirm` bigint(20) DEFAULT NULL,
+  `confirm_coord` bit(1) DEFAULT b'0',
+  `id_coordinador_confirm` bigint(20) DEFAULT NULL,
+  `confirm_asistD` bit(1) DEFAULT b'0',
+  `id_asistD_confirm` bigint(20) DEFAULT NULL,
+  `aprobacion_coordinador` bit(1) DEFAULT b'0',
+  `id_coordinador_aprob` bigint(20) DEFAULT NULL,
+  `aprobacion_decano` bit(1) DEFAULT b'0',
+  `id_decano_aprob` bigint(20) DEFAULT NULL,
+  `aprobacion_asistD` bit(1) DEFAULT b'0',
+  `id_asistD_aprob` bigint(20) DEFAULT NULL,
+  `num_cdp` bigint(20) DEFAULT NULL,
   `fecha_resolucion` date DEFAULT NULL,
   `fecha_salida` date DEFAULT NULL,
   `fecha_regreso` date DEFAULT NULL,
@@ -581,6 +596,11 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
   `num_acompaniantes` int(11) DEFAULT '0',
   `lugar_salida` varchar(50) DEFAULT NULL,
   `lugar_regreso` varchar(50) DEFAULT NULL,
+  `cronograma` blob,
+  `observaciones` blob,
+  `justificacion` blob,
+  `objetivo_general` blob,
+  `metodologia_evaluacion` blob,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -590,11 +610,11 @@ CREATE TABLE IF NOT EXISTS `solicitud_practica` (
   CONSTRAINT `fk_solicitud_practica_proyeccion_preliminar` FOREIGN KEY (`id_proyeccion_preliminar`) REFERENCES `proyeccion_preliminar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampoud.solicitud_practica: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampoud.solicitud_practica: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `solicitud_practica` DISABLE KEYS */;
-REPLACE INTO `solicitud_practica` (`id`, `id_proyeccion_preliminar`, `id_estado_solicitud_practica`, `si_capital`, `tiene_resolucion`, `num_cdp`, `fecha_resolucion`, `fecha_salida`, `fecha_regreso`, `num_estudiantes`, `num_radicado_financiera`, `num_acompaniantes`, `lugar_salida`, `lugar_regreso`, `created_at`, `updated_at`) VALUES
-	(1, 1, NULL, b'0', b'0', 0, NULL, NULL, NULL, 0, 0, 0, NULL, NULL, '2020-07-28 23:29:44', '2020-07-28 23:29:44'),
-	(2, 2, NULL, b'0', b'0', 0, NULL, NULL, NULL, 0, 0, 0, NULL, NULL, '2020-07-29 21:38:57', '2020-07-29 21:38:57');
+REPLACE INTO `solicitud_practica` (`id`, `id_proyeccion_preliminar`, `id_estado_solicitud_practica`, `tipo_ruta`, `si_capital`, `tiene_resolucion`, `confirm_docente`, `id_docente_confirm`, `confirm_coord`, `id_coordinador_confirm`, `confirm_asistD`, `id_asistD_confirm`, `aprobacion_coordinador`, `id_coordinador_aprob`, `aprobacion_decano`, `id_decano_aprob`, `aprobacion_asistD`, `id_asistD_aprob`, `num_cdp`, `fecha_resolucion`, `fecha_salida`, `fecha_regreso`, `num_estudiantes`, `num_radicado_financiera`, `num_acompaniantes`, `lugar_salida`, `lugar_regreso`, `cronograma`, `observaciones`, `justificacion`, `objetivo_general`, `metodologia_evaluacion`, `created_at`, `updated_at`) VALUES
+	(1, 1, 3, 3, b'1', b'1', b'0', NULL, b'0', NULL, b'0', NULL, b'0', NULL, b'0', NULL, b'0', NULL, 852, NULL, NULL, NULL, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-07-28 23:29:44', '2020-07-28 23:29:44'),
+	(2, 2, 5, 7, b'1', b'1', b'0', NULL, b'0', NULL, b'0', NULL, b'0', NULL, b'0', NULL, b'0', NULL, 852, NULL, NULL, NULL, 0, 0, 0, NULL, NULL, _binary 0x6767, _binary 0x6767, _binary 0x6767, _binary 0x6767, _binary 0x6767, '2020-07-29 21:38:57', '2020-08-05 18:38:33');
 /*!40000 ALTER TABLE `solicitud_practica` ENABLE KEYS */;
 
 -- Volcando estructura para tabla practicampoud.solicitud_transporte
@@ -748,7 +768,7 @@ CREATE TABLE IF NOT EXISTS `transporte_proyeccion` (
   CONSTRAINT `fk_transporte_tipo_transporte_rp` FOREIGN KEY (`id_tipo_transporte_rp_1`) REFERENCES `tipo_transporte` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla practicampoud.transporte_proyeccion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla practicampoud.transporte_proyeccion: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `transporte_proyeccion` DISABLE KEYS */;
 REPLACE INTO `transporte_proyeccion` (`id`, `id_tipo_transporte_rp_1`, `id_tipo_transporte_rp_2`, `id_tipo_transporte_rp_3`, `id_tipo_transporte_ra_1`, `id_tipo_transporte_ra_2`, `id_tipo_transporte_ra_3`, `otro_tipo_transporte_rp_1`, `otro_tipo_transporte_rp_2`, `otro_tipo_transporte_rp_3`, `otro_tipo_transporte_ra_1`, `otro_tipo_transporte_ra_2`, `otro_tipo_transporte_ra_3`, `det_tipo_transporte_rp_1`, `det_tipo_transporte_rp_2`, `det_tipo_transporte_rp_3`, `det_tipo_transporte_ra_1`, `det_tipo_transporte_ra_2`, `det_tipo_transporte_ra_3`, `vlr_otro_tipo_transporte_rp_1`, `vlr_otro_tipo_transporte_rp_2`, `vlr_otro_tipo_transporte_rp_3`, `vlr_otro_tipo_transporte_ra_1`, `vlr_otro_tipo_transporte_ra_2`, `vlr_otro_tipo_transporte_ra_3`, `docen_respo_trasnporte_rp_1`, `docen_respo_trasnporte_rp_2`, `docen_respo_trasnporte_rp_3`, `docen_respo_trasnporte_ra_1`, `docen_respo_trasnporte_ra_2`, `docen_respo_trasnporte_ra_3`, `capac_transporte_rp_1`, `capac_transporte_rp_2`, `capac_transporte_rp_3`, `capac_transporte_ra_1`, `capac_transporte_ra_2`, `capac_transporte_ra_3`, `exclusiv_tiempo_rp_1`, `exclusiv_tiempo_rp_2`, `exclusiv_tiempo_rp_3`, `exclusiv_tiempo_ra_1`, `exclusiv_tiempo_ra_2`, `exclusiv_tiempo_ra_3`, `cant_transporte_rp`, `cant_transporte_ra`) VALUES
 	(1, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 'Cesar Augusto Garcia Valbuena', NULL, NULL, 'Cesar Augusto Garcia Valbuena', NULL, NULL, 38, NULL, NULL, 38, NULL, NULL, b'1', NULL, NULL, b'1', NULL, NULL, NULL, NULL),
