@@ -1382,7 +1382,7 @@ class SolicitudController extends Controller
         $usuario=DB::table('users')->where('id','=',$idUser)->first();
         $id_prog_coord = $usuario->id_programa_academico_coord;
         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
+        ->select('p_prel.id','p_aca.programa_academico','e_aca.codigo_espacio_academico','e_aca.espacio_academico',
                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp',
                 'p_prel.destino_ra','p_prel.fecha_salida_aprox_ra','p_prel.fecha_regreso_aprox_ra','es_coor.abrev as ab_coor',
                 'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_creador',

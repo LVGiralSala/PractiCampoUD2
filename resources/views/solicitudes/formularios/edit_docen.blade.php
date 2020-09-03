@@ -1,3 +1,4 @@
+{{-- @if($tipo_ruta == 3) --}}
 <!-- información proyección -->
     <!-- 1 -->
     <div class="form-group row">
@@ -81,7 +82,7 @@
             <label for="num_estudiantes_aprox" class="col-form-label text-md-left">{{ __('Estudiantes') }}</label>
             <span class="hs-form-required">*</span>
             <input id="num_estudiantes_aprox" type="text" class="form-control @error('num_estudiantes_aprox') is-invalid @enderror" name="num_estudiantes_aprox" 
-            value="{{$proyeccion_preliminar->num_estudiantes_aprox}}" required autocomplete="off" autofocus onchange="calc_viaticos_RP()" readonly>
+            value="{{$proyeccion_preliminar->num_estudiantes_aprox}}" required autocomplete="off" autofocus onchange="duracionRP()" >
             
             @error('num_estudiantes_aprox')
                 <span class="invalid-feedback" role="alert">
@@ -94,7 +95,7 @@
             <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="num_acompaniantes" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
-            value="{{$docentes_practica->num_docentes_acomp}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" disabled>
+            value="{{$docentes_practica->num_docentes_acomp}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" >
             
             @error('num_acompaniantes')
                 <span class="invalid-feedback" role="alert">
@@ -107,7 +108,7 @@
             <label for="num_apoyo" class="col-form-label text-md-left" title="Número Docentes De Apoyo">{{ __('Docent. Apoyo') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="num_apoyo" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
-            value="{{$docentes_practica->num_docentes_apoyo}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" disabled>
+            value="{{$docentes_practica->num_docentes_apoyo}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" >
             
             @error('num_apoyo')
                 <span class="invalid-feedback" role="alert">
@@ -116,28 +117,28 @@
             @enderror
         </div>
 
-        {{-- <div class="col-md-2" id="cant_grupos_edit">
-            <label for="cant_grupos_edit" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
+        <div class="col-md-2" id="cant_grupos">
+            <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
             <span class="hs-form-required">*</span>
-            <input id="cant_grupos_edit" type="number" max="4" min="1" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos_edit" 
-            value="" autocomplete="off" autofocus>
-            @error('cant_grupos_edit')
+            <input id="cant_grupos" type="number" max="4" min="1" pattern="^[0-9]+" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
+            value="{{$proyeccion_preliminar->cantidad_grupos}}" autocomplete="off" autofocus>
+            @error('cant_grupos')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-        </div> --}}
+        </div>
 
     </div>
     <!-- 2 -->
 
      <!-- 2.1 -->
-     <div  class="form-group row"  id="Grupos_edit">
-        <div class="col-md-2" id="gp_1_edit">
+     <div  class="form-group row"  id="Grupos">
+        <div class="col-md-2" id="gp_1">
             <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
             <span class="hs-form-required">*</span>
             <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
-            value="{{$proyeccion_preliminar->grupo_1}}" required autocomplete="off" autofocus readonly>
+            value="{{$proyeccion_preliminar->grupo_1}}" required autocomplete="off" autofocus >
             
             @error('grupo_1')
                 <span class="invalid-feedback" role="alert">
@@ -145,30 +146,30 @@
                 </span>
             @enderror
         </div>
-        <div class="col-md-2" id="gp_2_edit">
+        <div class="col-md-2" id="gp_2">
             <label for="grupo_2" class="col-form-label text-md-left">{{ __('Gp 2') }}</label>
             <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
-            value="{{$proyeccion_preliminar->grupo_2}}" autocomplete="off" autofocus readonly>
+            value="{{$proyeccion_preliminar->grupo_2}}" autocomplete="off" autofocus >
             @error('grupo_2')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
-        <div class="col-md-2" id="gp_3_edit">
+        <div class="col-md-2" id="gp_3">
             <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
             <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
-            value="{{$proyeccion_preliminar->grupo_3}}" autocomplete="off" autofocus readonly>
+            value="{{$proyeccion_preliminar->grupo_3}}" autocomplete="off" autofocus >
             @error('grupo_3')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
-        <div class="col-md-2" id="gp_4_edit">
+        <div class="col-md-2" id="gp_4">
             <label for="grupo_4" class="col-form-label text-md-left">{{ __('Gp 4') }}</label>
             <input id="grupo_4" type="text" class="form-control @error('grupo_4') is-invalid @enderror" name="grupo_4" 
-            value="{{$proyeccion_preliminar->grupo_4}}" autocomplete="off" autofocus readonly>
+            value="{{$proyeccion_preliminar->grupo_4}}" autocomplete="off" autofocus >
             @error('grupo_4')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -294,7 +295,7 @@
 
     <!-- 2.3 -->
     <div  class="form-group row"  id="apoyo">
-        @if($docentes_practica->num_docentes_apoyo == 1 || $docentes_practica->num_docentes_apoyo == 2 || $docentes_practica->num_docentes_apoyo == 3)
+        {{-- @if($docentes_practica->num_docentes_apoyo == 1 || $docentes_practica->num_docentes_apoyo == 2 || $docentes_practica->num_docentes_apoyo == 3) --}}
         <div class="col-md-4" id="ap_1">
             <label for="apoyo_1" class="col-form-label text-md-left">{{ __('Docente Apoyo 1') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
@@ -307,9 +308,9 @@
                 </span>
             @enderror
         </div>
-        @endif
+        {{-- @endif --}}
 
-        @if($docentes_practica->num_docentes_apoyo == 2 || $docentes_practica->num_docentes_apoyo == 3)
+        {{-- @if($docentes_practica->num_docentes_apoyo == 2 || $docentes_practica->num_docentes_apoyo == 3) --}}
         <div class="col-md-4" id="ap_2">
             <label for="apoyo_2" class="col-form-label text-md-left">{{ __('Docente Apoyo 2') }}</label>
             <input id="apoyo_2" type="text" class="form-control @error('apoyo_2') is-invalid @enderror" name="apoyo_2" 
@@ -320,9 +321,9 @@
                 </span>
             @enderror
         </div>
-        @endif
+        {{-- @endif --}}
 
-        @if($docentes_practica->num_docentes_apoyo == 3)
+        {{-- @if($docentes_practica->num_docentes_apoyo == 3) --}}
         <div class="col-md-4" id="ap_3">
             <label for="apoyo_3" class="col-form-label text-md-left">{{ __('Docente Apoyo 3') }}</label>
             <input id="apoyo_3" type="text" class="form-control @error('apoyo_3') is-invalid @enderror" name="apoyo_3" 
@@ -333,7 +334,7 @@
                 </span>
             @enderror
         </div>
-        @endif
+        {{-- @endif --}}
         {{-- <div class="col-md-4" id="ap_4">
             <label for="grupo_1" class="col-form-label text-md-left">{{ __('Docente Apoyo 4') }}</label>
             <span class="hs-form-required">*</span>
@@ -413,6 +414,7 @@
     <!-- 2.3 -->
 
 <!-- información proyección -->
+{{-- @endif --}}
 
 @if($tipo_ruta == 1)
 <br>
@@ -494,8 +496,8 @@
                  <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-              <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required
-              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}"  onchange="duracionRP2(this.value)" readonly>
+              <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp" id="fecha_salida_aprox_rp" type="text" required
+              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}"  onchange="duracion_edit_RP(this.value)" >
             </div>
         </div>
 
@@ -519,7 +521,7 @@
                  <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-              <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
+              <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp" id="fecha_regreso_aprox_rp" type="text" required
               value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}" onchange="duracion_edit_RP(this.value)" readonly>
             </div>
         </div>
@@ -540,6 +542,7 @@
     </div>
     <!-- 6 -->
 
+    @if($tipo_ruta == 3)
     <!-- 8 transporte_rp_1 -->
     <div class="form-group row">
         <div class="col-md-12" id="transporte_rp">
@@ -646,6 +649,7 @@
 
     </div>
     <!-- 8 transporte_rp_1 -->
+    @endif
 
     <!-- materiales -->
     <div class="form-group row">
@@ -653,7 +657,7 @@
             <label for="det_materiales_rp" class="col-form-label text-md-left" title="Materiales">{{ __('Materiales') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="det_materiales_rp" type="text"  class="form-control @error('det_materiales_rp') is-invalid @enderror" name="det_materiales_rp" 
-            value="{{$mate_herra_proyeccion->det_materiales_rp}}" autocomplete="off" autofocus disabled>
+            value="{{$mate_herra_proyeccion->det_materiales_rp}}" autocomplete="off" autofocus >
             
             @error('det_materiales_rp')
                 <span class="invalid-feedback" role="alert">
@@ -667,7 +671,7 @@
             {{-- <span class="hs-form-required">*</span> --}}
             <input id="vlr_materiales_rp" type="text"  class="form-control @error('vlr_materiales_rp') is-invalid @enderror" name="vlr_materiales_rp" 
             value="$ {{number_format($costos_proyeccion->vlr_materiales_rp,'0',',','.')}}" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
-            disabled>
+            >
             
             @error('vlr_materiales_rp')
                 <span class="invalid-feedback" role="alert">
@@ -997,6 +1001,7 @@
     </div>
     <!-- 12 -->
 
+    @if($tipo_ruta == 3)
     <!-- 14 transporte_ra_1 -->
     <div class="form-group row">
         <div class="col-md-2">
@@ -1097,6 +1102,7 @@
         </div>
     </div>
     <!-- 14 transporte_ra_1 -->
+    @endif
 
     <!-- materiales -->
     <div class="form-group row">

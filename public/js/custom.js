@@ -691,6 +691,46 @@ $("#cant_grupos").change('keypress', function () {
 
 /*Cantidad Grupos Proyección create*/
 
+/*Cantidad Grupos Proyección edit*/
+$("#Grupos_edit").show();
+$("#gp_1_edit").show();
+$("#gp_2_edit").hide();
+$("#gp_3_edit").hide();
+$("#gp_4_edit").hide();
+
+$("#cant_grupos_edit").change('keypress', function () {
+    val = $("#cant_grupos_edit").val();
+    
+    // if(val==1)
+    // {
+    //     $("#Grupos").show();
+    //     $("#gp_1").show();
+    //     $("#gp_2").hide();
+    //     $("#gp_3").hide();
+    //     $("#gp_4").hide();
+    // }
+    if(val==2)
+    {
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").hide();
+        $("#gp_4_edit").hide();
+    }
+    else if(val==3)
+    {
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").show();
+        $("#gp_4_edit").hide();
+    }
+    else if(val==4)
+    {
+        $("#gp_2_edit").show();
+        $("#gp_3_edit").show();
+        $("#gp_4_edit").show();
+    }
+});
+
+/*Cantidad Grupos Proyección edit*/
+
 /*Bloquear input number acompa proyección*/
 $("#num_acompaniantes").keypress(function (e) {
     e.preventDefault();
@@ -734,21 +774,27 @@ $("#num_acompaniantes").change('keypress', function () {
         $("#ac_2").hide();
         $("#ac_3").hide();
         // $("#gp_4").hide();
+        
+        
     }
     else if(num_acom==2)
     {
+        $("#acompa").show();
         $("#ac_2").show();
         $("#ac_3").hide();
         // $("#gp_4").hide();
+        // $("#grupo_2").val('sd');
     }
     else if(num_acom==3)
     {
+        $("#acompa").show();
         $("#ac_2").show();
         $("#ac_3").show();
         // $("#gp_4").hide();
     }
     else if(num_acom==4)
     {
+        $("#acompa").show();
         $("#ac_2").show();
         $("#ac_3").show();
         // $("#gp_4").show();
@@ -779,8 +825,8 @@ $("#num_apoyo").keypress(function (e) {
 
 /*Cantidad docentes apoyo Proyección create*/
 $("#apoyo").hide();
-$("#ap_1").hide();
 $("#ap_2").hide();
+$("#ap_3").hide();
 // $("#gp_4").hide();
 
 $("#num_apoyo").change('keypress', function () {
@@ -804,18 +850,21 @@ $("#num_apoyo").change('keypress', function () {
     }
     else if(num_apoyo==2)
     {
+        $("#apoyo").show();
         $("#ap_2").show();
         $("#ap_3").hide();
         // $("#gp_4").hide();
     }
     else if(num_apoyo==3)
     {
+        $("#apoyo").show();
         $("#ap_2").show();
         $("#ap_3").show();
         // $("#gp_4").hide();
     }
     else if(num_apoyo==4)
     {
+        $("#apoyo").show();
         $("#ap_2").show();
         $("#ap_3").show();
         // $("#gp_4").show();
@@ -823,90 +872,6 @@ $("#num_apoyo").change('keypress', function () {
 });
 
 /*Cantidad docentes apoyo Proyección create*/
-
-/*Cantidad Grupos Proyección Edit*/
-// x = $("#cant_grupos_edit").val();
-// x;
-// // $("#grupo_1").val(x);
-//     if(x==1)
-//     {
-//         $("#Grupos_edit").show();
-//         $("#gp_1_edit").show();
-//         $("#gp_2_edit").hide();
-//         $("#gp_3_edit").hide();
-//         $("#gp_4_edit").hide();
-//     }
-//     else if(x==2)
-//     {
-//         $("#Grupos_edit").show();
-//         $("#gp_1_edit").show();
-//         $("#gp_2_edit").show();
-//         $("#gp_3_edit").hide();
-//         $("#gp_4_edit").hide();
-//     }
-//     else if(x==3)
-//     {
-//         $("#Grupos_edit").show();
-//         $("#gp_1_edit").show();
-//         $("#gp_2_edit").show();
-//         $("#gp_3_edit").show();
-//         $("#gp_4_edit").hide();
-//     }
-//     else if(x==4)
-//     {
-//         $("#Grupos_edit").show();
-//         $("#gp_1_edit").show();
-//         $("#gp_2_edit").show();
-//         $("#gp_3_edit").show();
-//         $("#gp_4_edit").show();
-//     }
-
-
-//     $("#Grupos_edit").show();
-//     $("#gp_2_edit").show();
-//     $("#gp_3_edit").hide();
-//     $("#gp_4_edit").hide();
-
-//     o = 1;
-//     $("#grupo_2").val(o);
-
-    // oo=$("#cant_grupos_edit").val();
-    // $("#grupo_2").val(oo);
-
-// $("#cant_grupos_edit").change('keypress', function () {
-//     val = $("#cant_grupos_edit").val();
-    
-//     if(val==1)
-//     {
-//         $("#Grupos_edit").show();
-//         $("#grupo_2").val(val);
-//         $("#gp_1_edit").show();
-//         $("#gp_2_edit").hide();
-//         $("#gp_3_edit").hide();
-//         $("#gp_4_edit").hide();
-//     }
-//     else if(val==2)
-//     {
-//         $("#grupo_2").val(val);
-//         $("#gp_2_edit").show();
-//         $("#gp_3_edit").hide();
-//         $("#gp_4_edit").hide();
-//     }
-//     else if(val==3)
-//     {
-//         $("#gp_2_edit").show();
-//         $("#gp_3_edit").show();
-//         $("#gp_4_edit").hide();
-//     }
-//     else if(val==4)
-//     {
-//         $("#gp_2_edit").show();
-//         $("#gp_3_edit").show();
-//         $("#gp_4_edit").show();
-//     }
-// });
-
-/*Cantidad Grupos Proyección Edit*/
 
 /*Viaticos docentes*/
 // $("#duracion_rp").change(function (){
@@ -1090,6 +1055,16 @@ function calc_viaticos_RP()
     
 }
 
+// function jjjj(xw, fr)
+// {
+//     var fecha_salida = new Date($('#fecha_salida_aprox_rp').val());
+//     var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').val()); 
+//     var milis_dias = 86400000;
+//     var dif_milis = fecha_regreso - fecha_salida;
+//     var dif_dias = dif_milis / milis_dias + 1;
+//     $("#vlr_apoyo_estudiantes_rp").val(dif);
+// }
+
 // function calc_viaticos_RA()
 // {
 //     var fecha_salida = new Date($('#fecha_salida_aprox_ra').val());
@@ -1170,9 +1145,10 @@ function duracion_edit_RP(dateText)
     var dif_milis = fecha_regreso - fecha_salida;
     var dif_dias = dif_milis / milis_dias;
 
-    var f = fecha_regreso;
-    f = f.toJSON().slice(0,10);
-    $('#duracion_edit_rp').val(f);
+    // var f = fecha_regreso;
+    // f = f.toJSON().slice(0,10);
+    $('#duracion_edit_rp').val(dif_dias);
+    calc_viaticos_RP();
 }
 
 /* validar proyeccion electiva*/
