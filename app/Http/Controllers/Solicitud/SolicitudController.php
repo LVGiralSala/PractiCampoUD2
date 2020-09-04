@@ -224,6 +224,15 @@ class SolicitudController extends Controller
 
             case 2:
                 $proyeccion_preliminar = proyeccion::find($id);
+                $docentes_practica = docentes_practica::find($id);
+                $solicitud_practica = DB::table('solicitud_practica as sol_prac')
+                // ->join('proyeccion_preliminar as p_prel','sol_prac.id_proyeccion_preliminar','=','p_prel.id')
+                // ->join('costos_proyeccion as c_proy','sol_prac.id_proyeccion_preliminar','=','c_proy.id')
+                // ->join('docentes_practica as doc_prac','sol_prac.id_proyeccion_preliminar','=','doc_prac.id')
+                // ->join('materiales_herramientas_proyeccion as mat_herr_proy','sol_prac.id_proyeccion_preliminar','=','mat_herr_proy.id')
+                // ->join('riesgos_amenazas_practica as ries_amen_prac','sol_prac.id_proyeccion_preliminar','=','ries_amen_prac.id')
+                // ->join('transporte_proyeccion as transp_proy','sol_prac.id_proyeccion_preliminar','=','transp_proy.id')
+                ->where('sol_prac.id_proyeccion_preliminar','=',$id)->first();
                 $idUser = $proyeccion_preliminar->id_docente_responsable;
                 // $idUser = Auth::user()->id;
                 $usuario=DB::table('users')
@@ -273,7 +282,7 @@ class SolicitudController extends Controller
                 $newArray_prog = array_unique($prog_aca_user, SORT_REGULAR);
                 $nomb_usuario = $usuario->primer_nombre.' '.$usuario->segundo_nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido;
         
-                return view('proyecciones.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
+                return view('solicitudes.edit',["proyeccion_preliminar"=>$proyeccion_preliminar,
                                                 "programas_academicos"=>$programa_academico,
                                                 "espacios_academicos"=>$espacio_academico,
                                                 "periodos_academicos"=>$periodo_academico,
@@ -283,6 +292,9 @@ class SolicitudController extends Controller
                                                 "nombre_usuario"=>$nomb_usuario,
                                                 "docentes_activos"=>$docentes_activos,
                                                 "estado_doc_respon"=>$estado_doc_respon,
+                                                "solicitud_practica"=>$solicitud_practica,
+                                                "docentes_practica"=>$docentes_practica,
+                                                "tipo_ruta"=>$tipo_ruta
         
                 ]);
             break;
@@ -704,6 +716,7 @@ class SolicitudController extends Controller
             $request->get('aprobacion_coordinador'):$solicitud_practica->aprobacion_coordinador;
 
             $solicitud_practica->id_decano_aprob =  Auth::user()->id;
+            $solicitud_practica->id_estado_solicitud_practica =  3;
         }
 
         $proyeccion_preliminar->update();
@@ -939,43 +952,45 @@ class SolicitudController extends Controller
                         ->join('estado as es_dec_sol','sol_prac.aprobacion_decano','=','es_dec_sol.id')
                         ->where('aprobacion_consejo_facultad','=',3)
                         ->where('sol_prac.aprobacion_coordinador','=',3)
-                        ->where('sol_prac.aprobacion_decano','=',5)
+                        ->where('sol_prac.aprobacion_asistD','=',3)
                         ->where('sol_prac.id_estado_solicitud_practica','=',5)
                         ->where('sol_prac.confirm_docente','=',1)
                         ->where('p_prel.id_estado','=',1)
                         ->paginate(10);
+                        return view('solicitudes.index',["proyecciones"=>$proyeccion, 'filter'=>$filter]);
                     break;
 
                     case 'aprob':
                         $usuario=DB::table('users')->where('id','=',$idUser)->first();
                         $id_prog_coord = $usuario->id_programa_academico_coord;
                         $proyeccion=DB::table('proyeccion_preliminar as p_prel')
-                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico','users.id_estado as id_estado_doc',
+                        ->select('p_prel.id','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
-                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_creador','c_proy.costo_total_transporte_menor_rp','c_proy.costo_total_transporte_menor_ra', 'c_proy.viaticos_estudiantes_rp', 
-                                'c_proy.viaticos_estudiantes_ra', 'c_proy.viaticos_docente_rp', 'c_proy.viaticos_docente_ra', 
-                                'c_proy.total_presupuesto_rp','c_proy.total_presupuesto_ra','c_proy.valor_estimado_transporte_rp','c_proy.valor_estimado_transporte_ra',
+                                'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_creador',
                                 'sol_prac.id as id_solicitud','sol_prac.aprobacion_coordinador as ap_coor','sol_prac.aprobacion_decano  as ap_dec',
-                                'sol_prac.tipo_ruta as tipo_ruta',
-                                DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
+                                'c_proy.costo_total_transporte_menor_rp','c_proy.costo_total_transporte_menor_ra', 'c_proy.viaticos_estudiantes_rp', 'c_proy.viaticos_estudiantes_ra',
+                                'c_proy.viaticos_docente_rp', 'c_proy.viaticos_docente_ra', 'es_coor_sol.abrev as ap_coor','es_dec_sol.abrev as ap_dec',
+                                'c_proy.total_presupuesto_rp','c_proy.total_presupuesto_ra','c_proy.valor_estimado_transporte_rp','c_proy.valor_estimado_transporte_ra',
+                                'sol_prac.tipo_ruta as tipo_ruta')
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
                         ->join('estado as es_coor','p_prel.aprobacion_coordinador','=','es_coor.id')
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
                         ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('solicitud_practica as sol_prac','p_prel.id','=','sol_prac.id_proyeccion_preliminar')
-                        ->join('users','p_prel.id_docente_responsable','=','users.id')
                         ->join('costos_proyeccion as c_proy','p_prel.id','=','c_proy.id')
+                        ->join('estado as es_coor_sol','sol_prac.aprobacion_coordinador','=','es_coor_sol.id')
+                        ->join('estado as es_dec_sol','sol_prac.aprobacion_decano','=','es_dec_sol.id')
                         // ->where('aprobacion_coordinador','=',5)
-                        ->where('p_prel.confirm_creador','=',1)
-                        ->where('p_prel.confirm_docente','=',1)
-                        ->where('p_prel.confirm_coord','=',1)
-                        ->where('p_prel.confirm_asistD','=',1)
+                        // ->where('p_prel.confirm_creador','=',1)
+                        // ->where('p_prel.confirm_docente','=',1)
+                        // ->where('p_prel.confirm_coord','=',1)
+                        // ->where('p_prel.confirm_asistD','=',1)
                         // ->where('p_prel.id_docente_responsable','=',$idUser)
-                        ->where('p_prel.id_estado','=',1)
-                        ->where('p_prel.aprobacion_consejo_facultad','=',3)
-                        // ->where('sol_prac.id_estado_solicitud_practica','=',3)
-                        // ->where('sol_prac.aprobacion_decano','=',3)
+                        // ->where('p_prel.id_estado','=',1)
+                        // ->where('p_prel.aprobacion_consejo_facultad','=',3)
+                        ->where('sol_prac.id_estado_solicitud_practica','=',3)
+                        ->where('sol_prac.aprobacion_decano','=',3)
                         ->paginate(10);
                     break;
             

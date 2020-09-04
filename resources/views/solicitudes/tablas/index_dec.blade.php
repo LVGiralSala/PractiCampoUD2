@@ -4,8 +4,8 @@
     <th style="width: 35px">Cod.</th>
     <th style="width: 80px">Proy. Curricular</th>
     <th style="width: 85px">Esp. Académico</th> 
-    <th style="width: 75px">Docente</th> 
-    <th style="width: 75px">Destino Ruta Principal</th>
+    {{-- <th style="width: 75px">Docente</th>  --}}
+    <th style="width: 75px">Destino</th>
     <th style="width: 45px">Viat. Est.</th>
     <th style="width: 45px">Viat. Doc.</th>
     <th style="width: 45px">Transporte</th>
@@ -21,17 +21,26 @@
    <td>{{ $item->id }}</td>
    <td>{{ $item->programa_academico }}</td>
    <td>{{ $item->espacio_academico }}</td>
-    @if($item->id_estado_doc == 2)
+    {{-- @if($item->id_estado_doc == 2)
     <td>Usuario Inactivo</td>
     @endif
     @if($item->id_estado_doc == 1)
-   <td>{{ $item->full_name }}</td>
+    <td>{{ $item->full_name }}</td>
+    @endif --}}
+    @if($item->tipo_ruta == 1)
+    <td>{{ $item->destino_rp }}</td>
+    <td>{{ number_format($item->viaticos_estudiantes_rp, 0, ',','.') }}</td>
+    <td>{{ number_format($item->viaticos_docente_rp, 0, ',','.') }}</td> 
+    <td>{{ number_format($item->costo_total_transporte_menor_rp + $item->valor_estimado_transporte_rp, 0, ',','.') }}</td>
+    <td>{{ number_format($item->total_presupuesto_rp, 0, ',','.') }}</td> 
     @endif
-   <td>{{ $item->destino_rp }}</td>
-   <td>{{ number_format($item->viaticos_estudiantes_rp, 0, ',','.') }}</td>
-   <td>{{ number_format($item->viaticos_docente_rp, 0, ',','.') }}</td> 
-   <td>{{ number_format($item->costo_total_transporte_menor_rp + $item->valor_estimado_transporte_rp, 0, ',','.') }}</td>
-   <td>{{ number_format($item->total_presupuesto_rp, 0, ',','.') }}</td> 
+    @if($item->tipo_ruta == 2)
+    <td>{{ $item->destino_ra }}</td>
+    <td>{{ number_format($item->viaticos_estudiantes_ra, 0, ',','.') }}</td>
+    <td>{{ number_format($item->viaticos_docente_ra, 0, ',','.') }}</td> 
+    <td>{{ number_format($item->costo_total_transporte_menor_ra + $item->valor_estimado_transporte_ra, 0, ',','.') }}</td>
+    <td>{{ number_format($item->total_presupuesto_ra, 0, ',','.') }}</td> 
+    @endif
    {{-- <td>{{ $item->ab_coor }}</td>  --}}
    {{-- <td>{{ $item->es_consj }}</td> --}}
    @if($filter == 'pend' || ($filter == 'aprob-cons' && $item->id_estado_doc == 2))

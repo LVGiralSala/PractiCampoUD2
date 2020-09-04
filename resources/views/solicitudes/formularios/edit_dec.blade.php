@@ -119,17 +119,30 @@
        </div>
 
        <div class="col-md-2">
-           <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
-           {{-- <span class="hs-form-required">*</span> --}}
-           <input id="num_acompaniantes" type="text" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
-           value="{{$proyeccion_preliminar->num_acompaniantes}}" autocomplete="off" autofocus readonly>
-           
-           @error('num_acompaniantes')
-               <span class="invalid-feedback" role="alert">
-                   <strong>{{ $message }}</strong>
-               </span>
-           @enderror
-       </div>
+            <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="num_acompaniantes" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
+            value="{{$docentes_practica->num_docentes_acomp}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" required readonly>
+            
+            @error('num_acompaniantes')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-2">
+            <label for="num_apoyo" class="col-form-label text-md-left" title="Número Docentes De Apoyo">{{ __('Docent. Apoyo') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="num_apoyo" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
+            value="{{$docentes_practica->num_docentes_apoyo}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" readonly>
+            
+            @error('num_apoyo')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
        {{-- <div class="col-md-2" id="cant_grupos_edit">
            <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
@@ -147,6 +160,7 @@
    </div>
    <!-- 2 -->
 
+   @if($tipo_ruta == 3)
     <!-- 2.1 -->
     <div  class="form-group row"  id="Grupos_edit">
        <div class="col-md-2" id="gp_1_edit">
@@ -197,6 +211,7 @@
            
    </div>
    <!-- 2.1 -->
+   @endif
 
 <!-- información proyección -->
 
@@ -259,7 +274,7 @@
 
    <!-- 6 -->
    <div class="form-group row">
-       <div class="col-md-4">
+       <div class="col-md-3">
            <label for="lugar_salida_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Salida') }}</label>
            <span class="hs-form-required">*</span>
            <input id="lugar_salida_rp" type="text" class="form-control @error('lugar_salida_rp') is-invalid @enderror" name="lugar_salida_rp" 
@@ -280,11 +295,11 @@
                  <i class="fa fa-calendar"></i>
                </div>
              <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required
-             value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}" readonly disabled>
+             value="{{$solicitud_practica->fecha_salida}}" readonly disabled>
            </div>
        </div>
 
-       <div class="col-md-4">
+       <div class="col-md-3">
            <label for="lugar_regreso_rp" class="col-form-label text-md-left">{{ __('Punto Encuentro Regreso') }}</label>
            <span class="hs-form-required">*</span>
            <input id="lugar_regreso_rp" type="text" class="form-control @error('lugar_regreso_rp') is-invalid @enderror" name="lugar_regreso_rp" 
@@ -305,13 +320,27 @@
                  <i class="fa fa-calendar"></i>
                </div>
              <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
-             value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}" readonly disabled>
+             value="{{$solicitud_practica->fecha_regreso}}" readonly disabled>
            </div>
        </div>
+
+       <div class="col-md-2">
+        <label for="duracion_edit_rp" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
+        {{-- <span class="hs-form-required">*</span> --}}
+        <input id="duracion_edit_rp" type="text" class="form-control @error('duracion_edit_rp') is-invalid @enderror" name="duracion_edit_rp" 
+        value="{{ $proyeccion_preliminar->duracion_num_dias_rp}}" autocomplete="off" autofocus readonly>
+        
+        @error('duracion_edit_rp')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
 
    </div>
    <!-- 6 -->
 
+   @if($tipo_ruta == 3)
    <!-- 8 transporte_rp_1 -->
    <div class="form-group row">
        <div class="col-md-12" id="transporte_rp">
@@ -509,9 +538,10 @@
 
    </div>
    <!-- preguntas -->
-
+   @endif
 <!-- ruta principal -->
 
+@if($tipo_ruta == 3)
 <br>
 <h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
 <hr class="divider">
@@ -817,12 +847,14 @@
        <!-- preguntas -->
 
 <!-- ruta alterna -->
+@endif
 
 <br>
 <h4>Precios Estimados Transporte</h4>
 <hr class="divider">
 <br>
    
+@if($tipo_ruta == 3)
 <!-- valor estimado transporte -->
 <div class="form-group row">
    <div class="col-md-6">
@@ -853,7 +885,50 @@
 </div>
 
 <!-- valor estimado transporte -->
+@endif
+<!-- estado dec-->
+   <!-- 0 -->
+   <div class="form-group row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group">
+        <label for="id_estado">Estado Área de Decanatura</label>
+        <div class="row">
 
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="aprobacion_decano" value="5"
+                <?php if($solicitud_practica->aprobacion_decano == 5) echo 'checked'?>>
+                {{-- <php if($solicitud_practica->aprobacion_consejo_facultad == 3) echo 'disabled'?>> --}}
+                <label class="form-check-label" for="">Pendiente</label>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="aprobacion_decano" value="3"
+                <?php if($solicitud_practica->aprobacion_decano == 3) echo 'checked'?>>
+                {{-- <php if($solicitud_practica->aprobacion_consejo_facultad == 3) echo 'disabled'?>> --}}
+                <label class="form-check-label" for="">Aprobado</label>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aprobacion_decano"  value="4" 
+                    <?php if($solicitud_practica->aprobacion_decano == 4) echo 'checked'?>>
+                    {{-- <php if($solicitud_practica->aprobacion_consejo_facultad == 3) echo 'disabled'?>> --}}
+                    <label class="form-check-label" for="">Rechazado</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</div>
+<!-- 0 -->
+<!-- estado dec-->
+
+@if($tipo_ruta == 3)
 @if($proyeccion_preliminar->aprobacion_consejo_facultad != 3)
 <br>
 <h4>Observaciones</h4>
@@ -1025,3 +1100,4 @@
    <!-- 21 -->
 
 <!-- Decano -->
+@endif
