@@ -3,7 +3,7 @@
         <th style="width: 35px">Cod.</th>
         <th style="width: 90px">Proy. Curricular</th>
         <th style="width: 95px">Esp. Académico</th> 
-        <th style="width: 105px">Destino Ruta Principal</th>
+        <th style="width: 105px">Destino</th>
         <th style="width: 35px">Fecha Salida</th>
         <th style="width: 35px">Fecha Regreso</th>
         <th style="width: 25px">Coord.</th>

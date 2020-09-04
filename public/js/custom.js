@@ -111,6 +111,10 @@ $(document).ready(function(){
     
     /*espacios acadeémicos - ea Proyección*/
 
+    /*cantidad grupos*/
+    var cant_grupos_load = $("#cant_grupos").val();
+    /*cantidad grupos*/
+
     /*transporte ruta principal - rp Proyección*/
     $(addButton_rp).click(function(e){
         e.preventDefault();
@@ -661,15 +665,15 @@ $("#gp_4").hide();
 $("#cant_grupos").change('keypress', function () {
     val = $("#cant_grupos").val();
     
-    // if(val==1)
-    // {
-    //     $("#Grupos").show();
-    //     $("#gp_1").show();
-    //     $("#gp_2").hide();
-    //     $("#gp_3").hide();
-    //     $("#gp_4").hide();
-    // }
-    if(val==2)
+    if(val==1)
+    {
+        $("#Grupos").show();
+        $("#gp_1").show();
+        $("#gp_2").hide();
+        $("#gp_3").hide();
+        $("#gp_4").hide();
+    }
+    else if(val==2)
     {
         $("#gp_2").show();
         $("#gp_3").hide();
@@ -692,6 +696,7 @@ $("#cant_grupos").change('keypress', function () {
 /*Cantidad Grupos Proyección create*/
 
 /*Cantidad Grupos Proyección edit*/
+
 $("#Grupos_edit").show();
 $("#gp_1_edit").show();
 $("#gp_2_edit").hide();
@@ -993,7 +998,7 @@ function calc_viaticos_RP()
     var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').val()); 
     var milis_dias = 86400000;
     var dif_milis = fecha_regreso - fecha_salida;
-    var dif_dias = dif_milis / milis_dias;
+    var dif_dias = dif_milis / milis_dias + 1;
 
     // $('#duracion_rp').val(dif_dias);
 
@@ -1001,7 +1006,7 @@ function calc_viaticos_RP()
     var fecha_regreso_ra = new Date($('#fecha_regreso_aprox_ra').val()); 
     var milis_dias_ra = 86400000;
     var dif_milis_ra = fecha_regreso_ra - fecha_salida_ra;
-    var dif_dias_ra = dif_milis_ra / milis_dias_ra;
+    var dif_dias_ra = dif_milis_ra / milis_dias_ra + 1;
 
 
     num_estud = $('#num_estudiantes_aprox').val();
@@ -1143,10 +1148,11 @@ function duracion_edit_RP(dateText)
     var fecha_regreso = new Date($('#fecha_regreso_aprox_rp').val()); 
     var milis_dias = 86400000;
     var dif_milis = fecha_regreso - fecha_salida;
-    var dif_dias = dif_milis / milis_dias;
+    var dif_dias = dif_milis / milis_dias + 1;
 
     // var f = fecha_regreso;
     // f = f.toJSON().slice(0,10);
+    $('#duracion_edit_rp').val("");
     $('#duracion_edit_rp').val(dif_dias);
     calc_viaticos_RP();
 }

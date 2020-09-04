@@ -11,7 +11,7 @@
     <th style="width: 45px">Transporte</th>
     <th style="width: 45px">Total</th>
     {{-- <th style="width: 25px">Coord.</th> --}}
-    <th style="width: 25px">Consj.</th>
+    {{-- <th style="width: 25px">Consj.</th> --}}
     @if($filter == 'pend'|| ($filter == 'aprob-cons'))
     <th style="width: 35px"></th>
     @endif
@@ -33,10 +33,10 @@
    <td>{{ number_format($item->costo_total_transporte_menor_rp + $item->valor_estimado_transporte_rp, 0, ',','.') }}</td>
    <td>{{ number_format($item->total_presupuesto_rp, 0, ',','.') }}</td> 
    {{-- <td>{{ $item->ab_coor }}</td>  --}}
-   <td>{{ $item->es_consj }}</td>
+   {{-- <td>{{ $item->es_consj }}</td> --}}
    @if($filter == 'pend' || ($filter == 'aprob-cons' && $item->id_estado_doc == 2))
    <td> 
-       <a href="{{route('proyeccion_edit',$item->id)}}">
+       <a href="{{route('solicitud_edit',[$item->id,$item->tipo_ruta])}}">
        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
        </a> 
    </td> 

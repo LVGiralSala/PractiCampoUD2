@@ -23,7 +23,7 @@
 {{-- <script src="{{ asset('js/jquery.mask.js') }}"></script> --}}
 
 <!-- custom scripts -->
-<script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom.js') }}" type="text/javascript" async="async"></script>
 
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
@@ -257,6 +257,11 @@ function filtrar_solicitudes(value)
         
         case '14':
             href = "{!! route('solicitud_filter','proy-aprob'); !!}";
+            // $('#nefy').val(value);
+            break;
+
+        case '15':
+            href = "{!! route('solicitud_filter','proy-comp'); !!}";
             // $('#nefy').val(value);
             break;
             

@@ -117,7 +117,7 @@
             @enderror
         </div>
 
-        <div class="col-md-2" id="cant_grupos">
+        <div class="col-md-2">
             <label for="cant_grupos" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
             <span class="hs-form-required">*</span>
             <input id="cant_grupos" type="number" max="4" min="1" pattern="^[0-9]+" class="form-control @error('cant_grupos') is-invalid @enderror" name="cant_grupos" 
@@ -176,7 +176,6 @@
                 </span>
             @enderror
         </div>
-            
     </div>
     <!-- 2.1 -->
 

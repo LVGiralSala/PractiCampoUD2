@@ -8,17 +8,20 @@
         <th style="width: 80px">Proy. Curricular</th>
         <th style="width: 85px">Esp. Académico</th> 
         <th style="width: 75px">Docente</th> 
-        <th style="width: 75px">Destino Ruta Principal</th>
+        <th style="width: 75px">Destino</th>
         <th style="width: 50px">Fecha Salida</th>
         <th style="width: 50px">Fecha Regreso</th>
+        @if($filter != 'pend')
         <th style="width: 25px">Coord.</th>
         @if($filter == 'no-aprob-cons' || $filter == 'all')
         <th style="width: 25px">Decan.</th>
         @endif
         <th style="width: 25px">Consj.</th>
-        @if($filter == 'sin_pres' || $filter == 'no-aprob-cons')
+        @endif
+        @if($filter == 'sin_pres' || $filter == 'no-aprob-cons' || $filter == 'pend')
         <th style="width: 35px"></th>
         @endif
+        
         
     </thead> 
     @foreach ($proyecciones as $item) 
@@ -37,15 +40,17 @@
        @endif
        <td>{{ $item->destino_rp }}</td>
        <td>{{ $item->fecha_salida_aprox_rp }}</td>
-       <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
+       <td>{{ $item->fecha_regreso_aprox_rp }}</td>
+       @if($filter != 'pend') 
        <td>{{ $item->ab_coor }}</td> 
        @if($filter == 'no-aprob-cons' || $filter == 'all')
        <td>{{ $item->ab_dec }}</td>
        @endif
        <td>{{ $item->es_consj }}</td>
-       @if($filter == 'sin_pres' || $filter == 'no-aprob-cons')
+       @endif
+       @if($filter == 'sin_pres' || $filter == 'no-aprob-cons' || $filter == 'pend')
        <td> 
-           <a href="{{route('proyeccion_edit',$item->id)}}">
+           <a href="{{route('solicitud_edit',[$item->id,$item->tipo_ruta])}}">
            <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
            </a> 
         </td> 

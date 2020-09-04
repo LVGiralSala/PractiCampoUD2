@@ -4,17 +4,17 @@
   
   <div class="container-fluid">
       <div class="card-header">{{ __('Listado de Solicitudes') }}</div>
-    <div class="row">
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
-          <div class="form-group">
-            {{-- <a href="{{url('persona_natural/create') }}"><button class="btn btn-success" >Nuevo</button></a> --}}
-          </div>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+              <div class="form-group">
+                {{-- <a href="{{url('persona_natural/create') }}"><button class="btn btn-success" >Nuevo</button></a> --}}
+              </div>
+            </div>
+            
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                  {{-- @include('persona.natural.search') --}}
+            </div>
         </div>
-        
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-              {{-- @include('persona.natural.search') --}}
-        </div>
-      </div>
 
       <!-- 0 -->
       {{-- <div class="row">
@@ -104,10 +104,10 @@
               <div class="row"> --}}
                 {{-- <button class="btn btn-success" name="import_proyecciones" title="Importar Archivo Excel"><i class="fas fa-file-import"></i>     CSV</button></a> --}}
               {{-- </div> --}}
-            </div>
+            {{-- </div> --}}
           </div> 
         </form>
-    </div>
+      </div>
 
       @endif
 
@@ -127,12 +127,18 @@
                             </div>
                           </div>
 
+                          @if(!Auth::user()->coordinador())
+                          @if(!Auth::user()->asistenteD())
+                          @if(!Auth::user()->decano())
                           <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="id_filtro_solicitud"   @if(!isset($filter)) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="14" checked>
+                              <input class="form-check-input" type="radio" name="id_filtro_solicitud"   @if(isset($filter) and ($filter == 'aprob')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="9">
                               <label class="form-check-label" for="">Aprob.</label>
                             </div>
                           </div>
+                          @endif
+                          @endif
+                          @endif  
                           
                           @if(!Auth::user()->decano())
                           {{-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -149,15 +155,25 @@
                             </div>
                           </div> --}}
 
+                          @if(Auth::user()->docente())
+                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'proy-comp')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="15">
+                                <label class="form-check-label" for="">Solicitudes</label>
+                            </div>
+                          </div>
+
                           <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'pre-proy')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="13">
                                 <label class="form-check-label" for="">Proyecciones</label>
                             </div>
                           </div>
+                          @endif 
+
                           @endif
 
-                          @if(Auth::user()->coordinador() || Auth::user()->decano() || Auth::user()->admin())
+                          @if(Auth::user()->coordinador() || Auth::user()->decano() || Auth::user()->admin() || Auth::user()->asistenteD())
                           {{-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'ext_mu')) checked="true" @endif onclick="filtrar_proyecciones(this.value)" value="4">
@@ -165,7 +181,7 @@
                             </div>
                           </div> --}}
 
-                          @if(Auth::user()->coordinador())
+                          @if(Auth::user()->coordinador() || Auth::user()->asistenteD())
                           <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'pend')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="7">
@@ -193,35 +209,35 @@
                           @endif
 
                           @if(Auth::user()->asistenteD() || Auth::user()->admin())
-                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                          {{-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'sin_pres')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="5">
                                 <label class="form-check-label" for="">Sin Presupuesto</label>
                             </div>
-                          </div>
+                          </div> --}}
 
-                          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          {{-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'no-aprob-cons')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="12">
                                 <label class="form-check-label" for="">Sin Aprob. Consejo Facultad</label>
                             </div>
-                          </div>
+                          </div> --}}
                           @endif
 
                           @if(Auth::user()->decano() || Auth::user()->admin())
-                          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                          {{-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'elect')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="6">
                                 <label class="form-check-label" for="">Electivas</label>
                             </div>
-                          </div>
+                          </div> --}}
                           
-                          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          {{-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'no-elect')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="10">
                                 <label class="form-check-label" for="">Oblig. Sin Proyección</label>
                             </div>
-                          </div>
+                          </div> --}}
 
                           <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             <div class="form-check form-check-inline">
@@ -230,12 +246,12 @@
                             </div>
                           </div>
 
-                          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          {{-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="id_filtro_solicitud"  @if(isset($filter) and ($filter == 'aprob-cons')) checked="true" @endif onclick="filtrar_solicitudes(this.value)" value="11">
                                 <label class="form-check-label" for="">Aprob. Consejo Facultad</label>
                             </div>
-                          </div>
+                          </div> --}}
                           @endif
 
                       </div>

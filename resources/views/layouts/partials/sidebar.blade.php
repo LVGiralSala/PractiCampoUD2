@@ -66,7 +66,7 @@
               <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <a class="collapse-item" href="{{route('solicitud_index')}}">Listar Solicitudes</a> --}}
                 {{-- <a class="collapse-item" href="{{route('index_codigo')}}">Consulta Código</a> --}}
-                @if(Auth::user()->admin() || Auth::user()->coordinador() || Auth::user()->docente())
+                @if(Auth::user()->admin() || Auth::user()->decano() || Auth::user()->asistenteD() || Auth::user()->coordinador() || Auth::user()->docente())
                 {{-- <a class="collapse-item" href="{{route('solicitud_create')}}">Nueva Solicitud</a> --}}
                 {{-- <a class="collapse-item" href="{{url('solicitudes') }}">Solicitudes </a> --}}
                 <a class="collapse-item" href="{{url('solicitudes/filtrar/all') }}">Solicitudes </a>

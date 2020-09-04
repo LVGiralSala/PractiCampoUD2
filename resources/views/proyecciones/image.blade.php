@@ -2,14 +2,14 @@
 @extends('layouts.app')
 <!-- end HTML HEAD -->
 
-@if(Auth::user()->inactivo())
+{{-- @if(Auth::user()->inactivo())
   @section('contenido')
     <div class="container-fluid">
       <h6> Usuario Inactivo</h6>
       
   @endsection
 
-@else
+@else --}}
   @section('contenido')
   <div class="container-fluid">
     <table class="table">
@@ -44,7 +44,7 @@
     </table>
 
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-      <form method="POST" action="{{ route('import_plan_conting.img') }}"  enctype="multipart/form-data">
+      <form method="POST" action="{{ route('import_doc_estudiante.img') }}"  enctype="multipart/form-data">
         @csrf
        
       <div class="row">
@@ -59,7 +59,7 @@
 
       <div>
         {{-- <input type="img"  name="plan_contingencia" style="color: rgb(243, 3, 3)" <php echo $imagen?>> --}}
-        <img src="{{$img}}" alt="">
+        {{-- <img src="{{$img}}" alt=""> --}}
       </div>
       </form>
   </div>
@@ -69,4 +69,4 @@
     
   @endsection
 
-@endif
+{{-- @endif --}}

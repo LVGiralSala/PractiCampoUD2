@@ -11,6 +11,7 @@
             
             @if (Auth::guest())
                 <li><a class="nav-link" href="{{ url('/login') }}" ><i class="icon-user"></i> Ingresar</a></li>
+                <li><a class="nav-link" href="{{ url('/loginEst') }}" ><i class="icon-user"></i> Estudiante</a></li>
             @else
                 
             <li class="nav-item dropdown">

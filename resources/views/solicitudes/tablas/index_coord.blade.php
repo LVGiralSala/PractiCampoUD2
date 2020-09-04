@@ -9,10 +9,11 @@
         @if($filter == 'pend')
         <th style="width: 75px">Docente</th> 
         @endif
-        <th style="width: 75px">Destino Ruta Principal</th>
+        <th style="width: 75px">Destino</th>
         <th style="width: 50px">Fecha Salida</th>
         <th style="width: 50px">Fecha Regreso</th>
         <th style="width: 25px">Coord.</th>
+        <th style="width: 25px">Dec.</th>
         @if($filter == 'pend')
         <th style="width: 35px"></th>
         @endif
@@ -37,10 +38,11 @@
     <td>{{ $item->destino_rp }}</td>
     <td>{{ $item->fecha_salida_aprox_rp }}</td>
     <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
-    <td>{{ $item->ab_coor }}</td> 
+    <td>{{ $item->ap_coor }}</td> 
+    <td>{{ $item->ap_dec }}</td> 
     @if($filter == 'pend')
     <td> 
-        <a href="{{route('proyeccion_edit',$item->id)}}">
+        <a href="{{route('solicitud_edit',[$item->id,$item->tipo_ruta])}}">
         <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
         </a> 
     </td> 

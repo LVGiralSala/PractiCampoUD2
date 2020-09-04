@@ -39,10 +39,13 @@
         <th style="width: 35px">Cod.</th>
         <th style="width: 80px">Proy. Curricular</th>
         <th style="width: 85px">Esp. Académico</th> 
-        <th style="width: 75px">Destino Ruta Principal</th>
+        <th style="width: 75px">Destino</th>
         <th style="width: 35px">Fecha Salida</th>
         <th style="width: 35px">Fecha Regreso</th>
+        @if($filter == 'all' || $filter == 'aprob' || $filter == 'proy-comp')
         <th style="width: 25px">Coord.</th>
+        <th style="width: 25px">Dec.</th>
+        @endif
         {{-- <th style="width: 25px">Decan.</th> --}}
         @if($filter == 'pre-proy' || $filter == 'proy-aprob')
         <th style="width: 37px"></th>
@@ -59,11 +62,13 @@
     <td>{{ $item->destino_rp }}</td>
     <td>{{ $item->fecha_salida_aprox_rp }}</td>
     <td>{{ $item->fecha_regreso_aprox_rp }}</td> 
-    <td>{{ $item->ab_coor }}</td> 
-    {{-- <td>{{ $item->ab_dec }}</td> --}}
+    @if($filter == 'all' || $filter == 'aprob' || $filter == 'proy-comp')
+    <td>{{ $item->ap_coor }}</td> 
+    <td>{{ $item->ap_dec }}</td>
+    @endif
     @if($filter == 'pre-proy')
     <td> 
-       <a href="{{route('solicitud_rutas',$item->id)}}">
+       <a href="{{route('solicitud_edit',[$proyeccion_preliminar->id,$item->tipo_ruta])}}">
        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
        </a> 
     </td> 

@@ -1889,7 +1889,8 @@ class ProyeccionController extends Controller
         $ccc = $rec_image->image;
         $show_image = base64_decode($ccc);
         $img="data:image/png;base64,$ccc";
-        return view('proyecciones.image',["imagen"=>$show_image, "img"=>$img]);
+        return view('estudiantes.ppp',["imagen"=>$show_image, "img"=>$img]);
+        // return view('proyecciones.image',["imagen"=>$show_image, "img"=>$img]);
     }
 
     public function validar_estudiantes(Request $request)

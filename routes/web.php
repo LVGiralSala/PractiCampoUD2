@@ -23,10 +23,14 @@ Route::get('/', function () {
 
 // ------> Authentication Routes... <------
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('loginEst', 'EstudianteController@showLoginFormEst')->name('loginEst');
 // Route::group(['middleware' => 'activo'], function () {
 
     Route::post('login', 'Auth\LoginController@login'); 
+
+    Route::post('loginEst', 'EstudianteController@loginEst'); 
 // });
+Route::post('imp-doc-estudiantes/{id}/{cod_est}','EstudianteController@importDoc')->name('import_doc_estudiante.img');
 
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -84,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('solicitudes','Solicitud\SolicitudController@index')->name('solicitud_index');
 
         // ------> image Routes <------
-        Route::post('imp-proyecc-plan-conting','Proyeccion\ProyeccionController@importPlanConting')->name('import_plan_conting.img');
+        // Route::post('imp-proyecc-plan-conting','Proyeccion\ProyeccionController@importPlanConting')->name('import_plan_conting.img');
         Route::get('exp-proyecc-plan-conting','Proyeccion\ProyeccionController@exportPlanConting')->name('export_plan_conting.img');
 
         // ------> Proyecciones Routes <------
