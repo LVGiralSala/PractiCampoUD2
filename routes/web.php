@@ -114,7 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('solicitudes','Solicitud\SolicitudController@pre_solicitud')->name('pre_solicitud');
         Route::post('solicitudes','Solicitud\SolicitudController@store')->name('solicitud_store');
         Route::get('solicitudes/{id}/{tipoRuta}','Solicitud\SolicitudController@edit')->name('solicitud_edit');
-        Route::put('solicitudes/{id}','Solicitud\SolicitudController@update')->name('solicitud_update');
+        Route::put('solicitudes/{id}/{tipoRuta}','Solicitud\SolicitudController@update')->name('solicitud_update');
         Route::delete('solicitudes','Solicitud\SolicitudController@destroy')->name('solicitud_destroy');
         // Route::get('solicitudes/activas','Solicitud\SolicitudController@verActiva')->name('solicitud_activa');
         // Route::get('solicitudes/inactivas','Solicitud\SolicitudController@verInactiva')->name('solicitud_inactiva');

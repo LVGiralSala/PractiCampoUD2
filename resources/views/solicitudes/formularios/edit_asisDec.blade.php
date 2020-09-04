@@ -169,9 +169,9 @@
     <!-- 2.1 -->
 
 <!-- información proyección -->
-
+@if($tipo_ruta == 1)
 <br>
-<h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
+<h4>Ruta Principal (Destino para cumplir los objetivos de la práctica)</h4>
 <hr class="divider">
 <br>
 
@@ -295,6 +295,7 @@
     </div>
     <!-- 6 -->
 
+    @if($tipo_ruta == 3)
     <!-- 8 transporte_rp_1 -->
     <div class="form-group row">
         <div class="col-md-12" id="transporte_rp">
@@ -401,6 +402,7 @@
 
     </div>
     <!-- 8 transporte_rp_1 -->
+    @endif
 
     <!-- materiales -->
     <div class="form-group row">
@@ -434,9 +436,11 @@
     <!-- materiales -->
 
 <!-- ruta principal -->
+@endif
 
+@if($tipo_ruta == 3)
 <br>
-<h4>Ruta Alterna</h4>
+<h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
 <hr class="divider">
 <br>
 
@@ -560,6 +564,7 @@
     </div>
     <!-- 12 -->
 
+    @if($tipo_ruta == 3)
     <!-- 14 transporte_ra_1 -->
     <div class="form-group row">
         <div class="col-md-2">
@@ -691,9 +696,11 @@
         </div>
     </div>
     <!-- materiales -->
-
+    @endif
 <!-- ruta alterna -->
+@endif
 
+@if($tipo_ruta == 3)
 <br>
 <h4>Precios Estimados Transporte</h4>
 <hr class="divider">
@@ -732,10 +739,12 @@
 
 <!-- valor estimado transporte -->
 
+@endif
 <br>
 {{-- <h4>Precios Estimados Transporte</h4> --}}
 <hr class="divider">
 <br>
+
 {{-- <br>
 <h4>Observaciones</h4>
 <hr class="divider">
@@ -869,7 +878,7 @@
 <!-- estado Consejo Facultad-->
     <!-- 0 -->
 
-    @if($proyeccion_preliminar->aprobacion_decano == 3)
+    @if($solicitud_practica->aprobacion_decano == 3)
     <div class="form-group row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
@@ -906,5 +915,42 @@
     </div>
     @endif
     <!-- 0 -->
-    <!-- estado Consejo Facultad-->
+<!-- estado Consejo Facultad-->
+
+<!-- estado AsistD -->
+    <div class="form-group row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+            <label for="id_estado">Estado Asistencia Decanatura</label>
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aprobacion_asistD" value="5"
+                    <?php if($solicitud_practica->aprobacion_asistD == 5) echo 'checked'?>>
+                    <label class="form-check-label" for="">Pendiente</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aprobacion_asistD" value="3"
+                    <?php if($solicitud_practica->aprobacion_asistD == 3) echo 'checked'?>>
+                    <label class="form-check-label" for="">Aprobado</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="aprobacion_asistD"  value="4" 
+                        <?php if($solicitud_practica->aprobacion_asistD == 4) echo 'checked'?>>
+                        <label class="form-check-label" for="">Rechazado</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- estado AsistD -->
 <!-- Aprob Consejo Facultad - Tesorería -->

@@ -132,8 +132,8 @@
     </div>
     <!-- 2 -->
 
-     <!-- 2.1 -->
-     <div  class="form-group row"  id="Grupos">
+    <!-- 2.1 -->
+    <div  class="form-group row"  id="Grupos">
         <div class="col-md-2" id="gp_1">
             <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
             <span class="hs-form-required">*</span>
@@ -289,7 +289,6 @@
         </div> --}}
         
     </div>
-
     <!-- 2.2 -->
 
     <!-- 2.3 -->
@@ -886,7 +885,7 @@
 <!-- ruta principal -->
 @endif
 
-@if($tipo_ruta == 2)
+@if($tipo_ruta == 3)
 {{-- @if(Auth::user()->docente()) --}}
 <br>
 <h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>

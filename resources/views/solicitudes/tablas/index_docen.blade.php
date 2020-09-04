@@ -68,7 +68,7 @@
     @endif
     @if($filter == 'pre-proy')
     <td> 
-       <a href="{{route('solicitud_edit',[$proyeccion_preliminar->id,$item->tipo_ruta])}}">
+       <a href="{{route('solicitud_rutas',[$item->id])}}">
        <button class="btn-success" style="background-color: #447161; border:0">Editar</button>
        </a> 
     </td> 

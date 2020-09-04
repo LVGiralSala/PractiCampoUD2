@@ -15,7 +15,7 @@
                         {{-- <php if($estado_doc_respon == 1){ echo $nombre_doc_resp;} elseif ($estado_doc_respon == 2){ echo "Usuario Inactivo";}?> --}}
                     
                     <div class="card-body">
-                        <form method="POST" action="{{ route('solicitud_update',$proyeccion_preliminar->id) }}">
+                        <form method="POST" action="{{ route('solicitud_update',[$proyeccion_preliminar->id, $tipo_ruta]) }}">
                             @method('PUT')
                             @csrf
 
@@ -33,7 +33,8 @@
                             @if(Auth::user()->asistenteD())
                                 @include('solicitudes.formularios.edit_asisDec',array($proyeccion_preliminar,$programas_usuario, 
                                 $espacios_academicos,$periodos_academicos,$semestres_asignaturas, $tipos_transportes, 
-                                $all_programas_aca, $all_espacios_aca))    
+                                $all_programas_aca, $all_espacios_aca,
+                                $tipo_ruta))    
                             @endif 
 
                             @if(Auth::user()->coordinador())

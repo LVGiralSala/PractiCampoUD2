@@ -83,8 +83,33 @@
                 </span>
             @enderror
         </div>
+            
+        <div class="col-md-2">
+            <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="num_acompaniantes" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
+            value="{{$docentes_practica->num_docentes_acomp}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" required readonly>
+            
+            @error('num_acompaniantes')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
-        
+        <div class="col-md-2">
+            <label for="num_apoyo" class="col-form-label text-md-left" title="Número Docentes De Apoyo">{{ __('Docent. Apoyo') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="num_apoyo" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
+            value="{{$docentes_practica->num_docentes_apoyo}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" readonly>
+            
+            @error('num_apoyo')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
         <div class="col-md-2">
             <label for="cant_grupos_edit" class="col-form-label text-md-left">{{ __('Cant. Grupos') }}</label>
             <span class="hs-form-required">*</span>
@@ -97,25 +122,13 @@
             </span>
             @enderror
         </div>
-        
-        <div class="col-md-2">
-            <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
-            {{-- <span class="hs-form-required">*</span> --}}
-            <input id="num_acompaniantes" type="text" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
-            value="{{$proyeccion_preliminar->num_acompaniantes}}" autocomplete="off" autofocus readonly>
-            
-            @error('num_acompaniantes')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
+
     </div>
     <!-- 2 -->
 
-     <!-- 2.1 -->
-     <div  class="form-group row"  id="Grupos_edit">
-        <div class="col-md-2" id="gp_1_edit">
+    <!-- 2.1 -->
+    <div  class="form-group row"  id="Grupos">
+        <div class="col-md-2" id="gp_1">
             <label for="grupo_1" class="col-form-label text-md-left">{{ __('Gp 1') }}</label>
             <span class="hs-form-required">*</span>
             <input id="grupo_1" type="text" class="form-control @error('grupo_1') is-invalid @enderror" name="grupo_1" 
@@ -127,9 +140,7 @@
                 </span>
             @enderror
         </div>
-
-        @if($proyeccion_preliminar->cantidad_grupos == 2)
-        <div class="col-md-2" id="gp_2_edit">
+        <div class="col-md-2" id="gp_2">
             <label for="grupo_2" class="col-form-label text-md-left">{{ __('Gp 2') }}</label>
             <input id="grupo_2" type="text" class="form-control @error('grupo_2') is-invalid @enderror" name="grupo_2" 
             value="{{$proyeccion_preliminar->grupo_2}}" autocomplete="off" autofocus readonly>
@@ -139,11 +150,7 @@
                 </span>
             @enderror
         </div>
-
-        @endif
-
-        @if($proyeccion_preliminar->cantidad_grupos == 3)
-        <div class="col-md-2" id="gp_3_edit">
+        <div class="col-md-2" id="gp_3">
             <label for="grupo_3" class="col-form-label text-md-left">{{ __('Gp 3') }}</label>
             <input id="grupo_3" type="text" class="form-control @error('grupo_3') is-invalid @enderror" name="grupo_3" 
             value="{{$proyeccion_preliminar->grupo_3}}" autocomplete="off" autofocus readonly>
@@ -153,10 +160,7 @@
                 </span>
             @enderror
         </div>
-        @endif
-
-        @if($proyeccion_preliminar->cantidad_grupos == 4)
-        <div class="col-md-2" id="gp_4_edit">
+        <div class="col-md-2" id="gp_4">
             <label for="grupo_4" class="col-form-label text-md-left">{{ __('Gp 4') }}</label>
             <input id="grupo_4" type="text" class="form-control @error('grupo_4') is-invalid @enderror" name="grupo_4" 
             value="{{$proyeccion_preliminar->grupo_4}}" autocomplete="off" autofocus readonly>
@@ -166,13 +170,12 @@
                 </span>
             @enderror
         </div>
-        @endif
-            
     </div>
     <!-- 2.1 -->
+    
 
 <!-- información proyección -->
-
+@if($tipo_ruta == 1)
 <br>
 <h4>Ruta Principal (Destino para cumplir los objetivos de la práctica)</h4>
 <hr class="divider">
@@ -253,7 +256,7 @@
                   <i class="fa fa-calendar"></i>
                 </div>
               <input class="inputDate form-control datetimepicker" name="fecha_salida_aprox_rp"  type="text" required
-              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}" readonly disabled>
+              value="{{$proyeccion_preliminar->fecha_salida_aprox_rp}}" onchange="duracion_edit_RP(this.value)" readonly>
             </div>
         </div>
 
@@ -278,17 +281,17 @@
                   <i class="fa fa-calendar"></i>
                 </div>
               <input class="inputDate form-control datetimepicker" name="fecha_regreso_aprox_rp"  type="text" required
-              value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}" readonly disabled>
+              value="{{$proyeccion_preliminar->fecha_regreso_aprox_rp}}"  onchange="duracion_edit_RP(this.value)" readonly >
             </div>
         </div>
 
         <div class="col-md-2">
-            <label for="duracion_rp" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
+            <label for="duracion_edit_rp" class="col-form-label text-md-left">{{ __('Duración Días') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
-            <input id="duracion_rp" type="text" class="form-control @error('duracion_rp') is-invalid @enderror" name="duracion_rp" 
+            <input id="duracion_edit_rp" type="text" class="form-control @error('duracion_edit_rp') is-invalid @enderror" name="duracion_edit_rp" 
             value="{{ $proyeccion_preliminar->duracion_num_dias_rp}}" autocomplete="off" autofocus readonly>
             
-            @error('duracion_rp')
+            @error('duracion_edit_rp')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -298,6 +301,7 @@
     </div>
     <!-- 6 -->
 
+    @if($tipo_ruta == 3)
     <!-- 8 transporte_rp_1 -->
     <div class="form-group row">
         <div class="col-md-12" id="transporte_rp">
@@ -417,7 +421,40 @@
 
     </div>
     <!-- 8 transporte_rp_1 -->
+    @endif
 
+    <!-- materiales -->
+    <div class="form-group row">
+        <div class="col-md-8">
+            <label for="det_materiales_rp" class="col-form-label text-md-left" title="Materiales">{{ __('Materiales') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="det_materiales_rp" type="text"  class="form-control @error('det_materiales_rp') is-invalid @enderror" name="det_materiales_rp" 
+            value="{{$mate_herra_proyeccion->det_materiales_rp}}" autocomplete="off" autofocus readonly>
+            
+            @error('det_materiales_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-4">
+            <label for="vlr_materiales_rp" class="col-form-label text-md-left" title="Valor Total Materiales">{{ __('Valor Total Materiales') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="vlr_materiales_rp" type="text"  class="form-control @error('vlr_materiales_rp') is-invalid @enderror" name="vlr_materiales_rp" 
+            value="$ {{number_format($costos_proyeccion->vlr_materiales_rp,'0',',','.')}}" autocomplete="off" autofocus onkeyup="formatVlr(this)" onchange="formatVlr(this)"
+            readonly>
+            
+            @error('vlr_materiales_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- materiales -->
+
+    @if(Auth::user()->decano())
     <!-- preguntas -->
     <div class="form-group row">
         <!-- 1 -->
@@ -494,12 +531,12 @@
 
     </div>
     <!-- preguntas -->
-
+    
     {{-- <br> --}}
     <h4>Coordinador</h4>
     <hr class="divider">
     {{-- <br> --}}
-
+    
     <!-- preguntas -->
     <div class="form-group row">
         <!-- 1 -->
@@ -539,10 +576,204 @@
 
     </div>
     <!-- preguntas -->
+    @endif
 
+    <!-- viaticos -->
+    <div class="form-group row">
+        <div class="col-md-3">
+            <label for="vlr_apoyo_docentes_rp" class="col-form-label text-md-left" title="Apoyo económico para los docentes">{{ __('Valor Apoyo Docentes') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="vlr_apoyo_docentes_rp" type="text"  class="form-control @error('vlr_apoyo_docentes_rp') is-invalid @enderror" name="vlr_apoyo_docentes_rp" 
+            value="$ {{number_format($costos_proyeccion->viaticos_docente_rp, 0, ',','.')}}" autocomplete="off" autofocus readonly>
+            
+            @error('vlr_apoyo_docentes_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-3">
+            <label for="vlr_apoyo_estudiantes_rp" class="col-form-label text-md-left" title="Apoyo económico para los estudiantes">{{ __('Valor Apoyo Estudiantes') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="vlr_apoyo_estudiantes_rp" type="text"  class="form-control @error('vlr_apoyo_estudiantes_rp') is-invalid @enderror" name="vlr_apoyo_estudiantes_rp" 
+            value="$ {{number_format($costos_proyeccion->viaticos_estudiantes_rp, 0, ',','.')}}" autocomplete="off" autofocus readonly>
+            
+            @error('vlr_apoyo_estudiantes_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        {{-- <div class="col-md-3">
+            <label for="trasnp_menor_rp" class="col-form-label text-md-left" title="Valor total del transporte menor">{{ __('Total Transporte Menor') }}</label>
+            <input id="trasnp_menor_rp" type="text"  class="form-control @error('trasnp_menor_rp') is-invalid @enderror" name="trasnp_menor_rp" 
+            value="" autocomplete="off" autofocus readonly>
+            
+            @error('trasnp_menor_rp')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div> --}}
+    </div>
+    <!-- viaticos -->
+
+    <!-- 5 -->
+    <div class="form-group row">
+        <div class="col-md-12">
+            <label for="cronograma" class="col-form-label text-md-left">{{ __('Cronograma Recorrido') }}</label>
+            <span class="hs-form-required">*</span>
+            <textarea id="cronograma" style="min-height:5rem;" type="text" class="form-control @error('cronograma') is-invalid @enderror" name="cronograma" 
+            required autocomplete="off" autofocus readonly><?php echo $solicitud_practica->cronograma?></textarea>
+            
+            @error('cronograma')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- 5 -->
+
+    <!-- 5 -->
+    <div class="form-group row">
+        <div class="col-md-12">
+            <label for="observaciones" class="col-form-label text-md-left">{{ __('Observaciones Práctica') }}</label>
+            <span class="hs-form-required">*</span>
+            <textarea id="observaciones" style="min-height:5rem;" type="text" class="form-control @error('observaciones') is-invalid @enderror" name="observaciones" 
+            autocomplete="off" autofocus readonly><?php echo $solicitud_practica->observaciones?></textarea>
+            
+            @error('observaciones')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- 5 -->
+
+    <!-- 5 -->
+    <div class="form-group row">
+        <div class="col-md-12">
+            <label for="justificacion" class="col-form-label text-md-left">{{ __('Justificación Práctica') }}</label>
+            <span class="hs-form-required">*</span>
+            <textarea id="justificacion" style="min-height:5rem;" type="text" class="form-control @error('justificacion') is-invalid @enderror" name="justificacion" 
+            required autocomplete="off" autofocus readonly><?php echo $solicitud_practica->justificacion?></textarea>
+            
+            @error('justificacion')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- 5 -->
+
+    <!-- 5 -->
+    <div class="form-group row">
+        <div class="col-md-12">
+            <label for="objetivo_general" class="col-form-label text-md-left">{{ __('Objetivo General Práctica') }}</label>
+            <span class="hs-form-required">*</span>
+            <textarea id="objetivo_general" style="min-height:5rem;" type="text" class="form-control @error('objetivo_general') is-invalid @enderror" name="objetivo_general" 
+            required autocomplete="off" autofocus readonly><?php echo $solicitud_practica->objetivo_general?></textarea>
+            
+            @error('objetivo_general')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- 5 -->
+
+    <!-- 5 -->
+    <div class="form-group row">
+        <div class="col-md-12">
+            <label for="metodologia_evaluacion" class="col-form-label text-md-left">{{ __('Metodología Trabajo - Evaluacion Práctica') }}</label>
+            <span class="hs-form-required">*</span>
+            <textarea id="metodologia_evaluacion" style="min-height:5rem;" type="text" class="form-control @error('metodologia_evaluacion') is-invalid @enderror" name="metodologia_evaluacion" 
+            required autocomplete="off" autofocus readonly><?php echo $solicitud_practica->metodologia_evaluacion?></textarea>
+            
+            @error('metodologia_evaluacion')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <!-- 5 -->
+
+    {{-- <h4>Observaciones</h4>
+    <hr class="divider">
+    <br> --}}
+
+<!-- Coordinador-->
+
+    <!-- 18 -->
+    {{-- <div class="form-group row">
+        <div class="col-md-12">
+            <label for="observ_coordinador" class="col-form-label text-md-left">{{ __('Observaciones Coordinador') }}</label>
+            <textarea id="observ_coordinador" style="min-height:5rem;" type="text" class="form-control @error('observ_coordinador') is-invalid @enderror" name="observ_coordinador" 
+            autocomplete="off" autofocus ><php echo $proyeccion_preliminar->observ_coordinador?></textarea>
+
+            @error('observ_coordinador')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div> --}}
+    <!-- 18 -->
+
+    <!-- 19 -->
+    <!-- estado coord-->
+    <!-- 0 -->
+    <div class="form-group row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+            <label for="id_estado">Estado Área de Coordinación</label>
+            <div class="row">
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aprobacion_coordinador" value="5"
+                    <?php if($solicitud_practica->aprobacion_coordinador == 5) echo 'checked'?>  >
+                    <label class="form-check-label" for="">Pendiente</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="aprobacion_coordinador" value="3"
+                    <?php if($solicitud_practica->aprobacion_coordinador == 3) echo 'checked'?>  >
+                    <label class="form-check-label" for="">Aprobado</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="aprobacion_coordinador"  value="4" 
+                        <?php if($solicitud_practica->aprobacion_coordinador == 4) echo 'checked'?>  >
+                        <label class="form-check-label" for="">Rechazado</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- 0 -->
+    <!-- estado coord-->
+    <!-- 19 -->
+
+<!-- Coordinador-->
+
+@endif
 
 <!-- ruta principal -->
-
+@if($tipo_ruta == 3)
 <br>
 <h4>Ruta Contingencia (Destino para cumplir propósitos de práctica pero por fallas en la vía, clima o demás se adopta como ruta principal de destino)</h4>
 <hr class="divider">
@@ -972,6 +1203,7 @@
     <!-- 19 -->
 
 <!-- Coordinador-->
+    @endif
 @endif
 
 @if($usuario_log->id == $proyeccion_preliminar->id_docente_responsable)
