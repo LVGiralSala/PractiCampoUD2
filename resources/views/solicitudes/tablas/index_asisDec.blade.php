@@ -16,7 +16,7 @@
         @if($filter == 'no-aprob-cons' || $filter == 'all')
         <th style="width: 25px">Decan.</th>
         @endif
-        <th style="width: 25px">Consj.</th>
+        {{-- <th style="width: 25px">Consj.</th> --}}
         @endif
         @if($filter == 'sin_pres' || $filter == 'no-aprob-cons' || $filter == 'pend')
         <th style="width: 35px"></th>
@@ -42,11 +42,11 @@
        <td>{{ $item->fecha_salida_aprox_rp }}</td>
        <td>{{ $item->fecha_regreso_aprox_rp }}</td>
        @if($filter != 'pend') 
-       <td>{{ $item->ab_coor }}</td> 
+       <td>{{ $item->ap_coor }}</td> 
        @if($filter == 'no-aprob-cons' || $filter == 'all')
-       <td>{{ $item->ab_dec }}</td>
+       <td>{{ $item->ap_dec }}</td>
        @endif
-       <td>{{ $item->es_consj }}</td>
+       {{-- <td>{{ $item->es_consj }}</td> --}}
        @endif
        @if($filter == 'sin_pres' || $filter == 'no-aprob-cons' || $filter == 'pend')
        <td> 

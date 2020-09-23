@@ -82,7 +82,7 @@
             <label for="num_estudiantes_aprox" class="col-form-label text-md-left">{{ __('Estudiantes') }}</label>
             <span class="hs-form-required">*</span>
             <input id="num_estudiantes_aprox" type="text" class="form-control @error('num_estudiantes_aprox') is-invalid @enderror" name="num_estudiantes_aprox" 
-            value="{{$proyeccion_preliminar->num_estudiantes_aprox}}" required autocomplete="off" autofocus readonly>
+            value="{{$solicitud_practica->num_estudiantes}}" required autocomplete="off" autofocus readonly>
             
             @error('num_estudiantes_aprox')
                 <span class="invalid-feedback" role="alert">
@@ -94,10 +94,23 @@
         <div class="col-md-2">
             <label for="num_acompaniantes" class="col-form-label text-md-left">{{ __('Acompañantes') }}</label>
             {{-- <span class="hs-form-required">*</span> --}}
-            <input id="num_acompaniantes" type="text" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
-            value="{{$proyeccion_preliminar->num_acompaniantes}}" autocomplete="off" autofocus readonly>
+            <input id="num_acompaniantes" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_acompaniantes') is-invalid @enderror" name="num_acompaniantes" 
+            value="{{$solicitud_practica->num_acompaniantes}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" required readonly>
             
             @error('num_acompaniantes')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="col-md-2">
+            <label for="num_apoyo" class="col-form-label text-md-left" title="Número Docentes De Apoyo">{{ __('Docent. Apoyo') }}</label>
+            {{-- <span class="hs-form-required">*</span> --}}
+            <input id="num_apoyo" type="number" max="3" min="0" pattern="^[0-9]+" class="form-control @error('num_apoyo') is-invalid @enderror" name="num_apoyo" 
+            value="{{$solicitud_practica->num_acompaniantes_apoyo}}" autocomplete="off" autofocus onchange="calc_viaticos_RP()" readonly>
+            
+            @error('num_apoyo')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -700,12 +713,56 @@
 <!-- ruta alterna -->
 @endif
 
-@if($tipo_ruta == 3)
 <br>
-<h4>Precios Estimados Transporte</h4>
+<h4>Detalle Presupuesto</h4>
 <hr class="divider">
 <br>
 
+
+@if($tipo_ruta == 1)
+<table class="table table-bordered table-condensed table-hover table-sm header_table" cellspacing="0">
+    <thead>
+        <th style="width: 50px">Concepto</th>
+        <th style="width: 60px">N° Docen. / N° Estud.</th>
+        <th style="width: 45px">Valor Diario</th>
+        <th style="width: 30px">N° Días Pern.</th>
+        <th style="width: 70px">Total</th>
+    </thead> 
+   
+    <tr>
+       <td>Viáticos Docentes: </td>
+       <td>{{ $solicitud_practica->num_acompaniantes + $solicitud_practica->num_acompaniantes_apoyo + 1 }}</td>
+        <td>135.400</td>
+       <td>{{ $proyeccion_preliminar->duracion_num_dias_rp }}</td>
+       <td>{{ number_format($costos_proyeccion->viaticos_docente_rp, 0, ',','.') }}</td>
+       
+    </tr>
+
+    <tr>
+        <td>Viáticos Estudiantes: </td>
+        <td>{{ $solicitud_practica->num_estudiantes }}</td>
+        <td>52.600</td>
+        <td>{{ $proyeccion_preliminar->duracion_num_dias_rp }}</td>
+        <td>{{ number_format($costos_proyeccion->viaticos_estudiantes_rp, 0, ',','.') }}</td>
+        
+     </tr>
+
+     <tr>
+        <td>Servicio Transporte: </td>
+        <td colspan="3">Nota: valor sujeto a contrato suscrito entre la facultad y las empresas de transporte. Se recomienda solicitar concepto en la decanatura para establecer costos del recorrido.</td>
+        {{-- <td>{{ $costos_proyeccion->codigo_estotal_presupuesto_rppacio_academico }}</td> --}}
+        
+     </tr>
+
+     <tr>
+        <td colspan="4">Total Presupuesto: </td>
+        <td>{{ number_format($costos_proyeccion->viaticos_estudiantes_rp + $costos_proyeccion->viaticos_docente_rp, 0, ',','.') }}</td>
+        
+     </tr>
+</table>
+@endif
+
+@if($tipo_ruta == 3)
 <!-- valor estimado transporte -->
     <div class="form-group row">
         <div class="col-md-6">

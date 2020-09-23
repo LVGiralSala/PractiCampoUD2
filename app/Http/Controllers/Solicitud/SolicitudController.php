@@ -225,6 +225,7 @@ class SolicitudController extends Controller
             case 2:
                 $proyeccion_preliminar = proyeccion::find($id);
                 $docentes_practica = docentes_practica::find($id);
+                $costos_proyeccion = costos_proyeccion::find($id);
                 $solicitud_practica = DB::table('solicitud_practica as sol_prac')
                 // ->join('proyeccion_preliminar as p_prel','sol_prac.id_proyeccion_preliminar','=','p_prel.id')
                 // ->join('costos_proyeccion as c_proy','sol_prac.id_proyeccion_preliminar','=','c_proy.id')
@@ -294,6 +295,7 @@ class SolicitudController extends Controller
                                                 "estado_doc_respon"=>$estado_doc_respon,
                                                 "solicitud_practica"=>$solicitud_practica,
                                                 "docentes_practica"=>$docentes_practica,
+                                                "costos_proyeccion"=>$costos_proyeccion,
                                                 "tipo_ruta"=>$tipo_ruta
         
                 ]);
@@ -301,6 +303,7 @@ class SolicitudController extends Controller
 
             case 3:
                 $proyeccion_preliminar = proyeccion::find($id);
+                $costos_proyeccion = costos_proyeccion::find($id);
                 $solicitud_practica = DB::table('solicitud_practica as sol_prac')
                 // ->join('proyeccion_preliminar as p_prel','sol_prac.id_proyeccion_preliminar','=','p_prel.id')
                 // ->join('costos_proyeccion as c_proy','sol_prac.id_proyeccion_preliminar','=','c_proy.id')
@@ -359,6 +362,7 @@ class SolicitudController extends Controller
                                                 "nombre_usuario"=>$nomb_usuario,
                                                 "estado_doc_respon"=>$estado_doc_respon,
                                                 "solicitud_practica"=>$solicitud_practica,
+                                                "costos_proyeccion"=>$costos_proyeccion,
                                                 "tipo_ruta"=>$tipo_ruta
         
                 ]);
@@ -1187,6 +1191,7 @@ class SolicitudController extends Controller
                         ->select('p_prel.id','e_aca.id_programa_academico','p_aca.programa_academico','e_aca.espacio_academico',
                                 'p_prel.destino_rp','p_prel.fecha_salida_aprox_rp','p_prel.fecha_regreso_aprox_rp','es_coor.abrev as ab_coor',
                                 'es_dec.abrev  as ab_dec','es_consj.abrev  as es_consj','p_prel.confirm_coord','users.id_estado as id_estado_doc',
+                                'es_coor_sol.abrev as ap_coor','es_dec_sol.abrev as ap_dec',
                                 DB::raw('CONCAT_WS(" ",users.primer_nombre, users.segundo_nombre, users.primer_apellido, users.segundo_apellido) as full_name'))
                         ->join('espacio_academico as e_aca','p_prel.id_espacio_academico','=','e_aca.id')
                         ->join('programa_academico as p_aca','e_aca.id_programa_academico','=','p_aca.id')
@@ -1194,6 +1199,10 @@ class SolicitudController extends Controller
                         ->join('estado as es_dec','p_prel.aprobacion_decano','=','es_dec.id')
                         ->join('estado as es_consj','p_prel.aprobacion_consejo_facultad','=','es_consj.id')
                         ->join('users','p_prel.id_docente_responsable','=','users.id')
+                        ->join('costos_proyeccion as c_proy','p_prel.id','=','c_proy.id')
+                        ->join('solicitud_practica as sol_prac','p_prel.id','=','sol_prac.id_proyeccion_preliminar')
+                        ->join('estado as es_coor_sol','sol_prac.aprobacion_coordinador','=','es_coor_sol.id')
+                        ->join('estado as es_dec_sol','sol_prac.aprobacion_decano','=','es_dec_sol.id')
                         // ->where('id_docente_responsable','=',$idUser)
                         ->where('p_prel.aprobacion_coordinador','=',3)
                         ->where('p_prel.confirm_coord','=',1)

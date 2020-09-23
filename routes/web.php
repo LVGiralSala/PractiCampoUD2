@@ -128,6 +128,23 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::post('solicitudes','Solicitud\SolicitudController@consulta_codigo')->name('consulta_codigo');
 
         // ------> SEND EMAIL <------
+        Route::post('mail/send', 'Notificacion\NotificacionController@send')->name('sendNot');
+
+        Route::post('mail/apertura_proy', 'Notificacion\NotificacionController@apertura_proy')->name('apertura_proy');
+        Route::post('mail/cierre_proy', 'Notificacion\NotificacionController@cierre_proy')->name('cierre_proy');
+        Route::post('mail/apertura_solic', 'Notificacion\NotificacionController@apertura_solic')->name('apertura_solic');
+        Route::post('mail/cierre_solic', 'Notificacion\NotificacionController@cierre_solic')->name('cierre_solic');
+        Route::post('mail/creacion_proy/{id}', 'Notificacion\NotificacionController@creacion_proy')->name('creacion_proy');
+        Route::post('mail/creacion_solic/{id}', 'Notificacion\NotificacionController@creacion_solic')->name('creacion_solic');
+        Route::post('mail/aprob_coord_proy', 'Notificacion\NotificacionController@aprob_coord_proy')->name('aprob_coord_proy');
+        Route::post('mail/aprob_coord_solic', 'Notificacion\NotificacionController@aprob_coord_solic')->name('aprob_coord_solic');
+        Route::post('mail/aprob_ejec_solic', 'Notificacion\NotificacionController@aprob_ejec_solic')->name('aprob_ejec_solic');
+        Route::post('mail/radic_avance_tesor_solic', 'Notificacion\NotificacionController@radic_avance_tesor_solic')->name('radic_avance_tesor_solic');
+        Route::post('mail/info_solic_estudiantes', 'Notificacion\NotificacionController@info_solic_estudiantes')->name('info_solic_estudiantes');
+        Route::post('mail/info_transp_vice', 'Notificacion\NotificacionController@info_transp_vice')->name('info_transp_vice');
+        Route::post('mail/noti_transp_solic', 'Notificacion\NotificacionController@noti_transp_solic')->name('noti_transp_solic');
+        Route::post('mail/pre_salida', 'Notificacion\NotificacionController@pre_salida')->name('pre_salida');
+        Route::post('mail/pos_salida', 'Notificacion\NotificacionController@pos_salida')->name('pos_salida');
         // Route::get('/sendemail', function () {
             
         //     $data = array (

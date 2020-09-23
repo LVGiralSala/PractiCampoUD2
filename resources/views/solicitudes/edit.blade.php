@@ -27,13 +27,13 @@
 
                             @if(Auth::user()->decano())
                                 @include('solicitudes.formularios.edit_dec',array($proyeccion_preliminar,$programas_usuario, 
-                                $espacios_academicos,$periodos_academicos,$semestres_asignaturas, $tipos_transportes))
+                                $espacios_academicos,$periodos_academicos,$semestres_asignaturas, $tipos_transportes, $costos_proyeccion,))
                             @endif
 
                             @if(Auth::user()->asistenteD())
                                 @include('solicitudes.formularios.edit_asisDec',array($proyeccion_preliminar,$programas_usuario, 
                                 $espacios_academicos,$periodos_academicos,$semestres_asignaturas, $tipos_transportes, 
-                                $all_programas_aca, $all_espacios_aca,
+                                $all_programas_aca, $all_espacios_aca, $costos_proyeccion,
                                 $tipo_ruta))    
                             @endif 
 
